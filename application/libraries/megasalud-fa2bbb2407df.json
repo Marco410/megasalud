@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "megasalud",
+  "private_key_id": "fa2bbb2407df6c9253229861123ef7fd883cf8e9",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC+H8Hc0fQXIfqK\nDg/HMvGzzpbKzfinFdb4nbVXh9miFmsqL98q/uVdxKvGfqLkusB5uUWgQI9BGqXw\nfelgJuiPmYw7V6McBBuZ4yMAhPHJjIl5dMwebW8/BDi6tQc5ycQHhi2hMnUesKB+\nX/51Z21gwb3NFaxE7vDdE07ocMnQ4nVG9yaRfv83hSUj8AHt/HVv6fkbiP1bgjbM\nFoD5VKwHkN/YeCKlGRcFl/Qf27uP8VW8masX7jPOJX7i3DRG9ATX67Zm6WTbrN+F\naAqC4dU9Sbrp8Azt25JPbDGPK0BiJo/w6jaRMRp/UUuFpPeUH5/0UsSHBbGNgiTf\nBwViP5ybAgMBAAECggEAKgFbNB4A92Fu+LR9oO2tACR7JWiXcNb+7WPurl2Z5Fle\nqO31uQqjA3IR36OX+sAWCW65JtxMqj4ofndbKf6+sAdlN7E3nNd9f6Ty1UkKIJUX\nxIldFbXo97vHity3MXnWATGQgEZlIPg2JWWxEyBcRp3XgOmya3J9LeL3spxEwoz7\nvrnVf0enMK5xh5Iax9gXFMz6aOCrv6/abcC4SBr1YNNskgwInPwde70fotFAezAs\n28hCcUYO7p1oy+afzwXlk37kpxm8AbLerzBkmWUjBVYP37tUWi7Wtw7BwMHEkqW/\n+dFibKC+DTtlDcrIxaB24ViuMao8qPP0rF4jYxJ3VQKBgQD7AnCAuvfytdU9JcPw\nPmWfz7XMc+xmZdBgpjFcQ5KQFkGXdk0RUvlOCmwAlB+9SpV1nQvUgG0KUQEGJfOa\nn9LHsVHASi1+ydOCUBBrYUBRx0oK4cwn75JdVw7iTMKctw4NHbyKpdwdtShFPi7j\n/xyZlKepEZIqX2BKUmKNRADMTwKBgQDB5239JkVydlNEamqmkk3lcVCgf2xY3FSm\nsUzzr5wxvv7UuqobDavdmUrZg0kDimo0VavETRRxbSdPlPPrr6ywf4P5NNWD7+fE\nQ9j0rjyz4ywffcECAZj9j/at+MnEskbrVwxkqLyXDvas2XwPYnXE4YBq85m6qVfh\nz2o56mRb9QKBgEPtAhLkBcsph74XZTGzQP8BT5o3WKbRMJWnA76LDrNtQmzBd9OT\nV6HV0ipJ61jnQRDl4distFVRXGyUgpq6W2jsxEm8CRnBdjpSfk8Ar04yFwhg2EWK\nYFpf/8gfq56LLwM/o9EFV062wmISlM/gLpYlE0X+WkabLsyOBNtjpq+jAoGAEMOT\nbMl8Q5MbS9Tvd4s6lNWhJN8fXOdfojG992t9U4exvG6O+lvKOhRgtkF1dIro97FY\nclY/qDbJqUW1ePDtOy0rGcaJlyiMnxlGjpDpypufWvGiWCwPMAzcRNo3h3vqSbpy\n5dj4xQ6UIQmEgkf+6pCca6K37b1qTamDA5LSLmkCgYEAgqVQ4tmtA23gSus/1EJH\nmhBN2CCoc1jLGv0oJH5XlC5rlopzyOK26mzqE3Us/cqORwbh/DIVp3yFXfE3k5/3\nEFCKAPYbIKIFNIQZVpQLozLbVXKsyX6zAspe///Cmk1FnAlu80wemfnvgcl82CIZ\nh44UF9/Yy1i2QVq9P/m90i0=\n-----END PRIVATE KEY-----\n",
+  "client_email": "citas-409@megasalud.iam.gserviceaccount.com",
+  "client_id": "104249671959912638672",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/citas-409%40megasalud.iam.gserviceaccount.com"
+}
