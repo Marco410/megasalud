@@ -7,6 +7,7 @@ $js_path = base_url('assets/js').'/';
     
     <link rel="stylesheet" href="<?php echo $css_path; ?>bootstrap3.3.7/bootstrap.css" />
     <link rel="stylesheet" href="<?php echo $css_path; ?>site.css" />
+    <link rel="stylesheet" href="<?php echo $css_path; ?>iziToast.min.css" />
     <script type="text/javascript" data-pace-options='{ "ajax": false }' src="<?php echo $js_path; ?>pace.min.js"></script>
 </head>	
 <div class="container">
@@ -272,4 +273,5 @@ $js_path = base_url('assets/js').'/';
 <script src="<?php echo $js_path; ?>jquery-3.2.1.js"></script>
   <script src="<?php echo $js_path; ?>jquery.validate.js"></script>
   <script src="<?php echo $js_path; ?>bootstrap.js"></script>
+<script src="<?php echo $js_path; ?>iziToast.min.js"></script>
     <script type="text/javascript" src="<?php echo $js_path.'view_controllers/'.$view_controller; ?>"></script>

@@ -40,11 +40,12 @@
 				            <label>
 								Motivo de la Consulta 
 							</label>
-                            <select class="form-control" required id="motivo_consulta" name="motivo_consulta" >
-                            <option value="">Seleccione: </option>    
-                            <option value="Diabetes">Diabetes</option>    
-                            <option value="Cáncer">Cáncer</option>    
-                            <option value="Lupus">Lupus</option>    
+                            <select class="form-control" required id="motivo_m" name="motivo" >
+                            <option value="">Seleccione: </option>
+                                
+                            <?php foreach ($motivo_consulta->result() as $motivo): ?>
+				            <option value="<?= $motivo->id ?>"><?= $motivo->enfermedad ?></option>
+				            <?php endforeach ?>    
                             <option value="Otra">Otra</option>    
                             </select>
 							</div>
@@ -119,7 +120,11 @@
 							<label>
 								País
 							</label>
-							<input type="text" name="pais" class="form-control" required value="México" >
+							<select required id="pais" name="pais" class="form-control" >
+                                <option value="" >Seleccione: </option>
+                                <option value="México" >México</option>
+                                <option value="EEUU" >EEUU</option>
+                            </select>
 						</div>
 						<div class="form-group col-sm-4">
 							<label>
@@ -127,38 +132,7 @@
 							</label>
 							<select name="estado" id="estado" class="form-control" required >
                                 <option value="">Seleccione</option>
-                                  <option value="Aguascalientes">Aguascalientes</option>
-                                  <option value="Baja California">Baja California</option>
-                                  <option value="Baja California Sur">Baja California Sur</option>
-                                  <option value="Campeche">Campeche</option>
-                                  <option value="Chiapas">Chiapas</option>
-                                  <option value="Chihuahua">Chihuahua</option>
-                                  <option value="Coahuila">Coahuila</option>
-                                  <option value="Colima">Colima</option>
-                                  <option value="Distrito Federal">Distrito Federal</option>
-                                  <option value="Durango">Durango</option>
-                                  <option value="Guanajuato">Guanajuato</option>
-                                  <option value="Guerrero">Guerrero</option>
-                                  <option value="Hidalgo">Hidalgo</option>
-                                  <option value="Jalisco">Jalisco</option>
-                                  <option value="Mexico">México</option>
-                                  <option value="Michoacan">Michoacán</option>
-                                  <option value="Morelos">Morelos</option>
-                                  <option value="Nayarit">Nayarit</option>
-                                  <option value="Nuevo Leon">Nuevo León</option>
-                                  <option value="Oaxaca">Oaxaca</option>
-                                  <option value="Puebla">Puebla</option>
-                                  <option value="Queretaro">Querétaro</option>
-                                  <option value="Quintana Roo">Quintana Roo</option>
-                                  <option value="San Luis Potosi">San Luis Potosí</option>
-                                  <option value="Sinaloa">Sinaloa</option>
-                                  <option value="Sonora">Sonora</option>
-                                  <option value="Tabasco">Tabasco</option>
-                                  <option value="Tamaulipas">Tamaulipas</option>
-                                  <option value="Tlaxcala">Tlaxcala</option>
-                                  <option value="Veracruz">Veracruz</option>
-                                  <option value="Yucatan">Yucatán</option>
-                                  <option value="Zacatecas">Zacatecas</option>
+                                  
                               </select>
 						</div>
 						<div class="form-group col-sm-4">

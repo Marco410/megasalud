@@ -6,7 +6,7 @@ class AgentController extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('megasalud/agent');
-        
+        $this->load->model('megasalud/historia');
         $this->load->model('megasalud/funciones');
         $this->load->model('megasalud/sucursal');
 	}
@@ -40,7 +40,6 @@ class AgentController extends CI_Controller {
         // $data['view_style'] = 'pacients.css';
         $data['view_controller'] = 'agent_vs.js';
        
-            
         $this->load->view('agent/create', $data);
         $this->load->view('layout/scripts');
 	}
@@ -63,6 +62,7 @@ class AgentController extends CI_Controller {
         // $data['view_style'] = 'pacients.css';
         $data['view_controller'] = 'agent_vs.js';
         $data['sucursales'] = $this->sucursal->getAll();
+        $data['motivo_consulta'] = $this->historia->get_motivo_consulta();
         
         $this->load->view('layout/head', $data);
         $this->load->view('layout/header');
@@ -217,10 +217,10 @@ class AgentController extends CI_Controller {
                $id_agent = $this->db->insert_id();
                 
                  echo json_encode($data);
-                }
-            else{
-                echo false;
             }
+        else{
+            echo false;
+        }
     }
 
     public function edit($id) {
@@ -253,13 +253,26 @@ class AgentController extends CI_Controller {
          
         $status = 1;
          
+        $ref = $this->input->post('referido');
+        $am = "A";
+         if(!isset($_POST['apellido_m'])){
+             $am = substr($_POST['apellido_m'],0,1);
+         }
+       
+        $pass = "P-".substr($_POST['apellido_p'],0,2).$am.substr($_POST['nombre'],0,1).date("d");
+         
+         //Se busca el id del motivo para el paciente
+        $this->db->where("id",$this->input->post('motivo'));
+        $motivo = $this->db->get("motivo_consulta")->row()->enfermedad;
+        
         $data =  array(
             
         'nombre' => $this->input->post('nombre'),
         'apellido_p' => $this->input->post('apellido_p'),
         'apellido_m' => $this->input->post('apellido_m'),
         'email' => $this->input->post('email'),
-        'motivo_consulta' => $this->input->post('motivo_consulta'),
+        'password' => $pass,
+        'motivo_consulta' => $motivo,
         'sexo' => $this->input->post('sexo'),
         'estado_civil' => $this->input->post('estado_civil'),
         'municipio_origen' => $this->input->post('municipio_origen'),
@@ -279,10 +292,8 @@ class AgentController extends CI_Controller {
         'religion' => $this->input->post('religion'),
         'ocupacion' => $this->input->post('ocupacion'),
         'status' => $status,
-        'seguim' => 0,    
-        'referido' => $this->input->post('referido'),
-        'nombre_referido' => $this->input->post('nombre_referido'),
-        'hr_llamarle' => $this->input->post('hr_llamarle'),
+        'seguim' => 0,  
+        'hr_llamarle' => $this->input->post('hr_llamarle')
             
         );
          
@@ -293,9 +304,6 @@ class AgentController extends CI_Controller {
                 
             $cita = $this->funciones->agregar_calendario($id_cal,$nombre,$fecha,$tipo);
                 
-        
-        
-            
             if($cita == "Ya"){
                 echo json_encode(array('error' => true));
             }else{//empieza error ya
@@ -314,7 +322,6 @@ class AgentController extends CI_Controller {
                 
                 //insertar en los referidos
                
-                
                 if($this->session->type != "Representante"){
                      $dataAgent = array(
                 'id_user' => $this->input->post('referido'),
@@ -346,8 +353,14 @@ class AgentController extends CI_Controller {
 		        //$this->db->update('pacientes',$data_clave);
                 //Termina clave bancaria
                 
-                
-                 echo json_encode($data);
+                 //Se inserta el motivo
+                 $dataMotivo = array(
+                    'id_paciente' => $id_paciente,
+                     'id_motivo' => $this->input->post('motivo')
+                 );
+                $this->db->insert("hisclinic_motivo",$dataMotivo);
+
+                 echo json_encode(array('error' => false));
                 }
                 
             else{

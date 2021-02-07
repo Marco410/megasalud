@@ -87,7 +87,7 @@ Pace.on('done', function(){
 function init(){
    
     
-$('#referido').on('change',function(){
+    $('#referido').on('change',function(){
         var ref = $(this).val();
         
         
@@ -199,7 +199,7 @@ $('#referido').on('change',function(){
         
     });
     
-     $('#motivo, #motivo_m').on('change',function(){
+    $('#motivo, #motivo_m').on('change',function(){
         if($(this).find(":selected").val() == "Otra"){
             document.getElementById("panel-add-m").hidden = false;
            
@@ -215,7 +215,7 @@ $('#referido').on('change',function(){
          
         });
     
-         $('#addSet_form').validate({
+    $('#addSet_form').validate({
             submitHandler: function(form) {
                 
                 $.ajax({

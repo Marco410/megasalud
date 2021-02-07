@@ -1429,7 +1429,7 @@ class PatientsController extends CI_Controller {
          
         $status = 1;
         $ref = $this->input->post('referido');
-         $am = "A";
+        $am = "A";
          if(!isset($_POST['apellido_m'])){
              $am = substr($_POST['apellido_m'],0,1);
          }
@@ -1439,7 +1439,6 @@ class PatientsController extends CI_Controller {
          //Se busca el id del motivo para el paciente
         $this->db->where("id",$this->input->post('motivo'));
         $motivo = $this->db->get("motivo_consulta")->row()->enfermedad;
-       
          
         $data =  array(
             
@@ -1472,77 +1471,77 @@ class PatientsController extends CI_Controller {
         'hr_llamarle' => $this->input->post('hr_llamarle')
         );
          
-            if($this->db->insert('pacientes', $data)){
-               $id_paciente = $this->db->insert_id();
-                
-                //Referencia de sucursal
-              $dataOffice = array(
-                'sucursal_id' => $_POST["sucursal"],
-                'paciente_id' => $id_paciente
-                );  
-                
-                $this->db->insert('sucursal_pacientes',$dataOffice);
-                
-                 if($ref == "Clinica" || $ref == "Social" || $ref == "Paciente"){
-                    if($ref == "Clinica"){
-                        $type = "Clinica";
-                    }else if ($ref == "Social"){
-                        $type ="Social";
-                    }else{
-                        $type = "Paciente";
-                    }
-                     
-                    $dataAgent = array(
-                    'id_sucursal' => $_POST['agent'],
-                    'id_paciente' => $id_paciente,
-                    'type' => $type
-                    );
-                    //se inserta comision para un usuario
-                    $this->db->insert('sucursal_paciente_com',$dataAgent);
-                    
-                    
-                }else if ($ref == "Representante"){
-                    $dataAgent = array(
-                    'id_agent' => $_POST['agent'],
-                    'id_paciente' => $id_paciente
-                    );
-                    //se inserta comision para un usuario
-                    $this->db->insert('agent_paciente',$dataAgent);
-                    
-                }else if ($ref == "Usuario"){
-                     //Referencia de usuario
-                    $dataAgent = array(
-                    'id_user' => $_POST['agent'],
-                    'id_paciente' => $id_paciente
-                    );
-                    //se inserta comision para un usuario
-                    $this->db->insert('user_paciente',$dataAgent);
+        if($this->db->insert('pacientes', $data)){
+           $id_paciente = $this->db->insert_id();
+
+            //Referencia de sucursal
+          $dataOffice = array(
+            'sucursal_id' => $_POST["sucursal"],
+            'paciente_id' => $id_paciente
+            );  
+
+            $this->db->insert('sucursal_pacientes',$dataOffice);
+
+             if($ref == "Clinica" || $ref == "Social" || $ref == "Paciente"){
+                if($ref == "Clinica"){
+                    $type = "Clinica";
+                }else if ($ref == "Social"){
+                    $type ="Social";
+                }else{
+                    $type = "Paciente";
                 }
-                
-                $clave_banc = $this->funciones->genera_clave($data['estado'],$id_paciente, "P");
-                
-                $data_clave = array (
-                'clave_bancaria' => $clave_banc
+
+                $dataAgent = array(
+                'id_sucursal' => $_POST['agent'],
+                'id_paciente' => $id_paciente,
+                'type' => $type
                 );
-                
-                $data['id_paciente'] = $id_paciente;
-                
-                $this->db->where('id', $id_paciente);
-		        $this->db->update('pacientes',$data_clave);
-                
-                
-                //Se inserta el motivo
-                 $dataMotivo = array(
-                    'id_paciente' => $id_paciente,
-                     'id_motivo' => $this->input->post('motivo')
-                 );
-                 $this->db->insert("hisclinic_motivo",$dataMotivo);
-                
-                 echo json_encode($data);
-                }
-            else{
-                echo false;
+                //se inserta comision para un usuario
+                $this->db->insert('sucursal_paciente_com',$dataAgent);
+
+
+            }else if ($ref == "Representante"){
+                $dataAgent = array(
+                'id_agent' => $_POST['agent'],
+                'id_paciente' => $id_paciente
+                );
+                //se inserta comision para un usuario
+                $this->db->insert('agent_paciente',$dataAgent);
+
+            }else if ($ref == "Usuario"){
+                 //Referencia de usuario
+                $dataAgent = array(
+                'id_user' => $_POST['agent'],
+                'id_paciente' => $id_paciente
+                );
+                //se inserta comision para un usuario
+                $this->db->insert('user_paciente',$dataAgent);
             }
+
+            $clave_banc = $this->funciones->genera_clave($data['estado'],$id_paciente, "P");
+
+            $data_clave = array (
+            'clave_bancaria' => $clave_banc
+            );
+
+            $data['id_paciente'] = $id_paciente;
+
+            $this->db->where('id', $id_paciente);
+            $this->db->update('pacientes',$data_clave);
+
+
+            //Se inserta el motivo
+             $dataMotivo = array(
+                'id_paciente' => $id_paciente,
+                 'id_motivo' => $this->input->post('motivo')
+             );
+             $this->db->insert("hisclinic_motivo",$dataMotivo);
+
+             echo json_encode($data);
+            }
+        else{
+            echo false;
+        }
     }
     
     public function updateEntry() {

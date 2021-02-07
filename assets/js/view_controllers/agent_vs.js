@@ -75,7 +75,6 @@ function init(){
     
      $("#main-table").on("click", "#btn-ver", function(){
         var data = table.row( $(this).parents("tr") ).data();
-         console.log(data);
          window.location.href = base_url + "representante/ver/" + data.id;
             
       });
@@ -182,19 +181,25 @@ function init(){
 				data: $(form).serialize(),
 				success: function(respuesta){
                     
-					if(respuesta){
+					 var response = JSON.parse(respuesta);
+                    console.log(response);
+					if(response.error != true){
 						iziToast.success({
                             title: 'Éxito',
                             message: 'Representante Creado',
                         });
-					}
                         form.reset();
 					    window.scrollTo(0, 0);
-            
+					}else{
+                        iziToast.error({
+                            title: 'Error',
+                            message: 'No se pudo crear el representante',
+                        });
+                    }
+                        
 					
 				},
 				error:  function(xhr,err){ 
-					console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status+"\n \n responseText: "+xhr.responseText);
 				}
 			});
 		}
@@ -258,7 +263,6 @@ function init(){
 					
 				},
 				error:  function(xhr,err){ 
-					console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status+"\n \n responseText: "+xhr.responseText);
 				}
 			});
 		}
@@ -304,6 +308,43 @@ function init(){
 	});
  $("#modal-info").on('hidden.bs.modal', function () {
             $('.pedido').empty();  
+    });
+    
+    $('#pais').on('change',function(){
+        var pais = $(this).val();
+        
+        if (pais == "México"){
+            id = 1
+        }else if (pais == "EEUU"){
+            id = 2
+        }
+         var data = {
+            id_pais : id
+        };
+        
+        $.ajax({
+            url:  base_url + 'megasalud/PatientsController/find_estados',
+            type:  'post',
+            data: data,
+             beforeSend:function(){
+                    $("#loaderPais").show();
+                },
+                complete: function(){
+                    $("#loaderPais").hide();
+                },
+            success: function(respuesta){
+                if(respuesta){
+                    $('#estado').empty();
+                    var res = JSON.parse(respuesta);
+                     $('#estado').append("<option  value='' >Seleccione:</option>");
+                     for (var i = 0; i< res.length;i++){
+
+                        $('#estado').append("<option  value='"+res[i].estado+"' >"+res[i].estado+"</option>");
+                    }
+                }
+            }
+        });  
+        
     });
 
 }
