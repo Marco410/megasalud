@@ -30,17 +30,12 @@
              
               <div class="panel panel-olive" >
                 
-                <div class="panel-heading text-center"><h3>Novedades y Actualizaciones | v 4.0.2</h3></div>
+                <div class="panel-heading text-center"><h3>Novedades y Actualizaciones | v 4.0.3</h3></div>
                 <div class="panel-body" >
                     <ul>
-                        <li>Se agrego Estados Unidos y sus estados a la lista de contacto al crear paciente.</li>
-                        <li>Al crear un paciente primero valida si ya existe o no.</li>
-                        <li>Se agrego la comunicación paciente-médico</li>
-                        <li>Vista en el historial clínico para el médico.</li>
-                        <li>Se agrego una nueva sección “Mensajes” para ver los chats del médico</li>
-                        <li>Estilos mejorados para la pantalla de login. Carga más rápida y ahora con un modal para el paciente</li>
-                        <li>Actualización de correo para recuperación de contraseña.</li>
-                        <li>Soluciones de vulnerabilidad en el sistema.</li>
+                       
+                        <li>Soluciones de errores al registrar un representante.</li>
+                        <li>Soluciones de errores al registrar un paciente.</li>
                         
                        
                     </ul>
