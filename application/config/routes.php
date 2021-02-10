@@ -144,6 +144,7 @@ $route['pacientes/historia/(:num)'] = 'megasalud/PatientsController/historia/$1'
 $route['pacientes/graficas/(:num)'] = 'megasalud/PatientsController/charts/$1';
 $route['pacientes/historia/(:num)/estudios/(:num)'] = 'megasalud/PatientsController/ver_estudio/$1';
 $route['pacientes/adeudos/(:num)'] = 'megasalud/PatientsController/adeudos/$1';
+$route['pacientes/resumen/(:num)'] = 'megasalud/PatientsController/resumen/$1';
 
 $route['pacientes/buscar/(:any)'] = 'megasalud/PatientsController/api_find_paciente/$1';
 $route['pacientes/datapersonal'] = 'megasalud/PatientsController/api_find_datapersonal';

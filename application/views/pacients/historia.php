@@ -260,13 +260,20 @@
                     </div>
                 </div>
                <div class="col-sm-12" >
-                   <div class="col-sm-6" >
+                   <div class="col-sm-4" >
                 <h4 class="text-center title" >CREAR CITA</h4>
                    <div class="form-group text-center" >
                     <a  class="btn btn-info text-center"  data-toggle="modal" data-target="#nuevacita"><i class="fa fa-calendar "></i>  Generar nueva cita</a>
                     </div>
                    </div>
-                   <div class="col-sm-6" >
+                   <div class="col-sm-4" >
+                   <h4 class="text-center title" >RESUMEN</h4>
+                   <div class="form-group text-center" >
+                       
+                       <a href="<?= base_url() ?>pacientes/resumen/<?= $paciente->id ?>" class="btn btn-info "  ><i class="fa fa-folder"></i>     Ver Resumen</a>
+                    </div>
+                    </div>  
+                   <div class="col-sm-4" >
                    <h4 class="text-center title" >FINANZAS</h4>
                    <div class="form-group text-center" >
                        
@@ -667,44 +674,7 @@
     
         <div class="collapse" id="collapseHeredo" >
                 <div class="panel-body">
-                    
-                    <div class="panel panel-default" >  
-                        <div class="panel-heading" >      
-                            <h3 class="text-left" >Carga Hereditaria</h3>
-                        </div>  
-                        <div class="panel-body">    
-                            <div class="col-sm-12" >
-                                
-                             <table id="carga_heredo-table" class="table table-striped" style="width:100%">
-                                 <thead>
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>Padecimiento</th>
-                                        <th>Familiar</th>
-                                        <th>Eliminar</th>
-
-                                    </tr>
-                                </thead>
-                                    <tbody id="info-carga_heredo">
-                                         <?php foreach ( $carga_heredo->result() as $ahf ): ?>
-                                        <tr id="fila_ahf<?= $ahf->id ?>" >
-                                            <td><?= $ahf->id ?></td>
-                                            <td><?= $ahf->enfermedad ?></td>
-                                            <td><?= $ahf->familiar  ?></td>
-
-                                            <td>
-                                            <?php if($type == "Medico"){}else{ ?>
-                                            <button type="submit" class="btn btn-danger btn-delete-ahf"><i class="fa fa-trash"></i><br></button><?php } ?>
-                                            </td>
-                                            <input value="_ahf" id="table_ahf<?= $ahf->id ?>" type="hidden"  />
-                                        </tr> 
-                                    <?php endforeach ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    
+                
                     <div class="panel panel-default border-left-brown" >
                     
                     <div class="panel-heading" >      
@@ -751,50 +721,7 @@
                     
                       <!--- Inicia Enfermedades Congénitas -->
            
-        <div class="panel panel-default" >
-            
-             <div class="panel-heading" >
-                <h3 class="text-left" >Enfermedades Congénitas</h3>
-                </div>
-            
-            <div class="panel-body" >
-            
-            <div class="col-sm-12" >    
-            <table id="antecedentes-table" class="table table-striped" style="width:100%">
-             <thead>
-                <tr>
-
-                    <th>No.</th>
-                    <th>Enfermedad</th>
-                    <th>Manejo</th>
-                    <th>Medicamento</th>
-                    <th>Edad</th>
-                    <th>Eliminar</th>
-
-                </tr>
-            </thead>
-                <tbody id="info">
-                     <?php foreach ( $hisclinic_app1->result() as $his_app1 ): ?>
-                    <tr id="fila_app1<?= $his_app1->id ?>">
-                        <td><?= $his_app1->id ?></td>
-                        <td><?= $his_app1->enfermedad ?></td>
-                        <td><?= $his_app1->manejo  ?></td>
-                        <td><?= $his_app1->medicamento ?></td>
-                        <td><?= $his_app1->edad ?></td>
-
-                        <td>
-                        <?php if($type == "Medico"){}else{ ?>
-                        <button type="submit" class="btn btn-danger btn-delete-app1"><i class="fa fa-trash"></i><br></button><?php }?>
-                        </td>
-                        <input value="_app1" id="table_app1<?= $his_app1->id ?>" type="hidden"  />
-                        <input value="<?= $his_app1->created_at ?>" id="fecha_app1<?= $his_app1->id ?>" type="hidden"  />
-                    </tr> 
-                <?php endforeach ?>
-                </tbody>
-            </table>
-            </div>
-            </div>
-            </div>
+       
             <section id="Enfermedad_CongenitaSec"></section>
             <div class="panel panel-default border-left-brown" >
                     
@@ -883,43 +810,6 @@
           <section id="VacunaSec" ></section>  
             <div class="panel-body" >
                 <h3 class="text-center">INMUNIZACIONES</h3>
-            <div class="panel panel-default">
-          
-            <div class="panel-heading" >
-                <h3 class="text-left" >Cartilla de Vacunación SS</h3>
-            </div>    
-            
-            <div class="panel-body" >
-            <table id="inmunizaciones-table" class="table table-striped" style="width:100%">
-             <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>Vacuna</th>
-                    <th>Descripcion</th>
-                    <th>Edad</th>
-                    <th>Eliminar</th>
-                </tr>
-            </thead>
-            <tbody id="info-inmun">
-            <?php foreach ( $inmunizacion->result() as $inmune ): ?>
-                <tr id="fila_inmun<?= $inmune->id ?>">
-
-                <td><?= $inmune->id ?></td>
-                <td><?= $inmune->vacuna ?></td>
-                <td><?= $inmune->descripcion ?></td>
-                <td><?= $inmune->edad ?></td>
-                    
-                <td>
-                <?php if($type == "Medico"){}else{ ?>
-                <button class="btn btn-danger btn-delete-inmun"><i class="fa fa-trash"></i></button><?php } ?></td> 
-                <input value="_inmunizaciones" id="table_inmun<?= $inmune->id ?>" type="hidden"  />
-                <input value="<?= $inmune->created_at ?>" id="fecha_inmun<?= $inmune->id ?>" type="hidden"  />
-                </tr>
-                <?php endforeach ?>
-            </tbody>
-            </table> 
-            </div>  
-            </div> 
              <div class="panel panel-default border-left-brown" >
                     
                     <div class="panel-heading" >      
@@ -968,44 +858,7 @@
            
             <section id="AlergiaSec"></section>
             <div class="panel-body">  
-            <div class="panel panel-default" > 
-            
-                <div class="panel-heading" >
-                    <h3 class="text-left" >ALERGIAS</h3>   
-                </div>
-             
-               <div class="panel-body" >
-                <table id="alergias-table" class="table table-striped" style="width:100%">
-             <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>Alergeno</th>
-                    <th>Duración del Efecto</th>
-                    <th>Tratamiento</th>
-                    <th>Edad</th>
-                    <th>Eliminar</th>
-                </tr>
-            </thead>
-
-            <tbody id="info-alergia" >
-             <?php foreach ( $alergias->result() as $alergia ): ?>
-            <tr id="fila_ale<?= $alergia->id ?>">
-                <td><?= $alergia->id ?></td>
-                <td><?= $alergia->alergeno ?></td>
-                <td><?= $alergia->duracion_efecto ?></td>
-                <td><?= $alergia->tratamiento ?></td>
-                <td><?= $alergia->edad_alergia ?></td>
-
-                <td><?php if($type == "Medico"){}else{ ?><button class="btn btn-danger btn-delete-ale"><i class="fa fa-trash"></i></button><?php } ?></td>
-                <input value="_alergias" id="table_ale<?= $alergia->id ?>" type="hidden"  />
-                <input value="<?= $alergia->created_at ?>" id="fecha_ale<?= $alergia->id ?>" type="hidden"  />
-            </tr>  
-                <?php endforeach ?>
-                </tbody>
-            </table>
-                </div>
-            </div>   
-            
+           
             <div class="panel panel-default border-left-brown" >
                     
                     <div class="panel-heading" >      
@@ -1021,7 +874,7 @@
                      <select id="alergeno" class="form-control" name="alergeno" required >
                     <option value="">Selecciona</option>
                     <?php foreach ( $alergenos->result() as $alergeno ): ?>
-                    <option value="<?= $alergeno->alergeno ?>" ><?= $alergeno->alergeno ?></option>
+                    <option value="<?= $alergeno->id ?>" ><?= $alergeno->alergeno ?></option>
                     <?php endforeach ?>
                     <option value="Otra">Otra</option>
                     </select>
@@ -1030,7 +883,12 @@
                     <br>
                     <a href="#" class="btn btn-sm btn-info" data-id="5" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
                 </div>
-                <b>Tratamiento</b>
+                
+                
+            </div>
+            
+           <div class="col-sm-5" >
+            <b>Tratamiento</b>
                     <select id="tratamiento_ale" class="form-control" name="tratamiento" required><option value="">Selecione</option>
                         <?php foreach ( $tratamiento->result() as $tratamiento ): ?>
                             <option value="<?= $tratamiento->tratamiento_alergia ?>" ><?= $tratamiento->tratamiento_alergia ?></option>
@@ -1040,16 +898,8 @@
                 <div id="panel-add-a-trat" hidden >
                     <br>
                     <a href="#" class="btn btn-sm btn-info" data-id="6" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
-                </div>
-                
-            </div>
-            
-                
-            <div class="col-sm-5" >
-            <b>Duración Efecto (dias)</b>
-                <input id="duracion_dias" class="form-control" name="duracion_dias" type="number" min="0"  required /><b>(Horas)</b><input id="duracion_hrs" class="form-control" name="duracion_hrs" type="number" min="0"  required />    
-            
                 </div>    
+            </div>
                
             <div class="col-sm-2" >  
             
@@ -1069,54 +919,6 @@
             </div> 
             <section id="HospitalizacionSec"></section>
             <div class="panel-body">
-             <div class="panel panel-default" >
-                 
-                <div class="panel-heading" > 
-                    <h3 class="text-left">HOSPITALIZACIONES</h3>
-                    <h4 class="text-left">Dentales Restos radiculares, implantes -aleaciones- Infecciones, (caries, gingivitis, estomatitis, etc)</h4></div>
-                 
-                 
-                <div class="panel-body" >
-                        <table id="hospi-table" class="table table-striped" style="width:100%">
-                     <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Causa</th>
-                            <th>Operacion</th>
-                            <th>Anestecia</th>
-                            <th>Transfusión</th>
-                            <th>Protesis</th>
-                            <th>Manejo</th>
-                            <th>Medicamentos</th>
-                            <th>Edad</th>
-                            <th>Eliminar</th>
-                        </tr>
-                    </thead>
-
-                    <tbody id="info-hospi" >
-                     <?php foreach ( $hospitalizacion->result() as $hospi ): ?>
-                    <tr id="fila_hospi<?= $hospi->id ?>">
-                        <td><?= $hospi->id ?></td>
-                        <td><?= $hospi->causa ?></td>
-                        <td><?= $hospi->tipo_operacion ?></td>
-                        <td><?= $hospi->tipo_anestesia ?></td>
-                        <td><?= $hospi->tipo_transfusion ?></td>
-                        <td><?= $hospi->tipo_protesis ?></td>
-                        <td><?= $hospi->manejo ?></td>
-                        <td><?= $hospi->medicamentos ?></td>
-                        <td><?= $hospi->edad_hospi ?></td>
-
-                        <td><?php if($type == "Medico"){}else{ ?><button class="btn btn-danger btn-delete-hospi"><i class="fa fa-trash"></i></button><?php } ?></td>
-                        <input value="_hospitalizaciones" id="table_hospi<?= $hospi->id ?>" type="hidden"  />
-                        <input value="<?= $hospi->created_at ?>" id="fecha_hospi<?= $hospi->id ?>" type="hidden"  />
-                    </tr>  
-                        <?php endforeach ?>
-                        </tbody>
-                    </table>
-                    
-                 </div>
-                </div>      
-           
             
             <div class="panel panel-default border-left-brown" >
                     
@@ -1343,49 +1145,6 @@
             <section id="VirusSec"></section>  
             <div class="panel-body">
                     
-                <div class="panel panel-default" >
-                    
-                      <div class="panel-heading" >
-                          
-                           <h3>VIRUS</h3>
-                        </div>
-                    <div class="panel-body" >
-                        
-            <table id="enf_inf-table" class="table table-striped" style="width:100%">
-           
-             <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>Enfermedad</th>
-                    <th>Duración</th>
-                    <th>Manejo</th>
-                    <th>Medicamento</th>
-                    <th>Edad</th>
-                    <th>Eliminar</th>
-                </tr>
-            </thead>
-
-            <tbody id="info-infecto-virus" >
-             <?php foreach ( $enf_infecto_viruss->result() as $enf_infecto_virus ): ?>
-            <tr id="fila_virus<?= $enf_infecto_virus->id ?>">
-                <td><?= $enf_infecto_virus->id ?></td>
-                <td><?= $enf_infecto_virus->enfermedad ?></td>
-                <td><?= $enf_infecto_virus->duracion ?></td>
-                <td><?= $enf_infecto_virus->manejo ?></td>
-                <td><?= $enf_infecto_virus->medicamento ?></td>
-                <td><?= $enf_infecto_virus->edad_virus ?></td>
-
-                <td><?php if($type == "Medico"){}else{ ?><button class="btn btn-danger btn-delete-virus"><i class="fa fa-trash"></i></button><?php } ?></td>
-                <input value="_enf_infecto_virus" id="table_virus<?= $enf_infecto_virus->id ?>" type="hidden" />
-                <input value="<?= $enf_infecto_virus->created_at ?>" id="fecha_virus<?= $enf_infecto_virus->id ?>" type="hidden"  />
-            </tr>  
-                <?php endforeach ?>
-                </tbody>
-            </table>
-                    
-                    </div>
-                </div>
-
             <div class="panel panel-default border-left-brown" >
                     
                     <div class="panel-heading" >      
@@ -1395,13 +1154,13 @@
                     
             <form id="enf_infecto_virus" name="enf_infecto_virus" method="post" class="panel-body">
                 
-                <div class="col-sm-3" >
+                <div class="col-sm-5" >
                     <b>Enfermedad</b>
                     <select required id="enf_virus" class="form-control" name="enfermedad" >
                         <option value="">Seleccione</option>
                         <?php foreach ( $infectos->result() as $infecto ): ?>
 
-                        <option value="<?= $infecto->enfermedad  ?>"> <?= $infecto->enfermedad  ?></option>
+                        <option value="<?= $infecto->id  ?>"> <?= $infecto->enfermedad  ?></option>
                         <?php endforeach ?>
                         
                         <option value="Otra">Otra</option>
@@ -1415,7 +1174,7 @@
                     <option value="">Seleccione</option>
                      <?php foreach ( $medicamentos->result() as $medicamento ): ?>
 
-                    <option value="<?= $medicamento->medicamento ?>" ><?= $medicamento->medicamento ?></option>
+                    <option value="<?= $medicamento->id ?>" ><?= $medicamento->medicamento ?></option>
                    <?php endforeach ?>
                         <option value="No Recuerda" >No Recuerda</option>
                         <option value="Otro" >Otro</option>
@@ -1426,14 +1185,7 @@
                     </div>
                     
                 </div>
-                <div class="col-sm-3" >
-                    <b>Duración (dias)</b>
-                    <input required id="dura_dias_virus" class="form-control" name="duracion_dias" type="number" min="0" />
-                    <b>(Horas)</b>
-                    <input required id="dura_hrs_virus" class="form-control" name="duracion_hrs" type="number" min="0" />
-                
-                </div>
-                <div class="col-sm-4" >
+                <div class="col-sm-5" >
                     <b>Manejo</b>
                     <textarea required id="manejo_virus" name="manejo" class="form-control" placeholder="Escribe aquí" cols="20" rows="4" ></textarea>
                 </div>
@@ -1452,48 +1204,7 @@
                 </div>
             </div>
             <section id="BacteriaSec"></section>
-            <div class="panel panel-default" >
                 
-                <div class="panel-heading" >
-                    <h3 class="text-left">BACTERIAS</h3>
-                </div>
-                
-            <div class="panel-body" >    
-            <table id="bacterias-table" class="table table-striped" style="width:100%">
-             <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>Enfermedad</th>
-                    <th>Duración</th>
-                    <th>Manejo</th>
-                    <th>Medicamento</th>
-                    <th>Edad</th>
-                    <th>Eliminar</th>
-                </tr>
-            </thead>
-
-            <tbody id="info-infecto-bacterias" >
-             <?php foreach ( $enf_infecto_bacteriass->result() as $enf_infecto_bacterias ): ?>
-                <tr id="fila_bac<?= $enf_infecto_bacterias->id ?>">
-                    <td><?= $enf_infecto_bacterias->id ?></td>
-                    <td><?= $enf_infecto_bacterias->enfermedad ?></td>
-                    <td><?= $enf_infecto_bacterias->duracion ?></td>
-                    <td><?= $enf_infecto_bacterias->manejo ?></td>
-                    <td><?= $enf_infecto_bacterias->medicamento ?></td>
-                    <td><?= $enf_infecto_bacterias->edad_bacterias ?></td>
-
-                    <td><?php if($type == "Medico"){}else{ ?><button class="btn btn-danger btn-delete-bac"><i class="fa fa-trash"></i></button><?php } ?></td>
-
-                    <input value="_enf_infecto_bacterias" id="table_bac<?= $enf_infecto_bacterias->id ?>" type="hidden" />
-                    
-                    <input value="<?= $enf_infecto_bacterias->created_at ?>" id="fecha_bac<?= $enf_infecto_bacterias->id ?>" type="hidden" />
-
-                </tr>  
-                <?php endforeach ?>
-                </tbody>
-            </table>
-             </div>     
-            </div>
             <div class="panel panel-default border-left-brown" >
                     
                     <div class="panel-heading" >      
@@ -1503,13 +1214,13 @@
                 <div class="panel-body" >
             <form id="enf_infecto_bacterias" name="enf_infecto_bacterias" method="post" class="panel-body">
             
-            <div class="col-sm-3" >
+            <div class="col-sm-5" >
                 <b>Enfermedad</b>
                 <select required id="enf_bac" class="form-control" name="enfermedad" >
                         <option value="">Seleccione</option>
                         <?php foreach ( $infectos_bac->result() as $infecto ): ?>
 
-                        <option value="<?= $infecto->enfermedad  ?>"> <?= $infecto->enfermedad  ?></option>
+                        <option value="<?= $infecto->id  ?>"> <?= $infecto->enfermedad  ?></option>
                         <?php endforeach ?>
                         
                         <option value="Otra">Otra</option>
@@ -1523,7 +1234,7 @@
                     <option value="">Seleccione</option>
                      <?php foreach ( $medicamentos->result() as $medicamento ): ?>
 
-                    <option value="<?= $medicamento->medicamento ?>" ><?= $medicamento->medicamento ?></option>
+                    <option value="<?= $medicamento->id ?>" ><?= $medicamento->medicamento ?></option>
                    <?php endforeach ?>
                     <option value="No Recuerda" >No Recuerda</option>
                     <option value="Otro" >Otro</option>
@@ -1533,15 +1244,8 @@
                         <a href="#" class="btn btn-sm btn-info" data-id="3" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
                   </div>
             </div>  
-            
-            <div class="col-sm-3" >   
-            <b>Duración (dias)</b>
-            <input required id="dura_dias_bac" class="form-control" name="duracion_dias" type="number" min="0"  />
-            <b>(Horas)</b>
-            <input required id="dura_hrs_bac" class="form-control" name="duracion_hrs" type="number" min="0"  />  
-            
-             </div>
-            <div class="col-sm-4" >
+          
+            <div class="col-sm-5" >
                 <b>Manejo</b>
                 <textarea required id="manejo_bac" name="manejo" class="form-control" placeholder="Escribe aquí" cols="20" rows="4" ></textarea>
                 </div>    
@@ -1560,44 +1264,7 @@
             </div>
             </div>  
             <section id="HongoSec"></section>    
-            <div class="panel panel-default" >
-                
-            <div class="panel-heading" ><h3>HONGOS</h3></div>  
- 
-            <div class="panel-body">    
-            <table id="hongos-table" class="table table-striped" style="width:100%">
-             <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>Enfermedad</th>
-                    <th>Duración</th>
-                    <th>Manejo</th>
-                    <th>Medicamento</th>
-                    <th>Edad</th>
-                    <th>Eliminar</th>
-                </tr>
-            </thead>
-
-            <tbody id="info-infecto-hongos" >
-             <?php foreach ( $enf_infecto_hongoss->result() as $enf_infecto_hongos ): ?>
-            <tr id="fila_ho<?= $enf_infecto_hongos->id ?>">
-                <td><?= $enf_infecto_hongos->id ?></td>
-                <td><?= $enf_infecto_hongos->enfermedad ?></td>
-                <td><?= $enf_infecto_hongos->duracion ?></td>
-                <td><?= $enf_infecto_hongos->manejo ?></td>
-                <td><?= $enf_infecto_hongos->medicamento ?></td>
-                <td><?= $enf_infecto_hongos->edad_hongos ?></td>
-
-                <td><?php if($type == "Medico"){}else{ ?><button class="btn btn-danger btn-delete-ho"><i class="fa fa-trash"></i></button><?php } ?></td> 
-                <input value="_enf_infecto_hongos" id="table_ho<?= $enf_infecto_hongos->id ?>" type="hidden" />
-                <input value="<?= $enf_infecto_hongos->created_at ?>" id="fecha_ho<?= $enf_infecto_hongos->id ?>" type="hidden" />
-            </tr>  
-                <?php endforeach ?>
-                </tbody>
-            </table>
-              </div>  
-             </div>   
-                
+              
              <div class="panel panel-default border-left-brown" >
                     
                     <div class="panel-heading" >      
@@ -1606,13 +1273,13 @@
             <div class="panel-body" >    
             <form id="enf_infecto_hongos" name="enf_infecto_hongos" method="post" class="panel-body">
              
-            <div class="col-sm-3" >    
+            <div class="col-sm-5" >    
             <b>Enfermedad</b>
             <select required id="enf_hongo" class="form-control" name="enfermedad" >
                 <option value="">Seleccione</option>
                 <?php foreach ( $infectos_hongos->result() as $infecto ): ?>
 
-                <option value="<?= $infecto->enfermedad  ?>"> <?= $infecto->enfermedad  ?></option>
+                <option value="<?= $infecto->id  ?>"> <?= $infecto->enfermedad  ?></option>
                 <?php endforeach ?>
 
                 <option value="Otra">Otra</option>
@@ -1626,7 +1293,7 @@
                     <option value="">Seleccione</option>
                      <?php foreach ( $medicamentos->result() as $medicamento ): ?>
 
-                    <option value="<?= $medicamento->medicamento ?>" ><?= $medicamento->medicamento ?></option>
+                    <option value="<?= $medicamento->id ?>" ><?= $medicamento->medicamento ?></option>
                    <?php endforeach ?>
                 <option value="No Recuerda" >No Recuerda</option>
                  <option value="Otro" >Otro</option>
@@ -1636,15 +1303,8 @@
                         <a href="#" class="btn btn-sm btn-info" data-id="3" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
                   </div>
             </div>   
-            
-            <div class="col-sm-3">
-            <b> Duración (dias)</b>
-            <input required id="dura_dias_hongo" class="form-control" name="duracion_dias" type="number" min="0"  />
-            <b>(Horas)</b>
-            <input required id="dura_hrs_hongo" class="form-control" name="duracion_hrs" type="number" min="0"  />
-            </div>
-            
-            <div class="col-sm-4">  
+                
+            <div class="col-sm-5">  
             <b>Manejo</b>
             <textarea required id="manejo_hongo" name="manejo" class="form-control" placeholder="Escribe aquí" cols="20" rows="4" ></textarea>
             </div>
@@ -1664,43 +1324,7 @@
              </div>   
             
             <section id="ParásitoSec"></section>
-            <div class="panel panel-default" >
-                <div class="panel-heading" > <h3>PARÁSITOS</h3>  </div>
-                
-            <div class="panel-body">    
-            <table id="parasitos-table" class="table table-striped" style="width:100%">
-             <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>Enfermedad</th>
-                    <th>Duración</th>
-                    <th>Manejo</th>
-                    <th>Medicamento</th>
-                    <th>Edad</th>
-                    <th>Eliminar</th>
-                </tr>
-            </thead>
-
-            <tbody id="info-infecto-parasitos" >
-             <?php foreach ( $enf_infecto_parasitoss->result() as $enf_infecto_parasitos ): ?>
-            <tr id="fila_pa<?= $enf_infecto_parasitos->id ?>">
-                <td><?= $enf_infecto_parasitos->id ?></td>
-                <td><?= $enf_infecto_parasitos->enfermedad ?></td>
-                <td><?= $enf_infecto_parasitos->duracion ?></td>
-                <td><?= $enf_infecto_parasitos->manejo ?></td>
-                <td><?= $enf_infecto_parasitos->medicamento ?></td>
-                <td><?= $enf_infecto_parasitos->edad_parasitos ?></td>
-
-                <td><?php if($type == "Medico"){}else{ ?><button class="btn btn-danger btn-delete-pa"><i class="fa fa-trash"></i></button><?php } ?></td>
-                <input value="_enf_infecto_parasitos" id="table_pa<?= $enf_infecto_parasitos->id ?>" type="hidden" />
-                <input  value="<?= $enf_infecto_parasitos->created_at ?>" id="fecha_pa<?= $enf_infecto_parasitos->id ?>" type="hidden" />
-            </tr>  
-                <?php endforeach ?>
-                </tbody>
-            </table>
-                </div>
-              </div>  
-             
+            
             <div class="panel panel-default border-left-brown" >
                     
                     <div class="panel-heading" >      
@@ -1710,13 +1334,13 @@
             <div class="panel-body" >   
             <form id="enf_infecto_parasitos" name="enf_infecto_parasitos" method="post" class="panel-body">
             
-            <div class="col-sm-3" >
+            <div class="col-sm-5" >
                <b> Enfermedad</b>
                 <select required id="enf_para" class="form-control" name="enfermedad" >
                 <option value="">Seleccione</option>
                 <?php foreach ( $infectos_parasitos->result() as $infecto ): ?>
 
-                <option value="<?= $infecto->enfermedad  ?>"> <?= $infecto->enfermedad  ?></option>
+                <option value="<?= $infecto->id  ?>"> <?= $infecto->enfermedad  ?></option>
                 <?php endforeach ?>
 
                 <option value="Otra">Otra</option>
@@ -1730,7 +1354,7 @@
                     <option value="">Seleccione</option>
                      <?php foreach ( $medicamentos->result() as $medicamento ): ?>
 
-                    <option value="<?= $medicamento->medicamento ?>" ><?= $medicamento->medicamento ?></option>
+                    <option value="<?= $medicamento->id ?>" ><?= $medicamento->medicamento ?></option>
                    <?php endforeach ?>
                 <option value="No Recuerda" >No Recuerda</option>
                 <option value="Otro" >Otro</option>
@@ -1741,14 +1365,7 @@
                   </div>
             </div> 
                 
-            <div class="col-sm-3" >
-            <b>Duración (dias)</b>
-            <input required id="dura_dias_para" class="form-control" name="duracion_dias" type="number" min="0"  />
-            <b>(Horas)</b>
-            <input required id="dura_hrs_para" class="form-control" name="duracion_hrs" type="number" min="0"  />
-            </div>    
-            
-            <div class="col-sm-4" >
+            <div class="col-sm-5" >
                  <b>Manejo</b>
                 <textarea required id="manejo_para" name="manejo" class="form-control" placeholder="Escribe aquí" cols="20" rows="4" ></textarea>
                 </div>
@@ -1771,42 +1388,7 @@
             
                 <h3 class="text-center">OTRAS ENFERMEDADES</h3>
             <section id="PsicológicaSec"></section>
-            <div class="panel panel-default" >
-                <div class="panel-heading" ><h3>PSICOLÓGICAS</h3></div>
-            <div class="panel-body" >    
-            <table id="psicologicas-table" class="table table-striped" style="width:100%">
-             <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>Enfermedad</th>
-                    <th>Duración</th>
-                    <th>Manejo</th>
-                    <th>Medicamento</th>
-                    <th>Edad</th>
-                    <th>Eliminar</th>
-                </tr>
-            </thead>
-
-            <tbody id="info-infecto-psicologicas" >
-             <?php foreach ( $enf_infecto_psicologicass->result() as $enf_infecto_psicologicas ): ?>
-            <tr id="fila_psi<?= $enf_infecto_psicologicas->id ?>">
-                <td><?= $enf_infecto_psicologicas->id ?></td>
-                <td><?= $enf_infecto_psicologicas->enfermedad ?></td>
-                <td><?= $enf_infecto_psicologicas->duracion ?></td>
-                <td><?= $enf_infecto_psicologicas->manejo ?></td>
-                <td><?= $enf_infecto_psicologicas->medicamento ?></td>
-                <td><?= $enf_infecto_psicologicas->edad_psicologica?></td>
-
-                <td><?php if($type == "Medico"){}else{ ?><button class="btn btn-danger btn-delete-psi"><i class="fa fa-trash"></i></button><?php } ?></td>  
-                <input value="_enf_infecto_psicologicas" id="table_psi<?= $enf_infecto_psicologicas->id ?>" type="hidden" />
-                <input value="<?= $enf_infecto_psicologicas->created_at ?>" id="fecha_psi<?= $enf_infecto_psicologicas->id ?>" type="hidden" />
-            </tr>  
-                <?php endforeach ?>
-                </tbody>
-            </table>
-            </div>   
-             </div>
-                
+              
             <div class="panel panel-default border-left-brown" >
                     
                     <div class="panel-heading" >      
@@ -1816,13 +1398,13 @@
                     
             <form id="enf_infecto_psicologicas" name="enf_infecto_psicologicas" method="post" class="panel-body">
             
-            <div class="col-sm-3">    
+            <div class="col-sm-5">    
             <b>Enfermedad</b>
             <select id="enf_psico" class="form-control" name="enfermedad"  required>
                 <option value="">Seleccione</option>
                 <?php foreach ( $infectos_psico->result() as $infecto ): ?>
 
-                <option value="<?= $infecto->enfermedad  ?>"> <?= $infecto->enfermedad  ?></option>
+                <option value="<?= $infecto->id ?>"> <?= $infecto->enfermedad  ?></option>
                 <?php endforeach ?>
 
                 <option value="Otra">Otra</option>
@@ -1836,7 +1418,7 @@
                     <option value="">Seleccione</option>
                      <?php foreach ( $medicamentos->result() as $medicamento ): ?>
 
-                    <option value="<?= $medicamento->medicamento ?>" ><?= $medicamento->medicamento ?></option>
+                    <option value="<?= $medicamento->id ?>" ><?= $medicamento->medicamento ?></option>
                    <?php endforeach ?>
                 <option value="No Recuerda" >No Recuerda</option>
                 <option value="Otro" >Otro</option>
@@ -1845,16 +1427,9 @@
                     <br>
                     <a href="#" class="btn btn-sm btn-info" data-id="3" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
               </div>    
-            </div>    
+            </div>   
             
-            <div class="col-sm-3">    
-            <b>Duración (dias)</b>
-            <input required id="dura_dias_psico" class="form-control" name="duracion_dias" type="number" min="0"  />
-            <b>(Horas)</b>
-            <input required id="dura_hrs_psico" class="form-control" name="duracion_hrs" type="number" min="0"  />
-            </div>
-            
-            <div class="col-sm-4">    
+            <div class="col-sm-5">    
             <b>Manejo</b>
             <textarea required id="manejo_psico" name="manejo" class="form-control" placeholder="Escribe aquí" cols="20" rows="4" ></textarea>
             </div>
@@ -1874,44 +1449,7 @@
             </div>    
             </div>
              <section id="OtraSec"></section>   
-            <div class="panel panel-default">   
-                <div class="panel-heading" ><h3>OTRAS</h3>  </div>
-            <div class="panel-body" >    
-            <table id="otras-table" class="table table-striped" style="width:100%">
-             <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>Enfermedad</th>
-                    <th>Duración</th>
-                    <th>Manejo</th>
-                    <th>Medicamento</th>
-                    <th>Edad</th>
-                    <th>Eliminar</th>
-                </tr>
-            </thead>
-
-            <tbody id="info-infecto-otras" >
-             <?php foreach ( $enf_infecto_otrass->result() as $enf_infecto_otras ): ?>
-            <tr id="fila_otras<?= $enf_infecto_otras->id ?>">
-                <td><?= $enf_infecto_otras->id ?></td>
-                <td><?= $enf_infecto_otras->enfermedad ?></td>
-                <td><?= $enf_infecto_otras->duracion ?></td>
-                <td><?= $enf_infecto_otras->manejo ?></td>
-                <td><?= $enf_infecto_otras->medicamento ?></td>
-                <td><?= $enf_infecto_otras->edad_otras ?></td>
-
-                <td>
-                    <input value="_enf_infecto_otras" id="table_otras<?= $enf_infecto_otras->id ?>" type="hidden" />
-                    <input value="<?= $enf_infecto_otras->created_at ?>" id="fecha_otras<?= $enf_infecto_otras->id ?>" type="hidden" />
-                    <?php if($type == "Medico"){}else{ ?><button class="btn btn-danger btn-delete-otras"><i class="fa fa-trash"></i></button><?php } ?>
-                    </td> 
-                </td>
-            </tr>  
-                <?php endforeach ?>
-                </tbody>
-            </table>
-            </div>
-            </div>     
+               
                 
             <div class="panel panel-default border-left-brown" >
                     
@@ -1921,13 +1459,13 @@
             <div class="panel-body">    
             <form id="enf_infecto_otras" name="enf_infecto_otras" method="post" class="panel-body">
             
-            <div class="col-sm-3" >    
+            <div class="col-sm-5" >    
             <b>Enfermedad</b>
             <select id="enf_otras" class="form-control" name="enfermedad" required >
                 <option value="">Seleccione</option>
                 <?php foreach ( $infectos_otras->result() as $infecto ): ?>
 
-                <option value="<?= $infecto->enfermedad  ?>"> <?= $infecto->enfermedad  ?></option>
+                <option value="<?= $infecto->id  ?>"> <?= $infecto->enfermedad  ?></option>
                 <?php endforeach ?>
 
                 <option value="Otra">Otra</option>
@@ -1941,7 +1479,7 @@
                     <option value="">Seleccione</option>
                      <?php foreach ( $medicamentos->result() as $medicamento ): ?>
 
-                    <option value="<?= $medicamento->medicamento ?>" ><?= $medicamento->medicamento ?></option>
+                    <option value="<?= $medicamento->id ?>" ><?= $medicamento->medicamento ?></option>
                    <?php endforeach ?>
                 <option value="No Recuerda" >No Recuerda</option>
                 <option value="Otro" >Otro</option>
@@ -1952,14 +1490,7 @@
               </div>
             </div>
             
-            <div class="col-sm-3" >    
-            <b>Duración (dias)</b>
-            <input id="dura_dias_otras" class="form-control" name="duracion_dias" type="number" min="0" required />
-            <b>(Horas)</b>
-            <input id="dura_hrs_otras" class="form-control" name="duracion_hrs" type="number" min="0" required />
-            </div>
-            
-            <div class="col-sm-4">
+            <div class="col-sm-5">
                <b>Manejo</b>
                 <textarea id="manejo_otras" name="manejo" class="form-control" placeholder="Escribe aquí" cols="20" rows="4" required ></textarea>
             </div>    

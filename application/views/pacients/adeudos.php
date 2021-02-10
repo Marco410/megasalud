@@ -80,7 +80,7 @@ $img_path = base_url('estudios').'/'.$paciente->id."/";
         </div>
        </div> 
 
-  <!-- Modal Agregar Estudio -->
+  <!-- Modal Agregar Abono -->
     <div class="modal fade" id="abono" tabindex="-1" role="dialog" aria-labelledby="estudiosTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">

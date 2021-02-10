@@ -172,10 +172,8 @@ class PatientsController extends CI_Controller {
     $data['linea_vida'] = $this->historia->linea_vida($id);
     $data['carga_heredo'] = $this->historia->carga_heredo($id);
     $data['ante'] = $this->historia->ante($id);
-    $data['inmunizacion'] = $this->historia->inmunizacion($id);
-    $data['hospitalizacion'] = $this->historia->hospitalizacion($id);
-    $data['hisclinic_app1'] = $this->historia->hisclinic_app1($id);
-    $data['alergias'] = $this->historia->alergias($id);
+    
+    
         
     //mensajes
     $data['conversacion'] = $this->mensajes->conversacion($id);
@@ -187,14 +185,6 @@ class PatientsController extends CI_Controller {
     $data['operaciones'] = $this->historia->operacion();
     $data['protesiss'] = $this->historia->protesis();
     $data['transfusiones'] = $this->historia->transfusion();
-        
-        //info enfermedades infectocontagiosas
-    $data['enf_infecto_viruss'] = $this->historia->enf_infecto_virus($id);
-    $data['enf_infecto_bacteriass'] = $this->historia->enf_infecto_bacterias($id);
-    $data['enf_infecto_hongoss'] = $this->historia->enf_infecto_hongos($id);
-    $data['enf_infecto_parasitoss'] = $this->historia->enf_infecto_parasitos($id);
-    $data['enf_infecto_psicologicass'] = $this->historia->enf_infecto_psicologicas($id);
-    $data['enf_infecto_otrass'] = $this->historia->enf_infecto_otras($id);
     
   
     $data['view_controller'] = array(
@@ -215,7 +205,7 @@ class PatientsController extends CI_Controller {
     $this->load->view('layout/scripts', $data);
     }
     
-     public function api_find_paciente($exp){
+    public function api_find_paciente($exp){
         $tok = $_GET["token"];
        $exp =  $exp;
         $this->db->select("t.token");
@@ -238,7 +228,7 @@ class PatientsController extends CI_Controller {
 		
     }
     
-     public function api_find_datapersonal(){
+    public function api_find_datapersonal(){
         $tok = $_GET["token"];
         $id = $_GET["id"];
         $this->db->select("t.token");
@@ -261,7 +251,7 @@ class PatientsController extends CI_Controller {
 		
     }
     
-       public function api_find_datapedidos(){
+    public function api_find_datapedidos(){
         $tok = $_GET["token"];
         $id = $_GET["id"];
         $this->db->select("t.token");
@@ -342,7 +332,7 @@ class PatientsController extends CI_Controller {
 		
     }
     
-      public function api_find_datanotas($id){
+    public function api_find_datanotas($id){
         $tok = $_GET["token"];
        $id =  $id;
         $this->db->select("t.token");
@@ -365,7 +355,7 @@ class PatientsController extends CI_Controller {
 		
     }
     
-     public function api_find_datacitas($id){
+    public function api_find_datacitas($id){
         $tok = $_GET["token"];
        $id =  $id;
         $this->db->select("t.token");
@@ -387,8 +377,7 @@ class PatientsController extends CI_Controller {
         }
 		
     }
- 
-    
+  
     public function api_find_datalinea($id){
         $tok = $_GET["token"];
         $id =  $id;
@@ -450,7 +439,7 @@ class PatientsController extends CI_Controller {
         
     }
     
-     public function charts($id) {
+    public function charts($id) {
 
         session_redirect();
 
@@ -539,9 +528,7 @@ class PatientsController extends CI_Controller {
         
     }
     
-    
-    
-     public function find_charts3($id){
+    public function find_charts3($id){
         $this->db->where('id_paciente', $id);
         $this->db->select('id');
         $result = $this->db->get('charts');
@@ -672,6 +659,39 @@ class PatientsController extends CI_Controller {
         $type = $this->session->type;
           if($type == "Administrador" || $type == "Medico Administrador" || $type == "Medico" ){
             $this->load->view('pacients/adeudos');
+        }else{
+          $this->load->view('auth/error'); 
+        } 
+        $this->load->view('layout/scripts', $data);
+    } 
+    
+    public function resumen($id){
+    session_redirect();
+
+        $data = array();
+        $data['title'] = 'Resumen';
+        $data['paciente'] = $this->historia->find($id);
+        $data['view_controller'] = 'pacients/resumen_vs.js';
+        
+        $data['carga_heredo'] = $this->historia->carga_heredo($id);
+        $data['hisclinic_app1'] = $this->historia->hisclinic_app1($id);
+        $data['inmunizacion'] = $this->historia->inmunizacion($id);
+        $data['alergias'] = $this->historia->alergias($id);
+        $data['hospitalizacion'] = $this->historia->hospitalizacion($id);
+        
+        //info enfermedades infectocontagiosas
+        $data['enf_infecto_viruss'] = $this->historia->enf_infecto_virus($id);
+        $data['enf_infecto_bacteriass'] = $this->historia->enf_infecto_bacterias($id);
+        $data['enf_infecto_hongoss'] = $this->historia->enf_infecto_hongos($id);
+        $data['enf_infecto_parasitoss'] = $this->historia->enf_infecto_parasitos($id);
+        $data['enf_infecto_psicologicass'] = $this->historia->enf_infecto_psicologicas($id);
+        $data['enf_infecto_otrass'] = $this->historia->enf_infecto_otras($id);
+        
+        $this->load->view('layout/head', $data);
+        $this->load->view('layout/header');
+        $type = $this->session->type;
+          if($type == "Administrador" || $type == "Medico Administrador" || $type == "Medico" ){
+            $this->load->view('pacients/resumen');
         }else{
           $this->load->view('auth/error'); 
         } 
@@ -812,7 +832,7 @@ class PatientsController extends CI_Controller {
     }
     
     
-     public function agregar_estudio() {
+    public function agregar_estudio() {
          
         $id = $this->input->post('id_paciente');
         $exp = $this->input->post('expediente');
@@ -1074,44 +1094,50 @@ class PatientsController extends CI_Controller {
         }
         
     }
-     public function alergia() {
-        $aparicion = $duracion = $this->input->post('duracion_dias') . " Dias -" . $this->input->post('duracion_hrs') . " Hrs ";
+    
+    public function alergia() {
         
+        $id_paciente = $this->input->post('id_paciente');
+               
         $anio =  $this->input->post('anio') + $this->input->post('edad_alergia');
          
         if(isset($_POST['med_op'])){
              $alergeno = "Medicamento: ". $_POST['med_op'];
-            
         }else{
-            
            $alergeno = $this->input->post('alergeno');
-        } 
+        }
+        
+        $id_alergeno = $this->input->post('alergeno');
+        
+        $this->db->where("id",$id_alergeno);
+        $alergia = $this->db->get("alergenos")->row()->alergeno;
+        
         
         $descripcion = "Alergia - " . "Duracion: " . $duracion . " el " . $this->input->post('fechaR');    
          
         $data =  array(
-        'id_paciente' => $this->input->post('id_paciente'),
-        'alergeno' => $alergeno , 
-        'duracion_efecto' => $duracion,
+        'id_paciente' => $id_paciente,
+        'alergeno' => $alergia,
+        'id_alergeno' => $id_alergeno,
         'tratamiento' => $this->input->post('tratamiento'),
         'edad_alergia' => $this->input->post('edad_alergia')
         );
          
          $data_linea = array(
-        'id_paciente' => $this->input->post('id_paciente'),
+        'id_paciente' => $id_paciente,
         'enfermedad' => $alergeno,
         'table_hisclinic' => "Alergia", //_alergias
         'edad_paciente' => $this->input->post('edad_alergia'), 
         'descripcion' => $descripcion,
         'anio' => $anio
         );
-    if($this->historia->alergia($data, $data_linea)){
-        
-        echo json_encode($data);
-    }
-        else{
-            echo false;
-        } 
+        if($this->historia->alergia($data, $data_linea)){
+
+            echo json_encode($data);
+            }
+            else{
+                echo false;
+            } 
     }
     
     
@@ -1159,26 +1185,35 @@ class PatientsController extends CI_Controller {
     
     //info de las enferemedades infecto contagiosas
     public function enf_virus() {
-        $duracion = $this->input->post('duracion_dias') . " Dias -" . $this->input->post('duracion_hrs') . " Hrs ";
+        
+        $id_medi = $this->input->post('medicamentos');
+        $this->db->where("id",$id_medi);
+        $medi = $this->db->get("medicamentos")->row()->medicamento;
+        
+        $id_virus = $this->input->post('enfermedad');
+        
+        $this->db->where("id",$id_virus);
+        $virus = $this->db->get("enfermedades")->row()->enfermedad;
         
         $anio =  $this->input->post('anio') + $this->input->post('edad_virus');
         
-        $descripcion = "Virus - " . $this->input->post('manejo') . " Duración: " . $duracion; 
+        $descripcion = "Virus - " . $this->input->post('manejo'); 
         
         $data =  array(
         'id_paciente' => $this->input->post('id_paciente'),
-        'enfermedad' => $this->input->post('enfermedad'),
-        'duracion' => $duracion,
+        'enfermedad' => $virus,
+        'id_virus' => $id_virus,
         'manejo' => $this->input->post('manejo'),
-        'medicamento' => $this->input->post('medicamentos'),
+        'id_medi' => $this->input->post('medicamentos'),
+        'medicamento' => $medi,
         'edad_virus' => $this->input->post('edad_virus')
         );
         
          $data_linea = array(
         'id_paciente' => $this->input->post('id_paciente'),
-        'enfermedad' => $this->input->post('enfermedad'),
+        'enfermedad' => $virus,
         'table_hisclinic' => "Virus",//_enf_infecto_virus
-             'edad_paciente' => $this->input->post('edad_virus'), 
+        'edad_paciente' => $this->input->post('edad_virus'), 
         'descripcion' => $descripcion,
         'anio' => $anio
         );
@@ -1193,28 +1228,38 @@ class PatientsController extends CI_Controller {
         }
         
     }
-    public function enf_bacterias() {
+    
+    public function enf_bacterias() {        
+        $id_paciente = $this->input->post('id_paciente');
+        
+        $id_medi = $this->input->post('medicamentos');
+        $this->db->where("id",$id_medi);
+        $medi = $this->db->get("medicamentos")->row()->medicamento;
                
-         $duracion = $this->input->post('duracion_dias') . " Dias -" . $this->input->post('duracion_hrs') . " Hrs ";
+        $id_bacteria = $this->input->post('enfermedad');
+        $this->db->where("id",$id_bacteria);
+        
+        $bacteria = $this->db->get("enfermedades")->row()->enfermedad;
         
         $anio =  $this->input->post('anio') + $this->input->post('edad_bacterias');
         
-        $descripcion = "Bacteria - " . $this->input->post('manejo') . " Duración: " . $duracion; 
+        $descripcion = "Bacteria - " . $this->input->post('manejo'); 
         
         $data =  array(
-        'id_paciente' => $this->input->post('id_paciente'),
-        'enfermedad' => $this->input->post('enfermedad'),
-        'duracion' => $duracion,
+        'id_paciente' => $id_paciente,
+        'enfermedad' => $bacteria,
+        'id_bac' => $this->input->post('enfermedad'),
         'manejo' => $this->input->post('manejo'),
-        'medicamento' => $this->input->post('medicamentos'),
+        'id_medi' => $id_medi,
+        'medicamento' => $medi,
         'edad_bacterias' => $this->input->post('edad_bacterias')
         );
         
         $data_linea = array(
-        'id_paciente' => $this->input->post('id_paciente'),
-        'enfermedad' => $this->input->post('enfermedad'),
+        'id_paciente' => $id_paciente,
+        'enfermedad' => $bacteria,
         'table_hisclinic' => "Bacteria",//enf_infecto_bacteria
-            'edad_paciente' => $this->input->post('edad_bacterias'), 
+        'edad_paciente' => $this->input->post('edad_bacterias'), 
         'descripcion' => $descripcion,
         'anio' => $anio
         );
@@ -1229,26 +1274,36 @@ class PatientsController extends CI_Controller {
         
     }
     public function enf_hongos() {
+        
+        $id_paciente = $this->input->post('id_paciente');
+        
+        $id_medi = $this->input->post('medicamentos');
+        $this->db->where("id",$id_medi);
+        $medi = $this->db->get("medicamentos")->row()->medicamento;
                
-         $duracion = $this->input->post('duracion_dias') . " Dias -" . $this->input->post('duracion_hrs') . " Hrs ";
+        $id_hongo = $this->input->post('enfermedad');
+        $this->db->where("id",$id_hongo);
+        $hongo = $this->db->get("enfermedades")->row()->enfermedad;
+               
         $anio =  $this->input->post('anio') + $this->input->post('edad_hongos');
         
-        $descripcion = "Hongo - " . $this->input->post('manejo') . " Duración: " . $duracion; 
+        $descripcion = "Hongo - " . $this->input->post('manejo'); 
         
         $data =  array(
-        'id_paciente' => $this->input->post('id_paciente'),
-        'enfermedad' => $this->input->post('enfermedad'), 
-        'duracion' => $duracion,
+        'id_paciente' => $id_paciente,
+        'id_hongo' => $id_hongo, 
+        'enfermedad' => $hongo, 
         'manejo' => $this->input->post('manejo'),
-        'medicamento' => $this->input->post('medicamentos'),
+        'id_medi' => $id_medi,
+        'medicamento' => $medi,
         'edad_hongos' => $this->input->post('edad_hongos')
         );
         
         $data_linea = array(
-        'id_paciente' => $this->input->post('id_paciente'),
-        'enfermedad' => $this->input->post('enfermedad'),
+        'id_paciente' => $id_paciente,
+        'enfermedad' => $medi,
         'table_hisclinic' => "Hongo",//enf_infecto_hongos
-            'edad_paciente' => $this->input->post('edad_hongos'), 
+        'edad_paciente' => $this->input->post('edad_hongos'), 
         'descripcion' => $descripcion,
         'anio' => $anio
         );
@@ -1264,26 +1319,35 @@ class PatientsController extends CI_Controller {
     }
     public function enf_parasitos() {
                
-        $duracion = $this->input->post('duracion_dias') . " Dias -" . $this->input->post('duracion_hrs') . " Hrs ";
+        $id_paciente = $this->input->post('id_paciente');
+        
+        $id_medi = $this->input->post('medicamentos');
+        $this->db->where("id",$id_medi);
+        $medi = $this->db->get("medicamentos")->row()->medicamento;
+               
+        $id_para = $this->input->post('enfermedad');
+        $this->db->where("id", $id_para);
+        $para = $this->db->get("enfermedades")->row()->enfermedad;
         
         $anio =  $this->input->post('anio') + $this->input->post('edad_parasitos');
         
-        $descripcion = "Parásito - " . $this->input->post('manejo') . " Duración: " . $duracion;
+        $descripcion = "Parásito - " . $this->input->post('manejo');
         
         $data =  array(
-        'id_paciente' => $this->input->post('id_paciente'),
-        'enfermedad' => $this->input->post('enfermedad'),
-        'duracion' => $duracion,
+        'id_paciente' => $id_paciente,
+        'id_para' => $id_para,
+        'enfermedad' => $para,
         'manejo' => $this->input->post('manejo'),
-        'medicamento' => $this->input->post('medicamentos'),
+        'id_medi' => $id_medi,
+        'medicamento' => $medi,
         'edad_parasitos' => $this->input->post('edad_parasitos')
         );
         
          $data_linea = array(
         'id_paciente' => $this->input->post('id_paciente'),
-        'enfermedad' => $this->input->post('enfermedad'),
-             'table_hisclinic' => "Parásito",//enf_infecto_parasitos
-             'edad_paciente' => $this->input->post('edad_parasitos'), 
+        'enfermedad' => $para,
+        'table_hisclinic' => "Parásito",//enf_infecto_parasitos
+        'edad_paciente' => $this->input->post('edad_parasitos'), 
         'descripcion' => $descripcion,
         'anio' => $anio
         );
@@ -1299,23 +1363,32 @@ class PatientsController extends CI_Controller {
     }
     public function enf_psicologica() {
                
-       $duracion = $this->input->post('duracion_dias') . " Dias -" . $this->input->post('duracion_hrs') . " Hrs ";
+        $id_paciente = $this->input->post('id_paciente');
+        
+        $id_medi = $this->input->post('medicamentos');
+        $this->db->where("id",$id_medi);
+        $medi = $this->db->get("medicamentos")->row()->medicamento;
+               
+        $id_psico = $this->input->post('enfermedad');
+        $this->db->where("id", $id_psico);
+        $psico = $this->db->get("enfermedades")->row()->enfermedad;
         
         $anio =  $this->input->post('anio') + $this->input->post('edad_psicologica');
         
-        $descripcion = "Psicológica - " . $this->input->post('manejo') . " Duración: " . $duracion;
+        $descripcion = "Psicológica - " . $this->input->post('manejo');
         
         $data =  array(
-        'id_paciente' => $this->input->post('id_paciente'),
-        'enfermedad' => $this->input->post('enfermedad'),
-        'duracion' => $duracion,
+        'id_paciente' => $id_paciente,
+        'id_psico' => $id_psico,
+        'enfermedad' => $psico,
         'manejo' => $this->input->post('manejo'),
-        'medicamento' => $this->input->post('medicamentos'),
+        'id_medi' => $id_medi,
+        'medicamento' => $medi,
         'edad_psicologica' => $this->input->post('edad_psicologica')
         );
         
          $data_linea = array(
-        'id_paciente' => $this->input->post('id_paciente'),
+        'id_paciente' => $id_paciente,
         'enfermedad' => $this->input->post('enfermedad'),
         'table_hisclinic' => "Psicológica",//enf_infecto_psicologicas
         'edad_paciente' => $this->input->post('edad_psicologica'), 
@@ -1334,23 +1407,32 @@ class PatientsController extends CI_Controller {
     }
     public function enf_otras() {
                
-         $duracion = $this->input->post('duracion_dias') . " Dias -" . $this->input->post('duracion_hrs') . " Hrs ";
+        $id_paciente = $this->input->post('id_paciente');
+        
+        $id_medi = $this->input->post('medicamentos');
+        $this->db->where("id",$id_medi);
+        $medi = $this->db->get("medicamentos")->row()->medicamento;
+               
+        $id_otras = $this->input->post('enfermedad');
+        $this->db->where("id", $id_otras);
+        $otras = $this->db->get("enfermedades")->row()->enfermedad;
         
         $anio =  $this->input->post('anio') + $this->input->post('edad_otras');
         
-        $descripcion = "Otra - " . $this->input->post('manejo') . " Duración: " . $duracion;
+        $descripcion = "Otra - " . $this->input->post('manejo');
         
         $data =  array(
-        'id_paciente' => $this->input->post('id_paciente'),
-        'enfermedad' => $this->input->post('enfermedad'), 
-        'duracion' => $duracion,
+        'id_paciente' => $id_paciente,
+        'id_otra' => $id_otras, 
+        'enfermedad' => $otras, 
         'manejo' => $this->input->post('manejo'),
-        'medicamento' => $this->input->post('medicamentos'),
+        'id_medi' => $id_medi,
+        'medicamento' => $medi,
         'edad_otras' => $this->input->post('edad_otras')
         );
         
         $data_linea = array(
-        'id_paciente' => $this->input->post('id_paciente'),
+        'id_paciente' => $id_paciente,
         'enfermedad' => $this->input->post('enfermedad'),
         'table_hisclinic' => "Otra",//enf_infecto_otras
         'edad_paciente' => $this->input->post('edad_otras'), 

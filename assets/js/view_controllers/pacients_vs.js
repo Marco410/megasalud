@@ -254,434 +254,8 @@ function init(){
         
       });
     
-
-    //tabla heredo familiares
     
-     $('#carga_heredo-table').DataTable({
-		responsive: true,
-         paging: false,
-         searching: false,
-		columnDefs: [{
-            orderable: false,
-            targets:   [3]
-        }],
-         order: [ 0, 'asc' ],
-		language: {
-			"sProcessing":     "Procesando...",
-			"sLengthMenu":     "Mostrar _MENU_ registros",
-			"sZeroRecords":    "No se encontraron resultados",
-			"sEmptyTable":     "Ningún dato disponible en esta tabla",
-			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-			"sInfoPostFix":    "",
-			"sSearch":         "Buscar:",
-			"sUrl":            "",
-			"sInfoThousands":  ",",
-			"sLoadingRecords": "Cargando...",
-			"oPaginate": {
-				"sFirst":    "Primero",
-				"sLast":     "Último",
-				"sNext":     "Siguiente",
-				"sPrevious": "Anterior"
-			},
-			"oAria": {
-				"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-				"sSortDescending": ": Activar para ordenar la columna de manera descendente"
-			}
-		}
-	});
-    
-        //tabla de antecedentes
-    
-        $('#antecedentes-table').DataTable({
-		responsive: true,
-		fixedHeader: true,
-         paging: false,
-         searching: false,
-		columnDefs: [{
-            //className: 'control',
-            orderable: false,
-            targets:   [4]
-        }],
-		order: [ 0, 'asc' ],
-		language: {
-			"sProcessing":     "Procesando...",
-			"sLengthMenu":     "Mostrar _MENU_ registros",
-			"sZeroRecords":    "No se encontraron resultados",
-			"sEmptyTable":     "Ningún dato disponible en esta tabla",
-			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-			"sInfoPostFix":    "",
-			"sSearch":         "Buscar:",
-			"sUrl":            "",
-			"sInfoThousands":  ",",
-			"sLoadingRecords": "Cargando...",
-			"oPaginate": {
-				"sFirst":    "Primero",
-				"sLast":     "Último",
-				"sNext":     "Siguiente",
-				"sPrevious": "Anterior"
-			},
-			"oAria": {
-				"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-				"sSortDescending": ": Activar para ordenar la columna de manera descendente"
-			}
-		}
-	});
-    
-    //tabla de inmunizaciones
-    
-    $('#inmunizaciones-table').DataTable({
-		responsive: true,
-		fixedHeader: true,
-        paging: false,
-         searching: false,
-		columnDefs: [{
-            //className: 'control',
-            orderable: false,
-            targets:   [3]
-        }],
-		order: [ 0, 'asc' ],
-		language: {
-			"sProcessing":     "Procesando...",
-			"sLengthMenu":     "Mostrar _MENU_ registros",
-			"sZeroRecords":    "No se encontraron resultados",
-			"sEmptyTable":     "Ningún dato disponible en esta tabla",
-			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-			"sInfoPostFix":    "",
-			"sSearch":         "Buscar:",
-			"sUrl":            "",
-			"sInfoThousands":  ",",
-			"sLoadingRecords": "Cargando...",
-			"oPaginate": {
-				"sFirst":    "Primero",
-				"sLast":     "Último",
-				"sNext":     "Siguiente",
-				"sPrevious": "Anterior"
-			},
-			"oAria": {
-				"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-				"sSortDescending": ": Activar para ordenar la columna de manera descendente"
-			}
-		}
-	});
-    
-    //Hospitalizaciones table
-    
-    $('#hospi-table').DataTable({
-		responsive: true,
-		fixedHeader: true,
-        paging: false,
-        scrollY:true,
-        searching: false,
-		columnDefs: [{
-            //className: 'control',
-            orderable: false
-        }],
-		order: [ 0, 'asc' ],
-		language: {
-			"sProcessing":     "Procesando...",
-			"sLengthMenu":     "Mostrar _MENU_ registros",
-			"sZeroRecords":    "No se encontraron resultados",
-			"sEmptyTable":     "Ningún dato disponible en esta tabla",
-			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-			"sInfoPostFix":    "",
-			"sSearch":         "Buscar:",
-			"sUrl":            "",
-			"sInfoThousands":  ",",
-			"sLoadingRecords": "Cargando...",
-			"oPaginate": {
-				"sFirst":    "Primero",
-				"sLast":     "Último",
-				"sNext":     "Siguiente",
-				"sPrevious": "Anterior"
-			},
-			"oAria": {
-				"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-				"sSortDescending": ": Activar para ordenar la columna de manera descendente"
-			}
-		}
-	});
-    
-    //tabla de alergias
-    
-    $('#alergias-table').DataTable({
-		responsive: true,
-		fixedHeader: true,
-        paging: false,
-         searching: false,
-		columnDefs: [{
-            //className: 'control',
-            orderable: false,
-            targets:   [4]
-        }],
-		order: [ 0, 'asc' ],
-		language: {
-			"sProcessing":     "Procesando...",
-			"sLengthMenu":     "Mostrar _MENU_ registros",
-			"sZeroRecords":    "No se encontraron resultados",
-			"sEmptyTable":     "Ningún dato disponible en esta tabla",
-			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-			"sInfoPostFix":    "",
-			"sSearch":         "Buscar:",
-			"sUrl":            "",
-			"sInfoThousands":  ",",
-			"sLoadingRecords": "Cargando...",
-			"oPaginate": {
-				"sFirst":    "Primero",
-				"sLast":     "Último",
-				"sNext":     "Siguiente",
-				"sPrevious": "Anterior"
-			},
-			"oAria": {
-				"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-				"sSortDescending": ": Activar para ordenar la columna de manera descendente"
-			}
-		}
-	});
-    
-    //tabla enfermedades infecto contagiosas
-    
-    $('#enf_inf-table').DataTable({
-		responsive: true,
-		fixedHeader: true,
-        paging: false,
-         searching: false,
-		columnDefs: [{
-            //className: 'control',
-            orderable: false,
-            targets:   [5]
-        }],
-		order: [ 0, 'asc' ],
-		language: {
-			"sProcessing":     "Procesando...",
-			"sLengthMenu":     "Mostrar _MENU_ registros",
-			"sZeroRecords":    "No se encontraron resultados",
-			"sEmptyTable":     "Ningún dato disponible en esta tabla",
-			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-			"sInfoPostFix":    "",
-			"sSearch":         "Buscar:",
-			"sUrl":            "",
-			"sInfoThousands":  ",",
-			"sLoadingRecords": "Cargando...",
-			"oPaginate": {
-				"sFirst":    "Primero",
-				"sLast":     "Último",
-				"sNext":     "Siguiente",
-				"sPrevious": "Anterior"
-			},
-			"oAria": {
-				"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-				"sSortDescending": ": Activar para ordenar la columna de manera descendente"
-			}
-		}
-	});
-    
-        //bacterias table
-    
-    $('#bacterias-table').DataTable({
-		responsive: true,
-		fixedHeader: true,
-        paging: false,
-        searching: false,
-		columnDefs: [{
-            //className: 'control',
-            orderable: false,
-            targets:   [5]
-        }],
-		order: [ 0, 'asc' ],
-		language: {
-			"sProcessing":     "Procesando...",
-			"sLengthMenu":     "Mostrar _MENU_ registros",
-			"sZeroRecords":    "No se encontraron resultados",
-			"sEmptyTable":     "Ningún dato disponible en esta tabla",
-			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-			"sInfoPostFix":    "",
-			"sSearch":         "Buscar:",
-			"sUrl":            "",
-			"sInfoThousands":  ",",
-			"sLoadingRecords": "Cargando...",
-			"oPaginate": {
-				"sFirst":    "Primero",
-				"sLast":     "Último",
-				"sNext":     "Siguiente",
-				"sPrevious": "Anterior"
-			},
-			"oAria": {
-				"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-				"sSortDescending": ": Activar para ordenar la columna de manera descendente"
-			}
-		}
-	});
-    
-    //Hongos table
-    
-    $('#hongos-table').DataTable({
-		responsive: true,
-		fixedHeader: true,
-        paging: false,
-         searching: false,
-		columnDefs: [{
-            //className: 'control',
-            orderable: false,
-            targets:   [5]
-        }],
-		order: [ 0, 'asc' ],
-		language: {
-			"sProcessing":     "Procesando...",
-			"sLengthMenu":     "Mostrar _MENU_ registros",
-			"sZeroRecords":    "No se encontraron resultados",
-			"sEmptyTable":     "Ningún dato disponible en esta tabla",
-			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-			"sInfoPostFix":    "",
-			"sSearch":         "Buscar:",
-			"sUrl":            "",
-			"sInfoThousands":  ",",
-			"sLoadingRecords": "Cargando...",
-			"oPaginate": {
-				"sFirst":    "Primero",
-				"sLast":     "Último",
-				"sNext":     "Siguiente",
-				"sPrevious": "Anterior"
-			},
-			"oAria": {
-				"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-				"sSortDescending": ": Activar para ordenar la columna de manera descendente"
-			}
-		}
-	});
-    
-    //Parasitos table
-    
-    $('#parasitos-table').DataTable({
-		responsive: true,
-		fixedHeader: true,
-        paging: false,
-         searching: false,
-		columnDefs: [{
-            //className: 'control',
-            orderable: false,
-            targets:   [5]
-        }],
-		order: [ 0, 'asc' ],
-		language: {
-			"sProcessing":     "Procesando...",
-			"sLengthMenu":     "Mostrar _MENU_ registros",
-			"sZeroRecords":    "No se encontraron resultados",
-			"sEmptyTable":     "Ningún dato disponible en esta tabla",
-			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-			"sInfoPostFix":    "",
-			"sSearch":         "Buscar:",
-			"sUrl":            "",
-			"sInfoThousands":  ",",
-			"sLoadingRecords": "Cargando...",
-			"oPaginate": {
-				"sFirst":    "Primero",
-				"sLast":     "Último",
-				"sNext":     "Siguiente",
-				"sPrevious": "Anterior"
-			},
-			"oAria": {
-				"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-				"sSortDescending": ": Activar para ordenar la columna de manera descendente"
-			}
-		}
-	});
-    
-    //psicologicas table
-    
-    $('#psicologicas-table').DataTable({
-		responsive: true,
-		fixedHeader: true,
-        paging: false,
-         searching: false,
-		columnDefs: [{
-            //className: 'control',
-            orderable: false,
-            targets:   [5]
-        }],
-		order: [ 0, 'asc' ],
-		language: {
-			"sProcessing":     "Procesando...",
-			"sLengthMenu":     "Mostrar _MENU_ registros",
-			"sZeroRecords":    "No se encontraron resultados",
-			"sEmptyTable":     "Ningún dato disponible en esta tabla",
-			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-			"sInfoPostFix":    "",
-			"sSearch":         "Buscar:",
-			"sUrl":            "",
-			"sInfoThousands":  ",",
-			"sLoadingRecords": "Cargando...",
-			"oPaginate": {
-				"sFirst":    "Primero",
-				"sLast":     "Último",
-				"sNext":     "Siguiente",
-				"sPrevious": "Anterior"
-			},
-			"oAria": {
-				"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-				"sSortDescending": ": Activar para ordenar la columna de manera descendente"
-			}
-		}
-	});
-    
-    //otras table
-    
-    $('#otras-table').DataTable({
-		responsive: true,
-		fixedHeader: true,
-        paging: false,
-         searching: false,
-		columnDefs: [{
-            //className: 'control',
-            orderable: false,
-            targets:   [5]
-        }],
-		order: [ 0, 'asc' ],
-		language: {
-			"sProcessing":     "Procesando...",
-			"sLengthMenu":     "Mostrar _MENU_ registros",
-			"sZeroRecords":    "No se encontraron resultados",
-			"sEmptyTable":     "Ningún dato disponible en esta tabla",
-			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-			"sInfoPostFix":    "",
-			"sSearch":         "Buscar:",
-			"sUrl":            "",
-			"sInfoThousands":  ",",
-			"sLoadingRecords": "Cargando...",
-			"oPaginate": {
-				"sFirst":    "Primero",
-				"sLast":     "Último",
-				"sNext":     "Siguiente",
-				"sPrevious": "Anterior"
-			},
-			"oAria": {
-				"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-				"sSortDescending": ": Activar para ordenar la columna de manera descendente"
-			}
-		}
-	});
-    
+   
     // recibir inmunizaciones para mandarlas a la BD    
 	$('#new_app1, #edit_office_form').validate({
 		submitHandler: function(form) {
@@ -1089,12 +663,7 @@ function init(){
 						    // target: '.login-message',
 						    message: 'Carga Hereditaria Guardada.',
 						});
-                        
-                        var res = JSON.parse(respuesta);
-                        
-                        var data = '<tr><td>#</td><td>'+res.enfermedad+'</td><td>'+res.familiar+'</td><td><button class="btn btn-danger"><i class="fa fa-trash"></i></button></td></tr>';
-                        $('#info-carga_heredo').append(data);
-                        
+                    
                          document.getElementById("padecimiento").value = "";
                          document.getElementById("familiar_heredo").value = "";
 					}
@@ -1125,11 +694,6 @@ function init(){
 				success: function(respuesta){
 					if(respuesta){
                         
-                        var res = JSON.parse(respuesta);
-                        
-                        var data = '<tr><td>#</td><td>'+res.familiar+'</td><td>'+res.antecedente+'</td><td>'+res.descripcion+'</td><td><button class="btn btn-danger"><i class="fa fa-trash"></i></button></td></tr>';
-                        $('#info-ante').append(data);
-                        
                         iziToast.success({
 							timeout: 3000,
 						    title: 'Exito',
@@ -1154,7 +718,7 @@ function init(){
 					}
 				},
 				error:  function(xhr,err){ 
-					console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status+"\n \n responseText: "+xhr.responseText);
+					
 				}
 			});
 		}
@@ -1171,11 +735,7 @@ function init(){
 				success: function(respuesta){
 					if(respuesta){
                         
-                        var res = JSON.parse(respuesta);
-                        
-                        var data = '<tr><td>#</td><td>'+res.vacuna+'</td><td>'+res.descripcion+'</td><td>'+res.edad+'</td><td><button class="btn btn-danger"><i class="fa fa-trash"></i></button></td></tr>';
-                        $('#info-inmun').append(data);
-                        
+                       
                         iziToast.success({
 							timeout: 3000,
 						    title: 'Exito',
@@ -1200,7 +760,6 @@ function init(){
 					}
 				},
 				error:  function(xhr,err){ 
-					console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status+"\n \n responseText: "+xhr.responseText);
 				}
 			});
 		}
@@ -1215,11 +774,6 @@ function init(){
 				success: function(respuesta){
 					if(respuesta){
                         
-                        var res = JSON.parse(respuesta);
-                        
-                        var data = '<tr><td>#</td><td>'+res.alergeno+'</td><td>'+res.duracion_efecto+'</td><td>'+res.tratamiento+'</td><td>'+res.edad_alergia+'</td><td><button class="btn btn-danger"><i class="fa fa-trash"></i></button></td></tr>';
-                        $('#info-alergia').append(data);
-                        
                          iziToast.success({
 							timeout: 3000,
 						    title: 'Exito',
@@ -1229,8 +783,6 @@ function init(){
 						});
                         
                         document.getElementById("alergeno").value = "";
-                        document.getElementById("duracion_dias").value = "";
-                        document.getElementById("duracion_hrs").value = "";
                         document.getElementById("tratamiento_ale").value = "";
                         document.getElementById("edad_ale").value = "";
                         document.getElementById("edad_ale").value = "";
@@ -1249,7 +801,6 @@ function init(){
 					}
 				},
 				error:  function(xhr,err){ 
-					console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status+"\n \n responseText: "+xhr.responseText);
 				}
 			});
 		}
@@ -1265,10 +816,6 @@ function init(){
 				success: function(respuesta){
 					if(respuesta){
                         
-                        var res = JSON.parse(respuesta);
-                        
-                        var data = '<tr><td>#</td><td>'+res.causa+'</td><td>'+res.tipo_operacion+'</td><td>'+res.tipo_anestesia+'</td><td>'+res.tipo_transfusion+'</td><td>'+res.tipo_protesis+'</td><td>'+res.manejo+'</td><td>'+res.medicamentos+'</td><td>'+res.edad_hospi+'</td><td><button class="btn btn-danger"><i class="fa fa-trash"></i></button></td></tr>';
-                        $('#info-hospi').append(data);
                         
                         iziToast.success({
 							timeout: 3000,
@@ -1319,11 +866,6 @@ function init(){
 				success: function(respuesta){
 					if(respuesta){
                         
-                        var res = JSON.parse(respuesta);
-                        
-                        var data = '<tr><td>#</td><td>'+res.enfermedad+'</td><td>'+res.duracion+'</td><td>'+res.manejo+'</td><td>'+res.medicamento+'</td><td>'+res.edad_virus+'</td><td><button class="btn btn-danger"><i class="fa fa-trash"></i></button></td></tr>';
-                        $('#info-infecto-virus').append(data);
-                        
                         iziToast.success({
 							timeout: 3000,
 						    title: 'Exito',
@@ -1333,8 +875,6 @@ function init(){
 						});
                         
                         document.getElementById("enf_virus").value = "";
-                         document.getElementById("dura_dias_virus").value = "";
-                         document.getElementById("dura_hrs_virus").value = "";
                          document.getElementById("manejo_virus").value = "";
                          document.getElementById("med_virus").value = "";
                          document.getElementById("edad_virus").value = "";
@@ -1351,7 +891,6 @@ function init(){
 					}
 				},
 				error:  function(xhr,err){ 
-					console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status+"\n \n responseText: "+xhr.responseText);
 				}
 			});
 		}
@@ -1367,11 +906,6 @@ function init(){
 				success: function(respuesta){
 					if(respuesta){
                         
-                        var res = JSON.parse(respuesta);
-                        
-                        var data = '<tr><td>#</td><td>'+res.enfermedad+'</td><td>'+res.duracion+'</td><td>'+res.manejo+'</td><td>'+res.medicamento+'</td><td>'+res.edad_bacterias+'</td><td><button class="btn btn-danger"><i class="fa fa-trash"></i></button></td></tr>';
-                        $('#info-infecto-bacterias').append(data);
-                        
                         iziToast.success({
 							timeout: 3000,
 						    title: 'Exito',
@@ -1380,8 +914,6 @@ function init(){
 						});
                         
                          document.getElementById("enf_bac").value = "";
-                         document.getElementById("dura_dias_bac").value = "";
-                         document.getElementById("dura_hrs_bac").value = "";
                          document.getElementById("manejo_bac").value = "";
                          document.getElementById("med_bac").value = "";
                          document.getElementById("edad_bac").value = "";
@@ -1398,7 +930,6 @@ function init(){
 					}
 				},
 				error:  function(xhr,err){ 
-					console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status+"\n \n responseText: "+xhr.responseText);
 				}
 			});
 		}
@@ -1414,13 +945,7 @@ $('#enf_infecto_hongos').validate({
 				data: $(form).serialize(),
 				success: function(respuesta){
 					if(respuesta){
-                        
-                        var res = JSON.parse(respuesta);
-                        
-                        var data = '<tr><td>#</td><td>'+res.enfermedad+'</td><td>'+res.duracion+'</td><td>'+res.manejo+'</td><td>'+res.medicamento+'</td><td>'+res.edad_hongos+'</td><td><button class="btn btn-danger"><i class="fa fa-trash"></i></button></td></tr>';
-                        $('#info-infecto-hongos').append(data);
-                        
-                        
+
                         iziToast.success({
 							timeout: 3000,
 						    title: 'Exito',
@@ -1429,8 +954,6 @@ $('#enf_infecto_hongos').validate({
 						});
                         
                          document.getElementById("enf_hongo").value = "";
-                         document.getElementById("dura_dias_hongo").value = "";
-                         document.getElementById("dura_hrs_hongo").value = "";
                          document.getElementById("manejo_hongo").value = "";
                          document.getElementById("med_hongo").value = "";
                          document.getElementById("edad_hongo").value = "";
@@ -1447,7 +970,7 @@ $('#enf_infecto_hongos').validate({
 					}
 				},
 				error:  function(xhr,err){ 
-					console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status+"\n \n responseText: "+xhr.responseText);
+				
 				}
 			});
 		}
@@ -1463,11 +986,6 @@ $('#enf_infecto_hongos').validate({
 				success: function(respuesta){
 					if(respuesta){
                         
-                        var res = JSON.parse(respuesta);
-                        
-                        var data = '<tr><td>#</td><td>'+res.enfermedad+'</td><td>'+res.duracion+'</td><td>'+res.manejo+'</td><td>'+res.medicamento+'</td><td>'+res.edad_parasitos+'</td><td><button class="btn btn-danger"><i class="fa fa-trash"></i></button></td></tr>';
-                        $('#info-infecto-parasitos').append(data);
-                        
                         iziToast.success({
 							timeout: 3000,
 						    title: 'Exito',
@@ -1476,8 +994,6 @@ $('#enf_infecto_hongos').validate({
 						});
                         
                          document.getElementById("enf_para").value = "";
-                         document.getElementById("dura_dias_para").value = "";
-                         document.getElementById("dura_hrs_para").value = "";
                          document.getElementById("manejo_para").value = "";
                          document.getElementById("med_para").value = "";
                          document.getElementById("edad_para").value = "";
@@ -1494,7 +1010,7 @@ $('#enf_infecto_hongos').validate({
 					}
 				},
 				error:  function(xhr,err){ 
-					console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status+"\n \n responseText: "+xhr.responseText);
+					
 				}
 			});
 		}
@@ -1510,12 +1026,7 @@ $('#enf_infecto_hongos').validate({
 				data: $(form).serialize(),
 				success: function(respuesta){
 					if(respuesta){
-                        
-                        var res = JSON.parse(respuesta);
-                        
-                        var data = '<tr><td>#</td><td>'+res.enfermedad+'</td><td>'+res.duracion+'</td><td>'+res.manejo+'</td><td>'+res.medicamento+'</td><td>'+res.edad_psicologica+'</td><td><button class="btn btn-danger"><i class="fa fa-trash"></i></button></td></tr>';
-                        $('#info-infecto-psicologicas').append(data);
-                        
+ 
                         iziToast.success({
 							timeout: 3000,
 						    title: 'Exito',
@@ -1524,8 +1035,6 @@ $('#enf_infecto_hongos').validate({
 						});
                         
                          document.getElementById("enf_psico").value = "";                       
-                         document.getElementById("dura_dias_psico").value = "";
-                         document.getElementById("dura_hrs_psico").value = "";
                          document.getElementById("manejo_psico").value = "";
                          document.getElementById("med_psico").value = "";
                          document.getElementById("edad_psico").value = "";
@@ -1542,7 +1051,7 @@ $('#enf_infecto_hongos').validate({
 					}
 				},
 				error:  function(xhr,err){ 
-					console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status+"\n \n responseText: "+xhr.responseText);
+					
 				}
 			});
 		}
@@ -1559,12 +1068,7 @@ $('#enf_infecto_hongos').validate({
 				success: function(respuesta){
 					if(respuesta){
 						Cookies.set('message', { type: 'success', message: 'Datos guardados correctamente'});
-                        
-                        var res = JSON.parse(respuesta);
-                        
-                        var data = '<tr><td>#</td><td>'+res.enfermedad+'</td><td>'+res.duracion+'</td><td>'+res.manejo+'</td><td>'+res.medicamento+'</td><td>'+res.edad_otras+'</td><td><button class="btn btn-danger"><i class="fa fa-trash"></i></button></td></tr>';
-                        $('#info-infecto-otras').append(data);
-                        
+     
                         iziToast.success({
 							timeout: 3000,
 						    title: 'Exito',
@@ -1573,9 +1077,7 @@ $('#enf_infecto_hongos').validate({
 						});
                         
                          document.getElementById("enf_otras").value = "";
-                         document.getElementById("dura_dias_otras").value = "";
-                         document.getElementById("dura_hrs_otras").value = "";
-                         document.getElementById("manejo_otras").value = "";
+                        document.getElementById("manejo_otras").value = "";
                          document.getElementById("med_otras").value = "";
                          document.getElementById("edad_otras").value = "";
                         $("#divLinea").load(" #divLinea");
@@ -1595,630 +1097,8 @@ $('#enf_infecto_hongos').validate({
 				}
 			});
 		}
-	});
-    
-   
-
-   $('.btn-delete-ahf').click(function(){
-       
-		var id = $(this).parents("tr").find("td").eq(0).text();
-        var table = document.getElementById("table_ahf"+id).value; 
-       
-        var respuesta = confirm("¿Estas seguro que deseas eliminar?" + table);
-		 			
-            if(respuesta == true){
-            var data = {
-                'id': id,
-                'table': table
-            };
-
-                $.ajax({
-                    url: base_url + 'megasalud/PatientsController/delete_hisclinic',
-                    type: 'post',
-                    data: data, 
-                    success: function(res){
-                        if(res) {
-                            iziToast.success({
-                                title: 'OK',
-                                message: 'Dato eliminado correctamente',
-
-                            });
-
-                        $("#fila_ahf"+id).remove();
-
-
-
-                        }else{
-                            iziToast.warning({
-                                title: 'Fallo',
-                                message: 'No se pudo eliminar ',
-                            });
-                        }
-                    },
-                    error: function(res){
-                        alert(res);
-                    }
-                });
-                }
-               else{
-                    iziToast.warning({
-                                    timeout: 2000,
-                                    title: 'Ok',
-                                    message: 'Cancelado',
-                                }); 
-               }
 	}); 
-    
-    $('.btn-delete-ante').click(function(){
-       
-		var id = $(this).parents("tr").find("td").eq(0).text();
-        var table = document.getElementById("table_ante"+id).value; 
-       
-        var respuesta = confirm("¿Estas seguro que deseas eliminar?" + table);
-		 			
-                        if(respuesta == true){
-                        var data = {
-                            'id': id,
-                            'table': table
-                        };
-                            
-		 					$.ajax({
-			 					url: base_url + 'megasalud/PatientsController/delete_hisclinic',
-			 					type: 'post',
-			 					data: data, 
-			 					success: function(res){
-			 						if(res) {
-			 							iziToast.success({
-										    title: 'OK',
-										    message: 'Dato eliminado correctamente',
-                                            
-										});
-                                        
-                                    $("#fila_ante"+id).remove();
-										
-										
-                                    
-			 						}else{
-			 							iziToast.warning({
-										    title: 'Fallo',
-										    message: 'No se pudo eliminar ',
-										});
-			 						}
-			 					},
-			 					error: function(res){
-			 						alert(res);
-			 					}
-			 				});
-                            }
-               else{
-                    iziToast.warning({
-                                    timeout: 2000,
-                                    title: 'Ok',
-                                    message: 'Cancelado',
-                                }); 
-               }
-	});
-    
-    $('.btn-delete-app1').click(function(){
-       
-		var id = $(this).parents("tr").find("td").eq(0).text();
-        var table = document.getElementById("table_app1"+id).value; 
-        var fecha = document.getElementById("fecha_app1"+id).value; 
-       
-        var respuesta = confirm("¿Estas seguro que deseas eliminar?" + table);
-		 			
-                        if(respuesta == true){
-                        var data = {
-                            'id': id,
-                            'table': table,
-                            'fecha': fecha
-                        };
-                            
-		 					$.ajax({
-			 					url: base_url + 'megasalud/PatientsController/delete_hisclinic',
-			 					type: 'post',
-			 					data: data, 
-			 					success: function(res){
-			 						if(res) {
-			 							iziToast.success({
-										    title: 'OK',
-										    message: 'Dato eliminado correctamente',
-                                            
-										});
-                                        
-                                    $("#fila_app1"+id).remove();
-										
-										
-                                    
-			 						}else{
-			 							iziToast.warning({
-										    title: 'Fallo',
-										    message: 'No se pudo eliminar ',
-										});
-			 						}
-			 					},
-			 					error: function(res){
-			 						alert(res);
-			 					}
-			 				});
-                            }
-               else{
-                    iziToast.warning({
-                                    timeout: 2000,
-                                    title: 'Ok',
-                                    message: 'Cancelado',
-                                }); 
-               }
-	});  
-    
-    $('.btn-delete-inmun').click(function(){
-       
-		var id = $(this).parents("tr").find("td").eq(0).text();
-        var table = document.getElementById("table_inmun"+id).value;
-        var fecha = document.getElementById("fecha_inmun"+id).value; 
-       
-        var respuesta = confirm("¿Estas seguro que deseas eliminar?" + table);
-		 			
-                        if(respuesta == true){
-                        var data = {
-                            'id': id,
-                            'fecha': fecha,
-                            'table': table
-                        };
-                            
-		 					$.ajax({
-			 					url: base_url + 'megasalud/PatientsController/delete_hisclinic',
-			 					type: 'post',
-			 					data: data, 
-			 					success: function(res){
-			 						if(res) {
-			 							iziToast.success({
-										    title: 'OK',
-										    message: 'Dato eliminado correctamente',
-                                            
-										});
-                                        
-                                    $("#fila_inmun"+id).remove();
-										
-										
-                                    
-			 						}else{
-			 							iziToast.warning({
-										    title: 'Fallo',
-										    message: 'No se pudo eliminar ',
-										});
-			 						}
-			 					},
-			 					error: function(res){
-			 						alert(res);
-			 					}
-			 				});
-                            }
-               else{
-                    iziToast.warning({
-                                    timeout: 2000,
-                                    title: 'Ok',
-                                    message: 'Cancelado',
-                                }); 
-               }
-	}); 
-    
-    $('.btn-delete-ale').click(function(){
-       
-		var id = $(this).parents("tr").find("td").eq(0).text();
-        var table = document.getElementById("table_ale"+id).value; 
-        var fecha = document.getElementById("fecha_ale"+id).value; 
-       
-        var respuesta = confirm("¿Estas seguro que deseas eliminar?" + table);
-		 			
-                        if(respuesta == true){
-                        var data = {
-                            'id': id,
-                            'fecha': fecha,
-                            'table': table
-                        };
-                            
-		 					$.ajax({
-			 					url: base_url + 'megasalud/PatientsController/delete_hisclinic',
-			 					type: 'post',
-			 					data: data, 
-			 					success: function(res){
-			 						if(res) {
-			 							iziToast.success({
-										    title: 'OK',
-										    message: 'Dato eliminado correctamente',
-                                            
-										});
-                                        
-                                    $("#fila_ale"+id).remove();
-										
-										
-                                    
-			 						}else{
-			 							iziToast.warning({
-										    title: 'Fallo',
-										    message: 'No se pudo eliminar ',
-										});
-			 						}
-			 					},
-			 					error: function(res){
-			 						alert(res);
-			 					}
-			 				});
-                            }
-               else{
-                    iziToast.warning({
-                                    timeout: 2000,
-                                    title: 'Ok',
-                                    message: 'Cancelado',
-                                }); 
-               }
-	});
-    
-    $('.btn-delete-hospi').click(function(){
-       
-		var id = $(this).parents("tr").find("td").eq(0).text();
-        var table = document.getElementById("table_hospi"+id).value; 
-        var fecha = document.getElementById("fecha_hospi"+id).value; 
-       
-        var respuesta = confirm("¿Estas seguro que deseas eliminar?" + table);
-		 			
-                        if(respuesta == true){
-                        var data = {
-                            'id': id,
-                            'fecha': fecha,
-                            'table': table
-                        };
-                            
-		 					$.ajax({
-			 					url: base_url + 'megasalud/PatientsController/delete_hisclinic',
-			 					type: 'post',
-			 					data: data, 
-			 					success: function(res){
-			 						if(res) {
-			 							iziToast.success({
-										    title: 'OK',
-										    message: 'Dato eliminado correctamente',
-                                            
-										});
-                                        
-                                    $("#fila_hospi"+id).remove();
-										
-										
-                                    
-			 						}else{
-			 							iziToast.warning({
-										    title: 'Fallo',
-										    message: 'No se pudo eliminar ',
-										});
-			 						}
-			 					},
-			 					error: function(res){
-			 						alert(res);
-			 					}
-			 				});
-                            }
-               else{
-                    iziToast.warning({
-                                    timeout: 2000,
-                                    title: 'Ok',
-                                    message: 'Cancelado',
-                                }); 
-               }
-	});
-    
-    $('.btn-delete-virus').click(function(){
-       
-		var id = $(this).parents("tr").find("td").eq(0).text();
-        var table = document.getElementById("table_virus"+id).value; 
-        var fecha = document.getElementById("fecha_virus"+id).value; 
-       
-        var respuesta = confirm("¿Estas seguro que deseas eliminar?" + table);
-		 			
-                        if(respuesta == true){
-                        var data = {
-                            'id': id,
-                            'fecha': fecha,
-                            'table': table
-                        };
-                            
-		 					$.ajax({
-			 					url: base_url + 'megasalud/PatientsController/delete_hisclinic',
-			 					type: 'post',
-			 					data: data, 
-			 					success: function(res){
-			 						if(res) {
-			 							iziToast.success({
-										    title: 'OK',
-										    message: 'Dato eliminado correctamente',
-                                            
-										});
-                                        
-                                    $("#fila_virus"+id).remove();
-										
-										
-                                    
-			 						}else{
-			 							iziToast.warning({
-										    title: 'Fallo',
-										    message: 'No se pudo eliminar ',
-										});
-			 						}
-			 					},
-			 					error: function(res){
-			 						alert(res);
-			 					}
-			 				});
-                            }
-               else{
-                    iziToast.warning({
-                                    timeout: 2000,
-                                    title: 'Ok',
-                                    message: 'Cancelado',
-                                }); 
-               }
-	});
-    
-    $('.btn-delete-bac').click(function(){
-       
-		var id = $(this).parents("tr").find("td").eq(0).text();
-        var table = document.getElementById("table_bac"+id).value; 
-        var fecha = document.getElementById("fecha_bac"+id).value; 
-       
-        var respuesta = confirm("¿Estas seguro que deseas eliminar?" + table);
-		 			
-                        if(respuesta == true){
-                        var data = {
-                            'id': id,
-                            'fecha': fecha,
-                            'table': table
-                        };
-                            
-		 					$.ajax({
-			 					url: base_url + 'megasalud/PatientsController/delete_hisclinic',
-			 					type: 'post',
-			 					data: data, 
-			 					success: function(res){
-			 						if(res) {
-			 							iziToast.success({
-										    title: 'OK',
-										    message: 'Dato eliminado correctamente',
-                                            
-										});
-                                        
-                                    $("#fila_bac"+id).remove();
-										
-										
-                                    
-			 						}else{
-			 							iziToast.warning({
-										    title: 'Fallo',
-										    message: 'No se pudo eliminar ',
-										});
-			 						}
-			 					},
-			 					error: function(res){
-			 						alert(res);
-			 					}
-			 				});
-                            }
-               else{
-                    iziToast.warning({
-                                    timeout: 2000,
-                                    title: 'Ok',
-                                    message: 'Cancelado',
-                                }); 
-               }
-	});
-    
-    $('.btn-delete-ho').click(function(){
-       
-		var id = $(this).parents("tr").find("td").eq(0).text();
-        var table = document.getElementById("table_ho"+id).value; 
-        var fecha = document.getElementById("fecha_ho"+id).value; 
-       
-        var respuesta = confirm("¿Estas seguro que deseas eliminar?" + table);
-		 			
-                        if(respuesta == true){
-                        var data = {
-                            'id': id,
-                            'fecha': fecha,
-                            'table': table
-                        };
-                            
-		 					$.ajax({
-			 					url: base_url + 'megasalud/PatientsController/delete_hisclinic',
-			 					type: 'post',
-			 					data: data, 
-			 					success: function(res){
-			 						if(res) {
-			 							iziToast.success({
-										    title: 'OK',
-										    message: 'Dato eliminado correctamente',
-                                            
-										});
-                                        
-                                    $("#fila_ho"+id).remove();
-										
-										
-                                    
-			 						}else{
-			 							iziToast.warning({
-										    title: 'Fallo',
-										    message: 'No se pudo eliminar ',
-										});
-			 						}
-			 					},
-			 					error: function(res){
-			 						alert(res);
-			 					}
-			 				});
-                            }
-               else{
-                    iziToast.warning({
-                                    timeout: 2000,
-                                    title: 'Ok',
-                                    message: 'Cancelado',
-                                }); 
-               }
-	});
-    $('.btn-delete-pa').click(function(){
-       
-		var id = $(this).parents("tr").find("td").eq(0).text();
-        var table = document.getElementById("table_pa"+id).value; 
-        var fecha = document.getElementById("fecha_pa"+id).value; 
-       
-        var respuesta = confirm("¿Estas seguro que deseas eliminar?" + table);
-		 			
-                        if(respuesta == true){
-                        var data = {
-                            'id': id,
-                            'fecha': fecha,
-                            'table': table
-                        };
-                            
-		 					$.ajax({
-			 					url: base_url + 'megasalud/PatientsController/delete_hisclinic',
-			 					type: 'post',
-			 					data: data, 
-			 					success: function(res){
-			 						if(res) {
-			 							iziToast.success({
-										    title: 'OK',
-										    message: 'Dato eliminado correctamente',
-                                            
-										});
-                                        
-                                    $("#fila_pa"+id).remove();
-										
-										
-                                    
-			 						}else{
-			 							iziToast.warning({
-										    title: 'Fallo',
-										    message: 'No se pudo eliminar ',
-										});
-			 						}
-			 					},
-			 					error: function(res){
-			 						alert(res);
-			 					}
-			 				});
-                            }
-               else{
-                    iziToast.warning({
-                                    timeout: 2000,
-                                    title: 'Ok',
-                                    message: 'Cancelado',
-                                }); 
-               }
-	});
-    
-    $('.btn-delete-psi').click(function(){
-       
-		var id = $(this).parents("tr").find("td").eq(0).text();
-        var table = document.getElementById("table_psi"+id).value; 
-        var fecha = document.getElementById("fecha_psi"+id).value; 
-       
-        var respuesta = confirm("¿Estas seguro que deseas eliminar?" + table);
-		 			
-                        if(respuesta == true){
-                        var data = {
-                            'id': id,
-                            'fecha': fecha,
-                            'table': table
-                        };
-                            
-		 					$.ajax({
-			 					url: base_url + 'megasalud/PatientsController/delete_hisclinic',
-			 					type: 'post',
-			 					data: data, 
-			 					success: function(res){
-			 						if(res) {
-			 							iziToast.success({
-										    title: 'OK',
-										    message: 'Dato eliminado correctamente',
-                                            
-										});
-                                        
-                                    $("#fila_psi"+id).remove();
-										
-										
-                                    
-			 						}else{
-			 							iziToast.warning({
-										    title: 'Fallo',
-										    message: 'No se pudo eliminar ',
-										});
-			 						}
-			 					},
-			 					error: function(res){
-			 						alert(res);
-			 					}
-			 				});
-                            }
-               else{
-                    iziToast.warning({
-                                    timeout: 2000,
-                                    title: 'Ok',
-                                    message: 'Cancelado',
-                                }); 
-               }
-	});
-    $('.btn-delete-otras').click(function(){
-       
-		var id = $(this).parents("tr").find("td").eq(0).text();
-        var table = document.getElementById("table_otras"+id).value; 
-        var fecha = document.getElementById("fecha_otras"+id).value; 
-       
-        var respuesta = confirm("¿Estas seguro que deseas eliminar?" + table);
-		 			
-                        if(respuesta == true){
-                        var data = {
-                            'id': id,
-                            'fecha': fecha,
-                            'table': table
-                        };
-                            
-		 					$.ajax({
-			 					url: base_url + 'megasalud/PatientsController/delete_hisclinic',
-			 					type: 'post',
-			 					data: data, 
-			 					success: function(res){
-			 						if(res) {
-			 							iziToast.success({
-										    title: 'OK',
-										    message: 'Dato eliminado correctamente',
-                                            
-										});
-                                        
-                                    $("#fila_otras"+id).remove();
-										
-										
-                                    
-			 						}else{
-			 							iziToast.warning({
-										    title: 'Fallo',
-										    message: 'No se pudo eliminar ',
-										});
-			 						}
-			 					},
-			 					error: function(res){
-			 						alert(res);
-			 					}
-			 				});
-                            }
-               else{
-                    iziToast.warning({
-                                    timeout: 2000,
-                                    title: 'Ok',
-                                    message: 'Cancelado',
-                                }); 
-               }
-	});
-    
-    
-    
+        
     
     $('#edit_pacient_form').validate({
 		submitHandler: function(form) {
