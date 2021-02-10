@@ -298,7 +298,7 @@ class AgentController extends CI_Controller {
         );
          
             $id_cal = $this->input->post('id_calendario');
-            $nombre = $this->input->post('title_cita');
+            $nombre = $this->input->post('title_cita')." ".$this->input->post('telefono_a');
             $fecha = $this->input->post('fecha_cita');
             $tipo = "Primera vez | Agregado por representante";
                 
