@@ -2,6 +2,12 @@ Pace.on('done', function(){
 	init();
 });
 
+if(navigator.onLine) {
+   alert("Esta conectado a internet");
+} else {
+     alert("NO se detecta ninguna conexion a internet");
+}
+
 function init(){
     
     
