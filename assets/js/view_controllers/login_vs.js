@@ -3,7 +3,6 @@ Pace.on('done', function(){
 });
 
 if(navigator.onLine) {
-   alert("Esta conectado a internet");
 } else {
      alert("NO se detecta ninguna conexion a internet");
 }
