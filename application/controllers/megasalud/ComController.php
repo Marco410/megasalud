@@ -55,6 +55,33 @@ class ComController extends CI_Controller {
         $this->load->view('layout/scripts', $data);
 
 	}
+    
+    public function change(){
+        $id = $_POST['id'];
+        $tipo = $_POST['tipo'];
+        $fecha = date("d-m-y");
+        
+        
+         $data = [
+            'status' => 'Pagado',
+             'descripcion' => $_POST['descripcion'],
+             'updated_at' => $fecha
+        ];
+        
+        $this->db->where('id', $id);
+        
+        if($tipo == "agente"){
+            $db = 'agent_comision';
+        }else if ($tipo == "usuario"){
+            $db = 'user_comision';
+        }else if ($tipo == "sucursal"){
+            $db = 'sucursal_comision';
+        }
+        
+        $this->db->update($db, $data);
+        echo "Esto" .$id;
+    
+    }
 
 
 

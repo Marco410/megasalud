@@ -3,7 +3,7 @@ Pace.on('done', function(){
 });
 
 function init(){
-	$('#suc-table').DataTable({
+	var tableS = $('#suc-table').DataTable({
       
 		responsive: true,
 		fixedHeader: true,
@@ -69,15 +69,26 @@ function init(){
          'rowCallback': function(row, data, index){
         if(data.status == "Pendiente"){
           $(row).find('td:eq(5)').addClass('label label-warning');
+            
         }else{
           $(row).find('td:eq(5)').addClass('label label-success');
+            $(row).find('td:eq(7)').addClass('pace-inactive');
         }
              
       },
        
 	});
     
-    $('#agent-table').DataTable({
+    $("#suc-table").on("click", "#btn-pagar", function(){
+        var data = tableS.row( $(this).parents("tr") ).data();
+        $("#modal").modal("show");
+         $("#id_com").attr("data",data.id);
+         $("#tipo").attr("data","sucursal");
+         $("#descripcion").html(data.descripcion);
+         $("#total").html("$ "+data.comision);
+     });
+    
+    var tableA = $('#agent-table').DataTable({
         
 		responsive: true,
 		fixedHeader: true,
@@ -144,11 +155,25 @@ function init(){
           $(row).find('td:eq(5)').addClass('label label-warning');
         }else{
           $(row).find('td:eq(5)').addClass('label label-success');
+            
+          $(row).find('td:eq(7)').addClass('pace-inactive');
         }
       },
 	});
     
-    $('#user-table').DataTable({
+     $("#agent-table").on("click", "#btn-pagarAgent", function(){
+        var data = tableA.row( $(this).parents("tr") ).data();
+         
+         $("#modal").modal("show");
+         $("#id_com").attr("data",data.id);
+         $("#tipo").attr("data","agente");
+         $("#descripcion").html(data.descripcion);
+         $("#total").html("$ "+data.comision);
+         
+        
+     });
+    
+   var tableU = $('#user-table').DataTable({
 		responsive: true,
 		fixedHeader: true,
 		columnDefs: [ {
@@ -214,9 +239,53 @@ function init(){
           $(row).find('td:eq(5)').addClass('label label-warning');
         }else{
           $(row).find('td:eq(5)').addClass('label label-success');
+            $(row).find('td:eq(7)').addClass('pace-inactive');
         }
+           
+
       },
 	});
-
-
+    
+    $("#user-table").on("click", "#btn-pagarUser", function(){
+        var data = tableU.row( $(this).parents("tr") ).data();
+        $("#modal").modal("show");
+         $("#id_com").attr("data",data.id);
+         $("#tipo").attr("data","usuario");
+         $("#descripcion").html(data.descripcion);
+         $("#total").html("$ "+data.comision);
+     });
+    
+    
 }
+
+$('.btn-change').click(function(){
+         data = {
+                'id' : $("#id_com").attr("data"),
+                'tipo' : $("#tipo").attr("data"),
+                'descripcion': $("#descripcion").val(),
+             };
+    console.log(data);
+         $.ajax({
+				url:  base_url + 'megasalud/ComController/change/',
+				type:  'post',
+				data: data,
+				success: function(respuesta){
+					if(respuesta){
+                        Cookies.set('message', { type: 'success', message: 'Se cambio el estatus'});
+                        location.reload();
+					}
+					else{
+						iziToast.error({
+							timeout: 3000,
+						    title: 'Error',
+						    position: 'topRight',
+						    // target: '.login-message',
+						    message: 'No se cambio el estatus.',
+						});
+					}
+				},
+				error:  function(xhr,err){ 
+				}
+			});
+   });
+
