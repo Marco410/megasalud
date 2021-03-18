@@ -870,6 +870,43 @@ class PatientsController extends CI_Controller {
             echo json_encode(array('error' => true,'type' => "Esta imagen es muy pesada"));
         }
 
+    } 
+    
+    public function upload_estudio() {
+         
+        $id = $this->input->post('id_paciente');
+        $exp = $this->input->post('expediente');
+        $estudio = 'estudio_sbr';
+         
+        $path = "assets/estudios/";
+         
+        if (!is_dir("assets/estudios/".$id)){
+              mkdir("assets/estudios/". $id, 0777);
+         }
+
+            //$imagen = "E-" . $exp . "-" .date("hs").".png";
+            $archivo = $_FILES['file'];
+            $imagen = $archivo['name'];
+            
+             move_uploaded_file($_FILES['file']['tmp_name'],"assets/estudios/".$id."/".$imagen);
+            
+            $data =  array(
+                'id_paciente' => $this->input->post('id_paciente'),
+                'titulo' => "Estudio",
+                'fecha' => date("d-m-y"),
+                'imagen' =>  "" . $imagen
+                );
+
+            if($this->historia->agregar_estudio($data)){
+
+                echo json_encode(array('error' => false));
+                }
+                else{
+                    echo json_encode(array('error' => true));
+                }
+            
+        
+
     }
     
     public function estudio_movil(){

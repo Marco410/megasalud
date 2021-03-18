@@ -526,6 +526,42 @@
               </div>
                     
              </form> 
+                
+                <form class="dropzone" id="estudios_up">
+                    <div class="dz-message" >
+                        <div class="icon" >
+                            <i class="fa fa-file" ></i>
+                        </div>
+                        <h2>Suelta los estudios aquí</h2>
+                        <span class="note" >No hay Archivos seleccionados</span>
+                    </div>
+                    <div class="fallback" >
+                        <input type="file" name="file" id="estudios_up" multiple />
+                    </div>
+                    <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
+                    <input type="hidden" value="<?= $paciente->clave_bancaria ?>" name="expediente" />
+                </form>
+                
+                <script>
+                    var base_url = '<?php echo base_url(); ?>';
+                    var dropzone = new Dropzone("#estudios_up",{ 
+                        url: base_url + 'megasalud/PatientsController/upload_estudio',
+                        maxFiles:40,
+                        init: function(){
+                            this.on("success", function(){
+                                 iziToast.success({
+                                    timeout: 3000,
+                                    title: 'Exito',
+                                    position: 'topRight',
+                                    // target: '.login-message',
+                                    message: 'Estudio Guardado.',
+                                });
+                            });
+                        }
+                                                    
+                    });
+                
+                </script>
             </div>
           </div>
         </div> 
@@ -712,6 +748,7 @@
                       </div>
 
                      </form> 
+                    
                     </div>
                   </div>
                 </div> 

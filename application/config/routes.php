@@ -115,7 +115,7 @@ $route['productos/entradas-mostrar/(:num)'] = 'megasalud/ProductsController/entr
 
 /*
 ----------------------------------
-| ORders Routes
+| Orders Routes
 -----------------------------------
 */
 
@@ -140,6 +140,9 @@ $route['pacientes/nuevo'] = 'megasalud/PatientsController/create';
 $route['pacientes/editar/(:num)'] = 'megasalud/PatientsController/edit/$1';
 $route['pacientes/recetas/(:num)'] = 'megasalud/PatientsController/receta/$1';
 $route['pacientes/estudio'] = 'megasalud/PatientsController/agregar_estudio';
+
+$route['pacientes/upload_estudio'] = 'megasalud/PatientsController/upload_estudio';
+
 $route['pacientes/historia/(:num)'] = 'megasalud/PatientsController/historia/$1';
 $route['pacientes/graficas/(:num)'] = 'megasalud/PatientsController/charts/$1';
 $route['pacientes/historia/(:num)/estudios/(:num)'] = 'megasalud/PatientsController/ver_estudio/$1';

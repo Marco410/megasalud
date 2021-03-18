@@ -18,6 +18,7 @@
   <script src="<?php echo $js_path; ?>jquery.sticky.js"></script>
   <script src="<?php echo $js_path; ?>metisMenu/metisMenu.min.js"></script>
   <script src="<?php echo $js_path; ?>metisMenu/metisMenu-active.js"></script>
+  <script src="<?php echo $js_path; ?>lightbox.min.js"></script>
   <script src="<?php echo $js_path; ?>main2.js"></script>
   
 

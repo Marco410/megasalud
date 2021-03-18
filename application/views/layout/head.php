@@ -34,6 +34,10 @@ $plugins = base_url('assets/plugins').'/';
 	<link rel="stylesheet" href="<?php echo $css_path; ?>educate-custon-icon.css" />
 	<link rel="stylesheet" href="<?php echo $css_path; ?>metisMenu/metisMenu.min.css" />
 	<link rel="stylesheet" href="<?php echo $css_path; ?>metisMenu/metisMenu-vertical.css" />
+	<link rel="stylesheet" href="<?php echo $css_path; ?>dropzone.css" />
+	<link rel="stylesheet" href="<?php echo $css_path; ?>lightbox.min.css" />
+    <script src="<?php echo $js_path; ?>dropzone.js"></script>
+    
 	<link rel="stylesheet" href="<?php echo $css_path; ?>style.css" />
 	<link rel="stylesheet" href="<?php echo $css_path; ?>responsive.css" />
 

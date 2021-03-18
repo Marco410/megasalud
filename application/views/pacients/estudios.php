@@ -25,7 +25,7 @@ $img_path = base_url('estudios').'/'.$paciente->id."/";
                 </div>
                 
                   <div class="panel-body text-center">
-                      <a href="#" data-toggle="modal" data-target="#my<?= $estudio->id ?>">
+                      <a href="<?= base_url('assets/estudios'). '/' .  $paciente->id . '/' . $estudio->imagen ?>" data-lightbox="estudio" >
                        <img  width="160px" height="160px" src="<?= base_url('assets/estudios'). '/' .  $paciente->id . '/' . $estudio->imagen ?>" class="img-responsive img-rounded " alt="estudio">
                       </a>
                       
@@ -36,19 +36,6 @@ $img_path = base_url('estudios').'/'.$paciente->id."/";
                 
                 </div>
             </div>
-            
-    
-    <div class="modal fade" id="my<?= $estudio->id ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        
-          <div class="modal-dialog modal-dialog-centered" role="document">
-              
-              <button type="button" class="close" style="margin-right: 10px" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              
-                 <img  width="500px" height="500px" src="<?= base_url('assets/estudios'). '/' .  $paciente->id . '/' . $estudio->imagen ?>" class="img-responsive img-rounded" alt="estudio">
-            
-          </div>
-        </div>
-            
         <?php endforeach ?> 
             
             
