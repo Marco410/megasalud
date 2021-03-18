@@ -693,9 +693,8 @@ p.footer {
     border-radius: 50%;
     font-size: 13px;
     transition: all 0.3s;
+    z-index: 1000;
 }
-
-
 
 .btn-save {
   bottom: 30px;
@@ -707,6 +706,7 @@ p.footer {
 .btn-msj {
     position: fixed;
     border-radius: 50%;
+    z-index: 1000;
 }
 
 .btn-msj {
@@ -715,6 +715,23 @@ p.footer {
   width: 50px;
   height: 50px;
 }
+
+.p-menu{
+    position: fixed;
+    border-radius: 15px;
+    background: var(--white);
+    padding: 10px;
+    z-index: 1000;
+    
+}
+
+.p-menu{
+    bottom: 30px;
+    right: 190px;
+    width: 200px;
+    height: 80px;
+}
+
 
 .btn-cancel {
   bottom: 30px;
@@ -735,6 +752,11 @@ a.btn-cancel {
 
 .btn-teal {
   background: #1cc88a;
+  color: #FFF;
+}
+
+.btn-teal.active{
+  background: #145C59;
   color: #FFF;
 }
 
@@ -768,6 +790,28 @@ a.btn-cancel {
   border-color: var(--primary);
   transition: all 0.2s;
 }
+
+.btn-dark {
+  background-color: var(--font-color);
+  border-color: var(--font-color);
+    color: var(--white);
+  transition: all 0.2s;
+}
+
+.btn-dark:hover {
+  background-color: var(--darkteal);
+  border-color: var(--darkteal);
+    color: var(--white);
+  transition: all 0.2s;
+}
+
+.btn-dark.active {
+  background-color: var(--darkteal);
+  border-color: var(--darkteal);
+    color: var(--font-color);
+  transition: all 0.2s;
+}
+
 .btn-brown {
   background-color: var(--brown);
   border-color: var(--brown);

@@ -1,4 +1,5 @@
 <?php 
+    $img_load = base_url('assets/images/loader').'/';
     $img_path = base_url('assets/images/icons').'/';
     $img_perfil = base_url('assets/foto_paciente').'/';
 	$paciente = $paciente->row();
@@ -7,13 +8,13 @@
     $type = $this->session->type;
 ?>
 
-<div class="container">
+    <div class="container">
     <input type="hidden" value="<?= $fecha ?>" id="anio" />
     <input type="hidden" id="seguimiento" value="<?= $paciente->seguim ?>"  />
     
     <h3 class="ms-title"><b>HISTORIAL CLÍNICO</b> <a href="javascript:history.back()" class="btn btn-default pull-right"><i class="fa fa-chevron-left"></i> <span>Regresar</span></a></h3>
  
-  
+   <!--- Panel de Identificacion  ---> 
     <div class="panel panel-primary" style="border-radius:15px" >  
         
         <div class="panel-heading text-center" style="border-radius:15px" >
@@ -157,10 +158,8 @@
                             <th>Doctor</th>
                             <th>Motivo</th>
                         </tr>
-                       
                     </thead>
                     <tbody>
-                       
                              <?php foreach ($historial->result() as $his):?>
                          <tr>
                             <td><?= $his->created_at ?></td>
@@ -213,9 +212,10 @@
         </div>
     <!--- Termina modal foto -->
     </div>
-    
+        
+   <!--- Panel de Acciones  ---> 
    <div class="panel panel-primary" style="border-radius:15px" >               
-             <!--- Panel de Acciones  ---> 
+             
            <div class="panel mb-0 panel-default panel-flat border-left-brown">
              <div class="panel-heading">
 				<span class="ms-subtitle">ACCIONES</span>
@@ -586,6 +586,151 @@
         </div> 
     <!-- Cierra Modal Agregar cita -->
         
+     <div class="panel panel-brown" style="border-radius:15px" >
+        
+        <div class="panel-heading text-center" data-toggle="collapse" href="#collapseHistoria" role="button" aria-expanded="false" aria-controls="collapseLinea" style="border-radius:15px"  >
+            <h3>ANTECEDENTES</h3>
+            
+        </div>
+    <div class="collapse" id="collapseHistoria" >
+            <div class="panel-body" >
+                
+                <div class="col-sm-4 text-center" >
+                    <button class="btn btn-sm btn-primary " data="1" id="btn-heredo" >Heredofamiliares</button>
+                </div>
+                <div class="col-sm-4 text-center" >
+                    <button class="btn btn-sm btn-primary" data="1" id="btn-pato" >Patológicos</button>
+                </div>
+                <div class="col-sm-4 text-center" >
+                    <button class="btn btn-sm btn-primary" data="1" id="btn-npato" >No Patológicos</button>
+                </div>
+                
+            </div>
+         </div>
+    </div>
+        
+    <div class="panel panel-default" id="p-heredo"  hidden >
+        <div class="panel-body" >
+        </div>
+    </div> 
+        
+        <div class="panel panel-default" id="p-pato"  hidden >
+        <div class="panel-body" >
+        </div>
+    </div>
+        
+    <div class="panel panel-default" id="p-npato"  hidden  >
+        <div class="panel-body" >
+                <div class="col-sm-12" >
+                <div class="container" >
+                    <div class="row" >
+                         <div class="col-sm-12" >
+                             <div class="col-sm-12 text-center" >
+                                 <div class="" id="nombre_c" ></div>
+                                 <div id="loader" hidden ><img loading="lazy" height="50px" width="50px"   src="<?php echo $img_load ?>loader.gif" alt="" class="img-responsive center-block"  /> </div>
+                             </div>
+                             
+                            <div class="col-sm-2" id="c_a" >
+                                <div class="text-center"><b>A</b></div>
+                                <div id="clas_a"></div>
+                            </div>
+                             
+                             <div class="col-sm-2" id="c_b" hidden >
+                                <div class="text-center"><b>B</b></div>
+                                <div id="clas_b"></div>
+                            </div>
+
+                            <div class="col-sm-2" id="c_c" hidden >
+                                <div class="text-center"><b>C</b></div>
+                                <div id="clas_c"></div>
+                            </div>
+                             <div class="col-sm-2" id="c_d" hidden >
+                                <div class="text-center"><b>D</b></div>
+                                <div id="clas_d"></div>
+                            </div> 
+                            <div class="col-sm-2" id="c_e" hidden >
+                                <div class="text-center"><b>E</b></div>
+                                <div id="clas_e"></div>
+                            </div>
+                            <div class="col-sm-2" id="c_f" hidden >
+                                <div class="text-center"><b>F</b></div>
+                                <div id="clas_f"></div>
+                            </div>
+                             <div class="col-sm-2" id="c_g" hidden >
+                                <div class="text-center"><b>G</b></div>
+                                <div id="clas_g"></div>
+                            </div>
+                             <div class="col-sm-2" id="c_h" hidden >
+                                <div class="text-center"><b>H</b></div>
+                                <div id="clas_h"></div>
+                            </div>
+                            <div class="col-sm-2" id="c_v" hidden >
+                                <div class="text-center"><b>Veneno</b></div>
+                                <div style="height:250px; overflow: scroll; overflow-x: hidden; " >
+                                <div id="clas_v"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                    
+            <!-- Modal Agregar Veneno -->
+            <div class="modal fade" id="modal_new_veneno" tabindex="-1" role="dialog" aria-labelledby="estudiosTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="">Agregar nuevo Veneno</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                <form method="post" id="form_new_veneno" name="form_new_veneno"  enctype="multipart/form-data" >
+                    <div class="modal-body">
+                        <div class="row" >
+                            <input  type="hidden"  value="" id="id_veneno" name="id_veneno" />
+                              <div class="col-sm-6 form-group" >
+                              <b>Frecuencia</b>
+                                 <select required id="frecc" name="frecc" class="form-control"  ><option value="" >Seleccione:</option>
+                                     <option value="1" >Frec 1</option>
+                                     <option value="2" >Frec 2</option>
+                                     <option value="3" >Frec 3</option>
+                                     <option value="4" >Frec 4</option>
+                                     <option value="5" >Frec 5</option>
+                                  </select>
+                              </div>
+                            <div class="col-sm-6" >
+                            <b>Edad</b>
+                            <input id="edad_veneno" required type="number" name="edad_veneno" class="form-control" value="<?= $fechaMax ?>" min="0" max="<?= $fechaMax ?>" />
+                            </div>
+                        </div>
+                      </div>
+            
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button onclick="save_new_veneno('<?= $fecha ?>','<?= $paciente->id ?>')" type="button" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
+                      </div>
+
+                     </form> 
+                    </div>
+                  </div>
+                </div> 
+            <!-- Cierra Modal Agregar Veneno --> 
+                   
+                    <div class="p-menu"  >
+                        <div class="row" >
+                        
+                        <div class="col-sm-6" ><button class="btn btn-sm btn-info" id="btn-micro" >Microbios</button></div>
+                        <div class="col-sm-6" ><button class="btn btn-sm btn-info" id="btn-venenos" >Venenos</button></div>
+                        <div class="col-sm-6" ><button class="btn btn-sm btn-info" id="btn-radiaciones" >Radiaciones</button></div>
+                        <div class="col-sm-6" ><button class="btn btn-sm btn-info" id="btn-metales" >Metales</button></div>
+                        </div>
+                        
+                    </div>
+                </div>
+        </div>
+    </div>
+        
     <div id="linea_vida_section" ></div>
     <!-- Inicia Linea de Vida -->
     <div class="panel panel-olive" style="border-radius:15px" >
@@ -662,7 +807,6 @@
                     
         </div>
     </div>
-    
     <!-- Cierra Linea de Vida -->
     
     <!-- Antecedentes HeredoFamiliares -->

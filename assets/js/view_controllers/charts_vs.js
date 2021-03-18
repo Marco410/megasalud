@@ -31,7 +31,6 @@ function init(){
 					}
 				},
 				error:  function(xhr,err){ 
-					console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status+"\n \n responseText: "+xhr.responseText);
 				}
 			});
 		}

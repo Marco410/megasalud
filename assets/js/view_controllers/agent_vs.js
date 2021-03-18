@@ -144,7 +144,6 @@ function init(){
 		],
 	});
     
-    
      $('#new_agent_form').validate({
 		ignore: ".ignore",
 		rules: {
@@ -306,7 +305,8 @@ function init(){
 		});
 
 	});
- $("#modal-info").on('hidden.bs.modal', function () {
+    
+    $("#modal-info").on('hidden.bs.modal', function () {
             $('.pedido').empty();  
     });
     

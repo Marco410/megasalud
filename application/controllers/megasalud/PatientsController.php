@@ -830,8 +830,7 @@ class PatientsController extends CI_Controller {
         }
         
     }
-    
-    
+       
     public function agregar_estudio() {
          
         $id = $this->input->post('id_paciente');
@@ -979,7 +978,7 @@ class PatientsController extends CI_Controller {
     }
     
     //Trae las notas de la vista para guardarlas
-      public function notas_dr() {
+    public function notas_dr() {
       
         $data =  array(
         'paciente_id' => $this->input->post('id_paciente'),
@@ -1140,7 +1139,6 @@ class PatientsController extends CI_Controller {
             } 
     }
     
-    
     public function hospitalizaciones() {
         
         $anio =  $this->input->post('anio') + $this->input->post('edad_hospi');
@@ -1273,6 +1271,7 @@ class PatientsController extends CI_Controller {
         }
         
     }
+    
     public function enf_hongos() {
         
         $id_paciente = $this->input->post('id_paciente');
@@ -1317,6 +1316,7 @@ class PatientsController extends CI_Controller {
         }
         
     }
+    
     public function enf_parasitos() {
                
         $id_paciente = $this->input->post('id_paciente');
@@ -1361,6 +1361,7 @@ class PatientsController extends CI_Controller {
         }
         
     }
+    
     public function enf_psicologica() {
                
         $id_paciente = $this->input->post('id_paciente');
@@ -1405,6 +1406,7 @@ class PatientsController extends CI_Controller {
         }
         
     }
+    
     public function enf_otras() {
                
         $id_paciente = $this->input->post('id_paciente');
@@ -1488,8 +1490,7 @@ class PatientsController extends CI_Controller {
         return $result;
     }
     
-    public function checkVen()
-    {
+    public function checkVen(){
         $bebida = $_POST["bebidas"];
 
         $this->db->select('nombre_p');
@@ -1507,7 +1508,7 @@ class PatientsController extends CI_Controller {
         }
     }
     
-     public function newEntry() {
+    public function newEntry() {
          
         $status = 1;
         $ref = $this->input->post('referido');
@@ -1662,9 +1663,7 @@ class PatientsController extends CI_Controller {
 		}
     }
     
-    
-
-      public function find_venenos(){
+    public function find_venenos(){
           $clasi = $_POST['clas'];
           
           $this->db->where('clasificacion',$clasi);
@@ -1678,6 +1677,7 @@ class PatientsController extends CI_Controller {
           echo json_encode($this->db->get('venenos_m')->result());
           
       }  
+    
     public function find_venenos_r(){
           $clasi = $_POST['clas'];
           $this->db->where('clasificacion',$clasi);
@@ -1898,7 +1898,7 @@ class PatientsController extends CI_Controller {
         
     }
     
-     public function save_hisclinic_medi(){
+    public function save_hisclinic_medi(){
         $anio =  $this->input->post('anio') + $this->input->post('edad_medica');
          
         $this->db->where("id",$this->input->post('p_medicamento'));
@@ -2038,16 +2038,198 @@ class PatientsController extends CI_Controller {
         
     }
     
-     public function find_agents(){
+    //obtener clasificacion de venenos
+        
+    public function get_c(){
+        
+        $clasis = json_encode($_POST['clasis']);
+        $clasisj = json_decode($clasis);
+        
+        switch ($_POST['clasi_an']) {
+            case 'c_a':
+                $this->db->where('c_a',$clasisj->{'c_a'});
+                break;
+            case 'c_b':
+                $this->db->where('c_a',$clasisj->{'c_a'});
+                $this->db->where('c_b',$clasisj->{'c_b'});
+                break;
+            case 'c_c':
+                $this->db->where('c_a',$clasisj->{'c_a'});
+                $this->db->where('c_b',$clasisj->{'c_b'});
+                $this->db->where('c_c',$clasisj->{'c_c'});
+                break; 
+            case 'c_d':
+                $this->db->where('c_a',$clasisj->{'c_a'});
+                $this->db->where('c_b',$clasisj->{'c_b'});
+                $this->db->where('c_c',$clasisj->{'c_c'});
+                $this->db->where('c_d',$clasisj->{'c_d'});
+                break;
+            case 'c_e':
+                $this->db->where('c_a',$clasisj->{'c_a'});
+                $this->db->where('c_b',$clasisj->{'c_b'});
+                $this->db->where('c_c',$clasisj->{'c_c'});
+                $this->db->where('c_d',$clasisj->{'c_d'});
+                $this->db->where('c_e',$clasisj->{'c_e'});
+                break;
+            case 'c_f':
+                $this->db->where('c_a',$clasisj->{'c_a'});
+                $this->db->where('c_b',$clasisj->{'c_b'});
+                $this->db->where('c_c',$clasisj->{'c_c'});
+                $this->db->where('c_d',$clasisj->{'c_d'});
+                $this->db->where('c_e',$clasisj->{'c_e'});
+                $this->db->where('c_f',$clasisj->{'c_f'});
+                break;
+            case 'c_g':
+                $this->db->where('c_a',$clasisj->{'c_a'});
+                $this->db->where('c_b',$clasisj->{'c_b'});
+                $this->db->where('c_c',$clasisj->{'c_c'});
+                $this->db->where('c_d',$clasisj->{'c_d'});
+                $this->db->where('c_e',$clasisj->{'c_e'});
+                $this->db->where('c_f',$clasisj->{'c_f'});
+                $this->db->where('c_g',$clasisj->{'c_g'});
+                break;
+            case 'c_h':
+                $this->db->where('c_a',$clasisj->{'c_a'});
+                $this->db->where('c_b',$clasisj->{'c_b'});
+                $this->db->where('c_c',$clasisj->{'c_c'});
+                $this->db->where('c_d',$clasisj->{'c_d'});
+                $this->db->where('c_e',$clasisj->{'c_e'});
+                $this->db->where('c_f',$clasisj->{'c_f'});
+                $this->db->where('c_g',$clasisj->{'c_g'});
+                $this->db->where('c_h',$clasisj->{'c_h'});
+                break;
+        }
+        $this->db->group_by($_POST['clasi']);
+        $this->db->select($_POST['clasi']);
+        $result = $this->db->get("venenos");
+        $row = $result->result();
+        $response = array();
+        $response['data'] = $result->result_array();
+        
+         echo json_encode($response);
+    } 
+    
+    public function get_v(){
+        
+        $clasis = json_encode($_POST['clasis']);
+        $clasisj = json_decode($clasis);
+        
+        switch ($_POST['clasi_an']) {
+            case 'c_a':
+                $this->db->where('c_a',$clasisj->{'c_a'});
+                break;
+            case 'c_b':
+                $this->db->where('c_a',$clasisj->{'c_a'});
+                $this->db->where('c_b',$clasisj->{'c_b'});
+                break;
+            case 'c_c':
+                $this->db->where('c_a',$clasisj->{'c_a'});
+                $this->db->where('c_b',$clasisj->{'c_b'});
+                $this->db->where('c_c',$clasisj->{'c_c'});
+                break; 
+            case 'c_d':
+                $this->db->where('c_a',$clasisj->{'c_a'});
+                $this->db->where('c_b',$clasisj->{'c_b'});
+                $this->db->where('c_c',$clasisj->{'c_c'});
+                $this->db->where('c_d',$clasisj->{'c_d'});
+                break;
+            case 'c_e':
+                $this->db->where('c_a',$clasisj->{'c_a'});
+                $this->db->where('c_b',$clasisj->{'c_b'});
+                $this->db->where('c_c',$clasisj->{'c_c'});
+                $this->db->where('c_d',$clasisj->{'c_d'});
+                $this->db->where('c_e',$clasisj->{'c_e'});
+                break;
+            case 'c_f':
+                $this->db->where('c_a',$clasisj->{'c_a'});
+                $this->db->where('c_b',$clasisj->{'c_b'});
+                $this->db->where('c_c',$clasisj->{'c_c'});
+                $this->db->where('c_d',$clasisj->{'c_d'});
+                $this->db->where('c_e',$clasisj->{'c_e'});
+                $this->db->where('c_f',$clasisj->{'c_f'});
+                break;
+            case 'c_g':
+                $this->db->where('c_a',$clasisj->{'c_a'});
+                $this->db->where('c_b',$clasisj->{'c_b'});
+                $this->db->where('c_c',$clasisj->{'c_c'});
+                $this->db->where('c_d',$clasisj->{'c_d'});
+                $this->db->where('c_e',$clasisj->{'c_e'});
+                $this->db->where('c_f',$clasisj->{'c_f'});
+                $this->db->where('c_g',$clasisj->{'c_g'});
+                break;
+            case 'c_h':
+                $this->db->where('c_a',$clasisj->{'c_a'});
+                $this->db->where('c_b',$clasisj->{'c_b'});
+                $this->db->where('c_c',$clasisj->{'c_c'});
+                $this->db->where('c_d',$clasisj->{'c_d'});
+                $this->db->where('c_e',$clasisj->{'c_e'});
+                $this->db->where('c_f',$clasisj->{'c_f'});
+                $this->db->where('c_g',$clasisj->{'c_g'});
+                $this->db->where('c_h',$clasisj->{'c_h'});
+                break;
+        }
+        $this->db->select('id , veneno');
+        $result = $this->db->get("venenos");
+        $row = $result->result();
+        $response = array();
+        $response['data'] = $result->result_array();
+        echo json_encode($response);
+        
+    }
+    
+     public function new_veneno(){
+        $clasis = json_encode($_POST['clasis']);
+        $clasisj = json_decode($clasis);
+        $anio =  $this->input->post('anio') + $this->input->post('edad_veneno');
+
+         $this->db->where('id',$_POST['id_veneno']);
+         $query = $this->db->get('venenos');
+         $veneno = $query->row()->veneno; 
+        
+        $descripcion = "No Patológico - ".$clasisj->{'c_a'};
+       
+         $data = array(
+             'id_paciente' => $_POST['id_paciente'],
+            'id_veneno' => $_POST['id_veneno'],
+            'veneno' => $veneno,
+            'frecuencia' => $_POST['frecc'],
+            'edad_veneno' => $_POST['edad_veneno']
+         );
+         
+        $data_linea = array(
+        'id_paciente' => $_POST['id_paciente'],
+        'id_dato' => $_POST['id_veneno'],
+        'enfermedad' => $veneno, 
+        'table_hisclinic' => "venenos", //_app1
+        'edad_paciente' => $_POST['edad_veneno'],
+        'descripcion' => $descripcion, 
+        'anio' => $anio
+        );
+         
+         
+        if($this->db->insert('hisclinic_venenos',$data)){
+            $this->db->insert('hisclinic_linea',$data_linea);
+            echo json_encode(array('error' => false));
+        }else{
+            echo json_encode(array('error' => true));
+        }
+        
+      }
+    
+    public function find_agents(){
           echo json_encode($this->db->get('agents')->result());  
       } 
+    
     public function find_suc(){
           echo json_encode($this->db->get('sucursales')->result());
           
-      }   public function find_users(){
+      }
+    
+    public function find_users(){
           echo json_encode($this->db->get('users')->result());
           
       }
+    
     public function find_estados(){
         $this->db->where("id_pais",$_POST["id_pais"]);
           echo json_encode($this->db->get('estados')->result());  
