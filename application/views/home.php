@@ -30,16 +30,20 @@
              
               <div class="panel panel-olive" >
                 
-                <div class="panel-heading text-center"><h3>Novedades y Actualizaciones | v 4.0.3</h3></div>
+                <div class="panel-heading text-center"><h3>Novedades y Actualizaciones | v 4.0.4</h3></div>
                 <div class="panel-body" >
                     <ul>
                        
-                        <li>Soluciones de errores al registrar un representante.</li>
-                        <li>Soluciones de errores al registrar un paciente.</li>
+                        <li>Nueva manera de subir estudios</li>
+                        <li>Soluciones de errores.</li>
                         
                        
-                    </ul>
+                    </ul> 
+                    <?php if($this->session->type == "Administrador" || $this->session->type == "Medico Administrador" || $this->session->type == "Medico"){?>
+                    <h4>Nuevas novedades</h4>
+                    <iframe width="500" height="300" src="https://www.youtube.com/embed/bTTj0YFE2bE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     
+            <?php }else{ } ?>
                 </div>
                     
             </div>   

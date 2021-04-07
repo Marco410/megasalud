@@ -1007,48 +1007,44 @@ function init(){
        
         var respuesta = confirm("¿Estas seguro que deseas eliminar?" + table);
 		 			
-                        if(respuesta == true){
-                        var data = {
-                            'id': id,
-                            'fecha': fecha,
-                            'table': table
-                        };
-                            
-		 					$.ajax({
-			 					url: base_url + 'megasalud/PatientsController/delete_hisclinic',
-			 					type: 'post',
-			 					data: data, 
-			 					success: function(res){
-			 						if(res) {
-			 							iziToast.success({
-										    title: 'OK',
-										    message: 'Dato eliminado correctamente',
-                                            
-										});
-                                        
-                                    $("#fila_otras"+id).remove();
-										
-										
-                                    
-			 						}else{
-			 							iziToast.warning({
-										    title: 'Fallo',
-										    message: 'No se pudo eliminar ',
-										});
-			 						}
-			 					},
-			 					error: function(res){
-			 						alert(res);
-			 					}
-			 				});
-                            }
-               else{
-                    iziToast.warning({
-                                    timeout: 2000,
-                                    title: 'Ok',
-                                    message: 'Cancelado',
-                                }); 
-               }
+            if(respuesta == true){
+            var data = {
+                'id': id,
+                'fecha': fecha,
+                'table': table
+            };
+
+                $.ajax({
+                    url: base_url + 'megasalud/PatientsController/delete_hisclinic',
+                    type: 'post',
+                    data: data, 
+                    success: function(res){
+                        if(res) {
+                            iziToast.success({
+                                title: 'OK',
+                                message: 'Dato eliminado correctamente',
+
+                            });
+                        $("#fila_otras"+id).remove();
+                        }else{
+                            iziToast.warning({
+                                title: 'Fallo',
+                                message: 'No se pudo eliminar ',
+                            });
+                        }
+                    },
+                    error: function(res){
+                        alert(res);
+                    }
+                });
+                }
+   else{
+        iziToast.warning({
+                        timeout: 2000,
+                        title: 'Ok',
+                        message: 'Cancelado',
+                    }); 
+   }
 	});
     
 }

@@ -16,10 +16,6 @@ class Historia extends CI_Model
 	}
     
     //guarda en la bd
-    public function save($hisclinic_app1, $data_linea) {
-		$this->db->insert('hisclinic_linea', $data_linea);
-    return $this->db->insert('hisclinic_app1', $hisclinic_app1);	
-	}
     
      public function notas_dr($data) {
          
@@ -41,6 +37,11 @@ class Historia extends CI_Model
     
     public function ante_in($data) {
     return $this->db->insert('hisclinic_antecedente', $data);
+	}
+    
+     public function congenita($hisclinic_app1, $data_linea) {
+		$this->db->insert('hisclinic_linea', $data_linea);
+    return $this->db->insert('hisclinic_app1', $hisclinic_app1);	
 	}
     
      public function vacuna($data, $data_linea) {
@@ -312,57 +313,6 @@ class Historia extends CI_Model
     
      public function save_veneno($data) {
      return $this->db->insert('hisclinic_venenos', $data);
-	}
-    
-     public function save_fuma($data, $data_linea) {
-		$this->db->insert('hisclinic_linea', $data_linea);
-        return $this->db->insert('hisclinic_fuma', $data);	
-	}
-    public function save_droga($data, $data_linea) {
-		$this->db->insert('hisclinic_linea', $data_linea);
-        return $this->db->insert('hisclinic_droga', $data);	
-	} 
-    
-    public function save_medi($data, $data_linea) {
-		$this->db->insert('hisclinic_linea', $data_linea);
-        return $this->db->insert('hisclinic_medi', $data);	
-	}
-    
-    public function save_terapia($data, $data_linea) {
-		$this->db->insert('hisclinic_linea', $data_linea);
-        return $this->db->insert('hisclinic_terapia', $data);	
-	}
-    
-    public function save_tinte($data, $data_linea) {
-		$this->db->insert('hisclinic_linea', $data_linea);
-        return $this->db->insert('hisclinic_tinte', $data);	
-	}
-    
-    public function save_cosme($data, $data_linea) {
-		$this->db->insert('hisclinic_linea', $data_linea);
-        return $this->db->insert('hisclinic_cosme', $data);	
-	}
-    
-    public function save_deso($data, $data_linea) {
-		$this->db->insert('hisclinic_linea', $data_linea);
-        return $this->db->insert('hisclinic_deso', $data);	
-	}
-    
-    public function save_crema($data, $data_linea) {
-		$this->db->insert('hisclinic_linea', $data_linea);
-        return $this->db->insert('hisclinic_crema', $data);	
-	} 
-    public function save_insecti($data, $data_linea) {
-		$this->db->insert('hisclinic_linea', $data_linea);
-        return $this->db->insert('hisclinic_insecti', $data);	
-	} 
-    public function save_quimi($data, $data_linea) {
-		$this->db->insert('hisclinic_linea', $data_linea);
-        return $this->db->insert('hisclinic_quimi', $data);	
-	}  
-    public function save_tatu($data, $data_linea) {
-		$this->db->insert('hisclinic_linea', $data_linea);
-        return $this->db->insert('hisclinic_tatu', $data);	
 	}
     
     public function save_hisclinic_vp($data, $data_linea) {

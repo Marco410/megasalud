@@ -99,6 +99,7 @@
           </div>
         </div>    
         <!-- Termina Modal Contraseña -->
+        
         <!-- Modal Sucursal -->
        <div class="modal fade" id="sucursal_modal" tabindex="-1" role="dialog" aria-labelledby="Password" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
@@ -137,47 +138,47 @@
           </div>
         </div>    
         <!-- Termina Modal Sucursal -->
-        <!-- Modal Agregar Historial citas -->
- 
-        <div class="modal fade" id="historial" tabindex="-1" role="dialog" aria-labelledby="fotoPerfil" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" >Citas del Paciente</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-            <div class="modal-body">
-                <div class="row" >
-                
-                <table  class="table table-striped table-condensed">
-                    <thead>
-                        <tr>
-                            <th>Fecha</th>
-                            <th>Doctor</th>
-                            <th>Motivo</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                             <?php foreach ($historial->result() as $his):?>
-                         <tr>
-                            <td><?= $his->created_at ?></td>
-                            <td><?= $his->nombre ?> </td>
-                            <td><?= $his->motivo ?></td>    
-                        </tr>
-                            <?php endforeach ?>
-                       
-                    </tbody>
+    <!-- Modal Agregar Historial citas -->
 
-                </table>
-               
-                </div>
-              </div>
-                   
+    <div class="modal fade" id="historial" tabindex="-1" role="dialog" aria-labelledby="fotoPerfil" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" >Citas del Paciente</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        <div class="modal-body">
+            <div class="row" >
+
+            <table  class="table table-striped table-condensed">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Doctor</th>
+                        <th>Motivo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                         <?php foreach ($historial->result() as $his):?>
+                     <tr>
+                        <td><?= $his->created_at ?></td>
+                        <td><?= $his->nombre ?> </td>
+                        <td><?= $his->motivo ?></td>    
+                    </tr>
+                        <?php endforeach ?>
+
+                </tbody>
+
+            </table>
+
             </div>
           </div>
+
         </div>
+      </div>
+    </div>
     <!--- Termina modal Historial citas --> 
         
     <!-- Modal Agregar Foto -->
@@ -369,9 +370,9 @@
 						<span class="ms-subtitle">NOTAS | DIAGNÓSTICO | MOTIVO DE CONSULTA </span>
             </div> 
             <div class="panel-body">  
-                <div class="row">
+            <div class="row">
                
-           <div class="form-group col-sm-7" >
+                <div class="form-group col-sm-7" >
            <form name="notas_dr"  method="post" id="notas_dr">
                <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
               <!--- Estas lineas dejarlas asi  ---> 
@@ -387,8 +388,9 @@
                <button type="submit" class="btn btn-info btn-info-user" style="margin-top:10px"><i class="fa fa-save fa-1.5x"></i>    Guardar Nota</button>
                </form>
            </div>
-            <section id="DiagnósticoSec">
-            <div class="form-group col-sm-5" >
+                    
+                <section id="DiagnósticoSec">
+                    <div class="form-group col-sm-5" >
            <form name="diagnostico_dr"  method="post" id="diagnostico_dr">
               <!--- Estas lineas dejarlas asi  ---> 
                <b>Diagnóstico</b>
@@ -407,14 +409,29 @@
                <button type="submit" class="btn btn-info btn-info-user" style="margin-top:10px"><i class="fa fa-save fa-1.5x"></i>    Guardar Diagnóstico</button>
                </form>
            </div>
-            </section>    
+                </section>
+                <div class="col-sm-12 "  >
+                    <div id="loader_ante" hidden ><img loading="lazy" height="50px" width="50px"   src="<?php echo $img_load ?>loader.gif" alt="" class="img-responsive center-block"  /> </div>
+                    <div class="col-sm-6" >
+                        <div id="panel-ante-vacunas" ></div>
+                        <div id="panel-ante-alergias" ></div>
+                        <div id="panel-ante-congenita" ></div>
+                    </div>
+                    <div class="col-sm-6" >
+                        <div id="panel-ante-hospi" ></div>
+                        <div id="panel-ante-venenos" ></div>
+                    </div>
+                    
+                    
+                    
                 </div>
+                    
+            </div>
              </div>   
            </div>
            
            <!--- Termina Panel de Notas  ---> 
     
-            
            <!--- Panel de Terapias y medicamentos  ---> 
             <div id="hisclinic_mediSec" ></div>
             <div class="panel mb-0 panel-default panel-flat border-left-olive">
@@ -470,24 +487,13 @@
                             
                          <button type="submit" class="btn btn-info btn-info-user" style="margin-top:10px"><i class="fa fa-save fa-1.5x"></i>    Guardar Medicamento</button>   
                         </form>
-                    </div>
-                
-                
+                    </div>                
                 </div>
-                
-                
                 </div>
-            
-            
             </div>
-            
-            
             <!--- Termina Panel de Terapias y medicamentos  ---> 
-            
         </div>
-    
     </div>
-    
     <!--- Termina Panel Notas y Acciones  ---> 
     
     <!-- Modal Agregar Estudio -->
@@ -568,15 +574,15 @@
     <!-- Cierra Modal Agregar Estudio -->    
         
 <!-- Modal Agregar Cita -->
-<div class="modal fade" id="nuevacita" tabindex="-1" role="dialog" aria-labelledby="citaTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-         <div class="modal-header">
+    <div class="modal fade" id="nuevacita" tabindex="-1" role="dialog" aria-labelledby="citaTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
                 <h5 class="modal-title" id="estudioTitle">Agregar Cita</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
-              </div>
+            </div>
                  <form id="nueva-cita" name="nueva-cita" method="post" >
                     <div class="modal-body" >
                     <div class="form-group col-sm-4">
@@ -585,17 +591,12 @@
                                 </label>
 
                                 <select id="id_calendario" name="id_calendario" class="form-control" required >
-
                                     <option value="" >Seleccione una opción</option>
                                     <?php foreach ($sucursales->result() as $sucursal): ?>
                                     <option value="<?= $sucursal->id_calendario ?>"><?= $sucursal->razon_social ?></option>
                                     <?php endforeach ?>
-
-
                                 </select>
-
                             </div>
-
                         <div class="form-group col-sm-4">
                             <label>
                                 Cita Para:
@@ -611,8 +612,7 @@
                             <input required type="datetime-local" name="fecha_cita" id="fecha_cita" min="<?php echo  date('Y-m-d\TH:i'); ?>"  value="<?php echo date("Y-m-d\TH:i");?>" class="form-control" >
                         </div>
                     </div>
-        
-                  <div class="modal-footer">
+                    <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Agendar</button>
                   </div>
@@ -645,17 +645,103 @@
          </div>
     </div>
         
-    <div class="panel panel-default" id="p-heredo"  hidden >
+    <div class="panel panel-default border-left-olive" id="p-heredo"  hidden >
         <div class="panel-body" >
+            <div class="row" >
+                <div class="col-sm-6" >
+                    <h4 class="text-center"  >Carga Hereditaria</h4>
+                    <form id="carga_heredo_in" name="carga_heredo_in" method="post" >
+                            
+                        <div class="col-sm-5" >
+                         <b>Padecimiento</b>
+                             <input readonly id="padecimiento" name="padecimiento" type="text" class="form-control"  />
+                        </div>
+                        <div class="col-sm-2" >
+                        <b >Ver</b>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAutoinmune">
+                          <i class="fa fa-file-text-o"></i> 
+                        </button>
+                        </div>
+                            <div class="col-sm-5" >
+                                 <b>Familiar </b>
+                                <select id="familiar_heredo" name="familiar_heredo" class="form-control" >
+                                        <option value="No seleccionado" >Seleccione</option>
+                                        <?php foreach ( $familiar->result() as $familia ): ?>
+                                        <option value="<?= $familia->familiar ?>" ><?= $familia->familiar ?></option>
+                                        <?php endforeach ?>
+                                </select>
+
+                            </div>
+                            <div class="col-sm-12 text-center" >
+                                <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
+                            <br>
+                                <button type="submit" class="btn btn-info"><i class="fa fa-plus "></i>Agregar </button>
+                            </div>
+                        
+                        </form>
+                </div>
+                <div class="col-sm-6" >
+                    <h4 class="text-center" >Congénita</h4>
+                    <div id="loader_congenitas" hidden ><img loading="lazy" height="50px" width="50px"   src="<?php echo $img_load ?>loader.gif" alt="" class="img-responsive center-block"  /> </div>
+                    <div id="panel-congenita" style="height:200px; overflow: scroll; overflow-x: hidden;" ></div>
+                     <div class="" id="panel-add-ec" hidden >
+                        <br>
+                        <a href="#" class="btn btn-sm btn-info" data-id="2" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
+
+                     </div>
+                </div>
+            </div>
         </div>
     </div> 
         
-        <div class="panel panel-default" id="p-pato"  hidden >
+    <div class="panel panel-default border-left-brown" id="p-pato"  hidden >
         <div class="panel-body" >
+            <div class="row" >
+                <div class="col-sm-4" >
+                    <h4 class="text-center" >Vacunas</h4>
+                    <div id="loader_vacunas" hidden ><img loading="lazy" height="50px" width="50px"   src="<?php echo $img_load ?>loader.gif" alt="" class="img-responsive center-block"  /> </div>
+                    
+                    <div id="panel-vacunas"  style="height:200px; overflow: scroll; overflow-x: hidden; " >
+                    </div>
+                    <div class="" id="panel-add-v" hidden >
+                        <br>
+                        <a href="#" class="btn btn-sm btn-info" data-id="4" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
+                    </div>
+                
+                </div>
+                <div class="col-sm-4" >
+                    <h4 class="text-center" >Alergías</h4>
+                     <div id="loader_alergias" hidden ><img loading="lazy" height="50px" width="50px"   src="<?php echo $img_load ?>loader.gif" alt="" class="img-responsive center-block"  /> </div>
+                    <div id="panel-alergias"  style="height:200px; overflow: scroll; overflow-x: hidden; " >
+                    
+                    </div>
+                    <div id="panel-add-ma" ></div>
+                    <div id="panel-add-a" hidden >
+                        <br>
+                        <a href="#" class="btn btn-sm btn-info" data-id="5" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
+                    </div>
+                    
+
+                </div>
+                
+                <div class="col-sm-4" >
+                    <h4 class="text-center" >Hospitalizaciones</h4>
+                     <div id="loader_hospi" hidden ><img loading="lazy" height="50px" width="50px"   src="<?php echo $img_load ?>loader.gif" alt="" class="img-responsive center-block"  /> </div>
+                    <div id="panel-hospi"  style="height:200px; overflow: scroll; overflow-x: hidden; " >
+                    
+                    </div>
+                    <div id="panel-add-causa_h" hidden >
+                            <br>
+                            <a href="#" class="btn btn-sm btn-info" data-id="7" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
+                        </div>
+                    
+                    
+                </div>
+            </div>
         </div>
     </div>
         
-    <div class="panel panel-default" id="p-npato"  hidden  >
+    <div class="panel panel-default border-left-warning" id="p-npato"  hidden  >
         <div class="panel-body" >
                 <div class="col-sm-12" >
                 <div class="container" >
@@ -711,49 +797,7 @@
                     </div>
                 </div>
                     
-            <!-- Modal Agregar Veneno -->
-            <div class="modal fade" id="modal_new_veneno" tabindex="-1" role="dialog" aria-labelledby="estudiosTitle" aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="">Agregar nuevo Veneno</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                <form method="post" id="form_new_veneno" name="form_new_veneno"  enctype="multipart/form-data" >
-                    <div class="modal-body">
-                        <div class="row" >
-                            <input  type="hidden"  value="" id="id_veneno" name="id_veneno" />
-                              <div class="col-sm-6 form-group" >
-                              <b>Frecuencia</b>
-                                 <select required id="frecc" name="frecc" class="form-control"  ><option value="" >Seleccione:</option>
-                                     <option value="1" >Frec 1</option>
-                                     <option value="2" >Frec 2</option>
-                                     <option value="3" >Frec 3</option>
-                                     <option value="4" >Frec 4</option>
-                                     <option value="5" >Frec 5</option>
-                                  </select>
-                              </div>
-                            <div class="col-sm-6" >
-                            <b>Edad</b>
-                            <input id="edad_veneno" required type="number" name="edad_veneno" class="form-control" value="<?= $fechaMax ?>" min="0" max="<?= $fechaMax ?>" />
-                            </div>
-                        </div>
-                      </div>
-            
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button onclick="save_new_veneno('<?= $fecha ?>','<?= $paciente->id ?>')" type="button" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
-                      </div>
-
-                     </form> 
-                    
-                    </div>
-                  </div>
-                </div> 
-            <!-- Cierra Modal Agregar Veneno --> 
-                   
+         
                     <div class="p-menu"  >
                         <div class="row" >
                         
@@ -797,6 +841,7 @@
                               <div class="desc"><?= $linea->descripcion; ?><a href="#<?= $linea->table_hisclinic; ?>Sec"> <icon class="fa fa-chevron-down"> Ver</icon></a></div>
                             </div>
                           </li>
+                
                             
                         <?php endforeach ?>
                     </ul> 
@@ -863,40 +908,7 @@
                     </div>  
                     
                     <div class="panel-body">
-                        <form id="carga_heredo_in" name="carga_heredo_in" method="post" >
-                            
-                                <div class="col-sm-5" >
-
-                                 <b>Padecimiento</b>
-
-                                     <input id="padecimiento" name="padecimiento" type="text" class="form-control"  />
-
-                                </div>
-                                <div class="col-sm-1" >
-                                    <b class="text-center" >Ver</b>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAutoinmune">
-                                  <i class="fa fa-file-text-o"></i> 
-                                </button>
-                                </div>
-
-                            <div class="col-sm-5" >
-
-                                 <b>Familiar </b>
-                                <select id="familiar_heredo" name="familiar_heredo" class="form-control" >
-                                        <option value="No seleccionado" >Seleccione</option>
-                                        <?php foreach ( $familiar->result() as $familia ): ?>
-                                        <option value="<?= $familia->familiar ?>" ><?= $familia->familiar ?></option>
-                                        <?php endforeach ?>
-                                </select>
-
-                            </div>
-                            <div class="col-sm-1" >
-                                <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
-                            <b>Agregar</b>
-                                <button type="submit" class="btn btn-info"><i class="fa fa-plus "></i><br></button>
-                            </div>
                         
-                        </form>
                      </div>     
                     </div>
                     
@@ -910,59 +922,7 @@
             <span class="ms-subtitle" ><label>Añadir Enfermedad Congénita</label></span>
             </div>  
             <div class="panel-body" >
-            <form id="new_enf_cong" name="new_enf_cong" method="post" class="form-group" >
-            <div class="row">
-            <div class="col-sm-4">
-            <b> Enfermedad </b>
-              <select id="enfermedad" class="form-control" name="enfermedad" >
-                <option>Seleccione</option>
-                <?php foreach ( $enfermedades->result() as $enfCong ): ?>
-
-                <option value="<?= $enfCong->enfermedad  ?>"> <?= $enfCong->enfermedad  ?></option>
-                <?php endforeach ?>
-                  
-                  <option value="Otra" >Otra</option>
-                </select>
-                <div class="" id="panel-add-ec" hidden >
-                    <br>
-                    <a href="#" class="btn btn-sm btn-info" data-id="2" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
-
-                 </div>
-                
-                <b>Medicamento</b>
-                 <select id="medicamento" class="form-control" name="medicamento">
-                    <option value="" >Seleccione</option>
-                     <?php foreach ( $medicamentos->result() as $medicamento ): ?>
-                    <option value="<?= $medicamento->medicamento ?>" ><?= $medicamento->medicamento ?></option>
-                   <?php endforeach ?>
-                     <option value="Otra" >Otro</option>
-                </select>
-                 <div class="" id="panel-add-med" hidden >
-                    <br>
-                    <a href="#" class="btn btn-sm btn-info" data-id="3" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
-
-                 </div>
-                </div>
-                <div class="form-group col-sm-4">
-                <b>Manejo</b>
-
-                <textarea id="manejo" name="manejo" class="form-control" placeholder="Escribe aquí" cols="20" rows="4" ></textarea> 
-                </div>
-
-                
-                <div class="col-sm-3" >
-                    <b>Edad</b>
-                    <input id="edad_cong" required type="number" name="edad_cong" class="form-control" value="0" min="0" max="<?= $fechaMax ?>" /><br>
-                   <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
-                    <input type="hidden" value="<?= $fecha ?>" name="anio" />
-                </div>
-                
-                <div class="col-sm-1 text-center" >
-                    <b>Agregar</b>
-                <button type="submit" class="btn btn-info"><i class="fa fa-plus "></i><br></button>
-                </div>
-                </form>
-            </div>
+            
             </div>
             </div>
                 
@@ -997,6 +957,7 @@
                     <span class="ms-subtitle" ><label>Añadir Vacunas</label></span>
                     </div>  
                  <div class="panel-body"  >
+              <!---       
              <form id="form_vacuna" name="vacuna" method="post">
                  
                 <div class="col-sm-4" >
@@ -1033,6 +994,7 @@
                  <button type="submit" class="btn btn-info"><i class="fa fa-plus "></i><br></button>
                     </div>
              </form>   
+            --->
                 </div> 
             </div>   
             </div>
@@ -1048,53 +1010,7 @@
             
             <div class="panel-body" >
                 
-            <form id="alergia" name="alergia" method="post" class="panel-body">
             
-            <div class="col-sm-5" >
-                 <b>Alergeno</b>
-                     <select id="alergeno" class="form-control" name="alergeno" required >
-                    <option value="">Selecciona</option>
-                    <?php foreach ( $alergenos->result() as $alergeno ): ?>
-                    <option value="<?= $alergeno->id ?>" ><?= $alergeno->alergeno ?></option>
-                    <?php endforeach ?>
-                    <option value="Otra">Otra</option>
-                    </select>
-                <div id="panel-add-ma" ></div>
-                <div id="panel-add-a" hidden >
-                    <br>
-                    <a href="#" class="btn btn-sm btn-info" data-id="5" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
-                </div>
-                
-                
-            </div>
-            
-           <div class="col-sm-5" >
-            <b>Tratamiento</b>
-                    <select id="tratamiento_ale" class="form-control" name="tratamiento" required><option value="">Selecione</option>
-                        <?php foreach ( $tratamiento->result() as $tratamiento ): ?>
-                            <option value="<?= $tratamiento->tratamiento_alergia ?>" ><?= $tratamiento->tratamiento_alergia ?></option>
-                            <?php endforeach ?>
-                        <option value="Otro" >Otro</option>
-                    </select>
-                <div id="panel-add-a-trat" hidden >
-                    <br>
-                    <a href="#" class="btn btn-sm btn-info" data-id="6" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
-                </div>    
-            </div>
-               
-            <div class="col-sm-2" >  
-            
-            <b>Edad</b>    
-                <input id="edad_ale" required name="edad_alergia" type="number" class="form-control" min="0" value="0" max="<?= $fechaMax ?>"  />
-            <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" required />
-            <input type="hidden" value="<?= $fecha ?>" name="anio" required />
-                
-            <b>Agregar</b><br>
-            <button type="submit" class="btn btn-info"><i class="fa fa-plus "></i><br></button>
-            </div>  
-
-                
-                </form>
                 </div>
              </div>   
             </div> 
@@ -1107,216 +1023,7 @@
             <span class="ms-subtitle" ><label>Añadir Hospitalización</label></span>
             </div>  
              <div class="panel-body" >
-             <form id="hospitalizacion" name="hospitalizacion" method="post" >
-                <div class="row" >
-                
-                <div class="col-sm-12" > 
-                    
-                    <div class="row">
-                        
-                <div class="form-group col-sm-4" >
-
-                     <b>Causa</b>
-
-                    <select id="causa_h" required name="causa" class="form-control">
-                    <option  value="">Seleccione</option>
-                    <?php foreach ( $causas->result() as $causa ): ?>
-                            <option value="<?= $causa->causa ?>" ><?= $causa->causa ?></option>
-                           <?php endforeach ?>
-                        <option value="Otra">Otra</option>
-                    </select>
-                <div id="panel-add-causa_h" hidden >
-                    <br>
-                    <a href="#" class="btn btn-sm btn-info" data-id="7" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
-                </div>
-                      <b>Medicamentos</b>   
-                    <select id="med_h" class="form-control" name="medicamentos">
-                        <option value="">Seleccione</option>
-                         <?php foreach ( $medicamentos->result() as $medicamento ): ?>
-
-                        <option value="<?= $medicamento->medicamento ?>" ><?= $medicamento->medicamento ?></option>
-                       <?php endforeach ?>
-                        <option value="Otra" >Otra</option>
-                    </select>
-                    <div id="panel-add-med_h" hidden >
-                    <br>
-                    <a href="#" class="btn btn-sm btn-info" data-id="3" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
-                </div>
-                </div>
-                    
-                <div class="form-group col-sm-4" >
-                       <b>Manejo</b>
-                 <textarea id="manejo_h" name="manejo" class="form-control" placeholder="Escribe aquí" cols="20" rows="4" ></textarea>
-                </div>
-                    
-                <div class="form-group col-sm-4" >
-                     <b>Edad</b> 
-                  <input id="edad_h" required type="number" min="0" class="form-control" name="edad_hospi" max="<?= $fechaMax ?>" value="0" />
-                <input type="hidden" value="<?= $fecha ?>" name="anio" />
-
-                </div>
-                    
-                    </div>
-                    
-                    <div class="row" >
-                        
-                        <div class="col-sm-4" >
-                           <div class="panel panel-info">
-                             <div class="panel-heading" >Operación</div>
-                                <div class="panel-body" >
-                            <div class="form-group col-sm-12" >
-                        <label>Si<input class="form-control" data-toggle="collapse" data-target="#operacion" aria-expanded="false" aria-controls="operacion"  type="radio" name="op" value="Si" /></label>
-                        <label>No
-                        <input class="form-control" data-toggle="collapse" data-target="#operacion" aria-expanded="false" aria-controls="operacion"  type="radio" name="op" value="No" checked /></label>
-
-
-                        <div class="collapse" id="operacion" >
-                        <div class="card card-body" >
-                        <b>Tipo de operación</b>
-
-                            <select id="operacion_h" name="tipo_operacion" class="form-control" >
-                            <option value="No">Seleccione</option>    
-                            <?php foreach ( $operaciones->result() as $operacion ): ?>
-                                    <option value="<?= $operacion->tipo_operacion ?>" ><?= $operacion->tipo_operacion ?></option>
-                                   <?php endforeach ?>
-                                 <option value="Otra" >Otra</option>
-                            </select>
-                             <div id="panel-add-ope" hidden >
-                                <br>
-                                <a href="#" class="btn btn-sm btn-info" data-id="8" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
-                            </div>
-                            </div>
-                        </div>  
-
-                        </div>
-                                </div>
-                            </div> 
-                        </div>
-                        
-                        <div class="col-sm-4" >
-                           <div class="panel panel-info">
-                             <div class="panel-heading" >Anestesia</div>
-                                <div class="panel-body" >
-                            <div class="form-group col-sm-12" >
-
-                            <label>Si<input class="form-control" data-toggle="collapse" data-target="#anestesia" aria-expanded="false" aria-controls="anestesia" type="radio" name="ane" value="Si" /></label>
-
-                            <label>No<input class="form-control" data-toggle="collapse" data-target="#anestesia" aria-expanded="false" aria-controls="anestesia"  type="radio" name="ane" value="No" checked /></label>
-
-                                <div class="collapse" id="anestesia" >
-                                    <div class="card card-body" >
-                                         <b>Tipo de anestesia</b>
-                                    <select id="tipo_ane" name="tipo_anestesia" class="form-control" >
-                                    <option value="No">Seleccione</option>    
-                                    <?php foreach ( $anestesias->result() as $anestesia ): ?>
-                                                <option value="<?= $anestesia->tipo_anestesia ?>" ><?= $anestesia->tipo_anestesia ?></option>
-                                               <?php endforeach ?>
-                                         <option value="Otra" >Otra</option>
-                                        </select>
-                                        <div id="panel-add-ane" hidden >
-                                            <br>
-                                            <a href="#" class="btn btn-sm btn-info" data-id="9" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                               </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-sm-4" >
-                           <div class="panel panel-info">
-                             <div class="panel-heading" >Transfusión</div>
-                                <div class="panel-body" >
-                                    <div class="form-group col-sm-12" >
-
-
-                            <label>Si<input class="form-control" data-toggle="collapse" data-target="#transfusion" aria-expanded="false" aria-controls="transfusion"  type="radio" name="tran" value="Si" /></label>
-                            <label>No<input class="form-control" data-toggle="collapse" data-target="#transfusion" aria-expanded="false" aria-controls="transfusion"  type="radio" name="tran" value="No" checked /></label>
-
-                            <div class="collapse" id="transfusion" >
-                                <div class="card card-body" >
-                                      <b>Tipo de transfusión</b>
-                                    <select id="tipo_trans" name="tipo_transfusion" class="form-control" >
-                                     <option value="No">Seleccione</option>    
-                                    <?php foreach ( $transfusiones->result() as $transfusion ): ?>
-                                            <option value="<?= $transfusion->tipo_transfusion ?>" ><?= $transfusion->tipo_transfusion ?></option>
-                                           <?php endforeach ?>
-                                         <option value="Otra" >Otra</option>
-                                    </select>
-                                    <div id="panel-add-trans" hidden >
-                                            <br>
-                                            <a href="#" class="btn btn-sm btn-info" data-id="10" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
-                                    </div>
-                                </div>
-                                </div>    
-                            </div>     
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-sm-6" >
-                           <div class="panel panel-info">
-                             <div class="panel-heading" >Prótesis | Implantes | Amalgamas</div>
-                                <div class="panel-body" >
-                            <div class="form-group col-sm-12" >
-
-                            <label>Si<input class="form-control" data-toggle="collapse" data-target="#protesis" aria-expanded="false" aria-controls="protesis" type="radio" name="pro" value="Si" /></label>
-                            <label>No<input class="form-control" data-toggle="collapse" data-target="#protesis" aria-expanded="false" aria-controls="protesis" type="radio" name="pro" value="No" checked /></label>
-
-                            <div class="collapse" id="protesis" >
-                               <div class="card card-body" >
-                                 <b>Tipo prótesis</b>
-                                    <select id="tipo_prot" name="tipo_protesis" class="form-control" >
-                                    <option value="No">Seleccione</option>    
-                                    <?php foreach ( $protesiss->result() as $protesis ): ?>
-                                            <option value="<?= $protesis->tipo_protesis ?>" ><?= $protesis->tipo_protesis ?></option>
-                                           <?php endforeach ?>
-                                         <option value="Otra" >Otra</option>
-                                    </select>
-                                    <div id="panel-add-prot" hidden >
-                                            <br>
-                                            <a href="#" class="btn btn-sm btn-info" data-id="11" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
-                                    </div>
-                                </div>
-                               </div>   
-                            </div>
-                               </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-sm-6" >
-                           <div class="panel panel-info">
-                             <div class="panel-heading" >Complicación</div>
-                                <div class="panel-body" >
-                            <div class="form-group col-sm-12" >
-
-                            <label>Si<input class="form-control" data-toggle="collapse" data-target="#comp" aria-expanded="false" aria-controls="comp" type="radio" name="com" value="Si" /></label>
-                            <label>No<input class="form-control" data-toggle="collapse" data-target="#comp" aria-expanded="false" aria-controls="comp"  type="radio" name="com" value="No" checked /></label>
-
-                            <div class="collapse" id="comp" >
-                                <div class="card card-panel" >
-                                 <b>Explique</b>
-                            <textarea id="comp_h" name="com_explicacion" class="form-control" placeholder="Escribe aquí" cols="20" rows="2" ></textarea> 
-
-                                </div>
-                                </div>    
-                            </div>
-                               </div>
-                            </div>
-                        </div>
-                    </div> 
-                    
-                    
-                  </div>    
-                </div>
-                    <div class="form-group col-sm-12 text-center" >
-                        <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
-                    
-                      <button type="submit" class="btn btn-info"><i class="fa fa-plus "></i><br></button> 
-                    </div>
-
-                    </form>   
+             
                 </div>   
             </div>       
 
@@ -2387,3 +2094,423 @@
         </div><!-- modal dialog -->
     </div><!-- modal fade -->
 <!-- Cierra Modal -->
+
+<!-- Modal Agregar congenita -->
+<div class="modal fade" id="modal_congenita" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="estudioTitle">Agregar Congenita</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+         <form id="new_enf_cong" name="new_enf_cong" method="post" class="form-group" >
+                <div class="modal-body" >
+                    <div class="container" >
+                        <div class="row">
+                        <div class="col-sm-5">
+                            <input type="hidden" name="enfermedad" id="congenita" value="" />
+                            <b>Medicamento</b>
+                             <select id="medicamento" class="form-control" name="medicamento">
+                                <option value="" >Seleccione</option>
+                                 <?php foreach ( $medicamentos->result() as $medicamento ): ?>
+                                <option value="<?= $medicamento->medicamento ?>" ><?= $medicamento->medicamento ?></option>
+                               <?php endforeach ?>
+                                 <option value="Otra" >Otro</option>
+                            </select>
+                             <div class="" id="panel-add-med" hidden >
+                                <br>
+                                <a href="#" class="btn btn-sm btn-info" data-id="3" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
+                             </div>
+                            </div>
+
+                        <div class="col-sm-5">
+                            <b>Manejo</b>
+
+                            <textarea id="manejo" name="manejo" class="form-control" placeholder="Escribe aquí" cols="20" rows="4" ></textarea> 
+                            </div>
+
+                        <div class="col-sm-2" >
+                                <b>Edad</b>
+                                <input id="edad_cong" required type="number" name="edad_cong" class="form-control" value="0" min="0" max="<?= $fechaMax ?>" /><br>
+                               <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
+                                <input type="hidden" value="<?= $fecha ?>" name="anio" />
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+             <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
+              </div>
+            </form>
+        </div>
+      </div>
+    </div> 
+<!-- Cierra Modal Agregar congenita -->
+
+<!-- Modal Agregar Vacuna -->
+<div class="modal fade" id="modal_vacuna" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="estudioTitle">Agregar Vacuna</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+         <form id="form_vacuna" name="vacuna" method="post">
+            <div class="modal-body" >
+                <div class="container" >
+                    <input class="form-control" id="vacuna" name="vacuna"   type="hidden"  />
+
+                 <div class="form-group col-sm-8">
+                    <b>Descripcion</b>
+                    <textarea id="descripcion_vac" name="descripcion_vac" class="form-control" placeholder="Escribe aquí" cols="20" rows="2" ></textarea> 
+                </div>
+                 <div class="col-sm-3" >
+                     <b>Edad</b>
+                    <input id="edad_vacuna" required class="form-control" min="0" value="0" max="<?= $fechaMax ?>" name="edad" type="number" /> 
+                     <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
+                    <input type="hidden" value="<?= $fecha ?>" name="anio" />
+                </div>
+                </div>  
+          </div>  
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
+          </div>
+        </form> 
+        </div>
+      </div>
+    </div> 
+<!-- Cierra Modal Agregar Vacuna -->
+
+<!-- Modal Agregar Alergia -->
+<div class="modal fade" id="modal_alergia" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="estudioTitle">Agregar Alergía</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+        <form id="form_alergia" name="form_alergia" method="post">
+        <div class="modal-body" >
+            <div class="container" >
+        <input class="form-control" id="alergeno" name="alergeno" value="" type="hidden" />
+
+        <div class="col-sm-8" >
+        <b>Tratamiento</b>
+                <select id="tratamiento_ale" class="form-control" name="tratamiento" required><option value="">Selecione</option>
+                    <?php foreach ( $tratamiento->result() as $tratamiento ): ?>
+                        <option value="<?= $tratamiento->tratamiento_alergia ?>" ><?= $tratamiento->tratamiento_alergia ?></option>
+                        <?php endforeach ?>
+                    <option value="Otro" >Otro</option>
+                </select>
+            <div id="panel-add-a-trat" hidden >
+                <br>
+                <a href="#" class="btn btn-sm btn-info" data-id="6" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
+            </div>    
+        </div>
+
+        <div class="col-sm-4" >  
+
+        <b>Edad</b>    
+            <input id="edad_ale" required name="edad_alergia" type="number" class="form-control" min="0" value="0" max="<?= $fechaMax ?>"  />
+        <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" required />
+        <input type="hidden" value="<?= $fecha ?>" name="anio" required />
+
+        </div> 
+            </div>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
+      </div>
+    </form>
+
+    </div>
+  </div>
+</div> 
+<!-- Cierra Modal Agregar Alergia -->
+
+ <!-- Modal Agregar Hospitalización -->
+<div class="modal fade" id="modal_hospi" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="estudioTitle">Agregar Hospitalización</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                <form id="form_hospi" name="form_hospi" method="post" >
+                    <div class="modal-body" >
+                        <div class="container" >
+                <div class="row" >
+                
+                <div class="col-sm-12" > 
+                    
+                    <div class="row">
+                        
+                        <div class="form-group col-sm-4" >
+                            <input id="causa_h" name="causa" value="" type="hidden" />
+                                                     
+                              <b>Medicamentos</b>   
+                            <select id="med_h" class="form-control" name="medicamentos">
+                                <option value="">Seleccione</option>
+                                 <?php foreach ( $medicamentos->result() as $medicamento ): ?>
+
+                                <option value="<?= $medicamento->medicamento ?>" ><?= $medicamento->medicamento ?></option>
+                               <?php endforeach ?>
+                                <option value="Otra" >Otra</option>
+                            </select>
+                            <div id="panel-add-med_h" hidden >
+                            <br>
+                            <a href="#" class="btn btn-sm btn-info" data-id="3" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
+                        </div>
+                        </div>
+
+                        <div class="form-group col-sm-4" >
+                               <b>Manejo</b>
+                         <textarea id="manejo_h" name="manejo" class="form-control" placeholder="Escribe aquí" cols="20" rows="4" ></textarea>
+                        </div>
+                        
+                        <div class="form-group col-sm-4" >
+                             <b>Edad</b> 
+                          <input id="edad_h" required type="number" min="0" class="form-control" name="edad_hospi" max="<?= $fechaMax ?>" value="0" />
+                        <input type="hidden" value="<?= $fecha ?>" name="anio" />
+                        </div>
+                    </div>
+                    
+                    <div class="row" >
+                        
+                        <div class="col-sm-4" >
+                           <div class="panel panel-info">
+                             <div class="panel-heading" >Operación</div>
+                                <div class="panel-body" >
+                            <div class="form-group col-sm-12" >
+                        <label>Si<input class="form-control" data-toggle="collapse" data-target="#operacion" aria-expanded="false" aria-controls="operacion"  type="radio" name="op" value="Si" /></label>
+                        <label>No
+                        <input class="form-control" data-toggle="collapse" data-target="#operacion" aria-expanded="false" aria-controls="operacion"  type="radio" name="op" value="No" checked /></label>
+                        <div class="collapse" id="operacion" >
+                        <div class="card card-body" >
+                        <b>Tipo de operación</b>
+
+                            <select id="operacion_h" name="tipo_operacion" class="form-control" >
+                            <option value="No">Seleccione</option>    
+                            <?php foreach ( $operaciones->result() as $operacion ): ?>
+                                    <option value="<?= $operacion->tipo_operacion ?>" ><?= $operacion->tipo_operacion ?></option>
+                                   <?php endforeach ?>
+                                 <option value="Otra" >Otra</option>
+                            </select>
+                             <div id="panel-add-ope" hidden >
+                                <br>
+                                <a href="#" class="btn btn-sm btn-info" data-id="8" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
+                            </div>
+                            </div>
+                        </div>  
+                        </div>
+                                </div>
+                            </div> 
+                        </div>
+                        
+                        <div class="col-sm-4" >
+                           <div class="panel panel-info">
+                             <div class="panel-heading" >Anestesia</div>
+                                <div class="panel-body" >
+                            <div class="form-group col-sm-12" >
+
+                            <label>Si<input class="form-control" data-toggle="collapse" data-target="#anestesia" aria-expanded="false" aria-controls="anestesia" type="radio" name="ane" value="Si" /></label>
+
+                            <label>No<input class="form-control" data-toggle="collapse" data-target="#anestesia" aria-expanded="false" aria-controls="anestesia"  type="radio" name="ane" value="No" checked /></label>
+
+                                <div class="collapse" id="anestesia" >
+                                    <div class="card card-body" >
+                                         <b>Tipo de anestesia</b>
+                                    <select id="tipo_ane" name="tipo_anestesia" class="form-control" >
+                                    <option value="No">Seleccione</option>    
+                                    <?php foreach ( $anestesias->result() as $anestesia ): ?>
+                                                <option value="<?= $anestesia->tipo_anestesia ?>" ><?= $anestesia->tipo_anestesia ?></option>
+                                               <?php endforeach ?>
+                                         <option value="Otra" >Otra</option>
+                                        </select>
+                                        <div id="panel-add-ane" hidden >
+                                            <br>
+                                            <a href="#" class="btn btn-sm btn-info" data-id="9" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                               </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-4" >
+                           <div class="panel panel-info">
+                             <div class="panel-heading" >Transfusión</div>
+                                <div class="panel-body" >
+                                    <div class="form-group col-sm-12" >
+
+
+                            <label>Si<input class="form-control" data-toggle="collapse" data-target="#transfusion" aria-expanded="false" aria-controls="transfusion"  type="radio" name="tran" value="Si" /></label>
+                            <label>No<input class="form-control" data-toggle="collapse" data-target="#transfusion" aria-expanded="false" aria-controls="transfusion"  type="radio" name="tran" value="No" checked /></label>
+
+                            <div class="collapse" id="transfusion" >
+                                <div class="card card-body" >
+                                      <b>Tipo de transfusión</b>
+                                    <select id="tipo_trans" name="tipo_transfusion" class="form-control" >
+                                     <option value="No">Seleccione</option>    
+                                    <?php foreach ( $transfusiones->result() as $transfusion ): ?>
+                                            <option value="<?= $transfusion->tipo_transfusion ?>" ><?= $transfusion->tipo_transfusion ?></option>
+                                           <?php endforeach ?>
+                                         <option value="Otra" >Otra</option>
+                                    </select>
+                                    <div id="panel-add-trans" hidden >
+                                            <br>
+                                            <a href="#" class="btn btn-sm btn-info" data-id="10" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
+                                    </div>
+                                </div>
+                                </div>    
+                            </div>     
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-6" >
+                           <div class="panel panel-info">
+                             <div class="panel-heading" >Prótesis | Implantes | Amalgamas</div>
+                                <div class="panel-body" >
+                            <div class="form-group col-sm-12" >
+
+                            <label>Si<input class="form-control" data-toggle="collapse" data-target="#protesis" aria-expanded="false" aria-controls="protesis" type="radio" name="pro" value="Si" /></label>
+                            <label>No<input class="form-control" data-toggle="collapse" data-target="#protesis" aria-expanded="false" aria-controls="protesis" type="radio" name="pro" value="No" checked /></label>
+
+                            <div class="collapse" id="protesis" >
+                               <div class="card card-body" >
+                                 <b>Tipo prótesis</b>
+                                    <select id="tipo_prot" name="tipo_protesis" class="form-control" >
+                                    <option value="No">Seleccione</option>    
+                                    <?php foreach ( $protesiss->result() as $protesis ): ?>
+                                            <option value="<?= $protesis->tipo_protesis ?>" ><?= $protesis->tipo_protesis ?></option>
+                                           <?php endforeach ?>
+                                         <option value="Otra" >Otra</option>
+                                    </select>
+                                    <div id="panel-add-prot" hidden >
+                                            <br>
+                                            <a href="#" class="btn btn-sm btn-info" data-id="11" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
+                                    </div>
+                                </div>
+                               </div>   
+                            </div>
+                               </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-6" >
+                           <div class="panel panel-info">
+                             <div class="panel-heading" >Complicación</div>
+                                <div class="panel-body" >
+                            <div class="form-group col-sm-12" >
+
+                            <label>Si<input class="form-control" data-toggle="collapse" data-target="#comp" aria-expanded="false" aria-controls="comp" type="radio" name="com" value="Si" /></label>
+                            <label>No<input class="form-control" data-toggle="collapse" data-target="#comp" aria-expanded="false" aria-controls="comp"  type="radio" name="com" value="No" checked /></label>
+
+                            <div class="collapse" id="comp" >
+                                <div class="card card-panel" >
+                                 <b>Explique</b>
+                            <textarea id="comp_h" name="com_explicacion" class="form-control" placeholder="Escribe aquí" cols="20" rows="2" ></textarea> 
+
+                                </div>
+                                </div>    
+                            </div>
+                               </div>
+                            </div>
+                        </div>
+                    </div> 
+                    
+                    
+                  </div>    
+                </div>
+                    <div class="form-group col-sm-12 text-center" >
+                        <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
+                    
+                      <button type="submit" class="btn btn-info"><i class="fa fa-plus "></i><br></button> 
+                    </div>
+                    </div>
+                    </div>
+                    </form>   
+                        </div>
+                    </div>
+                </div>
+<!-- Cierra Modal Agregar Hospitalización -->
+
+<!-- Modal Agregar Veneno -->
+<div class="modal fade" id="modal_new_veneno" tabindex="-1" role="dialog" aria-labelledby="estudiosTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="">Agregar nuevo Veneno</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+    <form method="post" id="form_new_veneno" name="form_new_veneno"  enctype="multipart/form-data" >
+        <div class="modal-body">
+            <div class="row" >
+                <input  type="hidden"  value="" id="id_veneno" name="id_veneno" />
+                <div class="col-sm-12" >
+                <h4 class="text-center" >Clasificación</h4>
+                </div>
+                <div class="col-sm-12 form-inline" >
+                    <div class="col-sm-3" >
+                        <div id="show_a" ></div>
+                        <div id="show_b" ></div>
+                    </div>
+                    <div class="col-sm-3" >
+                        <div id="show_c" ></div>
+                        <div id="show_d" ></div>
+                    </div>
+                    <div class="col-sm-3" >
+                        <div id="show_e" ></div>
+                        <div id="show_f" ></div>
+                    </div>
+                    <div class="col-sm-3" >
+                        <div id="show_g" ></div>
+                        <div id="show_h" ></div>
+                    </div>
+                </div><br><br>
+                  <div class="col-sm-6 form-group" >
+                  <b>Frecuencia</b>
+                     <select required id="frecc" name="frecc" class="form-control"  ><option value="" >Seleccione:</option>
+                         <option value="1" >Frec 1</option>
+                         <option value="2" >Frec 2</option>
+                         <option value="3" >Frec 3</option>
+                         <option value="4" >Frec 4</option>
+                         <option value="5" >Frec 5</option>
+                      </select>
+                  </div>
+                <div class="col-sm-6" >
+                <b>Edad</b>
+                <input id="edad_veneno" required type="number" name="edad_veneno" class="form-control" value="<?= $fechaMax ?>" min="0" max="<?= $fechaMax ?>" />
+                </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button onclick="save_new_veneno('<?= $fecha ?>','<?= $paciente->id ?>')" type="button" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
+          </div>
+
+         </form> 
+
+        </div>
+      </div>
+    </div> 
+<!-- Cierra Modal Agregar Veneno --> 
+                   

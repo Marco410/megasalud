@@ -164,7 +164,6 @@ class PatientsController extends CI_Controller {
     $data['tratamiento'] = $this->historia->tratamiento();
     $data['productos_ven'] = $this->historia->productos_ven();
         
-        
     //informacion del paciente desde BD 
     $data['historial'] = $this->historia->historial($id);
     $data['notas'] = $this->historia->get_notas($id);
@@ -172,8 +171,6 @@ class PatientsController extends CI_Controller {
     $data['linea_vida'] = $this->historia->linea_vida($id);
     $data['carga_heredo'] = $this->historia->carga_heredo($id);
     $data['ante'] = $this->historia->ante($id);
-    
-    
         
     //mensajes
     $data['conversacion'] = $this->mensajes->conversacion($id);
@@ -188,8 +185,11 @@ class PatientsController extends CI_Controller {
     
   
     $data['view_controller'] = array(
-        3 => 'historia_start_vs.js',
-        2 => 'messenger_vs.js',
+        6 => 'historia_start_vs.js',
+        5 => 'messenger_vs.js',
+        4 => 'pacients/npatologicos_vs.js',
+        3 => 'pacients/patologicos_vs.js',
+        2 => 'pacients/heredo_vs.js',
         1 => 'pacients_vs.js',
         );
     $data['view_style'] = 'linea.css';
@@ -796,46 +796,13 @@ class PatientsController extends CI_Controller {
          echo json_encode($array);
     }
 
-    //trae los datos de la vista 
-    public function save() {
-        
-        $anio =  $this->input->post('anio') + $this->input->post('edad_cong');
-        
-        $descripcion = "Enfermedad Congénita - " . $this->input->post('manejo') ;
-        
-        
-        $data =  array(
-        'id_paciente' => $this->input->post('id_paciente'),
-        'enfermedad' => $this->input->post('enfermedad'), 
-        'manejo' => $this->input->post('manejo'),
-        'medicamento' => $this->input->post('medicamento'),
-        'edad' => $this->input->post('edad_cong')
-        );
-        
-        $data_linea = array(
-        'id_paciente' => $this->input->post('id_paciente'),
-        'enfermedad' => $this->input->post('enfermedad'), 
-        'table_hisclinic' => "Enfermedad_Congenita", //_app1
-        'edad_paciente' => $this->input->post('edad_cong'),
-        'descripcion' => $descripcion, 
-        'anio' => $anio
-        );
-        
-    if($this->historia->save($data, $data_linea)){
-        
-        echo json_encode($data);
-    }
-        else{
-            echo false;
-        }
-        
-    }
-       
+    //trae los datos de la vista       
     public function agregar_estudio() {
          
         $id = $this->input->post('id_paciente');
         $exp = $this->input->post('expediente');
         $estudio = 'estudio_sbr';
+         
          
         $path = "assets/estudios/";
          
@@ -873,6 +840,7 @@ class PatientsController extends CI_Controller {
     } 
     
     public function upload_estudio() {
+        
          
         $id = $this->input->post('id_paciente');
         $exp = $this->input->post('expediente');
@@ -904,9 +872,6 @@ class PatientsController extends CI_Controller {
                 else{
                     echo json_encode(array('error' => true));
                 }
-            
-        
-
     }
     
     public function estudio_movil(){
@@ -1099,35 +1064,78 @@ class PatientsController extends CI_Controller {
         
     }
     
-    //trae de la vista las inminizaciones
-    public function vacuna() {
-        $anio =  $this->input->post('anio') + $this->input->post('edad');
+     public function congenita() {
         
-        $descripcion = "Vacuna - " . $this->input->post('descripcion_vac');    
+        $anio =  $this->input->post('anio') + $this->input->post('edad_cong');
         
+        $descripcion = "Enfermedad Congénita - " . $this->input->post('manejo') ;
+        
+        $this->db->where('id',$_POST['enfermedad']);
+        $this->db->where('tipo', "congenita");
+        $query = $this->db->get('enfermedades');
+        $enfermedad = $query->row()->enfermedad;
+                    
         $data =  array(
         'id_paciente' => $this->input->post('id_paciente'),
-        'vacuna' => $this->input->post('vacuna'), 
-        'descripcion' => $this->input->post('descripcion_vac'), 
-        'edad' => $this->input->post('edad')
+        'enfermedad' => $enfermedad, 
+        'manejo' => $this->input->post('manejo'),
+        'medicamento' => $this->input->post('medicamento'),
+        'edad' => $this->input->post('edad_cong')
         );
         
         $data_linea = array(
         'id_paciente' => $this->input->post('id_paciente'),
-        'enfermedad' => $this->input->post('vacuna'),
-        'edad_paciente' => $this->input->post('edad'), 
-        'table_hisclinic' => "Vacuna", //_inmunizaciones
-        'descripcion' => $descripcion,
+        'id_dato' => $_POST['enfermedad'],
+        'enfermedad' => $enfermedad, 
+        'table_hisclinic' => "enfermedades",
+        'edad_paciente' => $this->input->post('edad_cong'),
+        'descripcion' => $descripcion, 
         'anio' => $anio
         );
         
-    if($this->historia->vacuna($data, $data_linea)){
+    if($this->historia->congenita($data, $data_linea)){
         
         echo json_encode($data);
     }
         else{
             echo false;
         }
+        
+    }
+    
+    //trae de la vista las inminizaciones
+    public function vacuna() {
+        $anio =  $this->input->post('anio') + $this->input->post('edad');
+        
+        $descripcion = "Vacuna - " . $this->input->post('descripcion_vac');
+        
+        $this->db->where('id',$_POST['vacuna']);
+        $query = $this->db->get('vacunas');
+        $vacuna = $query->row()->vacuna; 
+        
+        $data =  array(
+        'id_paciente' => $this->input->post('id_paciente'),
+        'vacuna' => $vacuna, 
+        'descripcion' => $this->input->post('descripcion_vac'), 
+        'edad' => $this->input->post('edad')
+        );
+        
+        $data_linea = array(
+        'id_paciente' => $this->input->post('id_paciente'),
+        'id_dato' => $_POST["vacuna"],
+        'enfermedad' => $vacuna,
+        'edad_paciente' => $this->input->post('edad'), 
+        'table_hisclinic' => "vacuna",
+        'descripcion' => $descripcion,
+        'anio' => $anio
+        );
+        
+        if($this->historia->vacuna($data, $data_linea)){
+            echo json_encode($data);
+            }
+            else{
+                echo false;
+            }
         
     }
     
@@ -1149,21 +1157,22 @@ class PatientsController extends CI_Controller {
         $alergia = $this->db->get("alergenos")->row()->alergeno;
         
         
-        $descripcion = "Alergia - " . "Duracion: " . $duracion . " el " . $this->input->post('fechaR');    
+        $descripcion = "Alergia - Tratamiento" . $_POST['tratamiento'];    
          
         $data =  array(
         'id_paciente' => $id_paciente,
         'alergeno' => $alergia,
         'id_alergeno' => $id_alergeno,
-        'tratamiento' => $this->input->post('tratamiento'),
-        'edad_alergia' => $this->input->post('edad_alergia')
+        'tratamiento' => $_POST['tratamiento'],
+        'edad_alergia' => $_POST['edad_alergia']
         );
          
          $data_linea = array(
         'id_paciente' => $id_paciente,
-        'enfermedad' => $alergeno,
-        'table_hisclinic' => "Alergia", //_alergias
-        'edad_paciente' => $this->input->post('edad_alergia'), 
+        'id_dato' => $id_alergeno,
+        'enfermedad' => $alergia,
+        'table_hisclinic' => "alergenos", 
+        'edad_paciente' => $_POST['edad_alergia'], 
         'descripcion' => $descripcion,
         'anio' => $anio
         );
@@ -1180,11 +1189,14 @@ class PatientsController extends CI_Controller {
         
         $anio =  $this->input->post('anio') + $this->input->post('edad_hospi');
         
-        $descripcion = "Hospitalización - " . $this->input->post('manejo');  
+        $descripcion = "Hospitalización - " . $this->input->post('manejo'); 
+        
+        $this->db->where("id",$_POST["causa"]);
+        $causa = $this->db->get("hospi_causa")->row()->causa;
         
         $data =  array(
         'id_paciente' => $this->input->post('id_paciente'),
-        'causa' => $this->input->post('causa'), 
+        'causa' => $causa, 
         'operacion' => $this->input->post('op'),
         'tipo_operacion' => $this->input->post('tipo_operacion'),
         'anestesia' => $this->input->post('ane'),
@@ -1202,7 +1214,8 @@ class PatientsController extends CI_Controller {
         
          $data_linea = array(
         'id_paciente' => $this->input->post('id_paciente'),
-        'enfermedad' => $this->input->post('causa'),
+        'id_dato' => $_POST["causa"],
+        'enfermedad' => $causa,
         'table_hisclinic' => "Hospitalizacion",//_hospitalizaciones
         'edad_paciente' => $this->input->post('edad_hospi'), 
         'descripcion' => $descripcion,
@@ -1252,7 +1265,6 @@ class PatientsController extends CI_Controller {
         'descripcion' => $descripcion,
         'anio' => $anio
         );
-        
         
     if($this->historia->enf_infecto_virus_in($data, $data_linea)){
         
@@ -1700,75 +1712,6 @@ class PatientsController extends CI_Controller {
 		}
     }
     
-    public function find_venenos(){
-          $clasi = $_POST['clas'];
-          
-          $this->db->where('clasificacion',$clasi);
-          echo json_encode($this->db->get('venenos_p')->result());
-          
-      } 
-    
-    public function find_venenos_m(){
-          $clasi = $_POST['clas'];
-          $this->db->where('clasificacion',$clasi);
-          echo json_encode($this->db->get('venenos_m')->result());
-          
-      }  
-    
-    public function find_venenos_r(){
-          $clasi = $_POST['clas'];
-          $this->db->where('clasificacion',$clasi);
-          echo json_encode($this->db->get('venenos_r')->result());
-          
-      }  
-    
-    public function find_venenos_mp(){
-          $clasi = $_POST['clas'];
-          $this->db->where('clasificacion',$clasi);
-          echo json_encode($this->db->get('venenos_mp')->result());
-          
-      } 
-        
-    public function save_veneno(){
-        $t = $_POST['table_v'];
-        if ($t == "t_v"){
-             $data = array(
-            'nombre' => $_POST['nombre_ven'],
-              'clasificacion' => $_POST['name_clasi']
-          );
-            $table = 'venenos_p';
-            
-        }else if ($t == "t_m"){
-             $data = array(
-            'nombre_v' => $_POST['nombre_ven_m'],
-              'clasificacion' => $_POST['name_clasi_m']
-          );
-            $table = 'venenos_m';
-            
-        }else if ($t == "t_r"){
-             $data = array(
-            'nombre_v' => $_POST['nombre_ven_r'],
-              'clasificacion' => $_POST['name_clasi_r']
-          );
-            $table = 'venenos_r';
-            
-        }else if ($t == "t_mp"){
-             $data = array(
-            'nombre_v' => $_POST['nombre_ven_mp'],
-              'clasificacion' => $_POST['name_clasi_mp']
-          );
-            $table = 'venenos_mp';
-            
-        }
-         
-        if($this->db->insert($table,$data)){
-            echo json_encode($data);
-        }else{
-            echo '';
-        }
-        
-      }
-    
     public function save_hisclinic_vp(){
     
         if($_POST['clasificacion'] == "B"){
@@ -2075,7 +2018,114 @@ class PatientsController extends CI_Controller {
         
     }
     
+    //obtener elementos patologicos
+    
+    public function get_ante_congenita(){
+        $this->db->like('enfermedad', $_POST['text']);
+        $this->db->where('tipo
+        ', 'congenita');
+        $this->db->from("enfermedades");
+        $result = $this->db->get();
+        $row = $result->result();
+        $response = array();
+        $response['data'] = $result->result_array();
+        
+         echo json_encode($response);
+    }  
+    
+    public function get_ante_vacunas(){
+        $this->db->like('vacuna', $_POST['text']);
+        $this->db->from("vacunas");
+        $result = $this->db->get();
+        $row = $result->result();
+        $response = array();
+        $response['data'] = $result->result_array();
+        
+         echo json_encode($response);
+    } 
+    
+    public function get_ante_alergias(){
+        $this->db->like('alergeno', $_POST['text']);
+        $this->db->from("alergenos");
+        $result = $this->db->get();
+        $row = $result->result();
+        $response = array();
+        $response['data'] = $result->result_array();
+        
+         echo json_encode($response);
+    } 
+    
+    public function get_ante_hospi(){
+        $this->db->like('causa', $_POST['text']);
+        $this->db->from("hospi_causa");
+        $result = $this->db->get();
+        $row = $result->result();
+        $response = array();
+        $response['data'] = $result->result_array();
+        
+         echo json_encode($response);
+    } 
+    
+    public function get_ante_venenos(){
+        $this->db->like('veneno', $_POST['text'],'after');
+        $this->db->from("venenos");
+        $result = $this->db->get();
+        $row = $result->result();
+        $response = array();
+        $response['data'] = $result->result_array();
+        
+         echo json_encode($response);
+    } 
+    
+    public function get_congenita(){
+         $this->db->where('tipo
+        ', 'congenita');
+        $this->db->from("enfermedades");
+        $result = $this->db->get();
+        $row = $result->result();
+        $response = array();
+        $response['data'] = $result->result_array();
+        
+         echo json_encode($response);
+    }
+    
+    public function get_vacunas(){
+        $result = $this->historia->vacunas();
+        $row = $result->result();
+        $response = array();
+        $response['data'] = $result->result_array();
+        
+         echo json_encode($response);
+    }
+    
+    public function get_alergias(){
+        $result = $this->historia->alergeno();
+        $row = $result->result();
+        $response = array();
+        $response['data'] = $result->result_array();
+        
+         echo json_encode($response);
+    } 
+    
+    public function get_hospi(){
+        $result = $this->historia->causa();
+        $row = $result->result();
+        $response = array();
+        $response['data'] = $result->result_array();
+        
+         echo json_encode($response);
+    }
+    
     //obtener clasificacion de venenos
+    
+    public function get_clasificacion(){
+        $this->db->where('id',$_POST["id_veneno"]);
+        $result = $this->db->get("venenos")->row();
+        $response = array();
+        $response['data'] = $result;
+        
+         echo json_encode($response);
+    }
         
     public function get_c(){
         
@@ -2214,7 +2264,7 @@ class PatientsController extends CI_Controller {
         
     }
     
-     public function new_veneno(){
+    public function new_veneno(){
         $clasis = json_encode($_POST['clasis']);
         $clasisj = json_decode($clasis);
         $anio =  $this->input->post('anio') + $this->input->post('edad_veneno');

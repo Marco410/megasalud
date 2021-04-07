@@ -41,8 +41,8 @@ class Settings extends CI_Model
         );
           
         if($this->db->insert('enfermedades', $data)){
-
-            echo json_encode(array('dat'=> $dato,'id' => 2));
+            $id_dat = $this->db->insert_id();
+            echo json_encode(array('dat'=> $dato,'id' => 2,'id_dat'=> $id_dat));
         }
             else{
                 echo json_encode(array('error' => true));
@@ -73,8 +73,8 @@ class Settings extends CI_Model
         );
           
         if($this->db->insert('vacunas', $data)){
-
-            echo json_encode(array('dat'=> $dato,'id' => 4));
+             $id_dat = $this->db->insert_id();
+            echo json_encode(array('dat'=> $dato,'id' => 4,'id_dat'=> $id_dat));
         }
             else{
                 echo json_encode(array('error' => true));
@@ -89,8 +89,10 @@ class Settings extends CI_Model
         );
           
         if($this->db->insert('alergenos', $data)){
+            
+            $id_dat = $this->db->insert_id();
 
-            echo json_encode(array('dat'=> $dato,'id' => 5));
+            echo json_encode(array('dat'=> $dato,'id' => 5,'id_dat'=> $id_dat));
         }
             else{
                 echo json_encode(array('error' => true));
@@ -105,8 +107,8 @@ class Settings extends CI_Model
         );
           
         if($this->db->insert('tratamiento_alergia', $data)){
-
-            echo json_encode(array('dat'=> $dato,'id' => 6));
+            $id_dat = $this->db->insert_id();
+            echo json_encode(array('dat'=> $dato,'id' => 6,'id_dat'=> $id_dat));
         }
             else{
                 echo json_encode(array('error' => true));
@@ -121,8 +123,9 @@ class Settings extends CI_Model
         );
           
         if($this->db->insert('hospi_causa', $data)){
-
-            echo json_encode(array('dat'=> $dato,'id' => 7));
+            
+            $id_dat = $this->db->insert_id();
+            echo json_encode(array('dat'=> $dato,'id' => 7,'id_dat'=> $id_dat));
         }
             else{
                 echo json_encode(array('error' => true));
@@ -137,8 +140,9 @@ class Settings extends CI_Model
         );
           
         if($this->db->insert('hospi_operacion', $data)){
-
-            echo json_encode(array('dat'=> $dato,'id' => 8));
+            
+            $id_dat = $this->db->insert_id();
+            echo json_encode(array('dat'=> $dato,'id' => 8,'id_dat'=> $id_dat));
         }
             else{
                 echo json_encode(array('error' => true));
@@ -154,7 +158,8 @@ class Settings extends CI_Model
           
         if($this->db->insert('hospi_anestesia', $data)){
 
-            echo json_encode(array('dat'=> $dato,'id' => 9));
+            $id_dat = $this->db->insert_id();
+            echo json_encode(array('dat'=> $dato,'id' => 9,'id_dat'=> $id_dat));
         }
             else{
                 echo json_encode(array('error' => true));
@@ -169,7 +174,8 @@ class Settings extends CI_Model
           
         if($this->db->insert('hospi_transfusion', $data)){
 
-            echo json_encode(array('dat'=> $dato,'id' => 10));
+            $id_dat = $this->db->insert_id();
+            echo json_encode(array('dat'=> $dato,'id' => 10,'id_dat'=> $id_dat));
         }
             else{
                 echo json_encode(array('error' => true));
@@ -185,7 +191,8 @@ class Settings extends CI_Model
           
         if($this->db->insert('hospi_protesis', $data)){
 
-            echo json_encode(array('dat'=> $dato,'id' => 11));
+            $id_dat = $this->db->insert_id();
+            echo json_encode(array('dat'=> $dato,'id' => 11,'id_dat'=> $id_dat));
         }
             else{
                 echo json_encode(array('error' => true));
@@ -201,8 +208,9 @@ class Settings extends CI_Model
         );
           
         if($this->db->insert('enfermedades', $data)){
-
-           echo json_encode(array('dat'=> $dato,'id' => 12));
+            
+            $id_dat = $this->db->insert_id();
+           echo json_encode(array('dat'=> $dato,'id' => 12,'id_dat'=> $id_dat));
         }
             else{
                 echo json_encode(array('error' => true));

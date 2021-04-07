@@ -48,7 +48,16 @@ legend {
 
 /** Buttons **/
 
+.elemento {
+    margin: 2px;
+    border-radius: 10px;
+    background: var(--white);
+    box-shadow: 0 5px 5px rgb(0 0 0 / 10%);
+}
 
+.elemento:hover {
+     box-shadow: 0 5px 10px rgb(0 0 0 / 30%);
+}
 
 /** Flex **/
 

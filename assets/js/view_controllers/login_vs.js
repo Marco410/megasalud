@@ -38,7 +38,6 @@ function init(){
 							}
 						}
 						else{
-							// alert('Contraseña incorrecta.');
 							iziToast.error({
 								timeout: 3000,
 							    title: 'Error',
@@ -51,9 +50,6 @@ function init(){
 					else{
 						alert('Error de conexión con el servidor.');
 					}
-				},
-				error:  function(xhr,err){ 
-					console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status+"\n \n responseText: "+xhr.responseText);
 				}
 			});
 		}
