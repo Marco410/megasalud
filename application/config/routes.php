@@ -278,6 +278,15 @@ $route['mensajes'] = 'megasalud/MessengerController/index';
 
 /*
 ----------------------------------
+| API routes
+-----------------------------------
+*/
+$route['pa_nl'] = 'megasalud/APIController/pacientes_notas';
+
+
+
+/*
+----------------------------------
 | Wildcard route
 -----------------------------------
 */

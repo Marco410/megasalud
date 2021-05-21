@@ -492,7 +492,6 @@ function init(){
                 text : text
             }
          
-        
             $.ajax({
                 url:  base_url + 'megasalud/PatientsController/get_ante_congenita',
                 type:  'post',
@@ -637,6 +636,60 @@ function init(){
                     }
                 }
             });
+            
+            $.ajax({
+                url:  base_url + 'megasalud/PatientsController/get_ante_medi',
+                type:  'post',
+                data: texto,
+                success: function(respuesta){
+                    if(respuesta){
+                        var res = JSON.parse(respuesta);
+                        var data = res.data;
+                        var l = data.length;
+                        if(l >  0){
+                             $("#panel-ante-medi").html("<h4>Medicamentos</h4>");
+                            if (l > 10){
+                                    $("#panel-ante-medi").attr("style","height:150px; overflow: scroll; overflow-x: hidden; margin:10px;");
+                                }else{
+                                    $("#panel-ante-medi").removeAttr("style");
+                                }
+                            for (x = 0; x < l; x++){
+                                $("#panel-ante-medi").append("<button class='btn btn-sm elemento' onclick='new_medi(this)' data-name='"+data[x].medicamento+"' data-value='"+data[x].id+"' >"+data[x].medicamento+"</button>");
+                            }
+                        }else{
+                            $("#panel-ante-medi").html("");
+                        }
+                        
+                    }
+                }
+            });
+            
+            $.ajax({
+                url:  base_url + 'megasalud/PatientsController/get_ante_terapias',
+                type:  'post',
+                data: texto,
+                success: function(respuesta){
+                    if(respuesta){
+                        var res = JSON.parse(respuesta);
+                        var data = res.data;
+                        var l = data.length;
+                        if(l >  0){
+                             $("#panel-ante-terapias").html("<h4>Terapias</h4>");
+                            if (l > 10){
+                                    $("#panel-ante-terapias").attr("style","height:150px; overflow: scroll; overflow-x: hidden; margin:10px;");
+                                }else{
+                                    $("#panel-ante-terapias").removeAttr("style");
+                                }
+                            for (x = 0; x < l; x++){
+                                $("#panel-ante-terapias").append("<button class='btn btn-sm elemento' onclick='new_terapia(this)' data-name='"+data[x].terapia+"' data-value='"+data[x].id+"' >"+data[x].terapia+"</button>");
+                            }
+                        }else{
+                            $("#panel-ante-terapias").html("");
+                        }
+                        
+                    }
+                }
+            });
         }
     });
     
@@ -694,43 +747,6 @@ function init(){
 		}
 	});
     
-    $('#form-medi').validate({      
-		submitHandler: function(form) {
-			$.ajax({
-				url:  base_url + 'megasalud/PatientsController/save_hisclinic_medi',
-				type:  'post',
-				data: $(form).serialize(),
-				success: function(respuesta){
-					if(respuesta){
-                        
-						iziToast.success({
-							timeout: 3000,
-						    title: 'Exito',
-						    position: 'topRight',
-						    // target: '.login-message',
-						    message: 'Medicamento guardado.',
-						});
-                        
-                        var res = JSON.parse(respuesta);
-                        $("#divLinea").load(" #divLinea");
-                        
-					}
-					else{
-						iziToast.error({
-							timeout: 3000,
-						    title: 'Error',
-						    position: 'topRight',
-						    // target: '.login-message',
-						    message: 'No se guardo el medicamento',
-						});
-					}
-				},
-				error:  function(xhr,err){ 
-				}
-			});
-        
-		}
-	}); 
     
     $('#form-terapia').validate({      
 		submitHandler: function(form) {
@@ -849,166 +865,7 @@ function init(){
     
     
     //Datos de enfermedades infectocontagiosas
-    
-    $('#enf_infecto_virus').validate({
-		submitHandler: function(form) {
-            //console.log('Submit');
-			$.ajax({
-				url:  base_url + 'megasalud/PatientsController/enf_virus',
-				type:  'post',
-				data: $(form).serialize(),
-				success: function(respuesta){
-					if(respuesta){
-                        
-                        iziToast.success({
-							timeout: 3000,
-						    title: 'Exito',
-						    position: 'topRight',
-						    // target: '.login-message',
-						    message: 'Virus Guardado.',
-						});
-                        
-                        document.getElementById("enf_virus").value = "";
-                         document.getElementById("manejo_virus").value = "";
-                         document.getElementById("med_virus").value = "";
-                         document.getElementById("edad_virus").value = "";
-                        $("#divLinea").load(" #divLinea");
-					}
-					else{
-						iziToast.error({
-							timeout: 3000,
-						    title: 'Error',
-						    position: 'topRight',
-						    // target: '.login-message',
-						    message: 'No se creo la inmunizacion.',
-						});
-					}
-				},
-				error:  function(xhr,err){ 
-				}
-			});
-		}
-	});
-    
-    $('#enf_infecto_bacterias').validate({
-		submitHandler: function(form) {
-            //console.log('Submit');
-			$.ajax({
-				url:  base_url + 'megasalud/PatientsController/enf_bacterias',
-				type:  'post',
-				data: $(form).serialize(),
-				success: function(respuesta){
-					if(respuesta){
-                        
-                        iziToast.success({
-							timeout: 3000,
-						    title: 'Exito',
-						    position: 'topRight',
-						    message: 'Bacteria Guardada.',
-						});
-                        
-                         document.getElementById("enf_bac").value = "";
-                         document.getElementById("manejo_bac").value = "";
-                         document.getElementById("med_bac").value = "";
-                         document.getElementById("edad_bac").value = "";
-                        $("#divLinea").load(" #divLinea");
-					}
-					else{
-						iziToast.error({
-							timeout: 3000,
-						    title: 'Error',
-						    position: 'topRight',
-						    // target: '.login-message',
-						    message: 'No se creo la inmunizacion.',
-						});
-					}
-				},
-				error:  function(xhr,err){ 
-				}
-			});
-		}
-	});
-
-    $('#enf_infecto_hongos').validate({
-		submitHandler: function(form) {
-            //console.log('Submit');
-			$.ajax({
-				url:  base_url + 'megasalud/PatientsController/enf_hongos',
-				type:  'post',
-				data: $(form).serialize(),
-				success: function(respuesta){
-					if(respuesta){
-
-                        iziToast.success({
-							timeout: 3000,
-						    title: 'Exito',
-						    position: 'topRight',
-						    message: 'Hongo Guardado.',
-						});
-                        
-                         document.getElementById("enf_hongo").value = "";
-                         document.getElementById("manejo_hongo").value = "";
-                         document.getElementById("med_hongo").value = "";
-                         document.getElementById("edad_hongo").value = "";
-                        $("#divLinea").load(" #divLinea");
-					}
-					else{
-						iziToast.error({
-							timeout: 3000,
-						    title: 'Error',
-						    position: 'topRight',
-						    // target: '.login-message',
-						    message: 'No se creo la inmunizacion.',
-						});
-					}
-				},
-				error:  function(xhr,err){ 
-				
-				}
-			});
-		}
-	});
-    
-    $('#enf_infecto_parasitos').validate({
-		submitHandler: function(form) {
-            //console.log('Submit');
-			$.ajax({
-				url:  base_url + 'megasalud/PatientsController/enf_parasitos',
-				type:  'post',
-				data: $(form).serialize(),
-				success: function(respuesta){
-					if(respuesta){
-                        
-                        iziToast.success({
-							timeout: 3000,
-						    title: 'Exito',
-						    position: 'topRight',
-						    message: 'Parasito Guardado.',
-						});
-                        
-                         document.getElementById("enf_para").value = "";
-                         document.getElementById("manejo_para").value = "";
-                         document.getElementById("med_para").value = "";
-                         document.getElementById("edad_para").value = "";
-                        $("#divLinea").load(" #divLinea");
-					}
-					else{
-						iziToast.error({
-							timeout: 3000,
-						    title: 'Error',
-						    position: 'topRight',
-						    // target: '.login-message',
-						    message: 'No se creo la inmunizacion.',
-						});
-					}
-				},
-				error:  function(xhr,err){ 
-					
-				}
-			});
-		}
-	});
-    
+ 
     $('#enf_infecto_psicologicas').validate({
 		submitHandler: function(form) {
             //console.log('Submit');
@@ -1157,7 +1014,6 @@ function init(){
              document.getElementById("panel-add-ter").hidden = true;
         }
     }); 
-   
     
     $('#alergeno').on('change',function(){
         if($(this).find(":selected").val() == "Otra"){
@@ -2337,25 +2193,22 @@ function init(){
         }
     });
     
-    //vista de panel de los antecedentes
-    
-
-   
 }
+
     function recargarLinea(){
         $("#divLinea").load(" #divLinea");
     }
 
     function copiarAutoinmune(elemento){
 
-        var enf = elemento.dataset.value;
+    var enf = elemento.dataset.value;
 
-        document.getElementById("padecimiento").value = enf ;
+    document.getElementById("padecimiento").value = enf ;
 
-        //se cierra el modal
-        $('#closeModal').click();
+    //se cierra el modal
+    $('#closeModal').click();
 
-        }
+    }
 
 
 

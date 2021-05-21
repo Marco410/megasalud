@@ -185,8 +185,9 @@ class PatientsController extends CI_Controller {
     
   
     $data['view_controller'] = array(
-        6 => 'historia_start_vs.js',
-        5 => 'messenger_vs.js',
+        7 => 'historia_start_vs.js',
+        6 => 'messenger_vs.js',
+        5 => 'pacients/tera_medi_vs.js',
         4 => 'pacients/npatologicos_vs.js',
         3 => 'pacients/patologicos_vs.js',
         2 => 'pacients/heredo_vs.js',
@@ -1888,30 +1889,29 @@ class PatientsController extends CI_Controller {
         $descripcion = "Medicamento - " . $medicamento;
         
         $data = array(
-        'id_paciente' => $this->input->post('id_paciente'),
-        'id_medi' => $this->input->post('p_medicamento'),
-        'medi' => $medicamento,
-        'edad_medi' => $this->input->post('edad_medica') 
+            'id_paciente' => $this->input->post('id_paciente'),
+            'id_medi' => $this->input->post('p_medicamento'),
+            'medi' => $medicamento,
+            'edad_medi' => $this->input->post('edad_medica') 
         ); 
         
         $data_linea = array(
-        'id_paciente' => $this->input->post('id_paciente'),
-        'enfermedad' => $medicamento, 
-        'table_hisclinic' => "hisclinic_medi", 
-        'edad_paciente' => $this->input->post('edad_medica'),
-        'descripcion' => $descripcion, 
-        'anio' => $anio
+            'id_paciente' => $this->input->post('id_paciente'),
+            'id_dato' => $this->input->post('p_medicamento'),
+            'enfermedad' => $medicamento, 
+            'table_hisclinic' => "medicamentos", 
+            'edad_paciente' => $this->input->post('edad_medica'),
+            'descripcion' => $descripcion, 
+            'anio' => $anio
         );
         
-        
-        if($this->historia->save_medi($data, $data_linea)){
-        
+        if($this->db->insert("hisclinic_medi", $data)){
+        $this->db->insert("hisclinic_linea", $data_linea);
         echo json_encode($data);
              }
         else{
             echo "";
         }
-        
     } 
     
     public function save_hisclinic_terapia(){
@@ -2066,6 +2066,28 @@ class PatientsController extends CI_Controller {
          echo json_encode($response);
     } 
     
+    public function get_ante_medi(){
+        $this->db->like('medicamento', $_POST['text']);
+        $this->db->from("medicamentos");
+        $result = $this->db->get();
+        $row = $result->result();
+        $response = array();
+        $response['data'] = $result->result_array();
+        
+         echo json_encode($response);
+    } 
+    
+    public function get_ante_terapias(){
+        $this->db->like('terapia', $_POST['text']);
+        $this->db->from("terapias");
+        $result = $this->db->get();
+        $row = $result->result();
+        $response = array();
+        $response['data'] = $result->result_array();
+        
+         echo json_encode($response);
+    } 
+    
     public function get_ante_venenos(){
         $this->db->like('veneno', $_POST['text'],'after');
         $this->db->from("venenos");
@@ -2115,6 +2137,7 @@ class PatientsController extends CI_Controller {
         
          echo json_encode($response);
     }
+    
     
     //obtener clasificacion de venenos
     

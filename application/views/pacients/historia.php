@@ -416,14 +416,13 @@
                         <div id="panel-ante-vacunas" ></div>
                         <div id="panel-ante-alergias" ></div>
                         <div id="panel-ante-congenita" ></div>
+                        <div id="panel-ante-terapias" ></div>
                     </div>
                     <div class="col-sm-6" >
                         <div id="panel-ante-hospi" ></div>
                         <div id="panel-ante-venenos" ></div>
+                        <div id="panel-ante-medi" ></div>
                     </div>
-                    
-                    
-                    
                 </div>
                     
             </div>
@@ -466,7 +465,7 @@
                     </div>
                     
                     <div  class="col-sm-6" >
-                        <form id="form-medi" name="form-medi" method="post" >
+                        <form id="form_medi" name="form_medi" method="post" novalidate="novalidate" >
                         <input type="hidden" value="<?= $fecha ?>" name="anio" />
                         <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
                         <h4>Medicamento</h4>
@@ -495,132 +494,6 @@
         </div>
     </div>
     <!--- Termina Panel Notas y Acciones  ---> 
-    
-    <!-- Modal Agregar Estudio -->
-    <div class="modal fade" id="estudios" tabindex="-1" role="dialog" aria-labelledby="estudiosTitle" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="estudioTitle">Agregar un nuevo estudio</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-        <form method="post" id="agregar_estudio" name="agregar_estudio"  enctype="multipart/form-data" >
-            <div class="modal-body">
-                <div class="row" >
-                    <div class="col-sm-12 form-group" >
-                      <b>Titulo del Estudio</b>
-                      <input class="form-control" type="text" id="title_estudio" name="title_estudio" required />
-                      </div>
-                      <div class="col-sm-6 form-group" >
-                      <b>Fecha del Estudio</b>
-                          <input class="form-control" type="date" id="fecha_estudio" name="fecha_estudio" required />
-                      </div>
-                      <div class="col-sm-6 form-group" >
-                          <b>Selecciona archivo o Arrastralo aquí</b>
-                      <input class="form-control" type="file" id="estudio_sbr" name="estudio_sbr"  />
-                          <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
-                          <input type="hidden" value="<?= $paciente->clave_bancaria ?>" name="expediente" />
-                      </div>
-                </div>
-              </div>
-                   
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
-              </div>
-                    
-             </form> 
-                
-                <form class="dropzone" id="estudios_up">
-                    <div class="dz-message" >
-                        <div class="icon" >
-                            <i class="fa fa-file" ></i>
-                        </div>
-                        <h2>Suelta los estudios aquí</h2>
-                        <span class="note" >No hay Archivos seleccionados</span>
-                    </div>
-                    <div class="fallback" >
-                        <input type="file" name="file" id="estudios_up" multiple />
-                    </div>
-                    <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
-                    <input type="hidden" value="<?= $paciente->clave_bancaria ?>" name="expediente" />
-                </form>
-                
-                <script>
-                    var base_url = '<?php echo base_url(); ?>';
-                    var dropzone = new Dropzone("#estudios_up",{ 
-                        url: base_url + 'megasalud/PatientsController/upload_estudio',
-                        maxFiles:40,
-                        init: function(){
-                            this.on("success", function(){
-                                 iziToast.success({
-                                    timeout: 3000,
-                                    title: 'Exito',
-                                    position: 'topRight',
-                                    // target: '.login-message',
-                                    message: 'Estudio Guardado.',
-                                });
-                            });
-                        }
-                                                    
-                    });
-                
-                </script>
-            </div>
-          </div>
-        </div> 
-    <!-- Cierra Modal Agregar Estudio -->    
-        
-<!-- Modal Agregar Cita -->
-    <div class="modal fade" id="nuevacita" tabindex="-1" role="dialog" aria-labelledby="citaTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="estudioTitle">Agregar Cita</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-                 <form id="nueva-cita" name="nueva-cita" method="post" >
-                    <div class="modal-body" >
-                    <div class="form-group col-sm-4">
-                                <label>
-                                    Sucursal
-                                </label>
-
-                                <select id="id_calendario" name="id_calendario" class="form-control" required >
-                                    <option value="" >Seleccione una opción</option>
-                                    <?php foreach ($sucursales->result() as $sucursal): ?>
-                                    <option value="<?= $sucursal->id_calendario ?>"><?= $sucursal->razon_social ?></option>
-                                    <?php endforeach ?>
-                                </select>
-                            </div>
-                        <div class="form-group col-sm-4">
-                            <label>
-                                Cita Para:
-                            </label>
-
-                            <input class="form-control" id="title_cita" name="title_cita" value="<?= $paciente->nombre ?> <?= $paciente->apellido_p ?> <?= $paciente->telefono_a ?> " />
-                        </div>
-
-                        <div class="form-group col-sm-4">
-                            <label>
-                                Fecha: (dia - hora)
-                            </label>
-                            <input required type="datetime-local" name="fecha_cita" id="fecha_cita" min="<?php echo  date('Y-m-d\TH:i'); ?>"  value="<?php echo date("Y-m-d\TH:i");?>" class="form-control" >
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Agendar</button>
-                  </div>
-                </form> 
-             </div>
-          </div>
-        </div> 
-    <!-- Cierra Modal Agregar cita -->
         
      <div class="panel panel-brown" style="border-radius:15px" >
         
@@ -744,6 +617,7 @@
     <div class="panel panel-default border-left-warning" id="p-npato"  hidden  >
         <div class="panel-body" >
                 <div class="col-sm-12" >
+                    <div class="text-center" ><small>Da clic en el menú para empezar a buscar</small></div>
                 <div class="container" >
                     <div class="row" >
                          <div class="col-sm-12" >
@@ -891,53 +765,6 @@
     </div>
     <!-- Cierra Linea de Vida -->
     
-    <!-- Antecedentes HeredoFamiliares -->
-    <div class="panel panel-brown" style="border-radius:15px">
-        
-        <div class="panel-heading text-center" data-toggle="collapse" href="#collapseHeredo" role="button" aria-expanded="false" aria-controls="collapseHeredo" style="border-radius:15px" >
-        <h3>ANTECEDENTES HEREDOFAMILIARES</h3> 
-        </div>
-    
-        <div class="collapse" id="collapseHeredo" >
-                <div class="panel-body">
-                
-                    <div class="panel panel-default border-left-brown" >
-                    
-                    <div class="panel-heading" >      
-                    <span class="ms-subtitle" ><label>Añadir Carga Hereditaria</label></span>
-                    </div>  
-                    
-                    <div class="panel-body">
-                        
-                     </div>     
-                    </div>
-                    
-                      <!--- Inicia Enfermedades Congénitas -->
-           
-       
-            <section id="Enfermedad_CongenitaSec"></section>
-            <div class="panel panel-default border-left-brown" >
-                    
-            <div class="panel-heading" >      
-            <span class="ms-subtitle" ><label>Añadir Enfermedad Congénita</label></span>
-            </div>  
-            <div class="panel-body" >
-            
-            </div>
-            </div>
-                
-                <!-- Termina Enfermedades Congénitas -->
-                    <div class="col-sm-3 pull-right" >
-                            <div data-toggle="collapse" href="#collapseHeredo" role="button" aria-expanded="false" style="background: #f0ad4e; color:#F6F8FA; border-radius: 15px;"  aria-controls="collapseHeredo" class="text-center" >
-                            Cerrar Panel
-                            </div> 
-                    </div>      
-                 
-            </div>
-        </div>
-    </div>
-    <!-- Termina Antecedentes HeredoFamiliares -->
-    
     <!--- Comienza panel de Antecedentes Patologicos  --->
     
     <div class="panel panel-brown" style="border-radius:15px">
@@ -947,333 +774,11 @@
         </div>
         <div class="collapse" id="collapsePato" >
             
+        
                 
-          <section id="VacunaSec" ></section>  
-            <div class="panel-body" >
-                <h3 class="text-center">INMUNIZACIONES</h3>
-             <div class="panel panel-default border-left-brown" >
-                    
-                    <div class="panel-heading" >      
-                    <span class="ms-subtitle" ><label>Añadir Vacunas</label></span>
-                    </div>  
-                 <div class="panel-body"  >
-              <!---       
-             <form id="form_vacuna" name="vacuna" method="post">
-                 
-                <div class="col-sm-4" >
-                 <b>Vacuna</b>
-                 <select id="vacuna" class="form-control" name="vacuna">
-                    <option value="" >Selecciona</option>
-                      <?php foreach ( $vacunas->result() as $vacuna ): ?>
-                    <option value="<?= $vacuna->vacuna ?>" ><?= $vacuna->vacuna ?></option>
-                    <?php endforeach ?>
-                     <option value="Otra" >Otra</option>
-                    </select>
-                    <div class="" id="panel-add-v" hidden >
-                    <br>
-                    <a href="#" class="btn btn-sm btn-info" data-id="4" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
-
-                    </div>
-                 </div>
-                 
-                 <div class="form-group col-sm-4">
-                <b>Descripcion</b>
-
-                <textarea id="descripcion_vac" name="descripcion_vac" class="form-control" placeholder="Escribe aquí" cols="20" rows="2" ></textarea> 
-                </div>
-                 
-                 <div class="col-sm-3" >
-                 <b>Edad</b>
-                <input id="edad_vacuna" required class="form-control" min="0" value="0" max="<?= $fechaMax ?>" name="edad" type="number" /> 
-                 <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
-                <input type="hidden" value="<?= $fecha ?>" name="anio" />
-                </div>
-                 
-                 <div class="col-sm-1 text-center" >
-                     <b>Agregar</b>
-                 <button type="submit" class="btn btn-info"><i class="fa fa-plus "></i><br></button>
-                    </div>
-             </form>   
-            --->
-                </div> 
-            </div>   
-            </div>
-           
-            <section id="AlergiaSec"></section>
-            <div class="panel-body">  
-           
-            <div class="panel panel-default border-left-brown" >
-                    
-                    <div class="panel-heading" >      
-                    <span class="ms-subtitle" ><label>Añadir Alergía</label></span>
-                    </div>  
-            
-            <div class="panel-body" >
-                
-            
-                </div>
-             </div>   
-            </div> 
-            <section id="HospitalizacionSec"></section>
             <div class="panel-body">
-            
-            <div class="panel panel-default border-left-brown" >
-                    
-            <div class="panel-heading" >      
-            <span class="ms-subtitle" ><label>Añadir Hospitalización</label></span>
-            </div>  
-             <div class="panel-body" >
-             
-                </div>   
-            </div>       
-
-            </div>
-                
-            <h3 class="text-center">ENFERMEDADES INFECTOCONTAGIOSAS</h3>
-            <section id="VirusSec"></section>  
-            <div class="panel-body">
-                    
-            <div class="panel panel-default border-left-brown" >
-                    
-                    <div class="panel-heading" >      
-                    <span class="ms-subtitle" ><label>Añadir Virus</label></span>
-                    </div>  
-                <div class="panel-body" >
-                    
-            <form id="enf_infecto_virus" name="enf_infecto_virus" method="post" class="panel-body">
-                
-                <div class="col-sm-5" >
-                    <b>Enfermedad</b>
-                    <select required id="enf_virus" class="form-control" name="enfermedad" >
-                        <option value="">Seleccione</option>
-                        <?php foreach ( $infectos->result() as $infecto ): ?>
-
-                        <option value="<?= $infecto->id  ?>"> <?= $infecto->enfermedad  ?></option>
-                        <?php endforeach ?>
-                        
-                        <option value="Otra">Otra</option>
-                        </select>
-                    <div id="panel-add-vi" hidden >
-                            <br>
-                            <a href="#" class="btn btn-sm btn-info" data-id="12" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
-                    </div>
-                    <b>Medicamentos</b>   
-                    <select required id="med_virus" class="form-control" name="medicamentos">
-                    <option value="">Seleccione</option>
-                     <?php foreach ( $medicamentos->result() as $medicamento ): ?>
-
-                    <option value="<?= $medicamento->id ?>" ><?= $medicamento->medicamento ?></option>
-                   <?php endforeach ?>
-                        <option value="No Recuerda" >No Recuerda</option>
-                        <option value="Otro" >Otro</option>
-                    </select>
-                     <div id="panel-add-med_virus" hidden >
-                            <br>
-                            <a href="#" class="btn btn-sm btn-info" data-id="3" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
-                    </div>
-                    
-                </div>
-                <div class="col-sm-5" >
-                    <b>Manejo</b>
-                    <textarea required id="manejo_virus" name="manejo" class="form-control" placeholder="Escribe aquí" cols="20" rows="4" ></textarea>
-                </div>
-                <div class="col-sm-2" >
-                    
-                    <b>Edad</b>
-                    <input id="edad_virus" required name="edad_virus" class="form-control" type="number" min="0" max="<?= $fechaMax ?>" />
-                    <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
-                    <input type="hidden" value="<?= $fecha ?>" name="anio" /><br>
-                    <b>Agregar</b>
-                    <button type="submit" class="btn btn-info"><i class="fa fa-plus "></i><br></button> 
-                </div>
-            
-            </form>
-                
-                </div>
-            </div>
-            <section id="BacteriaSec"></section>
-                
-            <div class="panel panel-default border-left-brown" >
-                    
-                    <div class="panel-heading" >      
-                    <span class="ms-subtitle" >Añadir Bacterias</span>
-                    </div>  
-                
-                <div class="panel-body" >
-            <form id="enf_infecto_bacterias" name="enf_infecto_bacterias" method="post" class="panel-body">
-            
-            <div class="col-sm-5" >
-                <b>Enfermedad</b>
-                <select required id="enf_bac" class="form-control" name="enfermedad" >
-                        <option value="">Seleccione</option>
-                        <?php foreach ( $infectos_bac->result() as $infecto ): ?>
-
-                        <option value="<?= $infecto->id  ?>"> <?= $infecto->enfermedad  ?></option>
-                        <?php endforeach ?>
-                        
-                        <option value="Otra">Otra</option>
-                </select>
-                 <div id="panel-add-bac" hidden >
-                        <br>
-                        <a href="#" class="btn btn-sm btn-info" data-id="13" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
-                    </div>
-                 <b>Medicamentos</b>   
-                <select required id="med_bac" class="form-control" name="medicamentos">
-                    <option value="">Seleccione</option>
-                     <?php foreach ( $medicamentos->result() as $medicamento ): ?>
-
-                    <option value="<?= $medicamento->id ?>" ><?= $medicamento->medicamento ?></option>
-                   <?php endforeach ?>
-                    <option value="No Recuerda" >No Recuerda</option>
-                    <option value="Otro" >Otro</option>
-                </select>
-                <div id="panel-add-med_bac" hidden >
-                        <br>
-                        <a href="#" class="btn btn-sm btn-info" data-id="3" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
-                  </div>
-            </div>  
+           
           
-            <div class="col-sm-5" >
-                <b>Manejo</b>
-                <textarea required id="manejo_bac" name="manejo" class="form-control" placeholder="Escribe aquí" cols="20" rows="4" ></textarea>
-                </div>    
-                
-            <div class="col-sm-2" >  
-           
-            <b>Edad</b>
-                <input id="edad_bac" required name="edad_bacterias" class="form-control" type="number" min="0" max="<?= $fechaMax ?>" /><br>
-                <input type="hidden" value="<?= $fecha ?>" name="anio" />
-                <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
-                <b>Agregar</b>
-                <button type="submit" class="btn btn-info"><i class="fa fa-plus "></i><br></button> 
-            </div>          
-            
-            </form>
-            </div>
-            </div>  
-            <section id="HongoSec"></section>    
-              
-             <div class="panel panel-default border-left-brown" >
-                    
-                    <div class="panel-heading" >      
-                    <span class="ms-subtitle" ><label>Añadir Hongos</label></span>
-                    </div>  
-            <div class="panel-body" >    
-            <form id="enf_infecto_hongos" name="enf_infecto_hongos" method="post" class="panel-body">
-             
-            <div class="col-sm-5" >    
-            <b>Enfermedad</b>
-            <select required id="enf_hongo" class="form-control" name="enfermedad" >
-                <option value="">Seleccione</option>
-                <?php foreach ( $infectos_hongos->result() as $infecto ): ?>
-
-                <option value="<?= $infecto->id  ?>"> <?= $infecto->enfermedad  ?></option>
-                <?php endforeach ?>
-
-                <option value="Otra">Otra</option>
-            </select>
-                <div id="panel-add-hongo" hidden >
-                        <br>
-                        <a href="#" class="btn btn-sm btn-info" data-id="14" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
-                  </div>
-                <b>Medicamentos</b>    
-            <select required id="med_hongo" class="form-control" name="medicamentos">
-                    <option value="">Seleccione</option>
-                     <?php foreach ( $medicamentos->result() as $medicamento ): ?>
-
-                    <option value="<?= $medicamento->id ?>" ><?= $medicamento->medicamento ?></option>
-                   <?php endforeach ?>
-                <option value="No Recuerda" >No Recuerda</option>
-                 <option value="Otro" >Otro</option>
-                </select>
-                <div id="panel-add-med_ho" hidden >
-                        <br>
-                        <a href="#" class="btn btn-sm btn-info" data-id="3" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
-                  </div>
-            </div>   
-                
-            <div class="col-sm-5">  
-            <b>Manejo</b>
-            <textarea required id="manejo_hongo" name="manejo" class="form-control" placeholder="Escribe aquí" cols="20" rows="4" ></textarea>
-            </div>
-            
-            <div class="col-sm-2" >
-            <b>Edad</b>
-            <input id="edad_hongo" required name="edad_hongos" class="form-control" type="number" min="0" max="<?= $fechaMax ?>" /><br>
-                
-                 <input type="hidden" value="<?= $fecha ?>" name="anio" />
-            <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
-                <b>Agregar</b>
-            <button type="submit" class="btn btn-info"><i class="fa fa-plus "></i></button> 
-            </div>
-            
-            </form>
-                </div>
-             </div>   
-            
-            <section id="ParásitoSec"></section>
-            
-            <div class="panel panel-default border-left-brown" >
-                    
-                    <div class="panel-heading" >      
-                    <span class="ms-subtitle" ><label>Añadir Parasitos</label></span>
-                    </div> 
-                
-            <div class="panel-body" >   
-            <form id="enf_infecto_parasitos" name="enf_infecto_parasitos" method="post" class="panel-body">
-            
-            <div class="col-sm-5" >
-               <b> Enfermedad</b>
-                <select required id="enf_para" class="form-control" name="enfermedad" >
-                <option value="">Seleccione</option>
-                <?php foreach ( $infectos_parasitos->result() as $infecto ): ?>
-
-                <option value="<?= $infecto->id  ?>"> <?= $infecto->enfermedad  ?></option>
-                <?php endforeach ?>
-
-                <option value="Otra">Otra</option>
-            </select>
-                <div id="panel-add-enf_para" hidden >
-                        <br>
-                        <a href="#" class="btn btn-sm btn-info" data-id="15" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
-                  </div>
-                <b>Medicamentos</b>    
-            <select required id="med_para" class="form-control" name="medicamentos">
-                    <option value="">Seleccione</option>
-                     <?php foreach ( $medicamentos->result() as $medicamento ): ?>
-
-                    <option value="<?= $medicamento->id ?>" ><?= $medicamento->medicamento ?></option>
-                   <?php endforeach ?>
-                <option value="No Recuerda" >No Recuerda</option>
-                <option value="Otro" >Otro</option>
-                </select>
-                <div id="panel-add-med_pa" hidden >
-                        <br>
-                        <a href="#" class="btn btn-sm btn-info" data-id="3" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
-                  </div>
-            </div> 
-                
-            <div class="col-sm-5" >
-                 <b>Manejo</b>
-                <textarea required id="manejo_para" name="manejo" class="form-control" placeholder="Escribe aquí" cols="20" rows="4" ></textarea>
-                </div>
-                
-            <div class="col-sm-2" >
-            
-            <b>Edad</b>
-            <input id="edad_para" required name="edad_parasitos" class="form-control" type="number" min="0" max="<?= $fechaMax ?>" /><br>
-                
-            <input type="hidden" value="<?= $fecha ?>" name="anio" />
-            <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
-            <b>Agregar</b>
-            <button type="submit" class="btn btn-info"><i class="fa fa-plus "></i></button>
-            </div>
-               
-            </form>
-                </div> 
-                
-             </div>   
-            
                 <h3 class="text-center">OTRAS ENFERMEDADES</h3>
             <section id="PsicológicaSec"></section>
               
@@ -1406,145 +911,7 @@
 </div>
     </div>
 
-    <!--- Termina panel de Antecedentes Patologicos  --->
-
-    <!-- Antecedentes No Patologicos -->
-    <div class="panel panel-olive" style="border-radius:15px" >
-        
-        <div class="panel-heading text-center" data-toggle="collapse" href="#collapseVenenos" role="button" aria-expanded="false" aria-controls="collapseVenenos" style="border-radius:15px" >
-            <h3>ANTECEDENTES NO PATOLÓGICOS</h3>
-        </div>
-        
-        <div class="collapse" id="collapseVenenos" >
-        <div class="panel-body" >
-            <div class="row" >
-            <div class="col-sm-6" >
-                <div class="panel panel-default  border-left-olive">
-                    <div class="panel-heading" ><h3>Microbios</h3></div>
-                    <div class="panel-body" >
-                        <div class="col-sm-12" >
-                             <label>Clasificación:</label>
-                            <select class="form-control" id="venenos_m" required >
-                                <option value="" >Seleccione:</option>
-                                <option value="M" >Microbianos</option>
-                                <option value="NM" >No Microbianos</option>
-                            </select>
-                            <div id="panel_vm" hidden >
-                            <label id="name_class_m" ></label>
-                            <select class="form-control" id="vm_clas" >
-                            </select>
-                            </div>
-                            <div id="sub_panel_vm" hidden >
-                            <label id="sub_name_class_m" ></label>
-                            <select class="form-control" id="sub_vm_clas" >
-                            </select>
-                            </div>
-                            <form method="post" id="form_new_ven_m"></form>
-                            <label>Edad:</label>
-                            <input id="edad_vm" required type="number" name="edad_vm" class="form-control" value="<?= $fechaMax ?>" min="0" max="<?= $fechaMax ?>" /><br>
-                            <button class="btn btn-sm btn-primary btn-block btn_save_vm" id="" type="button" ><i class="fa fa-save" ></i> Guardar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6" >
-                
-                <div class="panel panel-default  border-left-warning">
-                    <div class="panel-heading" ><h3>Venenos propiamente dichos</h3></div>
-                    <div class="panel-body" >
-                        <div class="col-sm-12" >
-                            <label>Clasificación:</label>
-                            <select class="form-control" id="venenos_p" required >
-                                <option value="" >Seleccione:</option>
-                                <option value="B" >Bebidas</option>
-                                <option value="DA" >Derivados Animales</option>
-                                <option value="FV" >Frutas y Vegetales</option>
-                                <option value="A" >Aditivos</option>
-                                <option value="E" >Enlatados</option>
-                            </select>
-                            <div id="panel_vp" hidden >
-                            <label id="name_class" ></label>
-                            <select class="form-control" id="vp_clas" >
-                                <option value="" >Seleccione:</option>
-                            </select>
-                            </div>
-                            <form method="post" id="form_new_ven"></form>
-                            <label>Edad:</label>
-                            <input id="edad_vp" required type="number" name="edad_veneno_p" class="form-control" value="<?= $fechaMax ?>" min="0" max="<?= $fechaMax ?>" /><br>
-                            <button class="btn btn-sm btn-primary btn-block btn_save_vp" id="" type="button" ><i class="fa fa-save" ></i> Guardar</button>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-            </div>
-            <div class="row" >
-            <div class="col-sm-6" >
-               
-                <div class="panel panel-default  border-left-primary">
-                    <div class="panel-heading" > <h3>Radiaciones</h3></div>
-                    <div class="panel-body" >
-                        <div class="col-sm-12" >
-                            <label>Clasificación:</label>
-                            <select class="form-control" id="venenos_r" required >
-                                <option value="" >Seleccione:</option>
-                                <option value="I" >Ionizantes</option>
-                                <option value="NI" >No Ionizantes</option>
-                            </select>
-                            <div id="panel_vr" hidden >
-                            <label id="name_class_r" ></label>
-                            <select class="form-control" id="vr_clas" >
-                            </select>
-                            </div>
-                            <div id="sub_panel_vr" hidden >
-                            <label id="sub_name_class_r" ></label>
-                            <select class="form-control" id="sub_vr_clas" >
-                            </select>
-                            </div>
-                            <form method="post" id="form_new_ven_r"></form>
-                            <label>Edad:</label>
-                            <input id="edad_vr" required type="number" name="edad_vr" class="form-control" value="<?= $fechaMax ?>" min="0" max="<?= $fechaMax ?>" /><br>
-                            <button class="btn btn-sm btn-primary btn-block btn_save_vr" id="" type="button" ><i class="fa fa-save" ></i> Guardar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6" >
-               
-                <div class="panel panel-default  border-left-brown">
-                    <div class="panel-heading" ><h3>Metales Pesados</h3></div>
-                    <div class="panel-body" >
-                        <div class="col-sm-12" >
-                            <label>Clasificación:</label>
-                            <select class="form-control" id="venenos_mp" required >
-                                <option value="" >Seleccione:</option>
-                                <option value="MP" >Metales Pesados</option>
-                            </select>
-                            <div id="panel_vmp" hidden >
-                            <label id="name_class_mp" ></label>
-                            <select class="form-control" id="vmp_clas" >
-                            </select>
-                            </div>
-                            <form method="post" id="form_new_ven_mp"></form>
-                            <label>Edad:</label>
-                            <input id="edad_vmp" required type="number" name="edad_vmp" class="form-control" value="<?= $fechaMax ?>" min="0" max="<?= $fechaMax ?>" /><br>
-                            <button class="btn btn-sm btn-primary btn-block btn_save_vmp" id="" type="button" ><i class="fa fa-save" ></i> Guardar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </div>
-  
-        <div class="col-sm-3 pull-right" >
-                            <div data-toggle="collapse" href="#collapseVenenos" role="button" aria-expanded="false" style="background: #f0ad4e; color:#F6F8FA; border-radius: 15px;"  aria-controls="collapseVenenos" class="text-center" >
-                            Cerrar Panel
-                            </div> 
-                    </div> 
-        </div>
-        </div>
-    </div>
-
-    <!--- Termina Antecedentes No Patologicos -->
+    <!--- Termina panel de Antecedentes Patologicos  --->   
     
     <?php if ($paciente->sexo == "Femenino"){ ?>
     <!--- Empieza panel Mujeres -->
@@ -2011,7 +1378,7 @@
 <button type="button" data="<?php if($conversacion == 0){ echo 0;}else{ echo $gconversacion->id; } ?>" id="btnverMsj" class="btn btn-brown btn-msj" data-toggle="modal" data-target="#addMsj" ><i class="fa fa-inbox fa-2x"></i></button>
 
 <!-- Modal Add Messenger -->
-    <div class="modal fade" id="addMsj" tabindex="-1" role="dialog" aria->
+<div class="modal fade" id="addMsj" tabindex="-1" role="dialog" aria->
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -2058,41 +1425,165 @@
                     </div>
             </div><!-- modal content -->
         </div><!-- modal dialog -->
-    </div><!-- modal fade -->
+</div><!-- modal fade -->
 <!-- Cierra Modal -->
 
-<!-- Modal Add settings -->
-    <div class="modal fade" id="addSet" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <form id="addSet_form" name="addSet_form" method="post"  >
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Añadir</h4>
+<!-- Modal Agregar Estudio -->
+<div class="modal fade" id="estudios" tabindex="-1" role="dialog" aria-labelledby="estudiosTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="estudioTitle">Agregar un nuevo estudio</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+<form method="post" id="agregar_estudio" name="agregar_estudio"  enctype="multipart/form-data" >
+    <div class="modal-body">
+        <div class="row" >
+            <div class="col-sm-12 form-group" >
+              <b>Titulo del Estudio</b>
+              <input class="form-control" type="text" id="title_estudio" name="title_estudio" required />
+              </div>
+              <div class="col-sm-6 form-group" >
+              <b>Fecha del Estudio</b>
+                  <input class="form-control" type="date" id="fecha_estudio" name="fecha_estudio" required />
+              </div>
+              <div class="col-sm-6 form-group" >
+                  <b>Selecciona archivo o Arrastralo aquí</b>
+              <input class="form-control" type="file" id="estudio_sbr" name="estudio_sbr"  />
+                  <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
+                  <input type="hidden" value="<?= $paciente->clave_bancaria ?>" name="expediente" />
+              </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
+      </div>
+
+     </form> 
+
+        <form class="dropzone" id="estudios_up">
+            <div class="dz-message" >
+                <div class="icon" >
+                    <i class="fa fa-file" ></i>
                 </div>
-                <div class="modal-body">
-                    
-                    <div class="row" >
-                        <div class="col-sm-1" > 
-                        <input class="form-control "  type="text" name="input_id" id="input_id"   /></div>
-                   
-                    <div class="col-sm-11" >
-                        <label>Añade aqui</label>
-                    <input class="form-control" id="dato" name="dato"  />
+                <h2>Suelta los estudios aquí</h2>
+                <span class="note" >No hay Archivos seleccionados</span>
+            </div>
+            <div class="fallback" >
+                <input type="file" name="file" id="estudios_up" multiple />
+            </div>
+            <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
+            <input type="hidden" value="<?= $paciente->clave_bancaria ?>" name="expediente" />
+        </form>
+
+        <script>
+            var base_url = '<?php echo base_url(); ?>';
+            var dropzone = new Dropzone("#estudios_up",{ 
+                url: base_url + 'megasalud/PatientsController/upload_estudio',
+                maxFiles:40,
+                init: function(){
+                    this.on("success", function(){
+                         iziToast.success({
+                            timeout: 3000,
+                            title: 'Exito',
+                            position: 'topRight',
+                            // target: '.login-message',
+                            message: 'Estudio Guardado.',
+                        });
+                    });
+                }
+
+            });
+
+        </script>
+    </div>
+  </div>
+</div> 
+<!-- Cierra Modal Agregar Estudio -->    
+        
+<!-- Modal Agregar Cita -->
+<div class="modal fade" id="nuevacita" tabindex="-1" role="dialog" aria-labelledby="citaTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="estudioTitle">Agregar Cita</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+             <form id="nueva-cita" name="nueva-cita" method="post" >
+                <div class="modal-body" >
+                <div class="form-group col-sm-4">
+                            <label>
+                                Sucursal
+                            </label>
+
+                            <select id="id_calendario" name="id_calendario" class="form-control" required >
+                                <option value="" >Seleccione una opción</option>
+                                <?php foreach ($sucursales->result() as $sucursal): ?>
+                                <option value="<?= $sucursal->id_calendario ?>"><?= $sucursal->razon_social ?></option>
+                                <?php endforeach ?>
+                            </select>
                         </div>
-                        
+                    <div class="form-group col-sm-4">
+                        <label>
+                            Cita Para:
+                        </label>
+
+                        <input class="form-control" id="title_cita" name="title_cita" value="<?= $paciente->nombre ?> <?= $paciente->apellido_p ?> <?= $paciente->telefono_a ?> " />
                     </div>
-                    
+
+                    <div class="form-group col-sm-4">
+                        <label>
+                            Fecha: (dia - hora)
+                        </label>
+                        <input required type="datetime-local" name="fecha_cita" id="fecha_cita" min="<?php echo  date('Y-m-d\TH:i'); ?>"  value="<?php echo date("Y-m-d\TH:i");?>" class="form-control" >
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Agendar</button>
+              </div>
+            </form> 
+         </div>
+      </div>
+    </div> 
+<!-- Cierra Modal Agregar cita -->
+
+<!-- Modal Add settings -->
+<div class="modal fade" id="addSet" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="addSet_form" name="addSet_form" method="post"  >
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Añadir</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="row" >
+                    <div class="col-sm-1" > 
+                    <input class="form-control "  type="text" name="input_id" id="input_id"   /></div>
+
+                <div class="col-sm-11" >
+                    <label>Añade aqui</label>
+                <input class="form-control" id="dato" name="dato"  />
+                    </div>
 
                 </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                         <button class="btn btn-md btn-primary" type="submit" ><span class="fa fa-save"></span> Guardar</button>    
-                    </div>
-                </form>
-            </div><!-- modal content -->
-        </div><!-- modal dialog -->
-    </div><!-- modal fade -->
+            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                     <button class="btn btn-md btn-primary" type="submit" ><span class="fa fa-save"></span> Guardar</button>    
+                </div>
+            </form>
+        </div><!-- modal content -->
+    </div><!-- modal dialog -->
+</div><!-- modal fade -->
 <!-- Cierra Modal -->
 
 <!-- Modal Agregar congenita -->
@@ -2487,7 +1978,8 @@
                 </div><br><br>
                   <div class="col-sm-6 form-group" >
                   <b>Frecuencia</b>
-                     <select required id="frecc" name="frecc" class="form-control"  ><option value="" >Seleccione:</option>
+                     <select required id="frecc" name="frecc" class="form-control"  >
+                         <option value="" >Seleccione:</option>
                          <option value="1" >Frec 1</option>
                          <option value="2" >Frec 2</option>
                          <option value="3" >Frec 3</option>
@@ -2513,4 +2005,40 @@
       </div>
     </div> 
 <!-- Cierra Modal Agregar Veneno --> 
+
+<!-- Modal Agregar Medicamento -->
+<div class="modal fade" id="modal_new_medi" tabindex="-1" role="dialog" aria-labelledby="estudiosTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="">Agregar nuevo Medicamento</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+            
+        <form id="form_medi" name="form_medi" method="post" enctype="multipart/form-data" >
+            <div class="modal-body" >
+                <div class="row" >
+                    
+                    <input type="hidden" value="<?= $fecha ?>" name="anio" />
+                    <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
+                    <input type="hidden" id="p_medicamento" name="p_medicamento" />
+                    <div class="col-sm-12 text-center" >
+                        <b>Edad</b>
+                    <input id="edad_medica" required type="number" name="edad_medica" class="form-control" value="<?= $fechaMax ?>" min="0" max="<?= $fechaMax ?>" />
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="modal-footer" >
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" onclick="save_new_medi('<?= $fecha ?>','<?= $paciente->id ?>')" class="btn btn-info btn-info-user" ><i class="fa fa-save fa-1.5x"></i>    Guardar</button>
+            </div>
+                          
+        </form>        
+    </div>
+  </div>
+</div> 
+<!-- Cierra Modal Agregar Medicamento --> 
                    

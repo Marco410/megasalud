@@ -1,4 +1,4 @@
- $('#btn-npato').click(function(){
+    $('#btn-npato').click(function(){
         if($(this).attr("data") == 1){
             
             $(this).addClass("active");
@@ -13,7 +13,7 @@
         
     });
     
-  //Clasificacion a venenos
+    //Clasificacion a venenos
     
     $('#btn-micro').click(function(){            
         
@@ -79,7 +79,6 @@
     $('#btn-metales').click(function(){
         
     });
-    
 
     var clasis = {
             'c_a' : ""
@@ -675,6 +674,9 @@
 						    position: 'topRight',
 						    message: 'Nuevo veneno guardado.',
 						});
+                        
+                        $("#form_new_veneno")[0].reset();
+                        $("#modal_new_veneno").modal("hide");
                         
                        $("#divLinea").load(" #divLinea");
 					}

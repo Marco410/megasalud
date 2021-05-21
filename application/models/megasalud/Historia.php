@@ -251,7 +251,9 @@ class Historia extends CI_Model
 	}
     public function causa() {
 		return $this->db->get('hospi_causa');
-	}
+	} 
+    
+   
     public function operacion() {
 		return $this->db->get('hospi_operacion');
 	}
@@ -260,6 +262,10 @@ class Historia extends CI_Model
 	}
     public function transfusion() {
 		return $this->db->get('hospi_transfusion');
+	}
+    
+     public function terapia() {
+		return $this->db->get('terapia');
 	}
     
     //info enfermedades infectocontagiosas del usuario
@@ -294,9 +300,9 @@ class Historia extends CI_Model
         if($data['table'] == "_ahf" || $data['table'] == "_antecedente"){
             
         }else{
-                $this->db->where('table_hisclinic', $data['table']);
-                $this->db->where('created_at', $data['fecha']);
-		      $this->db->delete('hisclinic_linea');
+            $this->db->where('table_hisclinic', $data['table']);
+            $this->db->where('created_at', $data['fecha']);
+            $this->db->delete('hisclinic_linea');
         }
         
         

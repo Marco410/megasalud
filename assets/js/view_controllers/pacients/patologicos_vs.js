@@ -69,7 +69,6 @@ function add_vacuna(elemento){
 
 $('#form_vacuna').validate({
 		submitHandler: function(form) {
-            //console.log('Submit');
 			$.ajax({
 				url:  base_url + 'megasalud/PatientsController/vacuna',
 				type:  'post',
@@ -259,9 +258,7 @@ function add_causa(elemento){
 						    message: 'Hospitalización Guardada.',
 						});
                         
-                        
                         $(form)[0].reset();
-                        
                         
                         $("#modal_hospi").modal("hide");
                         $("#divLinea").load(" #divLinea");
