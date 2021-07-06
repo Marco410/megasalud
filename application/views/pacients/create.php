@@ -1,6 +1,7 @@
 <?php 
     $img_load = base_url('assets/images/loader').'/';
 ?>
+
 <div class="container">
 <div class="col-xs-10 col-xs-offset-1">
 		<h3 class="ms-title"><b>NUEVO PACIENTE - <?php if($this->session->type =="Administrador" || $this->session->type =="Medico Administrador" ){ echo "TODOS"; }else{ echo $this->session->sucursal_name; } ?></b> <a href="javascript:history.back()" class="btn btn-default pull-right"><i class="fa fa-chevron-left"></i> <span>Regresar</span></a></h3>
@@ -17,74 +18,108 @@
 					</div>
 
 					<div class="panel-body">
-						<div class="col-sm-6">
-							<div class="form-group">
+                        <div class="row" >
+                        <div class="col-sm-4" >
+                            <div class="form-group">
 								<label>
 									Nombre:
 								</label>
 								<input type="text" id="nombre" name="nombre" class="form-control" required minlength="3">
 							</div>
-							<div class="form-group">
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
 								<label>
 									Apellido Paterno
 								</label>
 								<input  type="text" id="apellido_p" name="apellido_p" class="form-control" required minlength="3">
 							</div>
-							<div class="form-group">
+                        </div>
+                        <div class="col-sm-4" >
+                            <div class="form-group">
 								<label>
 									Apellido Materno
 								</label>
 								<input type="text" id="apellido_m" name="apellido_m" class="form-control" >
 							</div>
-							<div class="form-group">
+                        </div>
+                        </div>
+                        <div class="row" >
+                        <div class="col-sm-5" >
+                            <div class="form-group">
 								<label>
 									Correo Electrónico
 								</label>
 								<input id="email" type="email" name="email" class="form-control" required>
                                 <small>Si no tiene correo escriba "na@na.com"</small>
 							</div>
+                        </div>
+                        <div class="col-sm-3" >
                             <div class="form-group">
-				            <label>
-								Motivo de la Consulta 
-							</label>
-                            <select class="form-control" required id="motivo_m" name="motivo" >
-                            <option value="">Seleccione: </option>
-                                
-                            <?php foreach ($motivo_consulta->result() as $motivo): ?>
-				            <option value="<?= $motivo->id ?>"><?= $motivo->enfermedad ?></option>
-				            <?php endforeach ?>    
-                            <option value="Otra">Otra</option>    
-                            </select>
-                            <div class="" id="panel-add-m" hidden >
-                            <br>
-                            <a href="#" class="btn btn-sm btn-info" data-id="1" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
+                                <label>
+                                    Motivo de la Consulta 
+                                </label>
+                                <select class="form-control" required id="motivo_m" name="motivo" >
+                                    <option value="">Seleccione: </option>
 
-                            </div>
+                                    <?php foreach ($motivo_consulta->result() as $motivo): ?>
+                                    <option value="<?= $motivo->id ?>"><?= $motivo->enfermedad ?></option>
+                                    <?php endforeach ?>    
+                                    <option value="Otra">Otra</option>    
+                                </select>
+                                <div class="" id="panel-add-m" hidden >
+                                    <br>
+                                    <a href="#" class="btn btn-sm btn-info" data-id="1" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
+                                </div>
 							</div>
-                            
-                          
-						</div>
-						<div class="col-sm-6">
-							<div class="form-group">
+                        </div>
+                        <div class="col-sm-4" >
+                            <div class="form-group">
 								<label>
-								Municipio de Nacimiento <small>(Opcional)</small>
+									Sucursal
+								</label> 
+								<select id="sucursal" name="sucursal" class="form-control" required >
+                                    
+                                     <?php if($this->session->type == "Administrador" || $this->session->type == "Medico Administrador"){ ?>
+									<option value="" >Seleccione una opción</option>
+									<?php foreach ($sucursales->result() as $sucursal): ?>
+									<option value="<?= $sucursal->id ?>"><?= $sucursal->razon_social ?></option>
+									<?php endforeach ?>
+                                     <?php }else{ ?>
+                                    <option value="<?= $this->session->sucursal ?>" >Tu sucursal</option>
+                                    <?php } ?>
+                                    
+								</select>  
+							</div>
+                        </div>
+                        </div>
+                        <div class="row" >
+						<div class="col-sm-3">
+							 <div class="form-group">
+								<label>
+								Municipio de Nac. <small>(Opcional)</small>
 							</label>
 							<input type="text" name="municipio_origen" class="form-control">
 							</div>
-							
-							<div class="form-group">
+						</div>
+                        <div class="col-sm-3">
+							 <div class="form-group">
 								<label>
 								Estado de Nacimiento <small>(Opcional)</small>
 							</label>
 							<input type="text" name="estado_origen" class="form-control">
 							</div>
-                            <div class="form-group">
+						</div>
+                        <div class="col-sm-3">
+							 <div class="form-group">
 								<label>
 								Pais de Nacimiento <small>(Opcional)</small>
 							</label>
 							<input type="text" id="pais_origen" name="pais_origen" value="México" class="form-control" >
 							</div> 
-                              <div class="form-group">
+						</div>
+                        <div class="col-sm-3">
+							  <div class="form-group">
 								<label>
 									Estado Civil
 								</label>
@@ -100,27 +135,8 @@
                                 <option value="Comprometido/a" >Comprometido/a</option>
                                 </select>
 							</div>
-                            
-                            	<div class="form-group">
-								<label>
-									Sucursal
-								</label>
-                                   
-								<select id="sucursal" name="sucursal" class="form-control" required >
-                                    
-                                     <?php if($this->session->type == "Administrador" || $this->session->type == "Medico Administrador"){ ?>
-									<option value="" >Seleccione una opción</option>
-									<?php foreach ($sucursales->result() as $sucursal): ?>
-									<option value="<?= $sucursal->id ?>"><?= $sucursal->razon_social ?></option>
-									<?php endforeach ?>
-                                     <?php }else{ ?>
-                                    <option value="<?= $this->session->sucursal ?>" >Tu sucursal</option>
-                                    <?php } ?>
-                                    
-								</select>
-                                   
-							</div>
 						</div>
+                        </div>
 					</div>
 				</div>
 
@@ -300,7 +316,7 @@
                         
                         
                         <div class="col-sm-12" >
-                            <div class="col-sm-12" id="btn-continuar">
+                            <div class="col-sm-12 btn-msj" id="btn-continuar">
                             </div>
                         </div>
                     

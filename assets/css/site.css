@@ -13,6 +13,7 @@
   --darkteal: #222d32;
   --pink: #F47983;
   --font-color: #636b6f;
+  --error: #d9534f;
 }
 
 /** Generales **/
@@ -57,6 +58,10 @@ legend {
 
 .elemento:hover {
      box-shadow: 0 5px 10px rgb(0 0 0 / 30%);
+}
+
+.error {
+    color: var(--error);
 }
 
 /** Flex **/
@@ -723,6 +728,19 @@ p.footer {
   right: 130px;
   width: 50px;
   height: 50px;
+}
+
+.btn-continuar {
+    position: fixed;
+    border-radius: 20px;
+    z-index: 1000;
+}
+
+.btn-continuar {
+  bottom: 30px;
+  right: 150px;
+  width: 120px;
+  height: 40px;
 }
 
 .p-menu{
