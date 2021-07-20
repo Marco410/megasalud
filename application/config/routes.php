@@ -260,6 +260,7 @@ $route['representante/editar/(:num)'] = 'megasalud/AgentController/edit/$1';
 $route['representante/ver/(:num)'] = 'megasalud/AgentController/ver/$1';
 $route['representante/get'] = 'megasalud/AgentController/getAll';
 $route['representante/getPaciente'] = 'megasalud/AgentController/getPacientes';
+$route['representante/archivos/(:num)'] = 'megasalud/AgentController/archivos/$1';
 
 /*
 ----------------------------------

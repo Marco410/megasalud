@@ -21,7 +21,7 @@ class StatisticsController extends CI_Controller {
         $this->load->view('layout/head', $data);
         $this->load->view('layout/header');
         $type = $this->session->type;
-         if($type == "Administrador" || $type == "Medico Administrador" ){
+         if($type == "Administrador" || $type == "Medico Administrador" || $type == "Ventas" ){
              
             $this->load->view('statistics/index', $data);
              

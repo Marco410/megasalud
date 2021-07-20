@@ -7,13 +7,16 @@ $js_path = base_url('assets/js').'/';
     
     <link rel="stylesheet" href="<?php echo $css_path; ?>bootstrap3.3.7/bootstrap.css" />
     <link rel="stylesheet" href="<?php echo $css_path; ?>site.css" />
+    <link rel="stylesheet" href="<?php echo $css_path; ?>style.css" />
     <link rel="stylesheet" href="<?php echo $css_path; ?>iziToast.min.css" />
+    
     <script type="text/javascript" data-pace-options='{ "ajax": false }' src="<?php echo $js_path; ?>pace.min.js"></script>
+    <script src="https://use.fontawesome.com/ded6d5aa91.js"></script>
 </head>	
 <div class="container">
         
     <div class="col-xs-10 col-xs-offset-1">	
-        <h3 class="ms-title"><b>NUEVO REPRESENTANTE </b> <a href="javascript:history.back()" class="btn btn-default pull-right"><i class="fa fa-chevron-left"></i> <span>Regresar</span></a></h3>
+        <h3 class="ms-title"><b>SOLICITUD PARA INGRESAR COMO REPRESENTANTE </b> <a href="javascript:history.back()" class="btn btn-default pull-right"><i class="fa fa-chevron-left"></i> <span>Regresar</span></a></h3>
         
 		<div class="col-xs-12">
 
@@ -29,19 +32,19 @@ $js_path = base_url('assets/js').'/';
 								<label>
 									Nombre(s):
 								</label>
-								<input type="text" name="nombre" class="form-control" required minlength="3">
+								<input type="text" name="nombre" id="nombre" class="form-control" required minlength="3">
 							</div>
 							<div class="form-group col-sm-4">
 								<label>
 									Apellido Paterno
 								</label>
-								<input type="text" name="apellido_p" class="form-control" required minlength="3">
+								<input type="text" name="apellido_p" id="apellido_p" class="form-control" required minlength="3">
 							</div>
 							<div class="form-group col-sm-4">
 								<label>
 									Apellido Materno
 								</label>
-								<input type="text" name="apellido_m" class="form-control" >
+								<input type="text" name="apellido_m" id="apellido_m" class="form-control" >
 							</div>
                             <div class="form-group col-sm-6">
 								<label>
@@ -218,17 +221,36 @@ $js_path = base_url('assets/js').'/';
                 
                 <div class="panel mb-0 panel-brown panel-flat border-left-brown">
 					<div class="panel-heading">
-						<span class="ms-subtitle">DATOS DE PAGO</span>
+						<span class="ms-subtitle">DATOS DE PAGO <small>(Debe de ser a nombre del registrante)</small></span>
 					</div>
 
 					<div class="panel-body">
+                        <div class="form-group col-sm-4">
+								<label>
+									Nombre(s):
+								</label>
+								<input type="text" readonly name="nombre_copy" id="nombre_copy" class="form-control" required minlength="3">
+							</div>
+							<div class="form-group col-sm-4">
+								<label>
+									Apellido Paterno
+								</label>
+								<input type="text" readonly name="apellido_p_copy" id="apellido_p_copy" class="form-control" required minlength="3">
+							</div>
+							<div class="form-group col-sm-4">
+								<label>
+									Apellido Materno
+								</label>
+								<input type="text" readonly name="apellido_m_copy" id="apellido_m_copy" class="form-control" >
+							</div>
+                        
 						<div class="form-group col-sm-4">
 							<label>
 								No TARJETA
 							</label>
 							<input type="text" required name="no_tarjeta" class="form-control" maxlength="16" >
 						</div>
-						<div class="form-group col-sm-3">
+						<div class="form-group col-sm-4">
 							<label>
 								BANCO
 							</label>
@@ -257,8 +279,26 @@ $js_path = base_url('assets/js').'/';
                             <option  value="Otro" >Otro</option>
                             </select>
 						</div>
+                        <div class="form-group col-sm-4" >
+                            <label>No. Cuenta</label>
+                            <input type="text" required name="no_cuenta" class="form-control"  />
+                        </div>
+                        
+                        <div class="form-group col-sm-6" >
+                            <label>Sucursal de Banco (Opcional)</label>
+                            <input type="text"  name="sucursal_banco" class="form-control"  />
+                        </div>
+                        
+                        <div class="form-group col-sm-6" >
+                            <label>CLABE</label>
+                            <input type="text" required name="clabe" class="form-control"  />
+                        </div>
 					</div>
 				</div>
+                <div class="col-sm-12" >
+                            <div class="col-sm-12 btn-msj" id="btn-continuar">
+                            </div>
+                        </div>
 
 
 				<button type="submit" class="btn btn-teal btn-save"><i class="fa fa-save fa-2x"></i> <br>Guardar</button>
@@ -270,8 +310,31 @@ $js_path = base_url('assets/js').'/';
 	
 </div>
 
+<script>
+    var base_url = '<?php echo base_url(); ?>';
+  </script>
 <script src="<?php echo $js_path; ?>jquery-3.2.1.js"></script>
   <script src="<?php echo $js_path; ?>jquery.validate.js"></script>
   <script src="<?php echo $js_path; ?>bootstrap.js"></script>
 <script src="<?php echo $js_path; ?>iziToast.min.js"></script>
-    <script type="text/javascript" src="<?php echo $js_path.'view_controllers/'.$view_controller; ?>"></script>
+
+  <?php
+  if(isset($view_controller))
+  {
+  	if( ! is_array($view_controller))
+  	{
+  		?>
+  		<script type="text/javascript" src="<?php echo $js_path.'view_controllers/'.$view_controller; ?>"></script>
+  		<?php
+  	}
+  	else
+  	{
+  		foreach($view_controller as $vc)
+  		{
+  			?>
+  			<script type="text/javascript" src="<?php echo $js_path.'view_controllers/'.$vc; ?>"></script>
+  			<?php
+  		}
+  	}
+  }
+  ?>

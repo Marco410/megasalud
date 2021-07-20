@@ -37,18 +37,105 @@ class AgentController extends CI_Controller {
         
         $data = array();
         $data['title'] = 'Nuevo Representante';
-        // $data['view_style'] = 'pacients.css';
         $data['view_controller'] = 'agent_vs.js';
+        
+        $data['view_controller'] = array(
+        2 => 'agents/create_vs.js',
+        1 => 'agent_vs.js',
+        );
        
         $this->load->view('agent/create', $data);
         $this->load->view('layout/scripts');
 	}
+    
+    public function archivos($id) {
+        
+        $data = array();
+        $data['title'] = 'Subir Archivos';
+        $data['view_controller'] = 'agent_vs.js';
+        
+        $data['view_controller'] = array(
+        1 => 'agents/create_vs.js'
+        );
+        
+        $this->db->select('r.nombre, r.apellido_p,r.apellido_m,r.id');
+        $this->db->from('agents r');
+        $this->db->where('r.id', $id);
+        
+        $result = $this->db->get();
+        $row = $result->row();
+        
+        $data['agent'] = $result;
+       
+        $this->load->view('agent/files', $data);
+        $this->load->view('layout/scripts');
+	}
+    
+    public function agregar_archivos() {
+         
+        $id = $this->input->post('id_agent');
+        
+        if (!is_dir("assets/archivos_repre/".$id)){
+              mkdir("assets/archivos_repre/". $id, 0777);
+        }
+        
+        $existsF = file_exists("assets/archivos_repre/Foto".$id.".png");
+        $existsD = file_exists("assets/archivos_repre/Dom".$id.".png");
+        $existsFi = file_exists("assets/archivos_repre/Fiscal".$id.".png");
+        $existsIF = file_exists("assets/archivos_repre/INE-f-".$id.".png");
+        $existsIB = file_exists("assets/archivos_repre/INE-b-".$id.".png");
+        
+        if($existsF){
+            unlink("assets/archivos_repre/".$id."/Foto".$id.".png");
+        }
+        if($existsD){
+            unlink("assets/archivos_repre/".$id."/Dom".$id.".png");
+        }
+        if($existsFi){
+            unlink("assets/archivos_repre/".$id."/Fiscal".$id.".png");
+        }
+        if($existsIF){
+            unlink("assets/archivos_repre/".$id."/INE-f-".$id.".png");
+        }
+        if($existsIB){
+            unlink("assets/archivos_repre/".$id."/INE-b-".$id.".png");
+        }
+         
+        if (!empty($_FILES['foto']['name']) and !empty($_FILES['domicilio']['name']) and !empty($_FILES['c_fiscal']['name']) and !empty($_FILES['ine_front']['name']) and !empty($_FILES['ine_back']['name'])) {
+        
+            move_uploaded_file($_FILES['foto']['tmp_name'],"assets/archivos_repre/".$id."/Foto-".$id.".png");
+            move_uploaded_file($_FILES['domicilio']['tmp_name'],"assets/archivos_repre/".$id."/Dom-".$id.".png");
+            move_uploaded_file($_FILES['c_fiscal']['tmp_name'],"assets/archivos_repre/".$id."/Fiscal-".$id.".png");
+            move_uploaded_file($_FILES['ine_front']['tmp_name'],"assets/archivos_repre/".$id."/INE-f-".$id.".png");
+            move_uploaded_file($_FILES['ine_back']['tmp_name'],"assets/archivos_repre/".$id."/INE-b-".$id.".png");
+            
+            $data =  array(
+                'foto' =>  "Foto-" . $id.".png",
+                'domicilio' =>  "Dom-" . $id.".png",
+                'c_fiscal' =>  "Fiscal-" . $id.".png",
+                'ine_front' =>  "INE-f-" . $id.".png",
+                'ine_back' =>  "INE-b-" . $id.".png"
+                );
+            
+                $this->db->where("id",$id);
+            if($this->db->update("agents",$data)){
+
+                echo json_encode(array('error' => false));
+                }
+                else{
+                    echo json_encode(array('error' => true));
+                }
+        }else{
+            echo json_encode(array('error' => true));
+        }
+    }
+    
     public function success() {
         
         $data = array();
         $data['title'] = 'Gracias';
         $data['view_controller'] = 'agent_vs.js';
-       
+        
         $this->load->view('agent/success', $data);
         $this->load->view('layout/scripts');
 	}	
@@ -74,9 +161,7 @@ class AgentController extends CI_Controller {
           $this->load->view('auth/error'); 
         } 
         
-        
         $this->load->view('layout/scripts', $data);
-
 	}
     
     public function ver($id) {
@@ -108,8 +193,6 @@ class AgentController extends CI_Controller {
         $this->load->view('layout/scripts', $data);
 
 	}
-    
-    
     
     public function getAll(){
 
@@ -159,9 +242,7 @@ class AgentController extends CI_Controller {
         $this->db->join('agent_paciente ap', 'ap.id_paciente = p.id', 'inner');
         $this->db->where('ap.id_agent', $id);
         $this->db->where('p.status', 1);
-        return $this->db->get();
-
-      
+        return $this->db->get(); 
     }
     
     public function get_Pedidos_Paciente($id){
@@ -186,7 +267,7 @@ class AgentController extends CI_Controller {
     public function newEntry() {
          
         $status = 1;
-         $passEncry = password_hash($_POST["password"],PASSWORD_DEFAULT);
+        $passEncry = password_hash($_POST["password"],PASSWORD_DEFAULT);
         $data =  array(
             
         'nombre' => $this->input->post('nombre'),
@@ -209,13 +290,17 @@ class AgentController extends CI_Controller {
         'telefono_b' => $this->input->post('telefono_b'),
         'no_tarjeta' => $this->input->post('no_tarjeta'),
         'banco' => $this->input->post('banco'),
+        'no_cuenta' => $this->input->post('no_cuenta'),
+        'sucursal_banco' => $this->input->post('sucursal_banco'),
+        'clabe' => $this->input->post('clabe'),
+        'aprobado' => '0',
         'status' => $status
         );
          
          
             if($this->db->insert('agents', $data)){
                $id_agent = $this->db->insert_id();
-                
+                $data['id_agent'] = $id_agent;
                  echo json_encode($data);
             }
         else{

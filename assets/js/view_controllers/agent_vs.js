@@ -144,65 +144,7 @@ function init(){
 		],
 	});
     
-     $('#new_agent_form').validate({
-		ignore: ".ignore",
-		rules: {
-			password2: {
-				equalTo: "#password"
-			},
-			email: {
-				remote: {
-					url: base_url + "megasalud/AuthController/checkEmailAgent",
-					type: "post",
-					data: {
-						email: function() {
-							return $( "#email" ).val();
-						}
-					}
-				}
-			},
-		},
-		messages: {
-			password2: {
-				required: "Ingrese su contraseña nuevamente.",
-				equalTo: "La contraseña no coincide."
-			},
-			email: {
-				required: "Ingrese su correo electrónico.",
-				remote: "Este correo ya está registrado."
-			}
-		},
-		submitHandler: function(form) {
-           
-			$.ajax({
-				url: base_url + 'megasalud/AgentController/newEntry',
-				type: 'post',
-				data: $(form).serialize(),
-				success: function(respuesta){
-                    
-					 var response = JSON.parse(respuesta);
-                    console.log(response);
-					if(response.error != true){
-						iziToast.success({
-                            title: 'Éxito',
-                            message: 'Representante Creado',
-                        });
-                        form.reset();
-					    window.scrollTo(0, 0);
-					}else{
-                        iziToast.error({
-                            title: 'Error',
-                            message: 'No se pudo crear el representante',
-                        });
-                    }
-                        
-					
-				},
-				error:  function(xhr,err){ 
-				}
-			});
-		}
-	}); 
+     
 
      $('#new_pacient_form').validate({
 		ignore: ".ignore",

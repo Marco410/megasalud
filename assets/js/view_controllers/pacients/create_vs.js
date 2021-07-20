@@ -70,15 +70,11 @@ Pace.on('done', function(){
                             title: 'Éxito',
                             message: 'Paciente Creado',
                         });
-                document.getElementById("btn-continuar").innerHTML = "<a class='btn btn-info btn-continuar' href=' "+ base_url +  "pacientes/historia/"+res.id_paciente + "'  >  <i class='fa fa-medkit '></i> Continuar</a>";   
+                
+                        document.getElementById("btn-continuar").innerHTML = "<a class='btn btn-info btn-continuar' href=' "+ base_url +  "pacientes/historia/"+res.id_paciente + "'  >  <i class='fa fa-medkit '></i> Continuar</a>";
 					}
                         form.reset();
 					    //window.scrollTo(0, 0);
-            
-					
-				},
-				error:  function(xhr,err){ 
-					console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status+"\n \n responseText: "+xhr.responseText);
 				}
 			});
 		}

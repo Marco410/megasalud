@@ -92,7 +92,7 @@ $type = $this->session->type;
                         </li>
                          <?php } ?>
                         
-                        <?php if($type == "Administrador" || $type == "Medico Administrador" ){ ?>
+                        <?php if($type == "Administrador" || $type == "Medico Administrador"|| $type == "Ventas" ){ ?>
                         <li>
                             <a class="has-arrow" href="mailbox.html" aria-expanded="false"><span class="fa fa-bar-chart"></span> <span class="mini-click-non">Estadísticas</span></a>
                             <ul class="submenu-angle form-mini-nb-dp" aria-expanded="false">

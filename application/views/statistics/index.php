@@ -32,7 +32,7 @@
 		<div class="panel panel-default border-left-brown">
             <div class="panel-heading text-center" ><h3>Edades Pacientes</h3></div>
 			<div class="panel-body text-center">
-                <canvas id="chartEdad" ></canvas></h2>
+                <canvas id="chartEdad" ></canvas>
 			</div>
 		</div>
 	</div>
