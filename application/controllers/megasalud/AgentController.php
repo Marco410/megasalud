@@ -84,6 +84,7 @@ class AgentController extends CI_Controller {
         $existsFi = file_exists("assets/archivos_repre/Fiscal".$id.".png");
         $existsIF = file_exists("assets/archivos_repre/INE-f-".$id.".png");
         $existsIB = file_exists("assets/archivos_repre/INE-b-".$id.".png");
+        $existsC = file_exists("assets/archivos_repre/CURP-".$id.".png");
         
         if($existsF){
             unlink("assets/archivos_repre/".$id."/Foto".$id.".png");
@@ -100,21 +101,27 @@ class AgentController extends CI_Controller {
         if($existsIB){
             unlink("assets/archivos_repre/".$id."/INE-b-".$id.".png");
         }
+        if($existsC){
+            unlink("assets/archivos_repre/".$id."/CURP-".$id.".png");
+        }
          
-        if (!empty($_FILES['foto']['name']) and !empty($_FILES['domicilio']['name']) and !empty($_FILES['c_fiscal']['name']) and !empty($_FILES['ine_front']['name']) and !empty($_FILES['ine_back']['name'])) {
+        if (!empty($_FILES['foto']['name']) and !empty($_FILES['domicilio']['name']) and !empty($_FILES['c_fiscal']['name']) and !empty($_FILES['ine_front']['name']) and !empty($_FILES['ine_back']['name']) and !empty($_FILES['curp_foto']['name'])) {
         
             move_uploaded_file($_FILES['foto']['tmp_name'],"assets/archivos_repre/".$id."/Foto-".$id.".png");
             move_uploaded_file($_FILES['domicilio']['tmp_name'],"assets/archivos_repre/".$id."/Dom-".$id.".png");
             move_uploaded_file($_FILES['c_fiscal']['tmp_name'],"assets/archivos_repre/".$id."/Fiscal-".$id.".png");
             move_uploaded_file($_FILES['ine_front']['tmp_name'],"assets/archivos_repre/".$id."/INE-f-".$id.".png");
             move_uploaded_file($_FILES['ine_back']['tmp_name'],"assets/archivos_repre/".$id."/INE-b-".$id.".png");
-            
+            move_uploaded_file($_FILES['curp_foto']['tmp_name'],"assets/archivos_repre/".$id."/CURP-".$id.".png");
+
             $data =  array(
                 'foto' =>  "Foto-" . $id.".png",
                 'domicilio' =>  "Dom-" . $id.".png",
                 'c_fiscal' =>  "Fiscal-" . $id.".png",
                 'ine_front' =>  "INE-f-" . $id.".png",
-                'ine_back' =>  "INE-b-" . $id.".png"
+                'ine_back' =>  "INE-b-" . $id.".png",
+                'curp_foto' =>  "CURP-" . $id.".png",
+                'documentos' => "1"
                 );
             
                 $this->db->where("id",$id);
@@ -128,6 +135,23 @@ class AgentController extends CI_Controller {
         }else{
             echo json_encode(array('error' => true));
         }
+    }
+
+    public function aprobar($id){
+
+        $data = array(
+            'aprobado' => '1',
+        );
+        $this->db->where("id",$id);
+        
+        if($this->db->update("agents",$data)){
+            echo json_encode(array('error' => false,'id'=> $id));
+        }
+        else{
+            echo json_encode(array('error' => true));
+        }
+
+
     }
     
     public function success() {
@@ -186,6 +210,32 @@ class AgentController extends CI_Controller {
         
         if($type == "Administrador" || $type == "Ventas"|| $type == "Representante"){
             $this->load->view('agent/ver', $data);
+        }else{
+          $this->load->view('auth/error'); 
+        } 
+        
+        $this->load->view('layout/scripts', $data);
+
+	}
+    
+    public function ver_solicitud($id) {
+
+        session_redirect();
+
+        $data = array();
+        $data['title'] = 'Solicitud Representante';
+        
+        $data['view_controller'] = 'agent_vs.js';
+     
+        $this->load->view('layout/head', $data);
+        $this->load->view('layout/header');
+        
+        $data['agent'] = $this->agent->find($id);
+        
+        $type = $this->session->type;
+        
+        if($type == "Administrador" || $type == "Ventas" || $type == "Representante"){
+            $this->load->view('agent/ver_solicitud', $data);
         }else{
           $this->load->view('auth/error'); 
         } 
@@ -515,7 +565,36 @@ class AgentController extends CI_Controller {
             echo json_encode(false);
         }
     } 
+    
+    public function solicitudes() {
 
+		session_redirect();
+
+		$data = array();
+        $data['title'] = 'Solicitudes';
+        $data['view_controller'] = 'agent_vs.js';
+        $data['solicitudes'] = $this->get_solicitudes();
+
+        $this->load->view('layout/head', $data);
+        $this->load->view('layout/header');
+        
+        $type = $this->session->type;
+        if($type == "Administrador"){
+            $this->load->view('agent/solicitudes', $data);
+        }else{
+          $this->load->view('auth/error'); 
+        } 
+        
+        $this->load->view('layout/scripts');
+
+	}
+
+    public function get_solicitudes(){
+
+        $this->db->select('a.id,CONCAT(a.nombre," " , a.apellido_p, " ",a.apellido_m) AS nombre,a.email,a.telefono_a,a.estado,a.aprobado,a.documentos');
+        $this->db->from('agents a');
+        return $this->db->get(); 
+    }
     
 
 }

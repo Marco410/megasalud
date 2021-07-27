@@ -28,22 +28,27 @@ $repre = $agent->row();
 					<div class="panel-heading ">
 						<span class="ms-subtitle">GENERAL</span>
 					</div>
-                    <input type="hidden" name="id_agent" value="<?= $repre->id ?>" />
+                    <input type="hidden" id="id_agent" name="id_agent" value="<?= $repre->id ?>" />
 					<div class="panel-body">
                         <div class="row" >
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 <label>Fotografía* </label>
 				                <input type="file" required class="form-control" name="foto" accept="image/png,image/jpeg,image/jpg" />           
 						    </div>
                             
-                             <div class="col-sm-4">
+                             <div class="col-sm-3">
                                 <label>Comprobante de Domicilio* </label>
 				                <input type="file" required class="form-control" name="domicilio" accept="image/png,image/jpeg,image/jpg" />           
 						    </div>
                             
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 <label>Constancia de Situación FIscal* <a href="https://www.sat.gob.mx/aplicacion/53027/genera-tu-constancia-de-situacion-fiscal" target="_blank" >Generár aquí</a> </label>
 				                <input type="file" required class="form-control" name="c_fiscal" accept="image/png,image/jpeg,image/jpg" />           
+						    </div> 
+                            
+                            <div class="col-sm-3">
+                                <label>CURP* </label>
+				                <input type="file" required class="form-control" name="curp_foto" accept="image/png,image/jpeg,image/jpg" />           
 						    </div>                           
                              </div><br>
                         <div class="row" >

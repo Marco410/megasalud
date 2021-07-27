@@ -54,6 +54,7 @@ $type = $this->session->type;
                             <a class="has-arrow" href="all-courses.html" aria-expanded="false"><span class="fa fa-shopping-bag"></span><span class="mini-click-non">  Ventas</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
                                 <li><a title="Representantes" href="<?=base_url('/representante')?>"><span class="mini-sub-pro"><i class="fa fa-users" ></i> Representantes</span></a></li>
+                                <li><a title="Representantes" href="<?=base_url('/representante/solicitudes')?>"><span class="mini-sub-pro"><i class="fa fa-address-card" ></i> Solicitudes</span></a></li>
                                 
                             </ul>
                         </li>

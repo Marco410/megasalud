@@ -88,11 +88,14 @@ $('#new_agent_form').validate({
 					if(response.error != true){
 						iziToast.success({
                             title: 'Éxito',
-                            message: 'Archivos cargados correctamente',
-                             position: 'bottomCenter',
+                            message: 'Archivos cargados correctamente. Mantente al tanto de tu correo electrónico y del teléfono que nos proporcionaste. Serás reedirigido en unos instantes.',
+                             position: 'center',
+                            timeout: 8000,
                         });
                         form.reset();
 					    window.scrollTo(0, 0);
+                       
+                        setTimeout("redireccionarPagina()", 9000);
 					}else{
                         iziToast.error({
                             title: 'Error',
@@ -121,3 +124,7 @@ $('#apellido_m').keyup(function(){
 });
     
 }
+
+ function redireccionarPagina() {
+      window.location = "https://www.megasalud.com.mx";
+    }

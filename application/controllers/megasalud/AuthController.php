@@ -73,12 +73,14 @@ class AuthController extends CI_Controller {
         
         //si selecciona inicio como representante
         if(isset($_POST['agent'])){
-        $this->db->select('id, nombre, apellido_p, password');
-        $this->db->from('agents');
-        $this->db->where('email', $email);
-        $this->db->where('status', 1);
-        $query = $this->db->get();
-        $row = $query->row();
+            $this->db->select('id, nombre, apellido_p, password,aprobado');
+            $this->db->from('agents');
+            $this->db->where('email', $email);
+            $this->db->where('status', 1);
+            $query = $this->db->get();
+            $row = $query->row();
+
+            
             
         }else{
             //buscar un usuario
@@ -166,14 +168,38 @@ class AuthController extends CI_Controller {
                     $this->db->insert('sessions_user',$data_s);
                     
                 }
+
+                //verificar si el representante esta aprobado
+                if(isset($_POST['agent'])){
+                    //verifica el representnate aprobado
+                    if($row->aprobado == "0"){
+
+                        echo json_encode(array('aprobado'=>false));
+                    }else{
+
+                        $this->session->set_userdata($data);
+
+                        if($bandera == 1){
+                            $data['sucursales'] = $query2->result_array();
+                        }
+
+                        echo json_encode($data);
+                    }
                 
-                $this->session->set_userdata($data);
+                    //si no es representante no pasa nada
+                }else{
 
-                if($bandera == 1){
-                    $data['sucursales'] = $query2->result_array();
+                    $this->session->set_userdata($data);
+
+                    if($bandera == 1){
+                        $data['sucursales'] = $query2->result_array();
+                    }
+
+                    echo json_encode($data);
+
                 }
-
-                echo json_encode($data);
+                
+                
             }
             else{
                 echo json_encode(array('error' => true));

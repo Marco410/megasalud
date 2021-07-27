@@ -16,7 +16,7 @@ $js_path = base_url('assets/js').'/';
 <div class="container">
         
     <div class="col-xs-10 col-xs-offset-1">	
-        <h3 class="ms-title"><b>SOLICITUD PARA INGRESAR COMO REPRESENTANTE </b> <a href="javascript:history.back()" class="btn btn-default pull-right"><i class="fa fa-chevron-left"></i> <span>Regresar</span></a></h3>
+        <h3 class="ms-title"><b>SOLICITUD PARA INGRESAR COMO REPRESENTANTE </b><a href="javascript:history.back()" class="btn btn-default pull-right"><i class="fa fa-chevron-left"></i> <span>Regresar</span></a></h3>
         
 		<div class="col-xs-12">
 

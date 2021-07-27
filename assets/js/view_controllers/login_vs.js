@@ -37,13 +37,22 @@ function init(){
 								alert('mostrar sucursales');
 							}
 						}
-						else{
+						else if (response.error == true) {
 							iziToast.error({
 								timeout: 3000,
 							    title: 'Error',
 							    position: 'topRight',
 							    // target: '.login-message',
 							    message: 'Usuario o Contraseña Incorrecta',
+							});
+						}
+						if(response.aprobado == false){
+							iziToast.error({
+								timeout: 7000,
+							    title: 'Error',
+							    position: 'topRight',
+							    // target: '.login-message',
+							    message: 'Aún no has sido aprobado, consulta tu correo o haznos una llamada.',
 							});
 						}
 					}

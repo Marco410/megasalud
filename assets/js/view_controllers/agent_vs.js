@@ -73,6 +73,65 @@ function init(){
        
 	});
     
+	$('#sol-table').DataTable({
+		responsive: true,
+		fixedHeader: true,
+		columnDefs: [{
+            className: 'control',
+            orderable: false
+        },
+		{ targets: [ -1 ], orderable: false },
+		],
+		order: [ 0, 'asc' ],
+		language: {
+			"sProcessing":     "Procesando...",
+			"sLengthMenu":     "Mostrar _MENU_ registros",
+			"sZeroRecords":    "No se encontraron resultados",
+			"sEmptyTable":     "Ningún dato disponible en esta tabla",
+			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+			"sInfoPostFix":    "",
+			"sSearch":         "Buscar:",
+			"sUrl":            "",
+			"sInfoThousands":  ",",
+			"sLoadingRecords": "Cargando...",
+			"oPaginate": {
+				"sFirst":    "Primero",
+				"sLast":     "Último",
+				"sNext":     "Siguiente",
+				"sPrevious": "Anterior"
+			},
+			"oAria": {
+				"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+				"sSortDescending": ": Activar para ordenar la columna de manera descendente"
+			}
+		},
+		dom: '<"row" <"col-sm-4" l> <"col-sm-8" <"pull-right ml-15" B><"pull-right" f> > >r<"mt-30" t><"row mt-30" <"col-sm-5" i> <"col-sm-7" p> >',
+		buttons: [
+		{
+			extend: 'excel',
+			className: 'btn btn-success',
+			exportOptions: {
+				columns: ':not(:last-child)',
+			},
+			init: function(api, node, config) {
+				$(node).removeClass('dt-button');
+			}
+		},
+		{
+			text: 'Nueva Sucursal',
+			className: 'btn btn-primary',
+			action: function(e, dt, node, config){
+				window.location.href = base_url + 'sucursales/nuevo'
+			},
+			init: function(api, node, config) {
+				$(node).removeClass('dt-button');
+			}
+		}
+		],
+	});
+    
      $("#main-table").on("click", "#btn-ver", function(){
         var data = table.row( $(this).parents("tr") ).data();
          window.location.href = base_url + "representante/ver/" + data.id;
@@ -288,5 +347,23 @@ function init(){
         });  
         
     });
+
+	$('.btn-aprobar').click(function(){
+
+		let id = document.getElementById("id_agent").value;
+		$.ajax({
+			url: base_url + 'megasalud/AgentController/aprobar/' + id,
+			success: function(res){
+				Cookies.set('message', { type: 'success', message: 'Se aprobo con éxito el representante'});
+				
+				window.location = base_url + "representante/solicitudes";
+			},
+			error: function(res){
+			}
+		});
+
+	});
+
+	
 
 }

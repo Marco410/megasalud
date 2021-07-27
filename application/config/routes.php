@@ -261,6 +261,8 @@ $route['representante/ver/(:num)'] = 'megasalud/AgentController/ver/$1';
 $route['representante/get'] = 'megasalud/AgentController/getAll';
 $route['representante/getPaciente'] = 'megasalud/AgentController/getPacientes';
 $route['representante/archivos/(:num)'] = 'megasalud/AgentController/archivos/$1';
+$route['representante/solicitudes'] = 'megasalud/AgentController/solicitudes';
+$route['representante/ver-solicitud/(:num)'] = 'megasalud/AgentController/ver_solicitud/$1';
 
 /*
 ----------------------------------

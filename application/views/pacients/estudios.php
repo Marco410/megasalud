@@ -31,13 +31,10 @@ $img_path = base_url('estudios').'/'.$paciente->id."/";
                       
                       
                 <p class="panel-text text-center"><?= $estudio->fecha ?></p>  
-                </div>
-                
-                
+                    </div>
                 </div>
             </div>
         <?php endforeach ?> 
-            
             
         </div>
        </div> 
