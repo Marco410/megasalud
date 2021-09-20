@@ -2,86 +2,126 @@
     $img_load = base_url('assets/images/loader').'/';
     $img_path = base_url('assets/images/icons').'/';
     $img_perfil = base_url('assets/foto_paciente').'/';
-	$paciente = $paciente->row();
+	  $paciente = $paciente->row();
     $fecha = substr($paciente->fecha_nacimiento, 0,4);
     $fechaMax = date('Y') - $fecha;
     $type = $this->session->type;
 ?>
-
-    <div class="container">
+<div class="container">
     <input type="hidden" value="<?= $fecha ?>" id="anio" />
     <input type="hidden" id="seguimiento" value="<?= $paciente->seguim ?>"  />
     
-    <h3 class="ms-title"><b>HISTORIAL CLÍNICO</b> <a href="javascript:history.back()" class="btn btn-default pull-right"><i class="fa fa-chevron-left"></i> <span>Regresar</span></a></h3>
- 
-   <!--- Panel de Identificacion  ---> 
-    <div class="panel panel-primary" style="border-radius:15px" >  
-        
-        <div class="panel-heading text-center" style="border-radius:15px" >
-            <h2><i class="glyphicon glyphicon-user "></i> <?= $paciente->nombre . " " . $paciente->apellido_p . " " . $paciente->apellido_m  ?> </h2>
-           </div>
-       <div class="panel-body ">
-           <div class="container" >
-               <div  class="row" >
-               <div class="col-sm-4 text-center" >
-                   <?php if($paciente->foto == ""){ if ($paciente->sexo == "Masculino"){ ?>
-                    <img src="<?php echo $img_path ?>hombre.svg" width="100px" height="100px" alt="" class="img-responsive center-block" /> 
-                   <?php } else{ ?>
-                   <img src="<?php echo $img_path ?>mujer.svg" width="100px" height="100px" alt="" class="img-responsive center-block" /> 
-                   <?php }}else{ ?>
-                   <img src="<?php echo $img_perfil . $paciente->foto ?>" width="100px" height="100px" alt="" class="img-responsive img-circle center-block" />
-                   <?php } ?>
-                   <br>
-                   <div class="" >
-                   <a  class="btn btn-info"  data-toggle="modal" data-target="#foto" ><i class="fa fa-picture-o"></i> Actualizar Foto</a>
+    <h3 class="ms-title"><b>HISTORIAL CLÍNICO</b>  <button style="margin-left:300px;" class="btn btn-md btn-success" id="btn-iniciarConsulta"  data-toggle="modal" data-target="#start_consulta" > <i class="fa fa-play" ></i> Iniciar Consulta</button><button style="margin-left:300px;display:none;" class="btn btn-md btn-danger" id="btn-terminar-consulta" data-id=""    > <i class="fa fa-stop" ></i> Terminar Consulta</button>  <i class="fa fa-clock-o" ></i> <a href="javascript:history.back()" class="btn btn-default pull-right"><i class="fa fa-chevron-left"></i> <span>Regresar</span></a>  </h3>
+
+<!-- Modal Comenzar Consulta -->
+        <div class="modal fade" id="start_consulta" tabindex="-1" role="dialog" aria-labelledby="Password" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" >Contraseña</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-sm-12" >
+                  <label>Motivo de Consulta</label>
+                <select class="form-control" required id="start_consultaMotivo" name="start_consultaMotivo" >
+                      <option value="">Seleccione: </option>
+
+                      <?php foreach ($motivo_consulta->result() as $motivo): ?>
+                      <option value="<?= $motivo->enfermedad ?>"><?= $motivo->enfermedad ?></option>
+                      <?php endforeach ?>    
+                      <option value="Otra">Otra</option>    
+                  </select>
+                  <div class="" id="panel-add-m" hidden >
+                      <br>
+                      <a href="#" class="btn btn-sm btn-info" data-id="1" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
+                      </div>
+                    
+                  </div>
+                  <div class="col-sm-12">
+                    <button class="btn btn-sm btn-block btn-success" id="btn-iniciar-consulta"  > <i class="fa fa-play" ></i> Empezar</button>
+                  </div>
+                </div>
+              </div>     
+            </div>
+          </div>
+        </div>    
+        <!-- Termina Modal Comenzar Consulta -->
+
+
+    <div class="row">
+        <div class="col-sm-4">
+          <!--- Panel de Identificacion  ---> 
+          <div class="panel panel-primary" style="border-radius:15px" >  
+              <div class="panel-heading text-center" style="border-radius:15px" >
+                  <h2><i class="glyphicon glyphicon-user "></i> <?= $paciente->nombre . " " . $paciente->apellido_p . " " . $paciente->apellido_m  ?> </h2>
+              </div>
+            <div class="panel-body ">
+                <div class="container" >
+                    <div  class="row" style="margin-bottom:10px;" >
+                        <div class="col-sm-6 text-center" >
+                          <?php if($paciente->foto == ""){ if ($paciente->sexo == "Masculino"){ ?>
+                            <img src="<?php echo $img_path ?>hombre.svg" width="100px" height="100px" alt="" class="img-responsive center-block" /> 
+                          <?php } else{ ?>
+                          <img src="<?php echo $img_path ?>mujer.svg" width="100px" height="100px" alt="" class="img-responsive center-block" /> 
+                          <?php }}else{ ?>
+                          <img src="<?php echo $img_perfil . $paciente->foto ?>" width="100px" height="100px" alt="" class="img-responsive img-circle center-block" />
+                          <?php } ?>
+                          <br>
+                          <div class="" >
+                              <a  class="btn btn-info btn-sm"  data-toggle="modal" data-target="#foto" ><i class="fa fa-picture-o"></i> Actualizar Foto</a>
+                            </div>
+                        </div> 
+                      
+                        <div class="col-sm-6" >
+                          <h5>Motivo de Consulta: <label class="sm" ><b><?=$paciente->motivo_consulta ?></b></label></h5>
+                          <h5>Expediente: <label class="sm" ><b><?=$paciente->clave_bancaria ?></b></label></h5>
+                          <h5>Sucursal: </h5><h5><label class="sm" ><b id="sucursal_p" ></b></label></h5>
+                      </div>
+
                     </div>
-                </div> 
-               <div class="col-sm-4" >
-                    <h4>Motivo de Consulta: <label><b><?=$paciente->motivo_consulta ?></b></label></h4><h4>Expediente: <label><b><?=$paciente->clave_bancaria ?></b></label></h4>
-                </div>   
-                   <div class="col-sm-4 text-center" >
-                    <h4>Sucursal: </h4><h4><label ><b id="sucursal_p" ></b></label></h4>
-                </div>   
-               </div>
-               <br>
-        <div class="row" >
-               <div class="form-group col-sm-3 text-center" >
-
-                    <label>Fecha de Nacimiento:</label> <p><?=$paciente->fecha_nacimiento ?>
-                    </p>
-                   <label>Sexo:</label> <p><?=$paciente->sexo ?></p> 
-                   <label>Estado Civil:</label> <p><?=$paciente->estado_civil ?></p> 
-
-               </div>
-           
-               <div class="form-group col-sm-3 text-center">
-                    <label>Origen:</label> <p><?= $paciente->municipio_origen . " " . $paciente->estado_origen . " " . $paciente->pais_origen ?> </p>
-               </div>
-           
-               <div class="form-group col-sm-3 text-center">
-                    <label>Residencia:</label> <p><?= $paciente->calle . " " . $paciente->colonia . " " . $paciente->cp. " " . $paciente->municipio. " " . $paciente->estado. " " . $paciente->pais ?> </p> 
-               </div>
-           
-               <div class="form-group col-sm-3 text-center">
-
-                   <label>Contacto:</label> <p><label>Telefono: </label><?= " " . $paciente->telefono_a . " ó " . $paciente->telefono_b ?><br><label>E-mail: </label> <?= $paciente->email ?> <br><label>RFC:  </label> <?= $paciente->rfc ?><br> <label>Hora para llamarle:</label><br><?= $paciente->hr_llamarle ?>  </p>  
-               </div>
-               <div class="form-group col-sm-12 " >
-                   <div></div>
-                   
-                   <div class="pull-right">
-                    <a  class="btn btn-info"  data-toggle="modal" data-target="#historial"><i class="fa fa-clock-o "></i>  Historial de Citas</a>
-                    <a href="<?= base_url().'pacientes/editar/'.$paciente->id ?>" class="btn  btn-warning"><i class="fa fa-edit "></i> Editar</a>
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#pass" id="show-pass" name="show-pass" ><i class="fa fa-key "></i>Ver Contraseña</button>   
+                    <div class="row" style="margin-butto">
+                      <div class="col-sm-12 text-center">
+                            <a class="badge badge-info p-5" data-toggle="collapse" href="#collapseInfo" role="button" aria-expanded="false" aria-controls="collapseInfo"> Ver más... </a>
+                      </div>
                     </div>
-               </div>
-               
-           </div>
-           </div>
-           </div>
-        
-        <!-- Modal Contraseña -->
-       <div class="modal fade" id="pass" tabindex="-1" role="dialog" aria-labelledby="Password" aria-hidden="true">
+                    
+                  <div class="row collapse " id="collapseInfo" >
+                        <div class="form-group col-sm-6 text-center" >
+                              <label class="sm" >Fecha de Nacimiento:</label><br> <span><?=$paciente->fecha_nacimiento ?>
+                              </span><br>
+                            <label class="sm" >Sexo:</label><br><span><?= $paciente->sexo ?></span><br> 
+                            <label class="sm" >Estado Civil:</label><br> <span><?=$paciente->estado_civil ?></span><br> 
+                            <label class="sm" >Origen:</label><br> <span><?= $paciente->municipio_origen . " " . $paciente->estado_origen . " " . $paciente->pais_origen ?> </span>
+                        </div>
+                        <div class="form-group col-sm-6 text-center">
+                              <label class="sm" >Residencia:</label><br> <span><?= $paciente->calle . " " . $paciente->colonia . " " . $paciente->cp. " " . $paciente->municipio. " " . $paciente->estado. " " . $paciente->pais ?> </span> <br>
+                              <label class="sm" >Teléfono: </label><br><span><?= " " . $paciente->telefono_a . " ó " . $paciente->telefono_b ?></span><br>
+                              <label class="sm" >E-mail: </label><br><span><?= $paciente->email ?></span>  <br>
+                              <label class="sm" >Hora para llamarle:</label><br><span><?= $paciente->hr_llamarle ?></span>    
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                      <div class="col-sm-12 text-center " >
+                          <div class="btn-group btn-group-sm">
+                            <a  class="btn btn-info btn-sm"  data-toggle="modal" data-target="#historial"><i class="fa fa-clock-o "></i> Citas</a>
+                            <a href="<?= base_url().'pacientes/editar/'.$paciente->id ?>" class="btn  btn-warning btn-sm"><i class="fa fa-edit "></i> Editar</a>
+                            <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#pass" id="show-pass" name="show-pass" ><i class="fa fa-key "></i> Contraseña</button>   
+                            </div>
+                      </div>
+                    </div>
+                </div>
+              </div>   
+          </div>
+          <!--- Termina Panel de Identificacion  ---> 
+        </div>      
+
+         <!-- Modal Contraseña -->
+         <div class="modal fade" id="pass" tabindex="-1" role="dialog" aria-labelledby="Password" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -101,7 +141,7 @@
         <!-- Termina Modal Contraseña -->
         
         <!-- Modal Sucursal -->
-       <div class="modal fade" id="sucursal_modal" tabindex="-1" role="dialog" aria-labelledby="Password" aria-hidden="true">
+        <div class="modal fade" id="sucursal_modal" tabindex="-1" role="dialog" aria-labelledby="Password" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -138,156 +178,254 @@
           </div>
         </div>    
         <!-- Termina Modal Sucursal -->
-    <!-- Modal Agregar Historial citas -->
+    
+        <!-- Modal  Historial citas -->
 
-    <div class="modal fade" id="historial" tabindex="-1" role="dialog" aria-labelledby="fotoPerfil" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" >Citas del Paciente</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-        <div class="modal-body">
-            <div class="row" >
-
-            <table  class="table table-striped table-condensed">
-                <thead>
-                    <tr>
-                        <th>Fecha</th>
-                        <th>Doctor</th>
-                        <th>Motivo</th>
-                    </tr>
-                </thead>
-                <tbody>
-                         <?php foreach ($historial->result() as $his):?>
-                     <tr>
-                        <td><?= $his->created_at ?></td>
-                        <td><?= $his->nombre ?> </td>
-                        <td><?= $his->motivo ?></td>    
-                    </tr>
-                        <?php endforeach ?>
-
-                </tbody>
-
-            </table>
-
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-    <!--- Termina modal Historial citas --> 
-        
-    <!-- Modal Agregar Foto -->
-    <div class="modal fade" id="foto" tabindex="-1" role="dialog" aria-labelledby="fotoPerfil" aria-hidden="true">
+        <div class="modal fade" id="historial" tabindex="-1" role="dialog" aria-labelledby="fotoPerfil" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" >Actualizar Foto</h5>
+                <h5 class="modal-title" >Citas del Paciente</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-        <form method="post" id="agregar_foto" name="agregar_foto"  enctype="multipart/form-data" >
             <div class="modal-body">
                 <div class="row" >
-                      <div class="col-sm-6 form-group" >
-                          <b>Selecciona la imagen</b>
-                      <input class="form-control" type="file" id="foto_sbr" name="foto_sbr"  accept="image/x-png,image/gif,image/jpeg" />
-                          <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
-                      </div>
+
+                <table  class="table table-striped table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Doctor</th>
+                            <th>Motivo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <?php foreach ($historial->result() as $his):?>
+                        <tr>
+                            <td><?= $his->created_at ?></td>
+                            <td><?= $his->nombre ?> </td>
+                            <td><?= $his->motivo ?></td>    
+                        </tr>
+                            <?php endforeach ?>
+
+                    </tbody>
+
+                </table>
+
                 </div>
               </div>
-                   
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
-              </div>
-                    
-             </form> 
+
             </div>
           </div>
         </div>
-    <!--- Termina modal foto -->
-    </div>
+    <!--- Termina modal Historial citas --> 
         
-   <!--- Panel de Acciones  ---> 
-   <div class="panel panel-primary" style="border-radius:15px" >               
-             
-           <div class="panel mb-0 panel-default panel-flat border-left-brown">
-             <div class="panel-heading">
-				<span class="ms-subtitle">ACCIONES</span>
-             </div>
-               
-       <div class="panel-body" >
-                   
-           <div class="row" >
-                <div class="col-sm-4" >
-                <h4 class="text-center title" >ESTUDIOS</h4>
-                   
-                 <div class="form-group col-sm-6 text-center" >
-                    <a href="<?= base_url().'pacientes/historia/'.$paciente->id.'/estudios/'.$paciente->id ?>" class="btn btn-info btn-info-user"><i class="fa fa-file-text-o"></i>Ver Estudios</a>
-                 </div>
-           
-                 <div class="col-sm-6 form-group text-center   "  > 
-                   <a  class="btn btn-info"  data-toggle="modal" data-target="#estudios" ><i class="fa fa-plus"></i> Agregar nuevo estudio</a>
-
-                </div>  
-               </div> 
-               
-               <div class="col-sm-4" >
-                <h4 class="text-center title" >GRÁFICAS</h4>
-                   
-                 <div class="form-group text-center" >
-                    <a href="<?= base_url().'pacientes/graficas/'.$paciente->id ?>" class="btn btn-info btn-info-user"><i class="fa fa-bar-chart"></i>Ver Gráficas</a>
-                 </div>
-           
-               </div>
-           
-            <div class="col-sm-4" >
-                    <h4 class="text-center title" >RECETA</h4>
-
-                    <div class="col-sm-12 text-center" >
+        <!-- Modal Agregar Foto -->
+        <div class="modal fade" id="foto" tabindex="-1" role="dialog" aria-labelledby="fotoPerfil" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" >Actualizar Foto</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+            <form method="post" id="agregar_foto" name="agregar_foto"  enctype="multipart/form-data" >
+                <div class="modal-body">
+                    <div class="row" >
+                          <div class="col-sm-6 form-group" >
+                              <b>Selecciona la imagen</b>
+                          <input class="form-control" type="file" id="foto_sbr" name="foto_sbr"  accept="image/x-png,image/gif,image/jpeg" />
+                              <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
+                          </div>
+                    </div>
+                  </div>
+                      
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
+                  </div>
                         
-                       <div class="col-sm-6 form-group text-center"  >  
-                        <a href="<?= base_url() ?>pedidos/receta/<?= $paciente->id ?>" class="btn btn-info "  ><i class="fa fa-file-text"></i>     Crear una receta</a>
-                        </div>
-                        <div class="col-sm-6 form-group text-center"  > 
-                        <a href="<?= base_url() ?>pacientes/recetas/<?= $paciente->id ?>" class="btn btn-info "  ><i class="fa fa-file-text"></i>     Ver Recetas</a>
-                        </div>
-                    </div>
+                </form> 
                 </div>
-               <div class="col-sm-12" >
-                   <div class="col-sm-4" >
-                <h4 class="text-center title" >CREAR CITA</h4>
-                   <div class="form-group text-center" >
-                    <a  class="btn btn-info text-center"  data-toggle="modal" data-target="#nuevacita"><i class="fa fa-calendar "></i>  Generar nueva cita</a>
+              </div>
+            </div>
+        <!--- Termina modal foto -->
+
+      <div class="col-sm-4">
+         <!--- Panel de Acciones  ---> 
+        <div class="panel panel-primary" style="border-radius:15px" >                  
+          <div class="panel mb-0 panel-default panel-flat border-left-brown">
+            <div class="panel-heading">
+              <span class="ms-subtitle">ACCIONES</span>
+            </div>
+         <div class="panel-body" >
+            <div class="row" >
+              <!-- Botones estudios y recetas -->
+              <div class="row">
+                  <div class="col-sm-6 text-center" >
+                        <h4 class="text-center title" >ESTUDIOS</h4>
+                        <div class="btn-group-vertical">
+                          <a href="<?= base_url().'pacientes/historia/'.$paciente->id.'/estudios/'.$paciente->id ?>" class="btn btn-info btn-info-user"><i class="fa fa-file-text-o"></i> Ver</a>
+                          <a  class="btn btn-info"  data-toggle="modal" data-target="#estudios" ><i class="fa fa-plus"></i> Agregar</a>
+                        </div>
+                  </div>  
+
+                  <div class="col-sm-6 text-center" >
+                          <h4 class="text-center title" >RECETA</h4>
+                          <div class="btn-group-vertical">
+                            <a href="<?= base_url() ?>pedidos/receta/<?= $paciente->id ?>" class="btn btn-info "  ><i class="fa fa-file-text"></i> Crear</a>
+                            <a href="<?= base_url() ?>pacientes/recetas/<?= $paciente->id ?>" class="btn btn-info "  ><i class="fa fa-file-text"></i> Ver</a>
+                          </div>
+                  </div>
+              </div>
+              <!-- Botones gráficas y crear cita -->
+              <div class="row">   
+
+              <div class="col-sm-6 text-center" >
+                    <h4 class="text-center title" >GRÁFICAS</h4> 
+
+                    <div class="btn-group-vertical">
+                        <a href="<?= base_url().'pacientes/graficas/'.$paciente->id ?>" class="btn btn-info btn-info-user"><i class="fa fa-bar-chart"></i> Ver</a>
+                      </div>
+              </div>
+
+                  <div class="col-sm-6 text-center" >
+                          <h4 class="text-center title" >CREAR CITA</h4>
+                          <div class="btn-group-vertical">
+                          <a  class="btn btn-info text-center"  data-toggle="modal" data-target="#nuevacita"><i class="fa fa-calendar "></i> Nueva</a>
+                          </div>
+                  </div>
+
+              </div> 
+               <!-- Botónes resumen y finanzas-->               
+              <div class="row">  
+                  <div class="col-sm-6 text-center" >
+                          <h4 class="text-center title" >RESUMEN</h4>
+                          <div class="btn-group-vertical">
+                            <a href="<?= base_url() ?>pacientes/resumen/<?= $paciente->id ?>" class="btn btn-info "  ><i class="fa fa-folder"></i> Ver</a>
+                          </div>
+                  </div>
+
+                  <div class="col-sm-6 text-center" >
+                          <h4 class="text-center title" >FINANZAS</h4>
+                          <div class="btn-group-vertical">
+                            <a href="<?= base_url() ?>pacientes/adeudos/<?= $paciente->id ?>" class="btn btn-info "  ><i class="fa fa-h-square"></i> Ver </a>
+
+                          </div>
+                  </div>
+              </div>
+              <!-- Botón cita subsecuente -->
+              <div class="row" style="margin-top:40px;margin-bottom:20px;">
+                <div class="col-sm-12 text-center">
+                <?php if ($paciente->seguim != 0){  ?><button  class="btn btn-md btn-warning  ml-2" data-toggle="modal" data-target="#citaSubsecuente" > <i class="fa fa-plus" ></i> Agregar Cita Subsecuente</button><?php } ?>
+                </div>
+              </div>
+              <!-- Modal Cita Subsecuente -->
+            <?php if ($paciente->seguim != 0){  ?>
+              
+              <div class="modal fade" id="citaSubsecuente" tabindex="-1" role="dialog" aria-labelledby="Password" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" >Cita Subsecuente</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                    <div class="modal-body">
+                      <div class="row">
+                        <form name="inicia_consulta"  method="post" id="inicia_consulta">
+                              <input type="hidden" id="sub" name="sub" value="<?= $paciente->seguim ?>"  />
+                              <input type="hidden" id="id_paciente" name="id_paciente" value="<?=$paciente->id ?>" />
+                              <input type="hidden" id="id_user" name="id_user" value="<?= $this->session->id;  ?>" />
+                              
+                              <div class="col-sm-6" >
+                                  <label>Motivo de Consulta</label>
+                                <select class="form-control" required id="motivo" name="motivo" >
+                                      <option value="">Seleccione: </option>
+
+                                      <?php foreach ($motivo_consulta->result() as $motivo): ?>
+                                      <option value="<?= $motivo->enfermedad ?>"><?= $motivo->enfermedad ?></option>
+                                      <?php endforeach ?>    
+                                      <option value="Otra">Otra</option>    
+                                  </select>
+                                  <div class="" id="panel-add-m" hidden >
+                                      <br>
+                                      <a href="#" class="btn btn-sm btn-info" data-id="1" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
+
+                                      </div>
+                                  </div>
+                              <div class="col-sm-6">
+                                  <label>Descripción</label>
+                                  <input required  type="text" class="form-control" id="motivo_des" name="motivo_des" placeholder="Escribe Motivo o Descripción" />
+                              </div>
+                              
+                              <div class="col-sm-12 text-center" >
+                                  <button type="submit" class="btn btn-warning btn-block" style="margin-top:10px"><i class="glyphicon glyphicon-play"></i> Iniciar Cita Subsecuente</button>
+                              </div>
+                              
+                        </form>
+                        </div>
+                      </div>
+                            
                     </div>
-                   </div>
-                   <div class="col-sm-4" >
-                   <h4 class="text-center title" >RESUMEN</h4>
-                   <div class="form-group text-center" >
-                       
-                       <a href="<?= base_url() ?>pacientes/resumen/<?= $paciente->id ?>" class="btn btn-info "  ><i class="fa fa-folder"></i>     Ver Resumen</a>
-                    </div>
-                    </div>  
-                   <div class="col-sm-4" >
-                   <h4 class="text-center title" >FINANZAS</h4>
-                   <div class="form-group text-center" >
-                       
-                       <a href="<?= base_url() ?>pacientes/adeudos/<?= $paciente->id ?>" class="btn btn-info "  ><i class="fa fa-h-square"></i>     Ver Adeudos</a>
-                    </div>
-                    </div>   
-               </div>
-             </div>  
-       </div>
-           
-           </div>   
-           <!--- Termina Panel de Acciones  ---> 
+                  </div>
+                </div>    
+                
+
+            <?php } ?>
+            <!-- Termina Modal Cita Subsecuente -->
+            </div>  
+         </div>
+             
+             </div>   
+             
+         </div>                      
+          <!--- Termina Panel de Acciones  ---> 
+      </div>
+
+        <div class="col-sm-4">
+          <!--- Diagnóstico General ---->    
+          <div class="panel panel-default" >
+          <div class="panel-heading">
+              <span class="ms-subtitle">DIAGNÓSTICO GENERAL</span>
+            </div>
+              <div class="panel-body" >
+                  
+              <section id="DiagnósticoSec">
+                    <div class="form-group col-sm-12" >
+           <form name="diagnostico_dr"  method="post" id="diagnostico_dr">
+              <!--- Estas lineas dejarlas asi  ---> 
+               <b>Diagnóstico</b>
+                <textarea  rows="5" readonly class="form-control" id="text_diag"><?php foreach ($diagnosticos->result() as $diag):?>
+(<?= date("j M, Y h:i a", strtotime($diag->created_at)) ?>): 
+<?= $diag->diagnostico ?>                
+<?php endforeach ?></textarea>
+               <!--- Estas lineas dejarlas asi  ---> 
+               
+               <textarea name="diagnostico_input" id="diagnostico_input" rows="2" class="form-control" type="text" placeholder="Agrega una nuevo Diagnóstico" ></textarea>
+               <b>Edad</b>
+               <input id="edad_diag" required type="number" name="edad_diag" class="form-control" value="<?= $fechaMax ?>" min="0" max="<?= $fechaMax ?>" />
+               <input type="hidden" value="<?= $fecha ?>" name="anio" />
+               <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
+               
+               <button type="submit" class="btn btn-info btn-info-user" style="margin-top:10px"><i class="fa fa-save fa-1.5x"></i>    Guardar Diagnóstico</button>
+               </form>
+           </div>
+                </section>
+                  
+                </div>
+                  
+              </div>
+          </div>
+          <!-- Termina Diagnóstico General --->
+        </div>  
     </div>
+  
+        
     <?php if ($paciente->seguim == 0){  ?>
     
     <div class="panel panel-default" >
@@ -314,52 +452,6 @@
     
     <!--- Accion de primera vez  ---> 
     <div id="primera_vez" >
-        
-    <!--- Cita subsecuente ---->    
-    <div class="panel panel-default" >
-        <div class="panel-body text-center" >
-            
-            <form name="inicia_consulta"  method="post" id="inicia_consulta">
-                
-            <input type="hidden" id="sub" name="sub" value="<?= $paciente->seguim ?>"  />
-                
-            <input type="hidden" id="id_paciente" name="id_paciente" value="<?=$paciente->id ?>" />
-            <input type="hidden" id="id_user" name="id_user" value="<?= $this->session->id;  ?>" />
-            
-            <div class="col-sm-6" >
-                <label>Motivo de Consulta</label>
-               <select class="form-control" required id="motivo" name="motivo" >
-                    <option value="">Seleccione: </option>
-
-                    <?php foreach ($motivo_consulta->result() as $motivo): ?>
-                    <option value="<?= $motivo->enfermedad ?>"><?= $motivo->enfermedad ?></option>
-                    <?php endforeach ?>    
-                    <option value="Otra">Otra</option>    
-                </select>
-                <div class="" id="panel-add-m" hidden >
-                    <br>
-                    <a href="#" class="btn btn-sm btn-info" data-id="1" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
-
-                    </div>
-                </div>
-            <div class="col-sm-6">
-                <label>Descripción</label>
-                <input required  type="text" class="form-control" id="motivo_des" name="motivo_des" placeholder="Escribe Motivo o Descripción" />
-            </div>
-            <div class="col-sm-12" >
-                <button type="submit" class="btn btn-warning" style="margin-top:10px"><i class="glyphicon glyphicon-play"></i> Iniciar Cita Subsecuente</button>
-            </div>
-            
-            </form>
-            
-                    
-                </div>
-            
-        </div>
-    
-    </div>
-        <!-- Termina cita subsecuente --->
-        
     <div class="panel panel-default" >
         <div class="panel-body" >
             
@@ -372,7 +464,7 @@
             <div class="panel-body">  
             <div class="row">
                
-                <div class="form-group col-sm-7" >
+            <div class="form-group col-sm-12" >
            <form name="notas_dr"  method="post" id="notas_dr">
                <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
               <!--- Estas lineas dejarlas asi  ---> 
@@ -385,31 +477,13 @@
                
                <textarea name="notas_input" id="notas_input" class="form-control" type="text" placeholder="Agrega una nueva nota" ></textarea>
                
-               <button type="submit" class="btn btn-info btn-info-user" style="margin-top:10px"><i class="fa fa-save fa-1.5x"></i>    Guardar Nota</button>
+               <div class="col-sm-8 col-sm-offset-2">
+                    <button type="submit" class="btn btn-info btn-info-user btn-block" style="margin-top:10px"><i class="fa fa-save fa-1.5x"></i>  Guardar Nota</button>
+               </div>
+               
                </form>
            </div>
                     
-                <section id="DiagnósticoSec">
-                    <div class="form-group col-sm-5" >
-           <form name="diagnostico_dr"  method="post" id="diagnostico_dr">
-              <!--- Estas lineas dejarlas asi  ---> 
-               <b>Diagnóstico</b>
-                <textarea  rows="5" readonly class="form-control" id="text_diag"><?php foreach ($diagnosticos->result() as $diag):?>
-(<?= date("j M, Y h:i a", strtotime($diag->created_at)) ?>): 
-<?= $diag->diagnostico ?>                
-<?php endforeach ?></textarea>
-               <!--- Estas lineas dejarlas asi  ---> 
-               
-               <textarea name="diagnostico_input" id="diagnostico_input" rows="2" class="form-control" type="text" placeholder="Agrega una nuevo Diagnóstico" ></textarea>
-               <b>Edad</b>
-               <input id="edad_diag" required type="number" name="edad_diag" class="form-control" value="<?= $fechaMax ?>" min="0" max="<?= $fechaMax ?>" />
-               <input type="hidden" value="<?= $fecha ?>" name="anio" />
-               <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
-               
-               <button type="submit" class="btn btn-info btn-info-user" style="margin-top:10px"><i class="fa fa-save fa-1.5x"></i>    Guardar Diagnóstico</button>
-               </form>
-           </div>
-                </section>
                 <div class="col-sm-12 "  >
                     <div id="loader_ante" hidden ><img loading="lazy" height="50px" width="50px"   src="<?php echo $img_load ?>loader.gif" alt="" class="img-responsive center-block"  /> </div>
                     <div class="col-sm-6" >
@@ -482,7 +556,7 @@
 
                      </div>
                         <b>Edad</b>
-                        <input id="edad_medica" required type="number" name="edad_medica" class="form-control" value="<?= $fechaMax ?>" min="0" max="<?= $fechaMax ?>" /><br>
+                        <input  required type="number" name="edad_medica" class="form-control" value="<?= $fechaMax ?>" min="0" max="<?= $fechaMax ?>" /><br>
                             
                          <button type="submit" class="btn btn-info btn-info-user" style="margin-top:10px"><i class="fa fa-save fa-1.5x"></i>    Guardar Medicamento</button>   
                         </form>
@@ -497,195 +571,199 @@
         
      <div class="panel panel-brown" style="border-radius:15px" >
         
-        <div class="panel-heading text-center" data-toggle="collapse" href="#collapseHistoria" role="button" aria-expanded="false" aria-controls="collapseLinea" style="border-radius:15px"  >
+        <div class="panel-heading text-center" data-toggle="collapse"  role="button" aria-expanded="false" aria-controls="collapseLinea" style="border-radius:15px"  >
             <h3>ANTECEDENTES</h3>
             
         </div>
-    <div class="collapse" id="collapseHistoria" >
-            <div class="panel-body" >
-                
-                <div class="col-sm-4 text-center" >
-                    <button class="btn btn-sm btn-primary " data="1" id="btn-heredo" >Heredofamiliares</button>
+        <div>
+            <div class="panel-body text-center" >
+              
+               <!-- Tabs de antecedentes -->                
+                <ul class="nav nav-tabs mb-5 text-center " id="pills-tab" role="tablist">
+                  <li class="nav-item mr-3">
+                    <a class="btn btn-warning btn-lg" id="btn-heredo" data="1" data-toggle="pill" href="#btn-heredofa" role="tab" aria-controls="heredo" aria-selected="true">HEREDOFAMILIARES</a>
+                  </li>
+                <li class="nav-item">
+                  <a class="btn btn-warning btn-lg " id="btn-pato" data="1" data-toggle="pill" href="#btn-patolo" role="tab" aria-controls="pato" aria-selected="false">PATOLÓGICOS</a>
+                </li>
+                <li class="nav-item">
+                  <a class="btn btn-warning btn-lg " id="btn-npato" data-toggle="pill" href="#npato" role="tab" aria-controls="npato" aria-selected="false">NO PATOLÓGICOS</a>
+                </li>
+              </ul>
+
+              <div class="tab-content" id="pills-tabContent">
+
+                <div class="tab-pane fade" id="btn-heredofa" data="1" role="tabpanel" aria-labelledby="herdo-tab">
+                  <div class="row" >
+                        <div class="col-sm-6" >
+                            <h4 class="text-center"  >Carga Hereditaria</h4>
+                            <form id="carga_heredo_in" name="carga_heredo_in" method="post" >
+                                    
+                                <div class="col-sm-5" >
+                                <b>Padecimiento</b>
+                                    <input readonly id="padecimiento" name="padecimiento" type="text" class="form-control"  />
+                                </div>
+                                <div class="col-sm-2" >
+                                <b >Ver</b>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAutoinmune">
+                                  <i class="fa fa-file-text-o"></i> 
+                                </button>
+                                </div>
+                                    <div class="col-sm-5" >
+                                        <b>Familiar </b>
+                                        <select id="familiar_heredo" name="familiar_heredo" class="form-control" >
+                                                <option value="No seleccionado" >Seleccione</option>
+                                                <?php foreach ( $familiar->result() as $familia ): ?>
+                                                <option value="<?= $familia->familiar ?>" ><?= $familia->familiar ?></option>
+                                                <?php endforeach ?>
+                                        </select>
+
+                                    </div>
+                                    <div class="col-sm-12 text-center" >
+                                        <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
+                                    <br>
+                                        <button type="submit" class="btn btn-info"><i class="fa fa-plus "></i>Agregar </button>
+                                    </div>
+                                
+                                </form>
+                        </div>
+                        <div class="col-sm-6" >
+                            <h4 class="text-center" >Congénita</h4>
+                            <div id="loader_congenitas" hidden ><img loading="lazy" height="50px" width="50px"   src="<?php echo $img_load ?>loader.gif" alt="" class="img-responsive center-block"  /> </div>
+                            <div id="panel-congenita" style="height:200px; overflow: scroll; overflow-x: hidden;" ></div>
+                            <div class="" id="panel-add-ec" hidden >
+                                <br>
+                                <a href="#" class="btn btn-sm btn-info" data-id="2" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
+
+                            </div>
+                        </div>
+                  </div>
                 </div>
-                <div class="col-sm-4 text-center" >
-                    <button class="btn btn-sm btn-primary" data="1" id="btn-pato" >Patológicos</button>
+                <div class="tab-pane fade" id="btn-patolo" data="1" role="tabpanel" aria-labelledby="pato-tab">
+                  <div class="row" >
+                    <div class="col-sm-4" >
+                        <h4 class="text-center" >Vacunas</h4>
+                        <div id="loader_vacunas" hidden ><img loading="lazy" height="50px" width="50px"   src="<?php echo $img_load ?>loader.gif" alt="" class="img-responsive center-block"  /> </div>
+                        
+                        <div id="panel-vacunas"  style="height:200px; overflow: scroll; overflow-x: hidden; " >
+                        </div>
+                        <div class="" id="panel-add-v" hidden >
+                            <br>
+                            <a href="#" class="btn btn-sm btn-info" data-id="4" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
+                        </div>
+                    
+                    </div>
+                    <div class="col-sm-4" >
+                        <h4 class="text-center" >Alergías</h4>
+                        <div id="loader_alergias" hidden ><img loading="lazy" height="50px" width="50px"   src="<?php echo $img_load ?>loader.gif" alt="" class="img-responsive center-block"  /> </div>
+                        <div id="panel-alergias"  style="height:200px; overflow: scroll; overflow-x: hidden; " >
+                        
+                        </div>
+                        <div id="panel-add-ma" ></div>
+                        <div id="panel-add-a" hidden >
+                            <br>
+                            <a href="#" class="btn btn-sm btn-info" data-id="5" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
+                        </div>
+                        
+
+                    </div>
+                    <div class="col-sm-4" >
+                        <h4 class="text-center" >Hospitalizaciones</h4>
+                        <div id="loader_hospi" hidden ><img loading="lazy" height="50px" width="50px"   src="<?php echo $img_load ?>loader.gif" alt="" class="img-responsive center-block"  /> </div>
+                        <div id="panel-hospi"  style="height:200px; overflow: scroll; overflow-x: hidden; " >
+                        
+                        </div>
+                        <div id="panel-add-causa_h" hidden >
+                                <br>
+                                <a href="#" class="btn btn-sm btn-info" data-id="7" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
+                        </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="col-sm-4 text-center" >
-                    <button class="btn btn-sm btn-primary" data="1" id="btn-npato" >No Patológicos</button>
+                <div class="tab-pane fade" id="npato" role="tabpanel" aria-labelledby="npato-tab">
+                  
+                  <div class="col-sm-12" >
+                      <div class="text-center" ><small>Da clic en el menú para empezar a buscar</small></div>
+                      <div class="container" >
+                          <div class="row" >
+                            <div class="col-sm-12">
+                              <div class="row" style="margin-bottom:20px" >
+                                <div class="col-sm-3" >
+                                  <button class="btn btn-lg btn-info  " id="btn-micro" >Microbios</button>
+                                </div>
+                                <div class="col-sm-3" >
+                                  <button class="btn btn-lg btn-info  " id="btn-venenos" >Venenos</button>
+                                </div>
+                                <div class="col-sm-3" >
+                                  <button class="btn btn-lg btn-info" disabled id="btn-radiaciones" >Radiaciones</button>
+                                </div>
+                                <div class="col-sm-3" >
+                                  <button class="btn btn-lg btn-info" disabled id="btn-metales" >Metales</button>
+                                </div>
+                              </div>
+                              
+                            </div>
+                                        
+                              <div class="col-sm-12" >
+                                  <div class="col-sm-12 text-center" >
+                                      <div class="" id="nombre_c" ></div>
+                                      <div id="loader" hidden ><img loading="lazy" height="50px" width="50px"   src="<?php echo $img_load ?>loader.gif" alt="" class="img-responsive center-block"  /> </div>
+                                  </div>
+                                  
+                                  <div class="col-sm-2" id="c_a" >
+                                      <div class="text-center"><b>A</b></div>
+                                      <div id="clas_a"></div>
+                                  </div>
+                                  
+                                  <div class="col-sm-2" id="c_b" hidden >
+                                      <div class="text-center"><b>B</b></div>
+                                      <div id="clas_b"></div>
+                                  </div>
+
+                                  <div class="col-sm-2" id="c_c" hidden >
+                                      <div class="text-center"><b>C</b></div>
+                                      <div id="clas_c"></div>
+                                  </div>
+                                  <div class="col-sm-2" id="c_d" hidden >
+                                      <div class="text-center"><b>D</b></div>
+                                      <div id="clas_d"></div>
+                                  </div> 
+                                  <div class="col-sm-2" id="c_e" hidden >
+                                      <div class="text-center"><b>E</b></div>
+                                      <div id="clas_e"></div>
+                                  </div>
+                                  <div class="col-sm-2" id="c_f" hidden >
+                                      <div class="text-center"><b>F</b></div>
+                                      <div id="clas_f"></div>
+                                  </div>
+                                  <div class="col-sm-2" id="c_g" hidden >
+                                      <div class="text-center"><b>G</b></div>
+                                      <div id="clas_g"></div>
+                                  </div>
+                                  <div class="col-sm-2" id="c_h" hidden >
+                                      <div class="text-center"><b>H</b></div>
+                                      <div id="clas_h"></div>
+                                  </div>
+                                  <div class="col-sm-2" id="c_v" hidden >
+                                      <div class="text-center"><b>Veneno</b></div>
+                                      <div style="height:250px; overflow: scroll; overflow-x: hidden; " >
+                                      <div id="clas_v"></div>
+                                      </div>
+                                  </div>
+
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
                 </div>
-                
+
+              </div>
             </div>
          </div>
     </div>
         
-    <div class="panel panel-default border-left-olive" id="p-heredo"  hidden >
-        <div class="panel-body" >
-            <div class="row" >
-                <div class="col-sm-6" >
-                    <h4 class="text-center"  >Carga Hereditaria</h4>
-                    <form id="carga_heredo_in" name="carga_heredo_in" method="post" >
-                            
-                        <div class="col-sm-5" >
-                         <b>Padecimiento</b>
-                             <input readonly id="padecimiento" name="padecimiento" type="text" class="form-control"  />
-                        </div>
-                        <div class="col-sm-2" >
-                        <b >Ver</b>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAutoinmune">
-                          <i class="fa fa-file-text-o"></i> 
-                        </button>
-                        </div>
-                            <div class="col-sm-5" >
-                                 <b>Familiar </b>
-                                <select id="familiar_heredo" name="familiar_heredo" class="form-control" >
-                                        <option value="No seleccionado" >Seleccione</option>
-                                        <?php foreach ( $familiar->result() as $familia ): ?>
-                                        <option value="<?= $familia->familiar ?>" ><?= $familia->familiar ?></option>
-                                        <?php endforeach ?>
-                                </select>
 
-                            </div>
-                            <div class="col-sm-12 text-center" >
-                                <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
-                            <br>
-                                <button type="submit" class="btn btn-info"><i class="fa fa-plus "></i>Agregar </button>
-                            </div>
-                        
-                        </form>
-                </div>
-                <div class="col-sm-6" >
-                    <h4 class="text-center" >Congénita</h4>
-                    <div id="loader_congenitas" hidden ><img loading="lazy" height="50px" width="50px"   src="<?php echo $img_load ?>loader.gif" alt="" class="img-responsive center-block"  /> </div>
-                    <div id="panel-congenita" style="height:200px; overflow: scroll; overflow-x: hidden;" ></div>
-                     <div class="" id="panel-add-ec" hidden >
-                        <br>
-                        <a href="#" class="btn btn-sm btn-info" data-id="2" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
-
-                     </div>
-                </div>
-            </div>
-        </div>
-    </div> 
-        
-    <div class="panel panel-default border-left-brown" id="p-pato"  hidden >
-        <div class="panel-body" >
-            <div class="row" >
-                <div class="col-sm-4" >
-                    <h4 class="text-center" >Vacunas</h4>
-                    <div id="loader_vacunas" hidden ><img loading="lazy" height="50px" width="50px"   src="<?php echo $img_load ?>loader.gif" alt="" class="img-responsive center-block"  /> </div>
-                    
-                    <div id="panel-vacunas"  style="height:200px; overflow: scroll; overflow-x: hidden; " >
-                    </div>
-                    <div class="" id="panel-add-v" hidden >
-                        <br>
-                        <a href="#" class="btn btn-sm btn-info" data-id="4" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
-                    </div>
-                
-                </div>
-                <div class="col-sm-4" >
-                    <h4 class="text-center" >Alergías</h4>
-                     <div id="loader_alergias" hidden ><img loading="lazy" height="50px" width="50px"   src="<?php echo $img_load ?>loader.gif" alt="" class="img-responsive center-block"  /> </div>
-                    <div id="panel-alergias"  style="height:200px; overflow: scroll; overflow-x: hidden; " >
-                    
-                    </div>
-                    <div id="panel-add-ma" ></div>
-                    <div id="panel-add-a" hidden >
-                        <br>
-                        <a href="#" class="btn btn-sm btn-info" data-id="5" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
-                    </div>
-                    
-
-                </div>
-                
-                <div class="col-sm-4" >
-                    <h4 class="text-center" >Hospitalizaciones</h4>
-                     <div id="loader_hospi" hidden ><img loading="lazy" height="50px" width="50px"   src="<?php echo $img_load ?>loader.gif" alt="" class="img-responsive center-block"  /> </div>
-                    <div id="panel-hospi"  style="height:200px; overflow: scroll; overflow-x: hidden; " >
-                    
-                    </div>
-                    <div id="panel-add-causa_h" hidden >
-                            <br>
-                            <a href="#" class="btn btn-sm btn-info" data-id="7" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
-                        </div>
-                    
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-        
-    <div class="panel panel-default border-left-warning" id="p-npato"  hidden  >
-        <div class="panel-body" >
-                <div class="col-sm-12" >
-                    <div class="text-center" ><small>Da clic en el menú para empezar a buscar</small></div>
-                <div class="container" >
-                    <div class="row" >
-                         <div class="col-sm-12" >
-                             <div class="col-sm-12 text-center" >
-                                 <div class="" id="nombre_c" ></div>
-                                 <div id="loader" hidden ><img loading="lazy" height="50px" width="50px"   src="<?php echo $img_load ?>loader.gif" alt="" class="img-responsive center-block"  /> </div>
-                             </div>
-                             
-                            <div class="col-sm-2" id="c_a" >
-                                <div class="text-center"><b>A</b></div>
-                                <div id="clas_a"></div>
-                            </div>
-                             
-                             <div class="col-sm-2" id="c_b" hidden >
-                                <div class="text-center"><b>B</b></div>
-                                <div id="clas_b"></div>
-                            </div>
-
-                            <div class="col-sm-2" id="c_c" hidden >
-                                <div class="text-center"><b>C</b></div>
-                                <div id="clas_c"></div>
-                            </div>
-                             <div class="col-sm-2" id="c_d" hidden >
-                                <div class="text-center"><b>D</b></div>
-                                <div id="clas_d"></div>
-                            </div> 
-                            <div class="col-sm-2" id="c_e" hidden >
-                                <div class="text-center"><b>E</b></div>
-                                <div id="clas_e"></div>
-                            </div>
-                            <div class="col-sm-2" id="c_f" hidden >
-                                <div class="text-center"><b>F</b></div>
-                                <div id="clas_f"></div>
-                            </div>
-                             <div class="col-sm-2" id="c_g" hidden >
-                                <div class="text-center"><b>G</b></div>
-                                <div id="clas_g"></div>
-                            </div>
-                             <div class="col-sm-2" id="c_h" hidden >
-                                <div class="text-center"><b>H</b></div>
-                                <div id="clas_h"></div>
-                            </div>
-                            <div class="col-sm-2" id="c_v" hidden >
-                                <div class="text-center"><b>Veneno</b></div>
-                                <div style="height:250px; overflow: scroll; overflow-x: hidden; " >
-                                <div id="clas_v"></div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                    
-         
-                    <div class="p-menu"  >
-                        <div class="row" >
-                        
-                        <div class="col-sm-6" ><button class="btn btn-sm btn-info" id="btn-micro" >Microbios</button></div>
-                        <div class="col-sm-6" ><button class="btn btn-sm btn-info" id="btn-venenos" >Venenos</button></div>
-                        <div class="col-sm-6" ><button class="btn btn-sm btn-info" id="btn-radiaciones" >Radiaciones</button></div>
-                        <div class="col-sm-6" ><button class="btn btn-sm btn-info" id="btn-metales" >Metales</button></div>
-                        </div>
-                        
-                    </div>
-                </div>
-        </div>
-    </div>
-        
     <div id="linea_vida_section" ></div>
     <!-- Inicia Linea de Vida -->
     <div class="panel panel-olive" style="border-radius:15px" >
@@ -1371,11 +1449,16 @@
     </div>
   </div>
 </div>
-
 <!--- Cierra Modal -->
-<a href="#linea_vida_section" role="button" class="btn btn-teal btn-save" ><i class="glyphicon glyphicon-chevron-up fa-2x"></i><br>Linea</a>
+  
+  <a href="#linea_vida_section" role="button" class="btn btn-teal btn-save" ><i class="glyphicon glyphicon-chevron-up fa-2x" title="Ir a la linea de vida" ></i><br>Linea</a>
 
-<button type="button" data="<?php if($conversacion == 0){ echo 0;}else{ echo $gconversacion->id; } ?>" id="btnverMsj" class="btn btn-brown btn-msj" data-toggle="modal" data-target="#addMsj" ><i class="fa fa-inbox fa-2x"></i></button>
+  <a href="<?= base_url() ?>pedidos/receta/<?= $paciente->id ?>" role="button" class="btn btn-info btn-receta" title="Hacer receta"  ><i class="fa fa-file-text"></i></a>
+
+
+  <button type="button" data="<?php if($conversacion == 0){ echo 0;}else{ echo $gconversacion->id; } ?>" id="btnverMsj" class="btn btn-brown btn-msj" data-toggle="modal" data-target="#addMsj" title="Iniciar Conversación" ><i class="fa fa-inbox fa-2x"></i></button>
+
+  <button type="button" style="display:none;" class="btn btn-danger btn-stop" id="btn-terminar-consulta2" data-id="" title="Terminar Consulta" ><i class="fa fa-stop"></i></button>
 
 <!-- Modal Add Messenger -->
 <div class="modal fade" id="addMsj" tabindex="-1" role="dialog" aria->

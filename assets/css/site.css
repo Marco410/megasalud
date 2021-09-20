@@ -34,6 +34,10 @@ a:active {
   text-decoration: none;
 }
 
+label .sm {
+  font-size: 10px;
+}
+
 fieldset {
   padding: 15px 30px;
   border: 1px solid #c0c0c0;
@@ -717,17 +721,43 @@ p.footer {
   height: 90px;
 }
 
-.btn-msj {
-    position: fixed;
-    border-radius: 50%;
-    z-index: 1000;
+.btn-receta {
+  position: fixed;
+  border-radius: 50%;
+  z-index: 1000;
+}
+
+.btn-receta {
+  bottom: 130px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
 }
 
 .btn-msj {
-  bottom: 30px;
-  right: 130px;
-  width: 50px;
-  height: 50px;
+  position: fixed;
+  border-radius: 50%;
+  z-index: 1000;
+}
+
+.btn-msj {
+bottom: 30px;
+right: 130px;
+width: 50px;
+height: 50px;
+}
+
+.btn-stop {
+  position: fixed;
+  border-radius: 50%;
+  z-index: 1000;
+}
+
+.btn-stop {
+bottom: 30px;
+right: 190px;
+width: 50px;
+height: 50px;
 }
 
 .btn-continuar {

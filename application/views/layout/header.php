@@ -59,6 +59,16 @@ $type = $this->session->type;
                             </ul>
                         </li>
                       <?php } ?>
+
+                      <?php if($type == "Administrador" || $type == "Atención a Clientes"  ){ ?>
+                        <li>
+                            <a class="has-arrow" href="all-courses.html" aria-expanded="false"><span class="fa fa-handshake-o"></span><span class="mini-click-non">  Atención</span></a>
+                            <ul class="submenu-angle" aria-expanded="false">
+                                <li><a title="Pacientes" href="<?=base_url('/atencion/pacientes')?>"><span class="mini-sub-pro"><i class="fa fa-address-book" ></i> Pacientes</span></a></li>
+                                
+                            </ul>
+                        </li>
+                      <?php } ?>
                     
                         <?php if($type == "Administrador" || $type == "Contador" || $type == "Gerente Sucursal" ){ ?>
                         <li>

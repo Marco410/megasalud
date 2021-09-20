@@ -83,7 +83,7 @@ class PatientsController extends CI_Controller {
         $this->load->view('layout/header');
         
          $type = $this->session->type;
-         if($type == "Administrador" || $type == "Medico Administrador"|| $type == "Medico" ){
+         if($type == "Administrador" || $type == "Medico Administrador"|| $type == "Medico" || $type ==  "Atención a Clientes" ){
              $this->load->view('pacients/create');
         }else{
           $this->load->view('auth/error'); 
@@ -104,7 +104,7 @@ class PatientsController extends CI_Controller {
         $this->load->view('layout/header');
         
          $type = $this->session->type;
-         if($type == "Administrador" || $type == "Medico Administrador" || $type == "Medico" || $type == "Representante" ){
+         if($type == "Administrador" || $type == "Medico Administrador" || $type == "Medico" || $type == "Representante" || $type ==  "Atención a Clientes" ){
              $this->load->view('pacients/edit', $data);
         }else{
           $this->load->view('auth/error'); 
@@ -126,7 +126,7 @@ class PatientsController extends CI_Controller {
         $this->load->view('layout/header');
         
          $type = $this->session->type;
-         if($type == "Administrador" || $type == "Medico Administrador"|| $type == "Medico" ){
+         if($type == "Administrador" || $type == "Medico Administrador"|| $type == "Medico" || $type ==  "Atención a Clientes" ){
              $this->load->view('pacients/receta', $data);
         }else{
           $this->load->view('auth/error'); 
@@ -414,9 +414,61 @@ class PatientsController extends CI_Controller {
         }else{
             echo false;
         }
+    }
+
+    public function start_consulta(){
+
+        $id_user = $this->session->id;
+
+        $data = array(
+            'id_paciente' => $_POST["id_paciente"],
+            'motivo' => $_POST["motivo"],
+            'id_user' => $id_user,
+            'termino' => 0
+        );
+
+        if($this->db->insert("consultas",$data)){
+            $id_c = $this->db->insert_id();
+            echo json_encode(array('id'=> $id_c));
+        }else{
+            echo false;
+        }
+    }
+
+    public function get_status_consulta(){
+        $id_user = $this->session->id;
+
+        $this->db->select('termino,id');
+        $this->db->from('consultas');
+        $this->db->where('id_paciente', $_POST['id_paciente']);
+        $this->db->where('id_user', $id_user);
+        $this->db->where('termino', 0);
+        $result = $this->db->get()->row();
+
+        echo json_encode($result);
+    }
+
+    public function stop_consulta(){
         
+        $id_user = $this->session->id;
+        $hoy = date("Y-m-d H:i:s");
+        $data = array(
+            'fecha_termino' => $hoy,
+            'termino' => 1
+        );
         
-        
+
+        $this->db->where('id_paciente', $_POST['id_paciente']);
+        $this->db->where('id_user', $id_user);
+        $this->db->where('termino', 0);
+        $this->db->where('id', $_POST['id_consulta']);
+
+        if($this->db->update("consultas",$data)){
+            echo json_encode(array('error'=> false));
+        }else{
+            echo json_encode(array('error'=> true));
+            
+        }
     }
     
     public function get_suc_p(){
@@ -658,7 +710,7 @@ class PatientsController extends CI_Controller {
         $this->load->view('layout/head', $data);
         $this->load->view('layout/header');
         $type = $this->session->type;
-          if($type == "Administrador" || $type == "Medico Administrador" || $type == "Medico" ){
+          if($type == "Administrador" || $type == "Medico Administrador" || $type == "Medico" || $type ==  "Atención a Clientes" ){
             $this->load->view('pacients/adeudos');
         }else{
           $this->load->view('auth/error'); 
@@ -789,6 +841,17 @@ class PatientsController extends CI_Controller {
             $this->db->where('status', 1);
             $result = $this->db->get();
             $response = $result->result();
+            break;
+            
+            case 'Atención a Clientes':
+                
+            $this->db->where('status', 1);
+            $this->db->select('id,clave_bancaria,CONCAT(nombre," " , apellido_p, " ",apellido_m) AS nombre,email,telefono_a,estado'); 
+            $this->db->from('pacientes');
+            $this->db->order_by('id', 'DESC');
+            $query = $this->db->get();
+                
+            $response = $query->result();
             break;
         }
         

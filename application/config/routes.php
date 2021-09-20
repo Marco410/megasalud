@@ -266,6 +266,14 @@ $route['representante/ver-solicitud/(:num)'] = 'megasalud/AgentController/ver_so
 
 /*
 ----------------------------------
+| Atención a clientes
+-----------------------------------
+*/
+$route['atencion/pacientes'] = 'megasalud/AtencionController/pacientes';
+$route['atencion/ver-paciente/(:num)'] = 'megasalud/AtencionController/ver_paciente/$1';
+
+/*
+----------------------------------
 | Tutorials route
 -----------------------------------
 */
@@ -285,6 +293,14 @@ $route['mensajes'] = 'megasalud/MessengerController/index';
 -----------------------------------
 */
 $route['pa_nl'] = 'megasalud/APIController/pacientes_notas';
+
+/*
+----------------------------------
+| Prospectos routes
+-----------------------------------
+*/
+$route['registrame'] = 'megasalud/ProspectosController/index';
+
 
 
 

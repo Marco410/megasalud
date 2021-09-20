@@ -26,7 +26,6 @@
                         // target: '.login-message',
                         message: 'Si es cita subsecuente, comienzala.',
                     });
-                
                     document.getElementById("motivo").focus();
                 }
             }
@@ -69,3 +68,87 @@
 			});
 		}
 	});
+
+    $("#btn-iniciar-consulta").on("click",function(){
+        
+        var motivo = $("#start_consultaMotivo").val();
+        data = {
+            'id_paciente': id_p,
+            'motivo' : motivo
+        }
+
+        $.ajax({
+            url:  base_url + 'megasalud/PatientsController/start_consulta',
+            type:  'post',
+            data: data,
+            success: function(respuesta){
+                let json = JSON.parse(respuesta);
+                $("#btn-iniciarConsulta").hide();
+                $("#btn-terminar-consulta").show();
+                $("#start_consulta").modal("hide");
+                $("#btn-terminar-consulta").attr("data-id",json.id);
+
+                $("#btn-terminar-consulta2").show();
+                $("#btn-terminar-consulta2").attr("data-id",json.id);
+                
+            }
+        });
+
+    });
+
+
+    $("#btn-terminar-consulta, #btn-terminar-consulta2").on("click",function(){
+        data = {
+            'id_paciente': id_p,
+            'id_consulta' : $(this).attr("data-id")
+        }
+
+        $.ajax({
+            url:  base_url + 'megasalud/PatientsController/stop_consulta',
+            type:  'post',
+            data: data,
+            success: function(respuesta){
+                iziToast.success({
+                    timeout: 3000,
+                    title: 'Éxito',
+                    position: 'topRight',
+                    // target: '.login-message',
+                    message: 'Consulta terminada',
+                });
+                $("#btn-iniciarConsulta").show();
+                $("#btn-terminar-consulta").hide();
+                $("#btn-terminar-consulta2").hide();
+            }
+        });
+    });
+
+    get_status_consulta();
+
+    function get_status_consulta(){
+        data = {
+            'id_paciente': id_p
+        }
+
+        $.ajax({
+            url:  base_url + 'megasalud/PatientsController/get_status_consulta',
+            type:  'post',
+            data: data,
+            success: function(respuesta){
+                let json = JSON.parse(respuesta);
+
+                if (json != null){
+                    $("#btn-iniciarConsulta").hide();
+                    $("#start_consulta").modal("hide");
+                    $("#btn-terminar-consulta").show();
+                    $("#btn-terminar-consulta").attr("data-id",json.id);
+                    $("#btn-terminar-consulta2").show();
+                    $("#btn-terminar-consulta2").attr("data-id",json.id);
+    
+                }
+            
+                
+            }
+        });
+    }
+
+

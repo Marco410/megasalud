@@ -45,7 +45,7 @@
         </div>
 
         <div class="col-sm-12 no-padding mt-30">
-            <input type="submit" class="btn btn-primary">
+            <input type="submit" class="btn btn-primary" value="Iniciar Sesión" />
         </div>
 
     </form>

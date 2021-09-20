@@ -30,19 +30,21 @@
              
               <div class="panel panel-olive" >
                 
-                <div class="panel-heading text-center"><h3>Novedades y Actualizaciones | v 4.0.4</h3></div>
+                <div class="panel-heading text-center"><h3>Novedades y Actualizaciones | v 5.0.0</h3></div>
                 <div class="panel-body" >
                     <ul>
                        
-                        <li>Nueva manera de subir estudios</li>
+                        <li>Nueva forma de ingresar representantes</li>
                         <li>Soluciones de errores.</li>
                         
                        
                     </ul> 
                     <?php if($this->session->type == "Administrador" || $this->session->type == "Medico Administrador" || $this->session->type == "Medico"){?>
                     <h4>Nuevas novedades</h4>
+                    <h3>Pronto actualizaremos la forma de llenar el historial clínico. Quédate al pendiente por el nuevo tutorial que se subirá.</h3>  
+                    <!---
                     <iframe width="500" height="300" src="https://www.youtube.com/embed/bTTj0YFE2bE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    
+                    -->
             <?php }else{ } ?>
                 </div>
                     
