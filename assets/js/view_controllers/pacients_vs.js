@@ -157,7 +157,6 @@ function init(){
         },
         
         columns:[
-            {"data":"id"},
             {"data":"created_at"},
             {"data":"clave_bancaria"},
             {"data":"nombre"},

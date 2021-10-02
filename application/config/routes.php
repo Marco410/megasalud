@@ -221,6 +221,7 @@ $route['permisos/editar/(:num)'] = 'megasalud/PermisosController/edit/$1';
 -----------------------------------
 */
 $route['estadisticas'] = 'megasalud/StatisticsController/index';
+$route['estadisticas/ventas'] = 'megasalud/StatisticsController/ventas';
 
 /*
 ----------------------------------
@@ -271,6 +272,10 @@ $route['representante/ver-solicitud/(:num)'] = 'megasalud/AgentController/ver_so
 */
 $route['atencion/pacientes'] = 'megasalud/AtencionController/pacientes';
 $route['atencion/ver-paciente/(:num)'] = 'megasalud/AtencionController/ver_paciente/$1';
+$route['atencion/prospectos'] = 'megasalud/AtencionController/prospectos';
+$route['prospectos/getxMxQ'] = 'megasalud/AtencionController/getAll';
+
+
 
 /*
 ----------------------------------

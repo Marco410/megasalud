@@ -220,55 +220,172 @@ function init(){
                 }
             }
         }); 
+
     
-                 var cPFrom = document.getElementById("chartP");
-                     var chartS = new Chart(cPFrom,{
-                       type: "line",
-                        data:{
-                            labels: ["2019-05-08","2019-06-08","2019-07-15","2019-07-22","2019-07-24","2019-10-16","2019-11-20","2020-01-13","2020-04-03","2020-05-03","2020-05-07","2020-06-08","2020-09-07","2020-10-09"],
-                            datasets:[{
-                                label: "Eritros",
-                                data: [2.2,1.6,2.2,2.02,2.2,1.5,2.3,2.5,2.3,1.5,1.26,1.63,1.71,1.91],
-                                borderColor:[
-                                    '#2CCBD7'
-                                ],
-                                borderwidth:1,
-                                lineTension:0
-                            },{
-                                label:"HGB",
-                                data:[7.1,5.6,8.2,7.5,7.3,4.9,7.6,8.4,8.1,5.8,4.8,5.7,6.9,0.8],
-                                 borderColor:[
-                                    '#FF5733'
-                                ],
-                            },{
-                                label:"Leucos",
-                                data:[1.7,1.5,1.4,1.5,1.2,1.4,1.5,1.9,1.4,1.4,5.7,1.6,0.8,1.7],
-                                 borderColor:[
-                                    '#FFDB33'
-                                ],
-                            },{
-                                label:"Plaquetas",
-                                data:[11.0,13.0,10,25,9,8,9,11,10,11,4,9,16,7],
-                                 borderColor:[
-                                    '#9AFF33'
-                                ],
+    $.ajax({
+        url:  base_url + 'megasalud/StatisticsController/getPedidosUser',
+        type:  'get',
+        success: function(respuesta){
+            console.log(respuesta);
+            if(respuesta){
+                var res = JSON.parse(respuesta);
+                var cPUser = document.getElementById("chartPedidosUsuarios");
+                    var chartS = new Chart(cPUser,{
+                    type: "bar",
+                    data:{
+                        labels: ["Dr. Jaime","Dr. Robles","Dr. Humberto"],
+                        datasets:[{
+                            label: "Doctores",
+                            data: [res.jaime,res.robles,res.humberto],
+                            backgroundColor:[
+                                '#2CCBD7',
+                                '#2CC1D7',
+                                '#2CB9D7'
+                            ],
+                            borderwidth:1
+                        }]
+
+                    },
+                    options:{
+                        scales:{
+                            yAxes:[{
+                                ticks:{
+                                    beginAtZero:true
+                                }
                             }]
-
-                        },
-                        options:{
-                            scales:{
-                                yAxes:[{
-                                    ticks:{
-                                        beginAtZero:true
-                                    }
-                                }]
-                            }
                         }
-                    });
+                    }
+                });
 
-    
-   
+            }
+            else{
+            }
+        }
+    });
 
+    $.ajax({
+        url:  base_url + 'megasalud/StatisticsController/getEntradaP20',
+        type:  'get',
+        success: function(respuesta){
+
+            if(respuesta){
+                var res = JSON.parse(respuesta);
+             var cEntraPedidos20 = document.getElementById("chartEntraPedidos20");
+                 var chartS = new Chart(cEntraPedidos20,{
+                   type: "line",
+                    data:{
+                        labels: ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],
+                        datasets:[{
+                            label: "# Pedidos",
+                            data: [res.ene,res.feb,res.mar,res.abr,res.may,res.jun,res.jul,res.ago,res.sep,res.oct,res.nov,res.dic],
+                            borderColor:[
+                                '#2C61D7'
+                            ],
+                            borderwidth:1,
+                            lineTension:0
+                        }]
+
+                    },
+                    options:{
+                        scales:{
+                            yAxes:[{
+                                ticks:{
+                                    beginAtZero:true
+                                }
+                            }]
+                        }
+                    }
+                });
+
+            }
+            else{
+            }
+        }
+    });
+
+    $.ajax({
+        url:  base_url + 'megasalud/StatisticsController/getEntradaP21',
+        type:  'get',
+        success: function(respuesta){
+
+            if(respuesta){
+                var res = JSON.parse(respuesta);
+             var cEntraPedidos21 = document.getElementById("chartEntraPedidos21");
+                 var chartS = new Chart(cEntraPedidos21,{
+                   type: "line",
+                    data:{
+                        labels: ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],
+                        datasets:[{
+                            label: "# Pedidos",
+                            data: [res.ene,res.feb,res.mar,res.abr,res.may,res.jun,res.jul,res.ago,res.sep,res.oct,res.nov,res.dic],
+                            borderColor:[
+                                '#9AFF33'
+                            ],
+                            borderwidth:1,
+                            lineTension:0
+                        }]
+
+                    },
+                    options:{
+                        scales:{
+                            yAxes:[{
+                                ticks:{
+                                    beginAtZero:true
+                                }
+                            }]
+                        }
+                    }
+                });
+
+            }
+            else{
+            }
+        }
+    });
+
+    $.ajax({
+        url:  base_url + 'megasalud/StatisticsController/getSucursalesP',
+        type:  'get',
+        success: function(respuesta){
+
+            if(respuesta){
+                var res = JSON.parse(respuesta);
+                
+                var cSucursal = document.getElementById("chartSucursal");
+                 var chartL = new Chart(cSucursal,{
+                   type: "bar",
+                    data:{
+                        labels: ["Morelia","Culiacan","Guadalajara","México","Nuevo Laredo","Juxtlahuaca","Atizapan","Puebla","Zamora","Colima"],
+                        datasets:[{
+                            label: "# pacientes",
+                            data: [res.morelia,res.culiacan,res.guadalajara,res.mexico,res.nuevo_laredo,res.jux,res.atizapan,res.puebla,res.zamora,res.colima],
+                            backgroundColor:[
+                                '#00FFEA','#00FFEA',
+                                '#00FFEA','#00FFEA',
+                                '#00FFEA','#00FFEA',
+                                '#56D72C','#79E45E',
+                                '#2CD78B','#2CD7B9'
+                            ],
+                            borderwidth:1
+                        }]
+
+                    },
+                    options:{
+                        scales:{
+                            yAxes:[{
+                                ticks:{
+                                    beginAtZero:true
+                                }
+                            }]
+                        }
+                    }
+                });
+
+            }
+            else{
+            }
+        }
+    });
 
 
 }

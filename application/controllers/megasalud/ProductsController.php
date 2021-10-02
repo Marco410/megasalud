@@ -23,7 +23,7 @@ class ProductsController extends CI_Controller {
         $this->load->view('layout/header');
         
         $type = $this->session->type;
-         if($type == "Administrador" || $type== "Contador" || $type== "Gerente Sucursal" ){
+         if($type == "Administrador" || $type== "Contador" || $type== "Gerente Sucursal" || $type== "Produccion" ){
             $this->load->view('products/index', $data);
         }else{
           $this->load->view('auth/error'); 

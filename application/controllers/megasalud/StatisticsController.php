@@ -30,6 +30,30 @@ class StatisticsController extends CI_Controller {
         } 
         
         $this->load->view('layout/scripts');
+	}
+    public function ventas() {
+
+		session_redirect();
+
+		$data = array();
+        $data['title'] = 'Estadísticas Ventas';
+        $data['view_controller'] = 'statistics_vs.js';
+        $data['count_orders'] = $this->get_count_orders();
+        $data['count_pagado'] = $this->get_count_pagado();
+        $data['count_pendiente'] = $this->get_count_pendiente();
+        $data['view'] = 'chart.min.js';
+        $this->load->view('layout/head', $data);
+        $this->load->view('layout/header');
+        $type = $this->session->type;
+         if($type == "Administrador" || $type == "Produccion" || $type == "Ventas" ){
+             
+            $this->load->view('statistics/ventas', $data);
+             
+        }else{
+          $this->load->view('auth/error'); 
+        } 
+        
+        $this->load->view('layout/scripts');
 
 	}
     
@@ -38,7 +62,8 @@ class StatisticsController extends CI_Controller {
 		$this->db->where('status', 1);
 		return $this->db->count_all_results('pacientes');
 
-	}  public function get_count_citas() {
+	} 
+     public function get_count_citas() {
 
 		return $this->db->count_all_results('hisclinic_historial');
 
@@ -208,7 +233,7 @@ class StatisticsController extends CI_Controller {
 
         
     }
-public function getEntradaP(){
+    public function getEntradaP(){
         
         $this->db->where("created_at <=","2021-01-31");
         $this->db->where("created_at >=","2021-01-01");
@@ -290,5 +315,201 @@ public function getEntradaP(){
 
         
     } 
+
+    public function get_count_orders() {
+
+		/* $this->db->where('status', 1); */
+		return $this->db->count_all_results('pedidos');
+
+	} 
+    public function get_count_pagado() {
+
+		$this->db->where('status', "Pagado");
+		return $this->db->count_all_results('pedidos');
+
+	} 
+    public function get_count_pendiente() {
+
+		$this->db->where('status', "Pendiente");
+		return $this->db->count_all_results('pedidos');
+
+	} 
+
+    public function getPedidosUser(){
+        
+        $this->db->where("user_id",2);
+        $jaime = $this->db->count_all_results('pedidos');
+        $this->db->where("user_id",3);
+        $robles = $this->db->count_all_results('pedidos');
+        $this->db->where("user_id",9);
+        $humberto = $this->db->count_all_results('pedidos');
+        
+        $data = array(
+         'jaime' => $jaime,
+         'robles' => $robles,
+         'humberto' => $humberto
+        );
+        
+        echo json_encode($data);
+
+        
+    } 
+
+    public function getEntradaP20(){
+        
+        $this->db->where("created_at <=","2020-01-31");
+        $this->db->where("created_at >=","2020-01-01");
+        $ene = $this->db->count_all_results('pedidos');
+        $this->db->where("created_at <=","2020-02-28");
+        $this->db->where("created_at >=","2020-02-01");
+        $feb = $this->db->count_all_results('pedidos');
+        $this->db->where("created_at <=","2020-03-31");
+        $this->db->where("created_at >=","2020-03-01");
+        $mar = $this->db->count_all_results('pedidos');
+        $this->db->where("created_at <=","2020-04-30");
+        $this->db->where("created_at >=","2020-04-01");
+        $abr = $this->db->count_all_results('pedidos');
+        $this->db->where("created_at <=","2020-05-31");
+        $this->db->where("created_at >=","2020-05-01");
+        $may = $this->db->count_all_results('pedidos');
+        $this->db->where("created_at <=","2020-06-30");
+        $this->db->where("created_at >=","2020-06-01");
+        $jun = $this->db->count_all_results('pedidos');
+        $this->db->where("created_at <=","2020-07-31");
+        $this->db->where("created_at >=","2020-07-01");
+        $jul = $this->db->count_all_results('pedidos');
+        $this->db->where("created_at <=","2020-08-31");
+        $this->db->where("created_at >=","2020-08-01");
+        $ago = $this->db->count_all_results('pedidos');
+        $this->db->where("created_at <=","2020-09-30");
+        $this->db->where("created_at >=","2020-09-01");
+        $sep = $this->db->count_all_results('pedidos');
+        $this->db->where("created_at <=","2020-10-31");
+        $this->db->where("created_at >=","2020-10-01");
+        $oct = $this->db->count_all_results('pedidos');
+        $this->db->where("created_at <=","2020-11-30");
+        $this->db->where("created_at >=","2020-11-01");
+        $nov = $this->db->count_all_results('pedidos');
+        $this->db->where("created_at <=","2020-12-31");
+        $this->db->where("created_at >=","2020-12-01");
+        $dic = $this->db->count_all_results('pedidos');
+        
+        $data = array(
+         'ene' => $ene,
+         'feb' => $feb,
+         'mar' => $mar,
+         'abr' => $abr,
+         'may' => $may,
+         'jun' => $jun,
+         'jul' => $jul,
+         'ago' => $ago,
+         'sep' => $sep,
+         'oct' => $oct,
+         'nov' => $nov,
+         'dic' => $dic
+        );
+        
+        echo json_encode($data);
+
+        
+    } 
+
+    public function getEntradaP21(){
+        
+        $this->db->where("created_at <=","2021-01-31");
+        $this->db->where("created_at >=","2021-01-01");
+        $ene = $this->db->count_all_results('pedidos');
+        $this->db->where("created_at <=","2021-02-28");
+        $this->db->where("created_at >=","2021-02-01");
+        $feb = $this->db->count_all_results('pedidos');
+        $this->db->where("created_at <=","2021-03-31");
+        $this->db->where("created_at >=","2021-03-01");
+        $mar = $this->db->count_all_results('pedidos');
+        $this->db->where("created_at <=","2021-04-30");
+        $this->db->where("created_at >=","2021-04-01");
+        $abr = $this->db->count_all_results('pedidos');
+        $this->db->where("created_at <=","2021-05-31");
+        $this->db->where("created_at >=","2021-05-01");
+        $may = $this->db->count_all_results('pedidos');
+        $this->db->where("created_at <=","2021-06-30");
+        $this->db->where("created_at >=","2021-06-01");
+        $jun = $this->db->count_all_results('pedidos');
+        $this->db->where("created_at <=","2021-07-31");
+        $this->db->where("created_at >=","2021-07-01");
+        $jul = $this->db->count_all_results('pedidos');
+        $this->db->where("created_at <=","2021-08-31");
+        $this->db->where("created_at >=","2021-08-01");
+        $ago = $this->db->count_all_results('pedidos');
+        $this->db->where("created_at <=","2021-09-30");
+        $this->db->where("created_at >=","2021-09-01");
+        $sep = $this->db->count_all_results('pedidos');
+        $this->db->where("created_at <=","2021-10-31");
+        $this->db->where("created_at >=","2021-10-01");
+        $oct = $this->db->count_all_results('pedidos');
+        $this->db->where("created_at <=","2021-11-30");
+        $this->db->where("created_at >=","2021-11-01");
+        $nov = $this->db->count_all_results('pedidos');
+        $this->db->where("created_at <=","2021-12-31");
+        $this->db->where("created_at >=","2021-12-01");
+        $dic = $this->db->count_all_results('pedidos');
+        
+        $data = array(
+         'ene' => $ene,
+         'feb' => $feb,
+         'mar' => $mar,
+         'abr' => $abr,
+         'may' => $may,
+         'jun' => $jun,
+         'jul' => $jul,
+         'ago' => $ago,
+         'sep' => $sep,
+         'oct' => $oct,
+         'nov' => $nov,
+         'dic' => $dic
+        );
+        
+        echo json_encode($data);
+    } 
+
+    public function getSucursalesP() {
+        $this->db->where("id_sucursal",1);
+        $morelia = $this->db->count_all_results('pedidos_sucursal');
+        $this->db->where("id_sucursal",2);
+        $culiacan = $this->db->count_all_results('pedidos_sucursal');
+        $this->db->where("id_sucursal",3);
+        $guadalajara = $this->db->count_all_results('pedidos_sucursal');
+        $this->db->where("id_sucursal",4);
+        $mexico = $this->db->count_all_results('pedidos_sucursal');
+        $this->db->where("id_sucursal",5);
+        $nuevo_laredo = $this->db->count_all_results('pedidos_sucursal');
+        $this->db->where("id_sucursal",6);
+        $jux = $this->db->count_all_results('pedidos_sucursal');
+        $this->db->where("id_sucursal",7);
+        $atizapan = $this->db->count_all_results('pedidos_sucursal');
+        $this->db->where("id_sucursal",8);
+        $puebla = $this->db->count_all_results('pedidos_sucursal');
+        $this->db->where("id_sucursal",11);
+        $zamora = $this->db->count_all_results('pedidos_sucursal');
+        $this->db->where("id_sucursal",12);
+        $colima = $this->db->count_all_results('pedidos_sucursal');
+        
+        
+        $data = array(
+         'morelia' => $morelia,
+         'culiacan' => $culiacan,
+         'guadalajara' => $guadalajara,
+         'mexico' => $mexico,
+         'nuevo_laredo' => $nuevo_laredo,
+         'jux' => $jux,
+         'atizapan' => $atizapan,
+         'puebla' => $puebla,
+         'zamora' => $zamora,
+         'colima' => $colima
+        );
+        
+        echo json_encode($data);
+
+    }
+    
 
 }

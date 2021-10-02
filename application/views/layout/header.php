@@ -67,10 +67,14 @@ $type = $this->session->type;
                                 <li><a title="Pacientes" href="<?=base_url('/atencion/pacientes')?>"><span class="mini-sub-pro"><i class="fa fa-address-book" ></i> Pacientes</span></a></li>
                                 
                             </ul>
+                            <ul class="submenu-angle" aria-expanded="false">
+                                <li><a title="Prospectos" href="<?=base_url('/atencion/prospectos')?>"><span class="mini-sub-pro"><i class="fa fa-users" ></i> Prospectos</span></a></li>
+                                
+                            </ul>
                         </li>
                       <?php } ?>
                     
-                        <?php if($type == "Administrador" || $type == "Contador" || $type == "Gerente Sucursal" ){ ?>
+                        <?php if($type == "Administrador" || $type == "Contador" || $type == "Gerente Sucursal" || $type == "Produccion"  ){ ?>
                         <li>
                             <a class="has-arrow" href="mailbox.html" aria-expanded="false"><span class="fa fa-cubes"></span> <span class="mini-click-non">Almacén</span></a>
                             <ul class="submenu-angle chart-mini-nb-dp" aria-expanded="false">
@@ -103,11 +107,12 @@ $type = $this->session->type;
                         </li>
                          <?php } ?>
                         
-                        <?php if($type == "Administrador" || $type == "Medico Administrador"|| $type == "Ventas" ){ ?>
+                        <?php if($type == "Administrador" || $type == "Medico Administrador"|| $type == "Ventas" || $type == "Produccion" ){ ?>
                         <li>
                             <a class="has-arrow" href="mailbox.html" aria-expanded="false"><span class="fa fa-bar-chart"></span> <span class="mini-click-non">Estadísticas</span></a>
                             <ul class="submenu-angle form-mini-nb-dp" aria-expanded="false">
                                 <li><a title="Principal" href="<?=base_url('/estadisticas');?>"><span class="mini-sub-pro"><i class="fa fa-pie-chart" ></i> Pacientes</span></a></li>
+                                <li><a title="Ventas" href="<?=base_url('/estadisticas/ventas');?>"><span class="mini-sub-pro"><i class="fa fa-pie-chart" ></i> Ventas</span></a></li>
                                 
                             </ul>
                         </li>

@@ -60,14 +60,6 @@
 			</div>
 		</div>
 	</div>
-<div class="col-sm-12">
-		<div class="panel panel-default border-left-warning">
-            <div class="panel-heading text-center" ><h3>Especial</h3></div>
-			<div class="panel-body text-center">
-                <canvas id="chartP" ></canvas>
-			</div>
-		</div>
-	</div>
     
     
 

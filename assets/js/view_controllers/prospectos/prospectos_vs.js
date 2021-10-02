@@ -1,4 +1,4 @@
-Pace.on('done', function(){
+ Pace.on('done', function(){
 	initi();
 });
 

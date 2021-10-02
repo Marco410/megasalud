@@ -208,7 +208,7 @@ class PatientsController extends CI_Controller {
     
     public function api_find_paciente($exp){
         $tok = $_GET["token"];
-       $exp =  $exp;
+        $exp =  $exp;
         $this->db->select("t.token");
         $this->db->where("t.id",1);
         $this->db->from("tokens t");

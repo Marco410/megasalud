@@ -25,7 +25,7 @@ class OrdersController extends CI_Controller {
         $this->load->view('layout/head', $data);
         $this->load->view('layout/header');
         $type = $this->session->type;
-        if($type == "Administrador" || $type == "Contador" || $type == "Gerente Sucursal" ){
+        if($type == "Administrador" || $type == "Contador" || $type == "Gerente Sucursal" || $type == "Produccion" ){
              $this->load->view('orders/index', $data); 
         }else{
           $this->load->view('auth/error'); 
@@ -88,7 +88,7 @@ class OrdersController extends CI_Controller {
         $this->load->view('layout/head', $data);
         $this->load->view('layout/header');
         $type = $this->session->type;
-        if($type == "Administrador" || $type == "Contador" || $type == "Gerente Sucursal" || $type == "Medico Administrador" || $type == "Medico" ){
+        if($type == "Administrador" || $type == "Contador" || $type == "Gerente Sucursal" || $type == "Medico Administrador" || $type == "Medico" || $type == "Produccion" ){
              $this->load->view('orders/show', $data); 
             
         }else{
