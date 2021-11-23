@@ -423,6 +423,7 @@ class PatientsController extends CI_Controller {
         $data = array(
             'id_paciente' => $_POST["id_paciente"],
             'motivo' => $_POST["motivo"],
+            'tipo' => $_POST["tipo"],
             'id_user' => $id_user,
             'termino' => 0
         );
@@ -814,7 +815,7 @@ class PatientsController extends CI_Controller {
             case 'Administrador':
                 
             $this->db->where('status', 1);
-            $this->db->select('id,clave_bancaria,CONCAT(nombre," " , apellido_p, " ",apellido_m) AS nombre,email,telefono_a,estado'); 
+            $this->db->select('id,clave_bancaria,CONCAT(nombre," " , apellido_p, " ",apellido_m) AS nombre,email,telefono_a,estado,motivo_consulta'); 
             $this->db->from('pacientes');
             $this->db->order_by('id', 'DESC');
             $query = $this->db->get();
@@ -825,7 +826,7 @@ class PatientsController extends CI_Controller {
             case 'Medico Administrador':
                 
             $this->db->where('status', 1);
-            $this->db->select('id,clave_bancaria,CONCAT(nombre," " , apellido_p, " ",apellido_m) AS nombre,email,telefono_a,estado'); 
+            $this->db->select('id,clave_bancaria,CONCAT(nombre," " , apellido_p, " ",apellido_m) AS nombre,email,telefono_a,estado,motivo_consulta'); 
             $this->db->from('pacientes');
             $this->db->order_by('id', 'DESC');
             $query = $this->db->get();
@@ -834,7 +835,7 @@ class PatientsController extends CI_Controller {
             break;
 
             case 'Medico':
-            $this->db->select('p.id,p.clave_bancaria,CONCAT(p.nombre," " , p.apellido_p, " ",p.apellido_m) AS nombre,p.email,p.telefono_a,p.estado');
+            $this->db->select('p.id,p.clave_bancaria,CONCAT(p.nombre," " , p.apellido_p, " ",p.apellido_m) AS nombre,p.email,p.telefono_a,p.estado,p.motivo_consulta');
             $this->db->from('pacientes p');
             $this->db->join('sucursal_pacientes sp', 'sp.paciente_id = p.id', 'inner');
             $this->db->where('sp.sucursal_id', $this->session->userdata('sucursal'));
@@ -846,7 +847,7 @@ class PatientsController extends CI_Controller {
             case 'Atención a Clientes':
                 
             $this->db->where('status', 1);
-            $this->db->select('id,clave_bancaria,CONCAT(nombre," " , apellido_p, " ",apellido_m) AS nombre,email,telefono_a,estado'); 
+            $this->db->select('id,clave_bancaria,CONCAT(nombre," " , apellido_p, " ",apellido_m) AS nombre,email,telefono_a,estado,motivo_consulta'); 
             $this->db->from('pacientes');
             $this->db->order_by('id', 'DESC');
             $query = $this->db->get();

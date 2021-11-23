@@ -158,8 +158,9 @@ $type = $this->session->type;
 								            </button>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-7 col-sm-6 col-xs-12">
+                                    <div class="col-lg-6 col-md-7 col-sm-6 col-xs-12 text-center">
                                         <!-- Puede ir un menu aqui  --->
+                                        <h2 class="text-danger" > <strong>Servidor de Prueba</strong> </h2>
                                     </div>
                                     <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
                                         <div class="header-right-info">

@@ -2,8 +2,35 @@ Pace.on('done', function(){
 	init();
 });
 
+
 function init(){
 
+	var espanol = {
+		"sProcessing":     "Procesando...",
+		"sLengthMenu":     "Mostrar _MENU_ registros",
+		"sZeroRecords":    "No se encontraron resultados",
+		"sEmptyTable":     "Ningún dato disponible en esta tabla",
+		"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+		"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+		"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+		"sInfoPostFix":    "",
+		"sSearch":         "Buscar:",
+		"sUrl":            "",
+		"sInfoThousands":  ",",
+		"sLoadingRecords": "Cargando...",
+		"oPaginate": {
+			"sFirst":    "Primero",
+			"sLast":     "Último",
+			"sNext":     "Siguiente",
+			"sPrevious": "Anterior"
+		},
+		"oAria": {
+			"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+			"sSortDescending": ": Activar para ordenar la columna de manera descendente"
+		}
+	};
+
+	
 	var table2 = $('#his_table').DataTable({
 		responsive: true,
 		fixedHeader: true,
@@ -29,30 +56,60 @@ function init(){
             {"data":"nombre"}
         ],
 		order: [ 1, 'desc' ],
-		language: {
-			"sProcessing":     "Procesando...",
-			"sLengthMenu":     "Mostrar _MENU_ registros",
-			"sZeroRecords":    "No se encontraron resultados",
-			"sEmptyTable":     "Ningún dato disponible en esta tabla",
-			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-			"sInfoPostFix":    "",
-			"sSearch":         "Buscar:",
-			"sUrl":            "",
-			"sInfoThousands":  ",",
-			"sLoadingRecords": "Cargando...",
-			"oPaginate": {
-				"sFirst":    "Primero",
-				"sLast":     "Último",
-				"sNext":     "Siguiente",
-				"sPrevious": "Anterior"
+		language: espanol,
+		dom: '<"row" <"col-sm-4" l> <"col-sm-8" <"pull-right ml-15" B><"pull-right" f> > >r<"mt-30" t><"row mt-30" <"col-sm-5" i> <"col-sm-7" p> >',
+		buttons: [
+		{
+			extend: 'excel',
+			className: 'btn btn-success',
+			exportOptions: {
 			},
-			"oAria": {
-				"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-				"sSortDescending": ": Activar para ordenar la columna de manera descendente"
-			},
+			init: function(api, node, config) {
+				$(node).removeClass('dt-button');
+			}
+		}
+		],
+		
+	});
+
+	var consulta_table = $('#consulta_table').DataTable({
+		responsive: true,
+		fixedHeader: true,
+        searching: true,
+		order: [ 0, 'desc' ],
+		columnDefs: [{
+            orderable: false,
+            targets:   [6],
         },
+        { targets: [0], visible: true }
+        ],
+        ajax:{
+            type:"post",
+            url:  base_url + 'megasalud/AccountantController/his_consultas',
+        },
+        
+        columns:[
+            {"data":"id"},
+            {"data":"nombre_p"},
+            {"data":"nombre"},
+            {"data":"motivo"},
+            {"data":"termino","render":function(value){
+				if(value == "1"){
+					return "<span class='label label-success' >Finalizada</span>"
+				}else{
+					return "<span class='label label-warning' >En proceso</span>"
+				}
+			}},
+            {"data":"created_at",
+			"render":function(value){
+				return moment(value).format('DD-MMM-YYYY HH:mm a');
+				} 
+		  	},
+            {"data":"fecha_termino","render":function(value){
+				return moment(value).format('DD-MMM-YYYY HH:mm a');
+			}   }
+        ],
+		language: espanol,
 		dom: '<"row" <"col-sm-4" l> <"col-sm-8" <"pull-right ml-15" B><"pull-right" f> > >r<"mt-30" t><"row mt-30" <"col-sm-5" i> <"col-sm-7" p> >',
 		buttons: [
 		{

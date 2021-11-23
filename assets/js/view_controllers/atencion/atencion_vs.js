@@ -1,4 +1,29 @@
-var table = $('#main-table').DataTable({
+var espanol = {
+    "sProcessing":     "Procesando...",
+    "sLengthMenu":     "Mostrar _MENU_ registros",
+    "sZeroRecords":    "No se encontraron resultados",
+    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+    "sInfoPostFix":    "",
+    "sSearch":         "Buscar:",
+    "sUrl":            "",
+    "sInfoThousands":  ",",
+    "sLoadingRecords": "Cargando...",
+    "oPaginate": {
+        "sFirst":    "Primero",
+        "sLast":     "Último",
+        "sNext":     "Siguiente",
+        "sPrevious": "Anterior"
+    },
+    "oAria": {
+        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+    }
+};
+
+var main_table = $('#main-table').DataTable({
     fixedHeader: true,
     scrollY: true,
     columnDefs: [{
@@ -11,30 +36,7 @@ var table = $('#main-table').DataTable({
     { targets: [ 0 ], visible: false }
     ],
     order: [ 0, 'des' ],
-    language: {
-        "sProcessing":     "Procesando...",
-        "sLengthMenu":     "Mostrar _MENU_ registros",
-        "sZeroRecords":    "No se encontraron resultados",
-        "sEmptyTable":     "Ningún dato disponible en esta tabla",
-        "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-        "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-        "sInfoPostFix":    "",
-        "sSearch":         "Buscar:",
-        "sUrl":            "",
-        "sInfoThousands":  ",",
-        "sLoadingRecords": "Cargando...",
-        "oPaginate": {
-            "sFirst":    "Primero",
-            "sLast":     "Último",
-            "sNext":     "Siguiente",
-            "sPrevious": "Anterior"
-        },
-        "oAria": {
-            "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-        }
-    },
+    language: espanol,
     dom: '<"row" <"col-sm-4" l> <"col-sm-8" <"pull-right ml-15" B><"pull-right" f> > >r<"mt-30" t><"row mt-30" <"col-sm-5" i> <"col-sm-7" p> >',
     buttons: [
     {
@@ -68,48 +70,49 @@ var table = $('#main-table').DataTable({
         {"data":"id"},
         {"data":"clave_bancaria"},
         {"data":"nombre"},
-        {"data":"email"},
+        {"data":"email","render": function(value){
+            if(value == "na@na.com"){
+                return "<span>Sin correo</span>"
+            }else{
+                return "<a href='mailto:"+value+"' >"+value+"</a>"
+            }
+        }},
+        {"data":"motivo_consulta","render" : function(value){
+            if(value == ""){
+                return "<span class='text-danger' >Sin registro</span>"
+            }else{
+                return "<span>"+value+"</span>";
+            }
+        }},
         {"data":"estado"},
-        {"data":"telefono_a"},
+        {"data":"telefono_a","render":function(value){
+            if(value == ""){
+                return "<span>Sin teléfono</span>"
+            }else{
+                return "<a href='tel:"+value+"' >"+value+"</a>"
+            }
+        }},
         {"defaultContent":"<button id='btn-ver-paciente' title='Ver Paciente' class='btn-editar btn btn-sm btn-primary '><i class='fa fa-eye'></i></button><button id='btn-adeudos' title='Ver Adeudos' class='btn-historia btn btn-sm btn-info '><i class='fa fa-h-square'></i></button><button id='btn-editar' title='Editar Paciente' class='btn-editar btn btn-sm btn-warning '><i class='fa fa-edit'></i></button>"}
     ],
 });
 
-$("#main-table").on("click", "#btn-ver-paciente", function(){
-    var data = table.row( $(this).parents("tr") ).data();
+$("#main-table tbody").on("click", "#btn-ver-paciente", function(){
+    var data = main_table.row( $(this).parents("tr") ).data();
     window.location.href = base_url + "atencion/ver-paciente/" + data.id;
     
   });
 
   $("#main-table").on("click", "#btn-adeudos", function(){
-    var data = table.row( $(this).parents("tr") ).data();
+    var data = main_table.row( $(this).parents("tr") ).data();
     window.location.href = base_url + "pacientes/adeudos/" + data.id;
     
   });
 
 $("#main-table").on("click", "#btn-editar", function(){
-    var data = table.row( $(this).parents("tr") ).data();
+    var data = main_table.row( $(this).parents("tr") ).data();
     window.location.href = base_url + "pacientes/editar/" + data.id;
         
   });
-
-$('#main-table').on('click', 'tbody tr td', function () {
-    var data = table.row( $(this).parents("tr") ).data();
-            iziToast.info({
-                            timeout: 2000,
-                            title: 'Copiado',
-                            position: 'center',
-                            message: ''+ data.clave_bancaria,
-                        });
-    var aux = document.createElement("input");
-    aux.setAttribute("value", data.clave_bancaria);
-    document.body.appendChild(aux);
-    aux.select();
-    document.execCommand('copy');
-    aux.setAttribute("type", "hidden");
-
-    });
-
 
     var table = $('#pros-table').DataTable({
         fixedHeader: true,
@@ -124,30 +127,7 @@ $('#main-table').on('click', 'tbody tr td', function () {
         { targets: [ 0 ], visible: false }
         ],
         order: [ 0, 'des' ],
-        language: {
-            "sProcessing":     "Procesando...",
-            "sLengthMenu":     "Mostrar _MENU_ registros",
-            "sZeroRecords":    "No se encontraron resultados",
-            "sEmptyTable":     "Ningún dato disponible en esta tabla",
-            "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-            "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-            "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-            "sInfoPostFix":    "",
-            "sSearch":         "Buscar:",
-            "sUrl":            "",
-            "sInfoThousands":  ",",
-            "sLoadingRecords": "Cargando...",
-            "oPaginate": {
-                "sFirst":    "Primero",
-                "sLast":     "Último",
-                "sNext":     "Siguiente",
-                "sPrevious": "Anterior"
-            },
-            "oAria": {
-                "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-            }
-        },
+        language: espanol,
         dom: '<"row" <"col-sm-4" l> <"col-sm-8" <"pull-right ml-15" B><"pull-right" f> > >r<"mt-30" t><"row mt-30" <"col-sm-5" i> <"col-sm-7" p> >',
         buttons: [
         {

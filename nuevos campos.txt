@@ -1,0 +1,13 @@
+ALTER TABLE `consultas` ADD `tipo` VARCHAR(191) NULL AFTER `motivo`;
+ALTER TABLE `hisclinic_linea` CHANGE `edad_paciente` `edad_paciente` FLOAT(11) NOT NULL;
+ALTER TABLE `hisclinic_alergias` CHANGE `edad_alergia` `edad_alergia` FLOAT(11) NOT NULL;
+ALTER TABLE `hisclinic_app1` CHANGE `edad` `edad` FLOAT(11) NOT NULL;
+ALTER TABLE `hisclinic_hospitalizaciones` CHANGE `edad_hospi` `edad_hospi` FLOAT(11) NOT NULL;
+ALTER TABLE `hisclinic_inmunizaciones` CHANGE `edad` `edad` FLOAT(11) NOT NULL;
+ALTER TABLE `hisclinic_medi` CHANGE `edad_medi` `edad_medi` FLOAT(11) NOT NULL;
+ALTER TABLE `hisclinic_terapia` CHANGE `edad_terapia` `edad_terapia` FLOAT(11) NOT NULL;
+ALTER TABLE `hisclinic_venenos` CHANGE `edad_veneno` `edad_veneno` FLOAT(11) NOT NULL;
+ALTER TABLE `hisclinic_vmp` CHANGE `edad_vmp` `edad_vmp` FLOAT(11) NOT NULL;
+ALTER TABLE `hisclinic_vp` CHANGE `edad_vp` `edad_vp` FLOAT(11) NOT NULL;
+ALTER TABLE `hisclinic_vr` CHANGE `edad_vr` `edad_vr` FLOAT(11) NOT NULL;
+

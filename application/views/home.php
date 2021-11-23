@@ -2,6 +2,9 @@
 <div class="container">
 	<h3 class="ms-heading"><b id="suc_name">BIENVENIDO - <?= $this->session->sucursal_name;  ?></b></h3>
     <div class="row" >
+        <div class="col-sm-12">
+            
+        </div>
          <div class="col-sm-6" >
             <?php if($this->session->type == "Administrador" || $this->session->type == "Medico Administrador"){?>
              <div  class="panel panel-default" >
@@ -30,21 +33,17 @@
              
               <div class="panel panel-olive" >
                 
-                <div class="panel-heading text-center"><h3>Novedades y Actualizaciones | v 5.0.0</h3></div>
+                <div class="panel-heading text-center"><h3>Novedades y Actualizaciones | v 6.0.0</h3></div>
                 <div class="panel-body" >
-                    <ul>
-                       
+                    <!-- <ul>
                         <li>Nueva forma de ingresar representantes</li>
                         <li>Soluciones de errores.</li>
-                        
-                       
-                    </ul> 
+                    </ul>  -->
                     <?php if($this->session->type == "Administrador" || $this->session->type == "Medico Administrador" || $this->session->type == "Medico"){?>
                     <h4>Nuevas novedades</h4>
-                    <h3>Pronto actualizaremos la forma de llenar el historial clínico. Quédate al pendiente por el nuevo tutorial que se subirá.</h3>  
-                    <!---
-                    <iframe width="500" height="300" src="https://www.youtube.com/embed/bTTj0YFE2bE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    -->
+                    <h3>Se habilito el servidor de prueba para probar la nueva actualización.</h3>
+                    <a target="_blank" href="http://megasalud.com.mx/app"><h4>Ingresa a dando clic aquí</h4></a>  
+                    <iframe width="500" height="300" src="https://www.youtube.com/embed/sx8e89V6n6w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <?php }else{ } ?>
                 </div>
                     

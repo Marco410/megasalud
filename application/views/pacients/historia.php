@@ -6,6 +6,16 @@
     $fecha = substr($paciente->fecha_nacimiento, 0,4);
     $fechaMax = date('Y') - $fecha;
     $type = $this->session->type;
+
+    function calcular_edad($fecha){
+      $fecha_nac = new DateTime(date('Y/m/d',strtotime($fecha))); 
+      $fecha_hoy =  new DateTime(date('Y/m/d',time())); 
+      $edad = date_diff($fecha_hoy,$fecha_nac); 
+      return $edad;
+      }
+       
+      $edad = calcular_edad($paciente->fecha_nacimiento);
+      
 ?>
 <div class="container">
     <input type="hidden" value="<?= $fecha ?>" id="anio" />
@@ -14,42 +24,50 @@
     <h3 class="ms-title"><b>HISTORIAL CLÍNICO</b>  <button style="margin-left:300px;" class="btn btn-md btn-success" id="btn-iniciarConsulta"  data-toggle="modal" data-target="#start_consulta" > <i class="fa fa-play" ></i> Iniciar Consulta</button><button style="margin-left:300px;display:none;" class="btn btn-md btn-danger" id="btn-terminar-consulta" data-id=""    > <i class="fa fa-stop" ></i> Terminar Consulta</button>  <i class="fa fa-clock-o" ></i> <a href="javascript:history.back()" class="btn btn-default pull-right"><i class="fa fa-chevron-left"></i> <span>Regresar</span></a>  </h3>
 
 <!-- Modal Comenzar Consulta -->
-        <div class="modal fade" id="start_consulta" tabindex="-1" role="dialog" aria-labelledby="Password" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" >Contraseña</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-            <div class="modal-body">
-              <div class="row">
-                <div class="col-sm-12" >
-                  <label>Motivo de Consulta</label>
-                <select class="form-control" required id="start_consultaMotivo" name="start_consultaMotivo" >
-                      <option value="">Seleccione: </option>
+<div class="modal fade" id="start_consulta" tabindex="-1" role="dialog" aria-labelledby="Password" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" >Iniciar Nueva Consulta</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-sm-6 form-group" >
+          <label>Motivo de Consulta</label>
+            <select class="form-control" required id="start_consultaMotivo" name="start_consultaMotivo" >
+              <option value="">Seleccione: </option>
 
-                      <?php foreach ($motivo_consulta->result() as $motivo): ?>
-                      <option value="<?= $motivo->enfermedad ?>"><?= $motivo->enfermedad ?></option>
-                      <?php endforeach ?>    
-                      <option value="Otra">Otra</option>    
-                  </select>
-                  <div class="" id="panel-add-m" hidden >
-                      <br>
-                      <a href="#" class="btn btn-sm btn-info" data-id="1" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
-                      </div>
-                    
-                  </div>
-                  <div class="col-sm-12">
-                    <button class="btn btn-sm btn-block btn-success" id="btn-iniciar-consulta"  > <i class="fa fa-play" ></i> Empezar</button>
-                  </div>
-                </div>
-              </div>     
-            </div>
+              <?php foreach ($motivo_consulta->result() as $motivo): ?>
+              <option value="<?= $motivo->enfermedad ?>"><?= $motivo->enfermedad ?></option>
+              <?php endforeach ?>    
+              <option value="Otra">Otra</option>    
+          </select>
+          <div class="" id="panel-add-m" hidden >
+              <br>
+              <a href="#" class="btn btn-sm btn-info" data-id="1" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
           </div>
-        </div>    
-        <!-- Termina Modal Comenzar Consulta -->
+          </div>
+          <div class="col-sm-6 form-group">
+            <br>
+            <label for="">Primera Vez
+              <input type="radio" name="tipo_consulta" id="1" value="Primera Vez"  />
+            </label>
+            <label for="">Subsecuente
+              <input type="radio" name="tipo_consulta" id="2" value="Subsecuente" />
+            </label>
+          </div>
+          <div class="col-sm-12">
+            <button class="btn btn-sm btn-block btn-success" id="btn-iniciar-consulta"  > <i class="fa fa-play" ></i> Empezar</button>
+          </div>
+        </div>
+      </div>     
+    </div>
+  </div>
+</div>    
+<!-- Termina Modal Comenzar Consulta -->
 
 
     <div class="row">
@@ -79,7 +97,8 @@
                         <div class="col-sm-6" >
                           <h5>Motivo de Consulta: <label class="sm" ><b><?=$paciente->motivo_consulta ?></b></label></h5>
                           <h5>Expediente: <label class="sm" ><b><?=$paciente->clave_bancaria ?></b></label></h5>
-                          <h5>Sucursal: </h5><h5><label class="sm" ><b id="sucursal_p" ></b></label></h5>
+                          <h5>Sucursal: <label class="sm" ><b id="sucursal_p" ></b></label></h5>
+                          <h5>Edad: <label class="sm" ><b> <?= $edad->format('%Y')?> años y <?= $edad->format('%m')?> meses</b></label></h5>
                       </div>
 
                     </div>
@@ -318,11 +337,11 @@
                   </div>
               </div>
               <!-- Botón cita subsecuente -->
-              <div class="row" style="margin-top:40px;margin-bottom:20px;">
-                <div class="col-sm-12 text-center">
-                <?php if ($paciente->seguim != 0){  ?><button  class="btn btn-md btn-warning  ml-2" data-toggle="modal" data-target="#citaSubsecuente" > <i class="fa fa-plus" ></i> Agregar Cita Subsecuente</button><?php } ?>
-                </div>
+              <!-- <div class="row" style="margin-top:40px;margin-bottom:20px;">
+              <div class="col-sm-12 text-center">
+              <?php if ($paciente->seguim != 0){  ?><button  class="btn btn-md btn-warning  ml-2" data-toggle="modal" data-target="#citaSubsecuente" > <i class="fa fa-plus" ></i> Agregar Cita Subsecuente</button><?php } ?>
               </div>
+            </div> -->
               <!-- Modal Cita Subsecuente -->
             <?php if ($paciente->seguim != 0){  ?>
               
@@ -844,7 +863,7 @@
     <!-- Cierra Linea de Vida -->
     
     <!--- Comienza panel de Antecedentes Patologicos  --->
-    
+   <!--  
     <div class="panel panel-brown" style="border-radius:15px">
         
         <div class="panel-heading text-center" data-toggle="collapse" href="#collapsePato" role="button" aria-expanded="false" aria-controls="collapsePato" style="border-radius:15px" >
@@ -983,7 +1002,7 @@
                     Cerrar Panel
                     </div> 
             </div> 
-    </div>  
+    </div>   -->
     <!--- Termina panel de Antecedentes Patologicos  --->
    
 </div>
@@ -2063,11 +2082,11 @@
                   <b>Frecuencia</b>
                      <select required id="frecc" name="frecc" class="form-control"  >
                          <option value="" >Seleccione:</option>
-                         <option value="1" >Frec 1</option>
-                         <option value="2" >Frec 2</option>
-                         <option value="3" >Frec 3</option>
-                         <option value="4" >Frec 4</option>
-                         <option value="5" >Frec 5</option>
+                         <option value="1" >1 a 3 veces a la semana</option>
+                         <option value="2" >4 a 7 veces a la semana</option>
+                         <option value="3" >10 a 15 veces al mes</option>
+                         <option value="4" >16 a 30 veces al mes </option>
+                         <option value="5" >Más de una vez al mes</option>
                       </select>
                   </div>
                 <div class="col-sm-6" >

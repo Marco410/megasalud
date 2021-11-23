@@ -5,7 +5,7 @@
         'id' : id_p
     };
     
-    $.ajax({
+    /* $.ajax({
         url:  base_url + 'megasalud/PatientsController/get_suc_p',
         type:  'post',
         data: data,
@@ -42,7 +42,7 @@
                 document.getElementById("suc_paciente").focus();
             }
         }
-    });
+    }); */
     
     $('#insert-suc').validate({
 		submitHandler: function(form) {
@@ -72,9 +72,13 @@
     $("#btn-iniciar-consulta").on("click",function(){
         
         var motivo = $("#start_consultaMotivo").val();
+        var tipo = $("input:radio[name=tipo_consulta]:checked").val();
+
+        console.log(tipo);
         data = {
             'id_paciente': id_p,
-            'motivo' : motivo
+            'motivo' : motivo,
+            'tipo' : tipo
         }
 
         $.ajax({
@@ -82,6 +86,13 @@
             type:  'post',
             data: data,
             success: function(respuesta){
+                iziToast.success({
+                    timeout: 1500,
+                    title: 'Éxito',
+                    position: 'topRight',
+                    // target: '.login-message',
+                    message: 'Iniciando consulta...',
+                });
                 let json = JSON.parse(respuesta);
                 $("#btn-iniciarConsulta").hide();
                 $("#btn-terminar-consulta").show();
@@ -103,23 +114,47 @@
             'id_consulta' : $(this).attr("data-id")
         }
 
-        $.ajax({
-            url:  base_url + 'megasalud/PatientsController/stop_consulta',
-            type:  'post',
-            data: data,
-            success: function(respuesta){
-                iziToast.success({
-                    timeout: 3000,
-                    title: 'Éxito',
-                    position: 'topRight',
-                    // target: '.login-message',
-                    message: 'Consulta terminada',
+        iziToast.question({
+            timeout: 20000,
+            close: false,
+            overlay: true,
+            displayMode: 'once',
+            zindex: 999,
+            title: 'Terminar',
+            message: '¿Estás seguro de terminar la consulta?',
+            position: 'center',
+            buttons: [
+                ['<button><b>Si</b></button>', function (instance, toast) {
+         
+                    instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+                $.ajax({
+                    url:  base_url + 'megasalud/PatientsController/stop_consulta',
+                    type:  'post',
+                    data: data,
+                    success: function(respuesta){
+                        iziToast.success({
+                            timeout: 3000,
+                            title: 'Éxito',
+                            position: 'topRight',
+                            // target: '.login-message',
+                            message: 'Consulta terminada',
+                        });
+                        $("#btn-iniciarConsulta").show();
+                        $("#btn-terminar-consulta").hide();
+                        $("#btn-terminar-consulta2").hide();
+                    }
                 });
-                $("#btn-iniciarConsulta").show();
-                $("#btn-terminar-consulta").hide();
-                $("#btn-terminar-consulta2").hide();
-            }
+         
+                }, true],
+                ['<button>NO</button>', function (instance, toast) {
+         
+                    instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+         
+                }],
+            ]
         });
+
+       
     });
 
     get_status_consulta();

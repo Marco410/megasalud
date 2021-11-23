@@ -2,6 +2,31 @@ Pace.on('done', function(){
 	init();
 });
 
+var español = {
+    "sProcessing":     "Procesando...",
+    "sLengthMenu":     "Mostrar _MENU_ registros",
+    "sZeroRecords":    "No se encontraron resultados",
+    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+    "sInfoPostFix":    "",
+    "sSearch":         "Buscar:",
+    "sUrl":            "",
+    "sInfoThousands":  ",",
+    "sLoadingRecords": "Cargando...",
+    "oPaginate": {
+        "sFirst":    "Primero",
+        "sLast":     "Último",
+        "sNext":     "Siguiente",
+        "sPrevious": "Anterior"
+    },
+    "oAria": {
+        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+    }
+};
+
   $('#inicia_consulta').validate({
         
 		submitHandler: function(form) {
@@ -48,30 +73,7 @@ function init(){
 		{ targets: [ 0 ], visible: false }
         ],
 		order: [ 0, 'des' ],
-		language: {
-			"sProcessing":     "Procesando...",
-			"sLengthMenu":     "Mostrar _MENU_ registros",
-			"sZeroRecords":    "No se encontraron resultados",
-			"sEmptyTable":     "Ningún dato disponible en esta tabla",
-			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-			"sInfoPostFix":    "",
-			"sSearch":         "Buscar:",
-			"sUrl":            "",
-			"sInfoThousands":  ",",
-			"sLoadingRecords": "Cargando...",
-			"oPaginate": {
-				"sFirst":    "Primero",
-				"sLast":     "Último",
-				"sNext":     "Siguiente",
-				"sPrevious": "Anterior"
-			},
-			"oAria": {
-				"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-				"sSortDescending": ": Activar para ordenar la columna de manera descendente"
-			}
-		},
+		language: español,
 		dom: '<"row" <"col-sm-4" l> <"col-sm-8" <"pull-right ml-15" B><"pull-right" f> > >r<"mt-30" t><"row mt-30" <"col-sm-5" i> <"col-sm-7" p> >',
 		buttons: [
 		{
@@ -155,9 +157,13 @@ function init(){
             type:"post",
             url: base_url + 'megasalud/PatientsController/his_citas',
         },
-        
         columns:[
-            {"data":"created_at"},
+            {"data":"id"},
+            {"data":"created_at",
+             "render":function(value){
+                 return moment(value).format('DD-MMM-YYYY HH:mm a');
+             }       
+            },
             {"data":"clave_bancaria"},
             {"data":"nombre"},
             {"data":"telefono_a"},
@@ -165,30 +171,7 @@ function init(){
             {"defaultContent":"<button id='btn-historia-2' class='btn-historia-2 btn btn-sm btn-info '><i class='fa fa-file-text-o'></i></button>"}
         ],
 		order: [ 1, 'desc' ],
-		language: {
-			"sProcessing":     "Procesando...",
-			"sLengthMenu":     "Mostrar _MENU_ registros",
-			"sZeroRecords":    "No se encontraron resultados",
-			"sEmptyTable":     "Ningún dato disponible en esta tabla",
-			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-			"sInfoPostFix":    "",
-			"sSearch":         "Buscar:",
-			"sUrl":            "",
-			"sInfoThousands":  ",",
-			"sLoadingRecords": "Cargando...",
-			"oPaginate": {
-				"sFirst":    "Primero",
-				"sLast":     "Último",
-				"sNext":     "Siguiente",
-				"sPrevious": "Anterior"
-			},
-			"oAria": {
-				"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-				"sSortDescending": ": Activar para ordenar la columna de manera descendente"
-			}
-		}
+		language: español
 	});
     
     $("#his_table").on("click", "#btn-historia-2", function(){
@@ -212,7 +195,11 @@ function init(){
         
         columns:[
             {"data":"id"},
-            {"data":"created_at"},
+            {"data":"created_at",
+             "render":function(value){
+                 return moment(value).format('DD-MMM-YYYY HH:mm a');;
+             }       
+            },
             {"data":"clave_bancaria"},
             {"data":"nombre_p"},
             {"data":"telefono_a"},
@@ -222,30 +209,7 @@ function init(){
             {"defaultContent":"<button id='btn-historia-3' class='btn-historia-3 btn btn-sm btn-info '><i class='fa fa-file-text-o'></i></button>"}
         ],
 		order: [ 1, 'desc' ],
-		language: {
-			"sProcessing":     "Procesando...",
-			"sLengthMenu":     "Mostrar _MENU_ registros",
-			"sZeroRecords":    "No se encontraron resultados",
-			"sEmptyTable":     "Ningún dato disponible en esta tabla",
-			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-			"sInfoPostFix":    "",
-			"sSearch":         "Buscar:",
-			"sUrl":            "",
-			"sInfoThousands":  ",",
-			"sLoadingRecords": "Cargando...",
-			"oPaginate": {
-				"sFirst":    "Primero",
-				"sLast":     "Último",
-				"sNext":     "Siguiente",
-				"sPrevious": "Anterior"
-			},
-			"oAria": {
-				"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-				"sSortDescending": ": Activar para ordenar la columna de manera descendente"
-			}
-		}
+		language: español
 	});
     
     $("#his_table2").on("click", "#btn-historia-3", function(){

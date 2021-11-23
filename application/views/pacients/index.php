@@ -39,10 +39,9 @@
 							<th style="width: 110px;">Opc.</th>
 						</tr>
 					</thead>
-                    <tbody id="main-table" >
-                    
-                    </tbody>
-					
+          <tbody id="main-table" >
+          
+          </tbody>
 				</table>
 			</div>
 		</div>
