@@ -74,7 +74,6 @@
         var motivo = $("#start_consultaMotivo").val();
         var tipo = $("input:radio[name=tipo_consulta]:checked").val();
 
-        console.log(tipo);
         data = {
             'id_paciente': id_p,
             'motivo' : motivo,

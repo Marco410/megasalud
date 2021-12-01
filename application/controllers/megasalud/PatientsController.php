@@ -114,7 +114,6 @@ class PatientsController extends CI_Controller {
     }
     
     public function receta($id) {
-
         session_redirect();
 
         $data['title'] = 'Recetas Paciente';
@@ -128,6 +127,51 @@ class PatientsController extends CI_Controller {
          $type = $this->session->type;
          if($type == "Administrador" || $type == "Medico Administrador"|| $type == "Medico" || $type ==  "Atención a Clientes" ){
              $this->load->view('pacients/receta', $data);
+        }else{
+          $this->load->view('auth/error'); 
+        }
+        
+        $this->load->view('layout/scripts', $data);
+    }
+
+    public function evolucion($id) {
+        session_redirect();
+
+        $data['title'] = 'Evolución del Paciente';
+        $data['paciente'] = $this->historia->find($id);
+        $data['linea_vida'] = $this->historia->linea_vida($id);
+
+        $data['view_controller'] = 'pacients/evolucion_vs.js';
+
+        $this->load->view('layout/head', $data);
+        $this->load->view('layout/header');
+        
+         $type = $this->session->type;
+         if($type == "Administrador" || $type == "Medico Administrador"|| $type == "Medico" || $type ==  "Atención a Clientes" ){
+             $this->load->view('pacients/evolucion', $data);
+        }else{
+          $this->load->view('auth/error'); 
+        }
+        
+        $this->load->view('layout/scripts', $data);
+    }
+
+    public function registro_evolucion($id) {
+        session_redirect();
+
+        $data['title'] = 'Registrar Evolución del Paciente';
+        $data['dato_linea_vida'] = $this->historia->dato_linea_vida($id);
+        $data['evolucion'] = $this->historia->evolucion($id);
+        $data['paciente'] = $this->historia->find($_GET['p']);
+
+        $data['view_controller'] = 'pacients/evolucion_vs.js';
+
+        $this->load->view('layout/head', $data);
+        $this->load->view('layout/header');
+        
+         $type = $this->session->type;
+         if($type == "Administrador" || $type == "Medico Administrador"|| $type == "Medico" || $type ==  "Atención a Clientes" ){
+             $this->load->view('pacients/dato_evolucion', $data);
         }else{
           $this->load->view('auth/error'); 
         }
@@ -2013,6 +2057,41 @@ class PatientsController extends CI_Controller {
         }
         
     }
+
+    public function save_evolucion(){
+        $anio =  $this->input->post('anio') + $this->input->post('edad_medica');
+        
+        $data = array(
+            'paciente_id' => $this->input->post('id_paciente'),
+            'linea_id' => $this->input->post('id_linea'),
+            'evolucion' => $this->input->post('evolucion'),
+            'fecha_evolucion' => $this->input->post('fecha_evolucion'),
+            'edad' => $this->input->post('edad_evol')
+        ); 
+        
+        if($this->db->insert("hisclinic_evolucion", $data)){
+            echo json_encode($data);
+             }
+        else{
+            echo "";
+        }
+    } 
+
+    public function save_curacion(){
+        $data = array(
+            'curacion' => $_POST['curacion']
+        );
+        
+
+        $this->db->where('id', $_POST['id_linea']);
+
+        if($this->db->update("hisclinic_linea",$data)){
+            echo json_encode(array('error'=> false));
+        }else{
+            echo json_encode(array('error'=> true));
+            
+        }
+    }  
  
     public function addSet(){
         $id_dato = $this->input->post('input_id');

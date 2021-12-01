@@ -10,4 +10,24 @@ ALTER TABLE `hisclinic_venenos` CHANGE `edad_veneno` `edad_veneno` FLOAT(11) NOT
 ALTER TABLE `hisclinic_vmp` CHANGE `edad_vmp` `edad_vmp` FLOAT(11) NOT NULL;
 ALTER TABLE `hisclinic_vp` CHANGE `edad_vp` `edad_vp` FLOAT(11) NOT NULL;
 ALTER TABLE `hisclinic_vr` CHANGE `edad_vr` `edad_vr` FLOAT(11) NOT NULL;
+CREATE TABLE `hisclinic_evolucion` (
+  `id` int(11) NOT NULL,
+  `paciente_id` int(6) UNSIGNED ZEROFILL NOT NULL,
+  `linea_id` int(11) NOT NULL,
+  `evolucion` text NOT NULL,
+  `edad` float NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+ALTER TABLE `hisclinic_evolucion`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `paciente_id` (`paciente_id`),
+  ADD KEY `linea_id` (`linea_id`);
+
+ALTER TABLE `hisclinic_evolucion`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `hisclinic_evolucion` ADD FOREIGN KEY (`linea_id`) REFERENCES `hisclinic_linea`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `hisclinic_evolucion` ADD FOREIGN KEY (`paciente_id`) REFERENCES `pacientes`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+ALTER TABLE `hisclinic_linea` ADD `curacion` INT NOT NULL DEFAULT '0' AFTER `enfermedad`;
+ALTER TABLE `hisclinic_evolucion` ADD `fecha_evolucion` DATE NULL AFTER `edad`;

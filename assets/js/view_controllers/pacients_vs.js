@@ -933,7 +933,7 @@ function init(){
 	});
     
      //Al seleccionar otro
-    $('#motivo, #motivo_m').on('change',function(){
+    $('#motivo, #motivo_m,#start_consultaMotivo').on('change',function(){
         if($(this).find(":selected").val() == "Otra"){
             document.getElementById("panel-add-m").hidden = false;
            
@@ -1204,6 +1204,7 @@ function init(){
                                 case 1 :
                                     $('#motivo').append("<option selected value='"+res.dat+"' >"+res.dat+"</option>");
                                     $('#motivo_m').append("<option selected value='"+res.id_m+"' >"+res.dat+"</option>");
+                                    $('#start_consultaMotivo').append("<option selected value='"+res.id_m+"' >"+res.dat+"</option>");
                                     break;
                                 case 2 :
                                     $('#enfermedad').append("<option selected value='"+res.dat+"' >"+res.dat+"</option>");

@@ -4,18 +4,17 @@
     $img_perfil = base_url('assets/foto_paciente').'/';
 	  $paciente = $paciente->row();
     $fecha = substr($paciente->fecha_nacimiento, 0,4);
-    $fechaMax = date('Y') - $fecha;
     $type = $this->session->type;
-
+    
     function calcular_edad($fecha){
       $fecha_nac = new DateTime(date('Y/m/d',strtotime($fecha))); 
       $fecha_hoy =  new DateTime(date('Y/m/d',time())); 
       $edad = date_diff($fecha_hoy,$fecha_nac); 
       return $edad;
-      }
-       
-      $edad = calcular_edad($paciente->fecha_nacimiento);
-      
+    }
+    
+    $edad = calcular_edad($paciente->fecha_nacimiento);
+    $fechaMax = $edad->format('%Y') ."." . $edad->format('%m');
 ?>
 <div class="container">
     <input type="hidden" value="<?= $fecha ?>" id="anio" />
@@ -809,11 +808,21 @@
                                 <span class="flag"><?= $linea->enfermedad; ?></span>
                                 <span class="time-wrapper"><span class="time"><?= $linea->anio; ?> Edad: <?= $linea->edad_paciente; ?></span></span>
                               </div>
-                              <div class="desc"><?= $linea->descripcion; ?><a href="#<?= $linea->table_hisclinic; ?>Sec"> <icon class="fa fa-chevron-down"> Ver</icon></a></div>
+                              <div class="desc"><?= $linea->descripcion; ?><a href="<?= base_url().'pacientes/evolucion/'.$paciente->id. '#'.$linea->id ?>"> Evolución <icon class="fa fa-chevron-right"> </icon></a>
+                              <div class="progress" style="height:5px; ">
+                                  <?php if($linea->curacion < 33){ 
+                                      $bar = "progress-bar-danger";
+                                  }else if($linea->curacion > 34 && $linea->curacion < 66 ){ 
+                                      $bar = "progress-bar-warning";
+                                  }else if($linea->curacion > 67){
+                                      $bar = "progress-bar-success";
+                                  } ?>
+                                  <div class="progress-bar <?= $bar ?> " role="progressbar" aria-valuenow="<?= $linea->curacion ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?= $linea->curacion ?>%">
+                              </div>
+                              </div>
+                            </div>
                             </div>
                           </li>
-                
-                            
                         <?php endforeach ?>
                     </ul> 
                         <small>Los elementos de la linea se borran al eliminar un dato de los Antecedentes Patológicos</small>
@@ -1726,7 +1735,7 @@
 
                         <div class="col-sm-2" >
                                 <b>Edad</b>
-                                <input id="edad_cong" required type="number" name="edad_cong" class="form-control" value="0" min="0" max="<?= $fechaMax ?>" /><br>
+                                <input id="edad_cong" required type="number" name="edad_cong" class="form-control" value="<?= $fechaMax ?>" min="1" max="<?= $fechaMax ?>" /><br>
                                <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
                                 <input type="hidden" value="<?= $fecha ?>" name="anio" />
                             </div>
@@ -1765,7 +1774,7 @@
                 </div>
                  <div class="col-sm-3" >
                      <b>Edad</b>
-                    <input id="edad_vacuna" required class="form-control" min="0" value="0" max="<?= $fechaMax ?>" name="edad" type="number" /> 
+                    <input id="edad_vacuna" required class="form-control" min="1" value="<?= $fechaMax ?>" max="<?= $fechaMax ?>" name="edad" type="number" /> 
                      <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
                     <input type="hidden" value="<?= $fecha ?>" name="anio" />
                 </div>
@@ -1814,7 +1823,7 @@
         <div class="col-sm-4" >  
 
         <b>Edad</b>    
-            <input id="edad_ale" required name="edad_alergia" type="number" class="form-control" min="0" value="0" max="<?= $fechaMax ?>"  />
+            <input id="edad_ale" required name="edad_alergia" type="number" class="form-control" min="1" value="<?= $fechaMax ?>" max="<?= $fechaMax ?>"  />
         <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" required />
         <input type="hidden" value="<?= $fecha ?>" name="anio" required />
 
@@ -1876,7 +1885,7 @@
                         
                         <div class="form-group col-sm-4" >
                              <b>Edad</b> 
-                          <input id="edad_h" required type="number" min="0" class="form-control" name="edad_hospi" max="<?= $fechaMax ?>" value="0" />
+                          <input id="edad_h" required type="number" min="1" class="form-control" name="edad_hospi" max="<?= $fechaMax ?>" value="<?= $fechaMax ?>" />
                         <input type="hidden" value="<?= $fecha ?>" name="anio" />
                         </div>
                     </div>

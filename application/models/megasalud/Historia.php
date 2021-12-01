@@ -142,6 +142,16 @@ class Historia extends CI_Model
 		$this->db->order_by('anio', 'asc');
 		return $this->db->get('hisclinic_linea');
 	} 
+
+	public function dato_linea_vida($id) {
+		$this->db->where('id', $id);
+		return $this->db->get('hisclinic_linea');
+	}
+
+	public function evolucion($id) {
+		$this->db->where('linea_id', $id);
+		return $this->db->get('hisclinic_evolucion');
+	}
    
     public function carga_heredo($id) {
 		$this->db->where('id_paciente', $id);
@@ -336,6 +346,10 @@ class Historia extends CI_Model
     public function save_hisclinic_vmp($data, $data_linea) {
 		$this->db->insert('hisclinic_linea', $data_linea);
         return $this->db->insert('hisclinic_vmp', $data);	
+	}
+	public function save_terapia($data, $data_linea) {
+		$this->db->insert('hisclinic_linea', $data_linea);
+        return $this->db->insert('hisclinic_terapia', $data);	
 	}
 
 }

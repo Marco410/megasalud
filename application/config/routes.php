@@ -141,6 +141,9 @@ $route['pacientes/editar/(:num)'] = 'megasalud/PatientsController/edit/$1';
 $route['pacientes/recetas/(:num)'] = 'megasalud/PatientsController/receta/$1';
 $route['pacientes/estudio'] = 'megasalud/PatientsController/agregar_estudio';
 
+$route['pacientes/evolucion/(:num)'] = 'megasalud/PatientsController/evolucion/$1';
+$route['pacientes/registro-evolucion/(:num)'] = 'megasalud/PatientsController/registro_evolucion/$1';
+
 $route['pacientes/upload_estudio'] = 'megasalud/PatientsController/upload_estudio';
 
 $route['pacientes/historia/(:num)'] = 'megasalud/PatientsController/historia/$1';
