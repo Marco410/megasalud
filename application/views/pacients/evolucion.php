@@ -14,8 +14,11 @@ $img_path = base_url('estudios').'/'.$paciente->id."/";
     <div class="panel-body" >
         <div class="row" >
             <div class="col-sm-12" >
+
+
        <?php foreach ( $linea_vida->result() as $linea ): ?>
-            <div class="col-sm-3" id="<?= $linea->id ?>" >
+            
+            <div class="col-sm-6" id="<?= $linea->id ?>" >
                 <div class="panel panel-info" >
                     <div class="panel-heading" >
                     <h3 class="panel-title"><?= $linea->enfermedad ?></h3>

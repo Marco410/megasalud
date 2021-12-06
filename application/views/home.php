@@ -33,16 +33,15 @@
              
               <div class="panel panel-olive" >
                 
-                <div class="panel-heading text-center"><h3>Novedades y Actualizaciones | v 7.0.0</h3></div>
+                <div class="panel-heading text-center"><h3>Novedades y Actualizaciones | v 7.0.1</h3></div>
                 <div class="panel-body" >
                     <!-- <ul>
                         <li>Nueva forma de ingresar representantes</li>
                         <li>Soluciones de errores.</li>
                     </ul>  -->
                     <?php if($this->session->type == "Administrador" || $this->session->type == "Medico Administrador" || $this->session->type == "Medico"){?>
-                    <!-- <h4>Nuevas novedades</h4>
-                    <h3>Se habilito el servidor de prueba para probar la nueva actualización.</h3>
-                    <a target="_blank" href="http://megasalud.com.mx/app"><h4>Ingresa a dando clic aquí</h4></a>  --> 
+                     <h4>Nuevas novedades</h4>
+                    <h3>Se añadio la evolución del paciente</h3>
                     <iframe width="500" height="300" src="https://www.youtube.com/embed/sx8e89V6n6w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <?php }else{ } ?>
                 </div>

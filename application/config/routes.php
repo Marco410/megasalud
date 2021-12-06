@@ -301,6 +301,7 @@ $route['mensajes'] = 'megasalud/MessengerController/index';
 -----------------------------------
 */
 $route['pa_nl'] = 'megasalud/APIController/pacientes_notas';
+$route['perfil'] = 'megasalud/APIController/perfil';
 
 /*
 ----------------------------------

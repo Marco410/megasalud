@@ -143,6 +143,15 @@ class Historia extends CI_Model
 		return $this->db->get('hisclinic_linea');
 	} 
 
+	public function linea_vida_with_evol($id) {
+		$this->db->where('h.id_paciente', $id);
+		$this->db->select("h.*, he.id as idEvol,he.evolucion");
+		$this->db->from("hisclinic_linea h");
+		$this->db->join("hisclinic_evolucion he", "he.linea_id = h.id ",'inner');
+		$this->db->order_by('h.anio', 'asc');
+		return $this->db->get()->result();
+	} 
+
 	public function dato_linea_vida($id) {
 		$this->db->where('id', $id);
 		return $this->db->get('hisclinic_linea');
@@ -237,6 +246,14 @@ class Historia extends CI_Model
 	}public function medicamento() {
         $this->db->order_by('medicamento', 'ASC');
 		return $this->db->get('medicamentos');
+	}
+	public function estres() {
+        $this->db->order_by('id', 'ASC');
+		return $this->db->get('estres');
+	}
+	public function obesidad() {
+        $this->db->order_by('id', 'ASC');
+		return $this->db->get('obesidad');
 	}
     public function terapias() {
         $this->db->order_by('terapia', 'ASC');

@@ -532,53 +532,88 @@
             <div id="divMedi" class="panel-body">  
                 <div class="row">
                     
-                    <div class="col-sm-6" >
-                         <form id="form-terapia" name="form-terapia" method="post" >
-                        <input type="hidden" value="<?= $fecha ?>" name="anio" />
-                        <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
-                        <h4>Terapía</h4>
-                         <select required id="terapia" class="form-control" name="terapia">
-                            <option value="" >Seleccione: </option>
-                             <?php foreach ( $terapias->result() as $terapia ): ?>
-                            <option value="<?= $terapia->id ?>" ><?= $terapia->terapia ?></option>
-                           <?php endforeach ?>
-                             <option value="Otra" >Otro</option>
-                        </select>
-                         <div class="" id="panel-add-ter" hidden >
-                        <br>
-                        <a href="#" class="btn btn-sm btn-info" data-id="18" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
+                  <div class="col-sm-3" >
+                        <form id="form-terapia" name="form-terapia" method="post" >
+                      <input type="hidden" value="<?= $fecha ?>" name="anio" />
+                      <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
+                      <h4>Terapía</h4>
+                        <select required id="terapia" class="form-control" name="terapia">
+                          <option value="" >Seleccione: </option>
+                            <?php foreach ( $terapias->result() as $terapia ): ?>
+                          <option value="<?= $terapia->id ?>" ><?= $terapia->terapia ?></option>
+                          <?php endforeach ?>
+                            <option value="Otra" >Otro</option>
+                      </select>
+                        <div class="" id="panel-add-ter" hidden >
+                      <br>
+                      <a href="#" class="btn btn-sm btn-info" data-id="18" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
 
-                     </div>
-                        <b>Edad</b>
-                        <input id="edad_terapia" required type="number" name="edad_terapia" class="form-control" value="<?= $fechaMax ?>" min="0" max="<?= $fechaMax ?>" /><br>
-                            
-                         <button type="submit" class="btn btn-info btn-info-user" style="margin-top:10px"><i class="fa fa-save fa-1.5x"></i>    Guardar Terapia</button> 
-                        </form>
                     </div>
+                      <b>Edad</b>
+                      <input id="edad_terapia" required type="number" name="edad_terapia" class="form-control" value="<?= $fechaMax ?>" min="0" max="<?= $fechaMax ?>" /><br>
+                          
+                        <button type="submit" class="btn btn-info btn-info-user" style="margin-top:10px"><i class="fa fa-save fa-1.5x"></i>    Guardar Terapia</button> 
+                      </form>
+                  </div>
                     
-                    <div  class="col-sm-6" >
-                        <form id="form_medi" name="form_medi" method="post" novalidate="novalidate" >
-                        <input type="hidden" value="<?= $fecha ?>" name="anio" />
-                        <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
-                        <h4>Medicamento</h4>
-                        <select required id="p_medicamento" class="form-control" name="p_medicamento">
-                            <option value="" >Seleccione: </option>
-                             <?php foreach ( $medicamentos->result() as $medicamento ): ?>
-                            <option value="<?= $medicamento->id ?>" ><?= $medicamento->medicamento ?></option>
-                           <?php endforeach ?>
-                             <option value="Otra" >Otro</option>
-                        </select>
-                        <div class="" id="panel-add-med" hidden >
-                        <br>
-                        <a href="#" class="btn btn-sm btn-info" data-id="3" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
+                  <div  class="col-sm-3" >
+                      <form id="form_medi" name="form_medi" method="post" novalidate="novalidate" >
+                      <input type="hidden" value="<?= $fecha ?>" name="anio" />
+                      <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
+                      <h4>Medicamento</h4>
+                      <select required id="p_medicamento" class="form-control" name="p_medicamento">
+                          <option value="" >Seleccione: </option>
+                            <?php foreach ( $medicamentos->result() as $medicamento ): ?>
+                          <option value="<?= $medicamento->id ?>" ><?= $medicamento->medicamento ?></option>
+                          <?php endforeach ?>
+                            <option value="Otra" >Otro</option>
+                      </select>
+                      <div class="" id="panel-add-med" hidden >
+                      <br>
+                      <a href="#" class="btn btn-sm btn-info" data-id="3" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
 
-                     </div>
-                        <b>Edad</b>
-                        <input  required type="number" name="edad_medica" class="form-control" value="<?= $fechaMax ?>" min="0" max="<?= $fechaMax ?>" /><br>
-                            
-                         <button type="submit" class="btn btn-info btn-info-user" style="margin-top:10px"><i class="fa fa-save fa-1.5x"></i>    Guardar Medicamento</button>   
-                        </form>
-                    </div>                
+                    </div>
+                      <b>Edad</b>
+                      <input  required type="number" name="edad_medica" class="form-control" value="<?= $fechaMax ?>" min="0" max="<?= $fechaMax ?>" /><br>
+                          
+                        <button type="submit" class="btn btn-info btn-info-user" style="margin-top:10px"><i class="fa fa-save fa-1.5x"></i>    Guardar Medicamento</button>   
+                      </form>
+                  </div>    
+                  <div  class="col-sm-3" >
+                      <form id="form_estres" name="form_estres" method="post" novalidate="novalidate" >
+                      <input type="hidden" value="<?= $fecha ?>" name="anio" />
+                      <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
+                      <h4>Estrés</h4>
+                      <select required id="s_estres" class="form-control" name="s_estres">
+                          <option value="" >Seleccione: </option>
+                            <?php foreach ( $estres->result() as $estre ): ?>
+                          <option value="<?= $estre->id ?>" ><?= $estre->estres ?></option>
+                          <?php endforeach ?>
+                      </select>
+                      <b>Edad</b>
+                      <input  required type="number" name="edad_estres" class="form-control" value="<?= $fechaMax ?>" min="0" max="<?= $fechaMax ?>" /><br>
+                          
+                        <button type="submit" class="btn btn-info btn-info-user" style="margin-top:10px"><i class="fa fa-save fa-1.5x"></i>    Guardar Estrés</button>   
+                      </form>
+                  </div>     
+                   
+                  <div  class="col-sm-3" >
+                      <form id="form_obe" name="form_obe" method="post" novalidate="novalidate" >
+                      <input type="hidden" value="<?= $fecha ?>" name="anio" />
+                      <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
+                      <h4>Obesidad</h4>
+                      <select required id="s_obesidad" class="form-control" name="s_obesidad">
+                          <option value="" >Seleccione: </option>
+                            <?php foreach ( $obesidad->result() as $obe ): ?>
+                          <option value="<?= $obe->id ?>" ><?= $obe->obesidad ?></option>
+                          <?php endforeach ?>
+                      </select>
+                      <b>Edad</b>
+                      <input  required type="number" name="edad_obesidad" class="form-control" value="<?= $fechaMax ?>" min="0" max="<?= $fechaMax ?>" /><br>
+                          
+                        <button type="submit" class="btn btn-info btn-info-user" style="margin-top:10px"><i class="fa fa-save fa-1.5x"></i>    Guardar Obesidad</button>   
+                      </form>
+                  </div>       
                 </div>
                 </div>
             </div>
@@ -2091,11 +2126,10 @@
                   <b>Frecuencia</b>
                      <select required id="frecc" name="frecc" class="form-control"  >
                          <option value="" >Seleccione:</option>
-                         <option value="1" >1 a 3 veces a la semana</option>
-                         <option value="2" >4 a 7 veces a la semana</option>
-                         <option value="3" >10 a 15 veces al mes</option>
-                         <option value="4" >16 a 30 veces al mes </option>
-                         <option value="5" >Más de una vez al mes</option>
+                         <option value="1" >Diariamente</option>
+                         <option value="2" >Semanalmente</option>
+                         <option value="3" >Mensualmente</option>
+                         <option value="4" >Anualmente</option>
                       </select>
                   </div>
                 <div class="col-sm-6" >

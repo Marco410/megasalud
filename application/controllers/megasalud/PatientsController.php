@@ -201,8 +201,10 @@ class PatientsController extends CI_Controller {
     $data['infectos_parasitos'] = $this->historia->infecto_parasitos();
     $data['infectos_psico'] = $this->historia->infecto_psico();
     $data['infectos_otras'] = $this->historia->infecto_otras();
-    $data['medicamentos'] = $this->historia->medicamento();
     $data['terapias'] = $this->historia->terapias();
+    $data['medicamentos'] = $this->historia->medicamento();
+    $data['estres'] = $this->historia->estres();
+    $data['obesidad'] = $this->historia->obesidad();
     $data['vacunas'] = $this->historia->vacunas();
     $data['alergenos'] = $this->historia->alergeno();
     $data['tratamiento'] = $this->historia->tratamiento();
@@ -1196,7 +1198,7 @@ class PatientsController extends CI_Controller {
         'id_paciente' => $this->input->post('id_paciente'),
         'id_dato' => $_POST['enfermedad'],
         'enfermedad' => $enfermedad, 
-        'table_hisclinic' => "enfermedades",
+        'table_hisclinic' => "congenita",
         'edad_paciente' => $this->input->post('edad_cong'),
         'descripcion' => $descripcion, 
         'anio' => $anio
@@ -1325,7 +1327,7 @@ class PatientsController extends CI_Controller {
         'id_paciente' => $this->input->post('id_paciente'),
         'id_dato' => $_POST["causa"],
         'enfermedad' => $causa,
-        'table_hisclinic' => "Hospitalizacion",//_hospitalizaciones
+        'table_hisclinic' => "hospitalizacion",//_hospitalizaciones
         'edad_paciente' => $this->input->post('edad_hospi'), 
         'descripcion' => $descripcion,
         'anio' => $anio
@@ -2021,6 +2023,76 @@ class PatientsController extends CI_Controller {
             echo "";
         }
     } 
+
+    public function save_hisclinic_estres(){
+        $anio =  $this->input->post('anio') + $this->input->post('edad_estres');
+         
+        $this->db->where("id",$this->input->post('s_estres'));
+        $query = $this->db->get("estres");
+        $estres = $query->row()->estres; 
+        
+        $descripcion = "Nivel de Estrés: " . $estres;
+        
+        $data = array(
+            'id_paciente' => $this->input->post('id_paciente'),
+            'id_estres' => $this->input->post('s_estres'),
+            'estres' => $estres,
+            'edad_estres' => $this->input->post('edad_estres') 
+        ); 
+        
+        $data_linea = array(
+            'id_paciente' => $this->input->post('id_paciente'),
+            'id_dato' => $this->input->post('s_estres'),
+            'enfermedad' => $estres, 
+            'table_hisclinic' => "estres", 
+            'edad_paciente' => $this->input->post('edad_estres'),
+            'descripcion' => $descripcion, 
+            'anio' => $anio
+        );
+        
+        if($this->db->insert("hisclinic_estres", $data)){
+        $this->db->insert("hisclinic_linea", $data_linea);
+        echo json_encode($data);
+             }
+        else{
+            echo "";
+        }
+    }
+
+    public function save_hisclinic_obe(){
+        $anio =  $this->input->post('anio') + $this->input->post('edad_obesidad');
+         
+        $this->db->where("id",$this->input->post('s_obesidad'));
+        $query = $this->db->get("obesidad");
+        $obesidad = $query->row()->obesidad; 
+        
+        $descripcion = "Tipo: " . $obesidad;
+        
+        $data = array(
+            'id_paciente' => $this->input->post('id_paciente'),
+            'id_obesidad' => $this->input->post('s_obesidad'),
+            'obesidad' => $obesidad,
+            'edad_obesidad' => $this->input->post('edad_obesidad') 
+        ); 
+        
+        $data_linea = array(
+            'id_paciente' => $this->input->post('id_paciente'),
+            'id_dato' => $this->input->post('s_obesidad'),
+            'enfermedad' => $obesidad, 
+            'table_hisclinic' => "obesidad", 
+            'edad_paciente' => $this->input->post('edad_obesidad'),
+            'descripcion' => $descripcion, 
+            'anio' => $anio
+        );
+        
+        if($this->db->insert("hisclinic_obesidad", $data)){
+        $this->db->insert("hisclinic_linea", $data_linea);
+        echo json_encode($data);
+             }
+        else{
+            echo "";
+        }
+    }
     
     public function save_hisclinic_terapia(){
         $anio =  $this->input->post('anio') + $this->input->post('edad_terapia');
@@ -2040,8 +2112,9 @@ class PatientsController extends CI_Controller {
         
         $data_linea = array(
         'id_paciente' => $this->input->post('id_paciente'),
-        'enfermedad' => $terapia, 
-        'table_hisclinic' => "hisclinic_terapia", 
+        'id_dato' => $this->input->post('terapia'),
+        'enfermedad' => $terapia,
+        'table_hisclinic' => "terapia", 
         'edad_paciente' => $this->input->post('edad_terapia'),
         'descripcion' => $descripcion, 
         'anio' => $anio
@@ -2455,6 +2528,7 @@ class PatientsController extends CI_Controller {
         'enfermedad' => $veneno, 
         'table_hisclinic' => "venenos", //_app1
         'edad_paciente' => $_POST['edad_veneno'],
+        'frecuencia' => $_POST['frecc'],
         'descripcion' => $descripcion, 
         'anio' => $anio
         );

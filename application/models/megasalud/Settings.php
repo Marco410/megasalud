@@ -57,8 +57,8 @@ class Settings extends CI_Model
         );
           
         if($this->db->insert('medicamentos', $data)){
-
-            echo json_encode(array('dat'=> $dato,'id' => 3));
+            $id_dat = $this->db->insert_id();
+            echo json_encode(array('dat'=> $dato,'id' => 3,'id_dat'=> $id_dat));
         }
             else{
                 echo json_encode(array('error' => true));
@@ -310,8 +310,8 @@ class Settings extends CI_Model
         );
           
         if($this->db->insert('terapias', $data)){
-
-            echo json_encode(array('dat'=> $dato,'id' => 18));
+            $id_dat = $this->db->insert_id();
+            echo json_encode(array('dat'=> $dato,'id' => 18,'id_dat'=> $id_dat));
         }
             else{
                 echo json_encode(array('error' => true));

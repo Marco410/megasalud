@@ -31,3 +31,62 @@ ALTER TABLE `hisclinic_evolucion` ADD FOREIGN KEY (`paciente_id`) REFERENCES `pa
 
 ALTER TABLE `hisclinic_linea` ADD `curacion` INT NOT NULL DEFAULT '0' AFTER `enfermedad`;
 ALTER TABLE `hisclinic_evolucion` ADD `fecha_evolucion` DATE NULL AFTER `edad`;
+CREATE TABLE `hisclinic_obesidad` (
+  `id` int(11) NOT NULL,
+  `id_paciente` int(6) UNSIGNED ZEROFILL NOT NULL,
+  `obesidad` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+ALTER TABLE `hisclinic_obesidad`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_paciente` (`id_paciente`);
+ALTER TABLE `hisclinic_obesidad`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `hisclinic_obesidad`
+  ADD CONSTRAINT `hisclinic_obesidad_ibfk_1` FOREIGN KEY (`id_paciente`) REFERENCES `pacientes` (`id`) ON UPDATE CASCADE;
+COMMIT;
+
+
+CREATE TABLE `hisclinic_estres` (
+  `id` int(11) NOT NULL,
+  `id_paciente` int(6) UNSIGNED ZEROFILL NOT NULL,
+  `id_estres` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+ALTER TABLE `hisclinic_estres`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_paciente` (`id_paciente`);
+ALTER TABLE `hisclinic_estres`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `hisclinic_estres`
+  ADD CONSTRAINT `hisclinic_estres_ibfk_1` FOREIGN KEY (`id_paciente`) REFERENCES `pacientes` (`id`) ON UPDATE CASCADE;
+COMMIT;
+
+CREATE TABLE `obesidad` (
+  `id` int(11) NOT NULL,
+  `obesidad` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `obesidad`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `obesidad`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;
+INSERT INTO `obesidad` (`id`, `obesidad`, `created_at`) VALUES
+(1, 'Normal', '2021-12-01 22:37:42'),
+(2, 'Sobrepeso', '2021-12-01 22:37:42'),
+(3, 'Obesidad', '2021-12-01 22:37:42'),
+(4, 'Obesidad Alta', '2021-12-01 22:37:42'),
+(5, 'Morbida', '2021-12-01 22:37:42');
+ALTER TABLE `hisclinic_estres` ADD `estres` VARCHAR(45) NOT NULL AFTER `id_estres`;
+ALTER TABLE `hisclinic_estres` ADD `edad_estres` FLOAT NOT NULL AFTER `estres`;
+ALTER TABLE `hisclinic_obesidad` ADD `id_obesidad` INT NOT NULL AFTER `id_paciente`;
+ALTER TABLE `hisclinic_obesidad` ADD `edad_obesidad` FLOAT NOT NULL AFTER `obesidad`;
+ALTER TABLE `hisclinic_linea` CHANGE `id_dato` `id_dato` INT(4) UNSIGNED ZEROFILL NOT NULL;
+ALTER TABLE `hisclinic_linea` ADD `frecuencia` INT(1) NOT NULL DEFAULT '0' AFTER `curacion`;
+UPDATE `hisclinic_linea` SET `table_hisclinic` = 'vacuna' WHERE `hisclinic_linea`.`table_hisclinic` = "Vacuna"
+UPDATE `hisclinic_linea` SET `table_hisclinic` = 'congenita' WHERE `hisclinic_linea`.`table_hisclinic` = "Enfermedad_Congenita"
+UPDATE `hisclinic_linea` SET `table_hisclinic` = 'alergenos' WHERE `hisclinic_linea`.`table_hisclinic` = "Alergia"
+UPDATE `hisclinic_linea` SET `table_hisclinic` = 'hospitalizacion' WHERE `hisclinic_linea`.`table_hisclinic` = "Hospitalizacion"
