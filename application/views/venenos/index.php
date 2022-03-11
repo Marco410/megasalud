@@ -4,28 +4,54 @@
 	<div class="col-xs-12">
 		<h3 class="ms-title"><b>VENENOS</b></h3>
 	</div>
+
+	<div class="col-sm-12">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<table id="venenos-table" class="table table-striped">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>A</th>
+							<th>B</th>
+							<th>C</th>
+							<th>D</th>
+							<th>E</th>
+							<th>F</th>
+							<th>G</th>
+							<th>H</th>
+							<th>Veneno</th>
+							<th style="width: 110px">Opc.</th>
+						</tr>
+					</thead>
+					<tbody id="venenos-table" >
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
     <div class="col-sm-12" >
         <div class="panel panel-brown" >
             <div class="panel-heading" ><h3>Nuevo Medicamento</h3></div>
             <div class="panel-body" >
-                
                 <form id="form-new-medi" name="form-new-medi" method="post" >
-                <div class="col-sm-6" >
-                    <label>Nombre Comercial:</label>
-                    <input class="form-control" placeholder="Inserta nombre comercial" type="text" name="nombre_c" required />
-                    
-                </div>
-                <div class="col-sm-6" >
-                    <label>Nombre:</label>
-                    <input class="form-control" placeholder="Inserta nombre" type="text" name="nombre" />
-                </div>
-                <div class="col-sm-12" >
-                    <label>Contraindicaciones:</label>
-                    <textarea  required class="form-control" rows="10" placeholder="Escribe aqui..." name="contra" ></textarea><br>
-                </div>
-                <div class="col-sm-12 text-center" >
-                    <button class="btn btn-primary " type="submit"  ><i class="fa fa-save" ></i>  Guardar nuevo medicamento</button>
-                </div>
+					<div class="col-sm-6" >
+						<label>Nombre Comercial:</label>
+						<input class="form-control" placeholder="Inserta nombre comercial" type="text" name="nombre_c" required />
+						
+					</div>
+					<div class="col-sm-6" >
+						<label>Nombre:</label>
+						<input class="form-control" placeholder="Inserta nombre" type="text" name="nombre" />
+					</div>
+					<div class="col-sm-12" >
+						<label>Contraindicaciones:</label>
+						<textarea  required class="form-control" rows="10" placeholder="Escribe aqui..." name="contra" ></textarea><br>
+					</div>
+					<div class="col-sm-12 text-center" >
+						<button class="btn btn-primary " type="submit"  ><i class="fa fa-save" ></i>  Guardar nuevo medicamento</button>
+					</div>
                 </form>
             </div>
         
@@ -36,8 +62,8 @@
 	
 	<div class="col-sm-12">
 		<div class="panel panel-default">
+		<div class="panel-heading" ><h3>Medicamentos</h3></div>
 			<div class="panel-body">
-	
 				<table id="main-table" class="table table-striped">
 					<thead>
 						<tr>

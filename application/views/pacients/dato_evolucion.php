@@ -50,6 +50,30 @@
                     <button class="btn btn-sm btn-info" id="btn-save-curacion" type="button" > <i class="fa fa-save" ></i> </button>
                 </div>
             </div>
+
+            <div class="col-sm-12 text-center">
+                <div class="col-sm-9">
+                <small >Envenenamiento: <?= $dato_linea->envene ?>%</small>
+                    <div class="progress" style="height:10px;">
+                        <?php if($dato_linea->envene <= 33){ 
+                            $bar = "progress-bar-success";
+                        }else if($dato_linea->envene >= 34 && $dato_linea->envene <= 66 ){ 
+                            $bar = "progress-bar-warning";
+                        }else if($dato_linea->envene >= 67){
+                            $bar = "progress-bar-danger";
+                        } ?>
+                        <div id="progress_envene" class="progress-bar <?= $bar ?> " role="progressbar" aria-valuenow="<?= $dato_linea->envene ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?= $dato_linea->envene ?>%">
+                        </div>
+                </div>
+                </div>
+                <div class="col-sm-2" >
+                    <input type="number" id="envene_input" class="form-control" min="0" step="5"  max="100" value="<?= $dato_linea->envene ?>" />
+                </div>
+                <div class="col-sm-1">
+                    
+                    <button class="btn btn-sm btn-info" id="btn-save-envene" type="button" > <i class="fa fa-save" ></i> </button>
+                </div>
+            </div>
             <div class="col-sm-12" id="panel-evolucion" >
         <?php $i = 1; foreach ( $evolucion->result() as $evol ): ?>
                 <div class="col-sm-6" id="<?= $evol->id ?>" >

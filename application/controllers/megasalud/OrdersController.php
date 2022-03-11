@@ -275,7 +275,7 @@ class OrdersController extends CI_Controller {
 
         $response = null;
        
-        $this->db->select('p.id,p.descripcion, p.precio, p.existencia,p.nombre,p.imagen');
+        $this->db->select('p.id,p.descripcion, p.precio, p.existencia,p.nombre,p.imagen,p.codigo,p.color');
         $this->db->from('productos p');
         $this->db->join('productos_sucursal ps', 'ps.id_pro = p.id', 'inner');
         $this->db->where('ps.id_suc', $this->session->userdata('sucursal'));
@@ -413,7 +413,7 @@ class OrdersController extends CI_Controller {
         $metodo = $this->input->post('metodo');
         
         $hoy = date("d/m/y h:i:s");
-        $hoy2 = date("d-m-y");
+        $hoy2 = date("d-m-y-h:i:s");
         
         $total = floatval($this->input->post('total_bd'));
         $pagado = floatval($this->input->post('cantidad-pagar'));
@@ -643,7 +643,7 @@ class OrdersController extends CI_Controller {
     $expediente = $_POST['expediente'];
     $paciente = $_POST['paciente'];
     $fecha =  date("d/m/y h:i:s");
-    $fecha2 =  date("d-m-y-i");
+    $fecha2 =  date("d-m-y-h-i-s");
     $prescripcion = $_POST['descripcion'];
         
     $pdf = new FPDF('L','mm',array(165,200));

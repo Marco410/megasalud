@@ -33,6 +33,7 @@ $plugins = base_url('assets/plugins').'/';
 	<link rel="stylesheet" href="<?php echo $css_path; ?>meanmenu.min.css" />
 	<link rel="stylesheet" href="<?php echo $css_path; ?>educate-custon-icon.css" />
 	<link rel="stylesheet" href="<?php echo $css_path; ?>metisMenu/metisMenu.min.css" />
+	<link rel="stylesheet" href="<?php echo $css_path; ?>select2.min.css" />
 	<link rel="stylesheet" href="<?php echo $css_path; ?>metisMenu/metisMenu-vertical.css" />
 	<link rel="stylesheet" href="<?php echo $css_path; ?>dropzone.css" />
 	<link rel="stylesheet" href="<?php echo $css_path; ?>lightbox.min.css" />

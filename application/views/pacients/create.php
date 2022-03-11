@@ -59,7 +59,7 @@
                                 <label>
                                     Motivo de la Consulta 
                                 </label>
-                                <select class="form-control" required id="motivo_m" name="motivo" >
+                                <select class="select2 form-control" required id="motivo_m" name="motivo" >
                                     <option value="">Seleccione: </option>
 
                                     <?php foreach ($motivo_consulta->result() as $motivo): ?>

@@ -19,6 +19,8 @@
 <div class="container">
     <input type="hidden" value="<?= $fecha ?>" id="anio" />
     <input type="hidden" id="seguimiento" value="<?= $paciente->seguim ?>"  />
+    <input type="hidden" id="id_paciente" name="id_paciente" value="<?=$paciente->id ?>" />
+
     
     <h3 class="ms-title"><b>HISTORIAL CLÍNICO</b>  <button style="margin-left:300px;" class="btn btn-md btn-success" id="btn-iniciarConsulta"  data-toggle="modal" data-target="#start_consulta" > <i class="fa fa-play" ></i> Iniciar Consulta</button><button style="margin-left:300px;display:none;" class="btn btn-md btn-danger" id="btn-terminar-consulta" data-id=""    > <i class="fa fa-stop" ></i> Terminar Consulta</button>  <i class="fa fa-clock-o" ></i> <a href="javascript:history.back()" class="btn btn-default pull-right"><i class="fa fa-chevron-left"></i> <span>Regresar</span></a>  </h3>
 
@@ -469,7 +471,56 @@
     <?php }else{   ?>
     
     <!--- Accion de primera vez  ---> 
-    <div id="primera_vez" >
+    <div id="primera_vez" class="container" >
+
+      <div class="panel panel-default" >
+      <div class="panel-heading">
+              <span class="ms-subtitle">Signos Vitales </span>
+          </div> 
+
+        <div class="panel-body">
+          <form id="form_signos" name="form_signos" method="post">
+          <input type="hidden" value="<?= $fecha ?>" name="anio" />
+          <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
+            <div class="row">
+              <div class="col-sm-2">
+                <label for="">Altura (cm)</label>
+                <input class="form-control" type="text" name="altura" id="altura" placeholder="Cm" />
+              </div>
+              <div class="col-sm-2">
+                <label for="">Peso (kg)</label>
+                <input class="form-control" type="text" name="peso" id="peso" placeholder="Kg" />
+              </div>
+              <div class="col-sm-2">
+                <label for="">IMC <small id="imcCal"></small></label>
+                <input class="form-control" readonly type="text" name="imc" id="imc" placeholder="" />
+              
+              </div>
+              <div class="col-sm-2">
+                <label for="">Presión Arterial</label>
+                <input class="form-control"  type="text" name="presion_arterial" placeholder="mm Hg" />
+              </div>
+              <div class="col-sm-2">
+                <label for="">Pulso</label>
+                <input class="form-control"  type="text" name="pulso" placeholder="L/min" />
+              </div>
+              <div class="col-sm-2">
+                <label for="">Temperatura</label>
+                <input class="form-control"  type="text" name="temperatura" placeholder="°C" />
+              </div>
+             
+            </div>
+            <div class="row float-right" style="margin-top:10px">
+                <div class="col-sm-6 col-sm-offset-3 mt-4 text-center" >
+                <label>Edad</label>
+                <input id="edad_signo" required type="number" name="edad_signo" class="form-control" value="<?= $fechaMax ?>" min="0" max="<?= $fechaMax ?>" />
+                  <button type="submit" class="btn btn-primary " style="margin-top:10px;" > <i class="fa fa-save" ></i> Guardar Signos Vitales</button>
+                </div>
+            </div>
+            </form>
+        </div>
+      </div>
+
     <div class="panel panel-default" >
         <div class="panel-body" >
             
@@ -482,7 +533,7 @@
             <div class="panel-body">  
             <div class="row">
                
-            <div class="form-group col-sm-12" >
+            <div class="form-group col-sm-10" >
            <form name="notas_dr"  method="post" id="notas_dr">
                <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
               <!--- Estas lineas dejarlas asi  ---> 
@@ -501,8 +552,22 @@
                
                </form>
            </div>
+           <div class="col-sm-2">
+             <label for="">Productos:</label>
+             <select class="form-control select2" name="productos_ven" id="productos_ven">
+               <option value="">Buscar...</option>
+             <?php foreach ($productos_ven->result() as $pro):?>
+              <option value="<?=  $pro->id ?>"><?=  $pro->nombre_p ?></option>            
+              <?php endforeach ?>
+             </select>
+
+             <div id="panel-productos-ven" hidden >
+               
+             </div>
+             
+           </div>
                     
-                <div class="col-sm-12 "  >
+                <div class="col-sm-10"  >
                     <div id="loader_ante" hidden ><img loading="lazy" height="50px" width="50px"   src="<?php echo $img_load ?>loader.gif" alt="" class="img-responsive center-block"  /> </div>
                     <div class="col-sm-6" >
                         <div id="panel-ante-vacunas" ></div>
@@ -514,6 +579,7 @@
                         <div id="panel-ante-hospi" ></div>
                         <div id="panel-ante-venenos" ></div>
                         <div id="panel-ante-medi" ></div>
+                        <div id="panel-ante-productos-ven" ></div>
                     </div>
                 </div>
                     
@@ -537,7 +603,7 @@
                       <input type="hidden" value="<?= $fecha ?>" name="anio" />
                       <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
                       <h4>Terapía</h4>
-                        <select required id="terapia" class="form-control" name="terapia">
+                        <select required id="terapia" class="form-control select2" name="terapia">
                           <option value="" >Seleccione: </option>
                             <?php foreach ( $terapias->result() as $terapia ): ?>
                           <option value="<?= $terapia->id ?>" ><?= $terapia->terapia ?></option>
@@ -561,7 +627,7 @@
                       <input type="hidden" value="<?= $fecha ?>" name="anio" />
                       <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
                       <h4>Medicamento</h4>
-                      <select required id="p_medicamento" class="form-control" name="p_medicamento">
+                      <select required id="p_medicamento" class="select2 form-control" name="p_medicamento">
                           <option value="" >Seleccione: </option>
                             <?php foreach ( $medicamentos->result() as $medicamento ): ?>
                           <option value="<?= $medicamento->id ?>" ><?= $medicamento->medicamento ?></option>
@@ -584,7 +650,7 @@
                       <input type="hidden" value="<?= $fecha ?>" name="anio" />
                       <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
                       <h4>Estrés</h4>
-                      <select required id="s_estres" class="form-control" name="s_estres">
+                      <select required id="s_estres" class="select2 form-control" name="s_estres">
                           <option value="" >Seleccione: </option>
                             <?php foreach ( $estres->result() as $estre ): ?>
                           <option value="<?= $estre->id ?>" ><?= $estre->estres ?></option>
@@ -592,7 +658,6 @@
                       </select>
                       <b>Edad</b>
                       <input  required type="number" name="edad_estres" class="form-control" value="<?= $fechaMax ?>" min="0" max="<?= $fechaMax ?>" /><br>
-                          
                         <button type="submit" class="btn btn-info btn-info-user" style="margin-top:10px"><i class="fa fa-save fa-1.5x"></i>    Guardar Estrés</button>   
                       </form>
                   </div>     
@@ -601,8 +666,8 @@
                       <form id="form_obe" name="form_obe" method="post" novalidate="novalidate" >
                       <input type="hidden" value="<?= $fecha ?>" name="anio" />
                       <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
-                      <h4>Obesidad</h4>
-                      <select required id="s_obesidad" class="form-control" name="s_obesidad">
+                      <h4>Obesidad <small  id="obesidadTipo"></small></h4>
+                      <select required id="s_obesidad" class="select2 form-control" name="s_obesidad">
                           <option value="" >Seleccione: </option>
                             <?php foreach ( $obesidad->result() as $obe ): ?>
                           <option value="<?= $obe->id ?>" ><?= $obe->obesidad ?></option>
@@ -664,7 +729,7 @@
                                 </div>
                                     <div class="col-sm-5" >
                                         <b>Familiar </b>
-                                        <select id="familiar_heredo" name="familiar_heredo" class="form-control" >
+                                        <select id="familiar_heredo" name="familiar_heredo" class="select2 form-control" >
                                                 <option value="No seleccionado" >Seleccione</option>
                                                 <?php foreach ( $familiar->result() as $familia ): ?>
                                                 <option value="<?= $familia->familiar ?>" ><?= $familia->familiar ?></option>
@@ -748,7 +813,7 @@
                                   <button class="btn btn-lg btn-info  " id="btn-venenos" >Venenos</button>
                                 </div>
                                 <div class="col-sm-3" >
-                                  <button class="btn btn-lg btn-info" disabled id="btn-radiaciones" >Radiaciones</button>
+                                  <button class="btn btn-lg btn-info"  id="btn-radiaciones" >Radiaciones</button>
                                 </div>
                                 <div class="col-sm-3" >
                                   <button class="btn btn-lg btn-info" disabled id="btn-metales" >Metales</button>
@@ -2130,11 +2195,16 @@
                          <option value="2" >Semanalmente</option>
                          <option value="3" >Mensualmente</option>
                          <option value="4" >Anualmente</option>
+                         <option value="5" >Una sola vez</option>
                       </select>
                   </div>
                 <div class="col-sm-6" >
                 <b>Edad</b>
                 <input id="edad_veneno" required type="number" name="edad_veneno" class="form-control" value="<?= $fechaMax ?>" min="0" max="<?= $fechaMax ?>" />
+                </div>
+                <div class="col-sm-12" >
+                  <h4 class="text-center" >Aparece en:</h4>
+                  <div class="col-sm-12" id="veneno_relations" ></div>
                 </div>
             </div>
           </div>
@@ -2162,23 +2232,23 @@
             </button>
           </div>
             
-        <form id="form_medi" name="form_medi" method="post" enctype="multipart/form-data" >
+        <form id="form_medi2" name="form_medi" method="POST" enctype="multipart/form-data" >
             <div class="modal-body" >
                 <div class="row" >
                     
                     <input type="hidden" value="<?= $fecha ?>" name="anio" />
                     <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
-                    <input type="hidden" id="p_medicamento" name="p_medicamento" />
+                    <input type="hidden" id="p_medicamento2" name="p_medicamento2" />
                     <div class="col-sm-12 text-center" >
                         <b>Edad</b>
-                    <input id="edad_medica" required type="number" name="edad_medica" class="form-control" value="<?= $fechaMax ?>" min="0" max="<?= $fechaMax ?>" />
+                    <input id="edad_medica" required type="number" name="edad_medica" class="form-control" value="<?= $fechaMax ?>" min="0" max="<?= $fechaMax ?>" step="0.1" />
                     </div>
                     
                 </div>
             </div>
             <div class="modal-footer" >
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" onclick="save_new_medi('<?= $fecha ?>','<?= $paciente->id ?>')" class="btn btn-info btn-info-user" ><i class="fa fa-save fa-1.5x"></i>    Guardar</button>
+                <button type="submit" class="btn btn-info btn-info-user" ><i class="fa fa-save fa-1.5x"></i>    Guardar</button>
             </div>
                           
         </form>        

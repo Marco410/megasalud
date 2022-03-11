@@ -234,6 +234,7 @@ $route['estadisticas/ventas'] = 'megasalud/StatisticsController/ventas';
 $route['venenos'] = 'megasalud/VenenosController/index';
 $route['venenos/nuevo'] = 'megasalud/VenenosController/create';
 $route['venenos/editar/(:num)'] = 'megasalud/VenenosController/edit/$1';
+$route['venenos/editar-medicamento/(:num)'] = 'megasalud/VenenosController/edit_medicamento/$1';
 /*
 
 /*

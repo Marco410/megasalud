@@ -3,7 +3,7 @@
 $img_path = base_url('estudios').'/'.$paciente->id."/";
 ?>
 <div class="container" >
-<h3 class="ms-title"><b>EVOLUCIÓN</b> <a href="javascript:history.back()" class="btn btn-default pull-right"><i class="fa fa-chevron-left"></i><span>Regresar</span></a></h3>
+<h3 class="ms-title"><b>EVOLUCI脫N</b> <a href="javascript:history.back()" class="btn btn-default pull-right"><i class="fa fa-chevron-left"></i><span>Regresar</span></a></h3>
     
     <div class="panel panel-primary" >
         
@@ -38,6 +38,18 @@ $img_path = base_url('estudios').'/'.$paciente->id."/";
                             $bar = "progress-bar-success";
                         } ?>
                         <div class="progress-bar <?= $bar ?> " role="progressbar" aria-valuenow="<?= $linea->curacion ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?= $linea->curacion ?>%">
+                        </div>
+                </div>
+                <small >Envenenamiento: <?= $linea->envene ?>%</small>
+                    <div class="progress" style="height:10px;">
+                        <?php if($linea->envene < 33){ 
+                            $bar = "progress-bar-success";
+                        }else if($linea->envene > 34 && $linea->envene < 66 ){ 
+                            $bar = "progress-bar-warning";
+                        }else if($linea->envene > 67){
+                            $bar = "progress-bar-danger";
+                        } ?>
+                        <div class="progress-bar <?= $bar ?> " role="progressbar" aria-valuenow="<?= $linea->envene ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?= $linea->envene ?>%">
                         </div>
                 </div>
                     <a class="btn btn-sm btn-primary btn-block btn-registrar" href="<?= base_url().'pacientes/registro-evolucion/'.$linea->id."?p=".$paciente->id ?>" data-id="<?= $linea->id ?>" data-edad="<?= $linea->edad_paciente ?>" >Registrar Evolución</a>

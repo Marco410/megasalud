@@ -130,6 +130,10 @@ class Historia extends CI_Model
 		$this->db->order_by('created_at', 'asc');
 		return $this->db->get('hisclinic_notas');
 	}  
+
+	public function get_productos_ven() {
+		return $this->db->get('productos_ven');
+	}  
     
     public function get_diagnostico($id) {
 		$this->db->where('id_paciente', $id);

@@ -213,6 +213,7 @@ class PatientsController extends CI_Controller {
     //informacion del paciente desde BD 
     $data['historial'] = $this->historia->historial($id);
     $data['notas'] = $this->historia->get_notas($id);
+    $data['productos_ven'] = $this->historia->get_productos_ven();
     $data['diagnosticos'] = $this->historia->get_diagnostico($id);
     $data['linea_vida'] = $this->historia->linea_vida($id);
     $data['carga_heredo'] = $this->historia->carga_heredo($id);
@@ -821,9 +822,7 @@ class PatientsController extends CI_Controller {
                 'id_paciente' => $_POST["id_paciente"],
                 'abono' => $abono
             );
-            
-            
-            
+        
 
             if($this->db->insert("pedidos_abono",$data)){
 
@@ -1991,8 +1990,15 @@ class PatientsController extends CI_Controller {
     
     public function save_hisclinic_medi(){
         $anio =  $this->input->post('anio') + $this->input->post('edad_medica');
+
+        if(!empty($_POST['p_medicamento'])){
+            $medi_id = $_POST['p_medicamento'];
+        }else{
+            $medi_id = $_POST['p_medicamento2'];
+
+        }
          
-        $this->db->where("id",$this->input->post('p_medicamento'));
+        $this->db->where("id",$medi_id);
         $query = $this->db->get("medicamentos");
         $medicamento = $query->row()->medicamento; 
         
@@ -2000,14 +2006,14 @@ class PatientsController extends CI_Controller {
         
         $data = array(
             'id_paciente' => $this->input->post('id_paciente'),
-            'id_medi' => $this->input->post('p_medicamento'),
+            'id_medi' => $medi_id,
             'medi' => $medicamento,
             'edad_medi' => $this->input->post('edad_medica') 
         ); 
         
         $data_linea = array(
             'id_paciente' => $this->input->post('id_paciente'),
-            'id_dato' => $this->input->post('p_medicamento'),
+            'id_dato' => $medi_id,
             'enfermedad' => $medicamento, 
             'table_hisclinic' => "medicamentos", 
             'edad_paciente' => $this->input->post('edad_medica'),
@@ -2066,7 +2072,7 @@ class PatientsController extends CI_Controller {
         $query = $this->db->get("obesidad");
         $obesidad = $query->row()->obesidad; 
         
-        $descripcion = "Tipo: " . $obesidad;
+        $descripcion = "Obesidad: " . $obesidad;
         
         $data = array(
             'id_paciente' => $this->input->post('id_paciente'),
@@ -2088,6 +2094,83 @@ class PatientsController extends CI_Controller {
         if($this->db->insert("hisclinic_obesidad", $data)){
         $this->db->insert("hisclinic_linea", $data_linea);
         echo json_encode($data);
+             }
+        else{
+            echo "";
+        }
+    }
+
+    public function save_hisclinic_signos(){
+       $obesidad = "";
+       $imc = $this->input->post('imc');
+
+        if ($imc < 18.5) {
+            $obesidad = "Bajo Peso";
+    
+        } else if ($imc >= 18.5 && $imc <= 24.9) {
+            $obesidad = "Normal";
+    
+        } else if ($imc >= 25.0 && $imc <= 29.9) {
+            $obesidad = "Sobre Peso";
+    
+        } else if ($imc > 30) {
+            $obesidad = "Obesidad";
+        }
+
+        $anio =  $this->input->post('anio') + $this->input->post('edad_signo');
+
+        $this->db->where("obesidad",$obesidad);
+        $query = $this->db->get("obesidad");
+        $obesidad_id = $query->row()->id; 
+
+        $descripcion = "Altura: " . $this->input->post('altura'). '<br>Peso: '.$this->input->post('peso') . '<br>IMC: ' .$this->input->post('imc') .'<br>Presion: '.$this->input->post('presion').'<br>Pulso: '.$this->input->post('pulso'). '<br>Temp:'.$this->input->post('temperatura');
+
+
+        $data = array(
+            'paciente_id' => $this->input->post('id_paciente'),
+            'edad_signos' => $this->input->post('edad_signo'), 
+            'altura' => $this->input->post('altura'), 
+            'peso' => $this->input->post('peso'), 
+            'imc' => $this->input->post('imc'), 
+            'presion' => $this->input->post('presion_arterial'), 
+            'pulso' => $this->input->post('pulso'), 
+            'temperatura' => $this->input->post('temperatura')
+        ); 
+        
+        $data_linea = array(
+            'id_paciente' => $this->input->post('id_paciente'),
+            'id_dato' => '0000',
+            'enfermedad' => 'Signos Vitales', 
+            'table_hisclinic' => "signos", 
+            'edad_paciente' => $this->input->post('edad_signo'),
+            'descripcion' => $descripcion, 
+            'anio' => $anio
+        );
+        
+        $descripcion_obe = "Obesidad: " . $obesidad;
+
+        $data_obe = array(
+            'id_paciente' => $this->input->post('id_paciente'),
+            'id_obesidad' => $obesidad_id,
+            'obesidad' => $obesidad,
+            'edad_obesidad' => $this->input->post('edad_signo') 
+        ); 
+        
+        $data_linea_obe = array(
+            'id_paciente' => $this->input->post('id_paciente'),
+            'id_dato' => $obesidad_id,
+            'enfermedad' => $obesidad, 
+            'table_hisclinic' => "obesidad", 
+            'edad_paciente' => $this->input->post('edad_signo'),
+            'descripcion' => $descripcion_obe, 
+            'anio' => $anio
+        );
+        
+        if($this->db->insert("hisclinic_obesidad", $data_obe)){
+            $this->db->insert("hisclinic_linea", $data_linea_obe);
+            $this->db->insert("hisclinic_linea", $data_linea);
+            $this->db->insert("hisclinic_signos", $data);
+            echo json_encode($data);
              }
         else{
             echo "";
@@ -2155,7 +2238,21 @@ class PatientsController extends CI_Controller {
             'curacion' => $_POST['curacion']
         );
         
+        $this->db->where('id', $_POST['id_linea']);
 
+        if($this->db->update("hisclinic_linea",$data)){
+            echo json_encode(array('error'=> false));
+        }else{
+            echo json_encode(array('error'=> true));
+            
+        }
+    }  
+
+    public function save_envene(){
+        $data = array(
+            'envene' => $_POST['envene']
+        );
+        
         $this->db->where('id', $_POST['id_linea']);
 
         if($this->db->update("hisclinic_linea",$data)){
@@ -2224,6 +2321,9 @@ class PatientsController extends CI_Controller {
                 break;
             case 18 :
                 $this->settings->add_terapia($dato);
+                break;
+            case 19 :
+                $this->settings->add_producto_ven($dato);
                 break;
             default:
                 echo json_encode(array('error' => true));
@@ -2314,6 +2414,17 @@ class PatientsController extends CI_Controller {
         
          echo json_encode($response);
     } 
+
+    public function get_product_ven(){
+        $this->db->like('nombre_p', $_POST['text'],'after');
+        $this->db->from("productos_ven");
+        $result = $this->db->get();
+        $row = $result->result();
+        $response = array();
+        $response['data'] = $result->result_array();
+        
+         echo json_encode($response);
+    } 
     
     public function get_congenita(){
          $this->db->where('tipo
@@ -2365,6 +2476,34 @@ class PatientsController extends CI_Controller {
         
          echo json_encode($response);
     }
+
+    public function get_relations(){
+        $this->db->select('a.id, pa.veneno, u.nombre_p');
+        $this->db->join('venenos pa', 'pa.id = a.veneno_id');
+        $this->db->join('productos_ven u', 'u.id = a.producto_ven_id');
+         $this->db->where("a.veneno_id",$_POST["id_veneno"]);
+        $this->db->from('venenos_productos a');
+       
+        $result =  $this->db->get()->result();
+        $response = array();
+        $response['data'] = $result;
+
+         echo json_encode($response);
+    }
+
+    public function get_relations_product(){
+        $this->db->select('a.id,pa.id as veneno_id, pa.veneno, u.nombre_p');
+        $this->db->join('venenos pa', 'pa.id = a.veneno_id');
+        $this->db->join('productos_ven u', 'u.id = a.producto_ven_id');
+         $this->db->where("a.producto_ven_id",$_POST["producto_id"]);
+        $this->db->from('venenos_productos a');
+        $result = $this->db->get();
+        $row = $result->result();
+        $response = array();
+        $response['data'] = $result->result_array();
+        
+         echo json_encode($response);
+    } 
         
     public function get_c(){
         

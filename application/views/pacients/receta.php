@@ -12,38 +12,33 @@ $img_path = base_url('assets/images/icons').'/';
 			</div> -->
 			
 				<div class="row">
-                    <div class="col-sm-12" >
-                    <a style="margin:10px;" class="btn btn-teal" href="<?=base_url('/pacientes/historia/') . $paciente->id   ?>" >Regresar a la Consulta</a>
-                    </div>
-                    <?php foreach ( $recetas->result() as $receta ): ?>
-                     <div class="col-sm-12" >
+          <div class="col-sm-12" >
+          <a style="margin:10px;" class="btn btn-teal" href="<?=base_url('/pacientes/historia/') . $paciente->id   ?>" >Regresar a la Consulta</a>
+          </div>
+          <?php foreach ( $recetas->result() as $receta ): ?>
+            <div class="col-sm-12" >
 
-                        <div class="panel panel-info" >
+              <div class="panel panel-info" >
 
-                            <div class="panel-heading" >
-                             <h3 class="panel-title"> Receta - <?= $receta->created_at ?></h3>
-                            </div>
+                  <div class="panel-heading" >
+                    <h3 class="panel-title"> Receta - <?= $receta->created_at ?></h3>
+                  </div>
 
-                              <div class="panel-body">
-                                  <div style="width:100%px; height:600px;"  class="form-group col-sm-12" >
+                    <div class="panel-body">
+                        <div style="width:100%px; height:600px;"  class="form-group col-sm-12" >
 
-                                    <embed height="100%" width="100%" name="embed_content" src="<?php echo base_url($receta->archivo) ?>" type="application/pdf"  />
-
-                                     </div>
-                            </div>
-
+                          <embed height="100%" width="100%" name="embed_content" src="<?php echo base_url($receta->archivo) ?>" type="application/pdf"  />
 
                             </div>
-                        </div>
+                  </div>
 
 
-                    <?php endforeach ?> 
-                    
+                  </div>
+              </div>
+
+
+              <?php endforeach ?>   
             </div>
-			
 		</div>
-		
-		
 	</div>
-
 </div>

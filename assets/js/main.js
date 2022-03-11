@@ -1,9 +1,23 @@
-Pace.on('done', function(){
+Pace.on('done', function () {
 	$('#app_container').show();
+
+	$('.select2').select2({
+		language: {
+
+			noResults: function () {
+
+				return "No hay resultados";
+			},
+			searching: function () {
+
+				return "Buscando...";
+			}
+		}
+	}).css('border', '1px solid #e5e6e7');
 	init_main();
 });
 
-function init_main(){
+function init_main() {
 
 	$.extend(jQuery.validator.messages, {
 		required: "Requerido.",
@@ -23,10 +37,10 @@ function init_main(){
 
 	$.validator.setDefaults({
 		errorClass: 'help-block',
-		highlight: function(el) {
+		highlight: function (el) {
 			$(el).closest('.form-group').addClass('has-error');
 		},
-		unhighlight: function(el) {
+		unhighlight: function (el) {
 			$(el).closest('.form-group').removeClass('has-error');
 		},
 		ignore: []
@@ -39,20 +53,20 @@ function init_main(){
 	});
 
 	//Check Messages in cookies
-	if( Cookies.get('message') != undefined ){
+	if (Cookies.get('message') != undefined) {
 
 		let data = Cookies.getJSON('message');
-		
-		if( data.type == 'success' ){
+
+		if (data.type == 'success') {
 			iziToast.success({
 				timeout: 3000,
-			    title: 'Correcto',
-			    position: 'topRight',
-			    // target: '.login-message',
-			    message: data.message,
+				title: 'Correcto',
+				position: 'topRight',
+				// target: '.login-message',
+				message: data.message,
 			});
 		}
-		
+
 		Cookies.remove('message');
 	}
 }
@@ -60,25 +74,25 @@ function init_main(){
 function checkAdminPass(pass) {
 
 	return $.ajax({
-				url: base_url + 'megasalud/MainController/verify_password',
-				type: 'post',
-				data: 'pass='+pass
-			});
+		url: base_url + 'megasalud/MainController/verify_password',
+		type: 'post',
+		data: 'pass=' + pass
+	});
 }
 
 function seePass(el) {
-        
-    if($("#admin-pass").attr('type') == "password"){
 
-        $("#admin-pass").attr('type', 'text');
-	    el.toggleClass('fa-eye');
-	    el.toggleClass('fa-eye-slash');
+	if ($("#admin-pass").attr('type') == "password") {
 
-    }else{
-        
-        $("#admin-pass").attr('type', 'password');
-        el.toggleClass('fa-eye');
-        el.toggleClass('fa-eye-slash');
+		$("#admin-pass").attr('type', 'text');
+		el.toggleClass('fa-eye');
+		el.toggleClass('fa-eye-slash');
 
-    }
+	} else {
+
+		$("#admin-pass").attr('type', 'password');
+		el.toggleClass('fa-eye');
+		el.toggleClass('fa-eye-slash');
+
+	}
 }

@@ -21,7 +21,7 @@
   <script src="<?php echo $js_path; ?>lightbox.min.js"></script>
   <script src="<?php echo $js_path; ?>main2.js"></script>
   <script src="<?php echo $js_path; ?>moment.js"></script>
-  
+  <script src="<?php echo $js_path; ?>select2.min.js"></script>
 
     
   <script>

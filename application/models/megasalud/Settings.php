@@ -318,6 +318,30 @@ class Settings extends CI_Model
             }
         
     } 
+
+    public function add_producto_ven($dato) {
+      
+        $data =  array(
+        'nombre_p' => $dato
+        );
+
+        $this->db->where('nombre_p', $dato);
+		$query = $this->db->get('productos_ven');
+
+        if ($query->num_rows() > 0){
+            echo json_encode(array('error' => true,'msj'=> 'Ya existe este producto.'));
+            return;
+        }
+          
+        if($this->db->insert('productos_ven', $data)){
+            $id_dat = $this->db->insert_id();
+            echo json_encode(array('dat'=> $dato,'id' => 19,'id_dat'=> $id_dat));
+        }
+            else{
+                echo json_encode(array('error' => true));
+            }
+        
+    } 
     
     
 
