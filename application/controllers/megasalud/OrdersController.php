@@ -428,19 +428,17 @@ class OrdersController extends CI_Controller {
             $hoyp = 0;
             
         }else{
-             if (!empty($_POST['pagar-parte'])) {
-                    $status = 'Pendiente';    
-                    $restante = $total - $pagado;
-                    $hoyp = 0;
-                } else {
-                    $status = 'Pagado';
-                    $hoyp = date("d/m/y h:i:s");
-                    $pagado = $total;
-                    $restante = 0;
-                }
+            if (!empty($_POST['pagar-parte'])) {
+                $status = 'Pendiente';    
+                $restante = $total - $pagado;
+                $hoyp = 0;
+            } else {
+                $status = 'Pagado';
+                $hoyp = date("d/m/y h:i:s");
+                $pagado = $total;
+                $restante = 0;
+            }
         }
-        
-       
         
         if (!empty($_POST['folio'])) {
             $nota = "Folio de Pago: ". $_POST['folio'];
@@ -509,7 +507,6 @@ class OrdersController extends CI_Controller {
         }
         
         $html = "
-        
         <p align='center' ><img src='". $img_path ."logo2.png' width='500px' height='100px' /></p>
         
         <h4 align='right' >Pedido de: ".$datos['paciente_name'] ." </h4>
@@ -590,23 +587,29 @@ class OrdersController extends CI_Controller {
         
         <h3 align='right' >Total:</h3>
         <p align='right' >$ ". $total  ." .00</p>
-        
         ";
         
         $pdfFilePath = "assets/pedidos/P_".$data['paciente_id'].$hoy2.".pdf";
-        
         $this->load->library('M_pdf');
-        
         $this->m_pdf->pdf->writeHtml($html);
-        
         $this->m_pdf->pdf->Output($pdfFilePath,'F');
         $data['archivo'] = $pdfFilePath;
-        
-        
+
         //se hace el pedido
         if($this->db->insert('pedidos', $data)){
             
             $id_pedido = $this->db->insert_id();
+            
+            foreach ($carrito->result() as $car){
+
+                $ped_pro = array(
+                    'pedido_id' => $id_pedido,
+                    'producto_id' => $car->id_pro,
+                    'cantidad' => $car->cantidad
+                );
+                
+                $this->db->insert('pedido_producto',$ped_pro);
+            }
             if($seguim == 1){
                 $id = $data['paciente_id'];
                 $des = "Comision por 1er Pedido";

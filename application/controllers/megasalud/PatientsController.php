@@ -19,7 +19,10 @@ class PatientsController extends CI_Controller {
 
         $data = array();
         $data['title'] = 'Pacientes';
-        $data['view_controller'] = 'pacients_vs.js';
+        $data['view_controller'] = array(
+            2 => 'pacients/index_vs.js',
+            1 => 'pacients_vs.js',
+            );
 
         $this->load->view('layout/head', $data);
         $this->load->view('layout/header');
@@ -202,7 +205,7 @@ class PatientsController extends CI_Controller {
     $data['infectos_psico'] = $this->historia->infecto_psico();
     $data['infectos_otras'] = $this->historia->infecto_otras();
     $data['terapias'] = $this->historia->terapias();
-    $data['medicamentos'] = $this->historia->medicamento();
+    /* $data['medicamentos'] = $this->historia->medicamento(); */
     $data['estres'] = $this->historia->estres();
     $data['obesidad'] = $this->historia->obesidad();
     $data['vacunas'] = $this->historia->vacunas();
@@ -232,6 +235,7 @@ class PatientsController extends CI_Controller {
     
   
     $data['view_controller'] = array(
+        8 => 'pacients/data_historia_vs.js',
         7 => 'historia_start_vs.js',
         6 => 'messenger_vs.js',
         5 => 'pacients/tera_medi_vs.js',
@@ -496,6 +500,18 @@ class PatientsController extends CI_Controller {
         echo json_encode($result);
     }
 
+    public function get_status_consultas(){
+        $id_user = $this->session->id;
+
+        $this->db->select('termino,id,id_paciente');
+        $this->db->from('consultas');
+        $this->db->where('id_user', $id_user);
+        $this->db->where('termino', 0);
+        $result = $this->db->get()->result();
+
+        echo json_encode($result);
+    }
+
     public function stop_consulta(){
         
         $id_user = $this->session->id;
@@ -534,10 +550,7 @@ class PatientsController extends CI_Controller {
             }else{
                 $response['error'] = false;
             }
-        
-        
             echo json_encode($response);
-        
     }
     
     public function charts($id) {
@@ -2123,7 +2136,7 @@ class PatientsController extends CI_Controller {
         $query = $this->db->get("obesidad");
         $obesidad_id = $query->row()->id; 
 
-        $descripcion = "Altura: " . $this->input->post('altura'). '<br>Peso: '.$this->input->post('peso') . '<br>IMC: ' .$this->input->post('imc') .'<br>Presion: '.$this->input->post('presion').'<br>Pulso: '.$this->input->post('pulso'). '<br>Temp:'.$this->input->post('temperatura');
+        $descripcion = "Altura: " . $this->input->post('altura'). '<br>Peso: '.$this->input->post('peso') . '<br>IMC: ' .$this->input->post('imc') .'<br>Presion: '.$this->input->post('presion').'<br>Pulso: '.$this->input->post('pulso'). '<br>Temp:'.$this->input->post('temperatura') . '<br>';
 
 
         $data = array(

@@ -14,7 +14,7 @@ class Correos extends CI_Model
         
         $html = "
         
-             <a href=https://www.megasalud.com.mx/sistema/reset_password/".$token."  ><img src='". $img_path ."contra1.png'  width='525px'' height='150px'   />
+             <a href=https://www.megasalud.com.mx/app/reset_password/".$token."  ><img src='". $img_path ."contra1.png'  width='525px'' height='150px'   />
            </a>
            <img src='". $img_path ."contra2.png'  width='525px'' height='150px'  />
             ";

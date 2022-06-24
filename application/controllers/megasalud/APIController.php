@@ -34,15 +34,14 @@ class APIController extends CI_Controller {
         $arrayFinal = [];        
         $this->db->select("id,nombre,motivo_consulta");
         $this->db->from("pacientes");
-        $this->db->like("motivo_consulta",$_GET['motivo']);
+        $this->db->where("motivo_consulta",$_GET['motivo']);
         $pacientes = $this->db->get()->result();
         foreach($pacientes as $pa):
             $this->db->select("*");
             $this->db->from("hisclinic_linea");
-            $this->db->where("id_paciente",$pa->id);
+            $this->db->like("id_paciente",$pa->id);
             $perfil = $this->db->get();
             $datafin = [];
-            $i = 0;
             if($perfil->num_rows() >= 1){
                 foreach ($perfil->result() as $per):
                     //echo $per->table_hisclinic. "\n" . $i;
@@ -88,10 +87,9 @@ class APIController extends CI_Controller {
                     digito siguiente: frecuencia
                     */
                     //valida si el dato no es de un diagnostico y no lo agrega
-                    if($data != "99" || $data != "98"){
+                    if($data != 99 && $data != "99" && $data != "98" && $data != 98){
                         array_push($datafin,$data.$per->id_dato.$per->frecuencia);
                     }
-                    $i++;
                 endforeach;
                 //agrega el perfil inmunologico de cada paciente
                 $array = array( 'perfil'.$pa->id => $datafin);

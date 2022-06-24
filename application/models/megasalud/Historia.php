@@ -143,7 +143,7 @@ class Historia extends CI_Model
     
     public function linea_vida($id) {
 		$this->db->where('id_paciente', $id);
-		$this->db->order_by('anio', 'asc');
+		$this->db->order_by('edad_paciente', 'DESC');
 		return $this->db->get('hisclinic_linea');
 	} 
 

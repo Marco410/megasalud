@@ -3,26 +3,33 @@
 	<div class="col-xs-12">
 		<h3 class="ms-title"><b>PACIENTES - <?php if($this->session->type =="Administrador" || $this->session->type =="Medico Administrador" ){ echo "TODOS"; }else{ echo $this->session->sucursal_name; } ?></b></h3>
 	</div>
-    
-      <div class="col-sm-12" >
-        <div class="panel panel-default" >
-             <div class="panel-heading" >
-                <h4>ACCIONES</h4>
-                </div>
-            <div class="panel-body" >
-                <div class="col-sm-4 text-center" >
-                    <a class="btn btn-success" role="button" href="<?= base_url().'sucursales/agenda/'.$this->session->sucursal?> " ><li class="fa fa-calendar" ></li> Agenda de Sucursal</a>
-                </div>
-                <div class="col-sm-4 text-center" >
-                    <a  class="btn btn-info"  data-toggle="modal" data-target="#historial"><i class="fa fa-clock-o "></i>  Historial de mis Citas</a>
-                </div>  
-                <?php if ($this->session->type == "Administrador" || $this->session->type == "Medico Administrador"  ) ?>
-                <div class="col-sm-4 text-center" >
-                    <a  class="btn btn-info"  data-toggle="modal" data-target="#historial2"><i class="fa fa-clock-o "></i>  Todas las citas</a>
-                </div>
-            </div>
-        </div>
-    </div>
+
+  <div class="col-sm-12" id="alert-consultas" style="display:none;">
+      <div class="alert alert-warning" role="alert">
+        <h4 class="alert-heading">Alerta de consultas</h4>
+        Tienes <strong id="consultas-count" ></strong> consulta(s) sin finalizar. Finalizala dando clic <a target="_blank" href="" id="enlace-consulta" >aquí.</a>
+      </div>
+  </div>
+  
+  <div class="col-sm-12" >
+      <div class="panel panel-default" >
+            <div class="panel-heading" >
+              <h4>ACCIONES</h4>
+              </div>
+          <div class="panel-body" >
+              <div class="col-sm-4 text-center" >
+                  <a class="btn btn-success" role="button" href="<?= base_url().'sucursales/agenda/'.$this->session->sucursal?> " ><li class="fa fa-calendar" ></li> Agenda de Sucursal</a>
+              </div>
+              <div class="col-sm-4 text-center" >
+                  <a  class="btn btn-info"  data-toggle="modal" data-target="#historial"><i class="fa fa-clock-o "></i>  Historial de mis Citas</a>
+              </div>  
+              <?php if ($this->session->type == "Administrador" || $this->session->type == "Medico Administrador"  ) ?>
+              <div class="col-sm-4 text-center" >
+                  <a  class="btn btn-info"  data-toggle="modal" data-target="#historial2"><i class="fa fa-clock-o "></i>  Todas las citas</a>
+              </div>
+          </div>
+      </div>
+  </div>
     
 	<div class="col-xs-12">
 		<div class="panel panel-default">

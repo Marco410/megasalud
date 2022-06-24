@@ -274,7 +274,7 @@
             </div>
         <!--- Termina modal foto -->
 
-      <div class="col-sm-4">
+      <div class="col-sm-8">
          <!--- Panel de Acciones  ---> 
         <div class="panel panel-primary" style="border-radius:15px" >                  
           <div class="panel mb-0 panel-default panel-flat border-left-brown">
@@ -285,59 +285,47 @@
             <div class="row" >
               <!-- Botones estudios y recetas -->
               <div class="row">
-                  <div class="col-sm-6 text-center" >
-                        <h4 class="text-center title" >ESTUDIOS</h4>
+                  <div class="col-sm-3 text-center" >
+                        <h5 class="text-center title" >ESTUDIOS</h5>
                         <div class="btn-group-vertical">
                           <a href="<?= base_url().'pacientes/historia/'.$paciente->id.'/estudios/'.$paciente->id ?>" class="btn btn-info btn-info-user"><i class="fa fa-file-text-o"></i> Ver</a>
-                          <a  class="btn btn-info"  data-toggle="modal" data-target="#estudios" ><i class="fa fa-plus"></i> Agregar</a>
+                          <a id="estudiosBtn" class="btn btn-info"  data-toggle="modal" data-target="#estudios" ><i class="fa fa-plus"></i> Agregar</a>
                         </div>
                   </div>  
-
-                  <div class="col-sm-6 text-center" >
-                          <h4 class="text-center title" >RECETA</h4>
+                  <div class="col-sm-3 text-center" >
+                          <h5 class="text-center title" >RECETA</h5>
                           <div class="btn-group-vertical">
-                            <a href="<?= base_url() ?>pedidos/receta/<?= $paciente->id ?>" class="btn btn-info "  ><i class="fa fa-file-text"></i> Crear</a>
+                            <a id="receta" href="<?= base_url() ?>pedidos/receta/<?= $paciente->id ?>" class="btn btn-info "  ><i class="fa fa-file-text"></i> Crear</a>
                             <a href="<?= base_url() ?>pacientes/recetas/<?= $paciente->id ?>" class="btn btn-info "  ><i class="fa fa-file-text"></i> Ver</a>
                           </div>
                   </div>
-              </div>
-              <!-- Botones gráficas y crear cita -->
-              <div class="row">   
-
-              <div class="col-sm-6 text-center" >
-                    <h4 class="text-center title" >GRÁFICAS</h4> 
-
-                    <div class="btn-group-vertical">
-                        <a href="<?= base_url().'pacientes/graficas/'.$paciente->id ?>" class="btn btn-info btn-info-user"><i class="fa fa-bar-chart"></i> Ver</a>
+                    <div class="col-sm-3 text-center" >
+                        <h5 class="text-center title" >GRÁFICAS</h5> 
+                        <div class="btn-group-vertical">
+                            <a href="<?= base_url().'pacientes/graficas/'.$paciente->id ?>" class="btn btn-info btn-info-user"><i class="fa fa-bar-chart"></i> Ver</a>
+                          </div>
+                  </div>
+                  <div class="col-sm-3 text-center" >
+                      <h5 class="text-center title" >CREAR CITA</h5>
+                      <div class="btn-group-vertical">
+                      <a  class="btn btn-info text-center"  data-toggle="modal" data-target="#nuevacita"><i class="fa fa-calendar "></i> Nueva</a>
                       </div>
-              </div>
-
-                  <div class="col-sm-6 text-center" >
-                          <h4 class="text-center title" >CREAR CITA</h4>
-                          <div class="btn-group-vertical">
-                          <a  class="btn btn-info text-center"  data-toggle="modal" data-target="#nuevacita"><i class="fa fa-calendar "></i> Nueva</a>
-                          </div>
                   </div>
-
-              </div> 
-               <!-- Botónes resumen y finanzas-->               
-              <div class="row">  
-                  <div class="col-sm-6 text-center" >
-                          <h4 class="text-center title" >RESUMEN</h4>
-                          <div class="btn-group-vertical">
-                            <a href="<?= base_url() ?>pacientes/resumen/<?= $paciente->id ?>" class="btn btn-info "  ><i class="fa fa-folder"></i> Ver</a>
-                          </div>
+                  <div class="col-sm-3 text-center" >
+                      <h5 class="text-center title" >RESUMEN</h5>
+                      <div class="btn-group-vertical">
+                        <a href="<?= base_url() ?>pacientes/resumen/<?= $paciente->id ?>" class="btn btn-info "  ><i class="fa fa-folder"></i> Ver</a>
+                      </div>
                   </div>
-
-                  <div class="col-sm-6 text-center" >
-                          <h4 class="text-center title" >FINANZAS</h4>
+                  <div class="col-sm-3 text-center" >
+                          <h5 class="text-center title" >FINANZAS</h5>
                           <div class="btn-group-vertical">
                             <a href="<?= base_url() ?>pacientes/adeudos/<?= $paciente->id ?>" class="btn btn-info "  ><i class="fa fa-h-square"></i> Ver </a>
 
                           </div>
                   </div>
               </div>
-              <!-- Botón cita subsecuente -->
+              
               <!-- <div class="row" style="margin-top:40px;margin-bottom:20px;">
               <div class="col-sm-12 text-center">
               <?php if ($paciente->seguim != 0){  ?><button  class="btn btn-md btn-warning  ml-2" data-toggle="modal" data-target="#citaSubsecuente" > <i class="fa fa-plus" ></i> Agregar Cita Subsecuente</button><?php } ?>
@@ -345,7 +333,6 @@
             </div> -->
               <!-- Modal Cita Subsecuente -->
             <?php if ($paciente->seguim != 0){  ?>
-              
               <div class="modal fade" id="citaSubsecuente" tabindex="-1" role="dialog" aria-labelledby="Password" aria-hidden="true">
                   <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
@@ -405,43 +392,71 @@
              
          </div>                      
           <!--- Termina Panel de Acciones  ---> 
-      </div>
-
-        <div class="col-sm-4">
-          <!--- Diagnóstico General ---->    
-          <div class="panel panel-default" >
-          <div class="panel-heading">
-              <span class="ms-subtitle">DIAGNÓSTICO GENERAL</span>
-            </div>
-              <div class="panel-body" >
-                  
-              <section id="DiagnósticoSec">
-                    <div class="form-group col-sm-12" >
-           <form name="diagnostico_dr"  method="post" id="diagnostico_dr">
-              <!--- Estas lineas dejarlas asi  ---> 
-               <b>Diagnóstico</b>
-                <textarea  rows="5" readonly class="form-control" id="text_diag"><?php foreach ($diagnosticos->result() as $diag):?>
-(<?= date("j M, Y h:i a", strtotime($diag->created_at)) ?>): 
-<?= $diag->diagnostico ?>                
-<?php endforeach ?></textarea>
-               <!--- Estas lineas dejarlas asi  ---> 
-               
-               <textarea name="diagnostico_input" id="diagnostico_input" rows="2" class="form-control" type="text" placeholder="Agrega una nuevo Diagnóstico" ></textarea>
-               <b>Edad</b>
-               <input id="edad_diag" required type="number" name="edad_diag" class="form-control" value="<?= $fechaMax ?>" min="0" max="<?= $fechaMax ?>" />
-               <input type="hidden" value="<?= $fecha ?>" name="anio" />
-               <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
-               
-               <button type="submit" class="btn btn-info btn-info-user" style="margin-top:10px"><i class="fa fa-save fa-1.5x"></i>    Guardar Diagnóstico</button>
-               </form>
-           </div>
-                </section>
-                  
-                </div>
-                  
+          <!--- Panel de Signos Vitales  ---> 
+          <div id="signos-vitales" class="panel panel-default" >
+            <div class="panel-heading">
+                    <span class="ms-subtitle">Signos Vitales </span>
+                </div> 
+      
+              <div class="panel-body">
+                <form id="form_signos" name="form_signos" method="post">
+                <input type="hidden" value="<?= $fecha ?>" name="anio" />
+                <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
+                  <div class="row">
+                    <div class="col-sm-2">
+                      <label for="">Altura (cm)</label>
+                      <input class="form-control" type="text" name="altura" id="altura" placeholder="Cm" />
+                    </div>
+                    <div class="col-sm-2">
+                      <label for="">Peso (kg)</label>
+                      <input class="form-control" type="text" name="peso" id="peso" placeholder="Kg" />
+                    </div>
+                    <div class="col-sm-2">
+                      <label for="">IMC <small id="imcCal"></small></label>
+                      <input class="form-control" readonly type="text" name="imc" id="imc" placeholder="" />
+                    
+                    </div>
+                    <div class="col-sm-2">
+                      <label for="">Presión Arterial</label>
+                      <input class="form-control"  type="text" name="presion_arterial" placeholder="mm Hg" />
+                    </div>
+                    <div class="col-sm-2">
+                      <label for="">Pulso</label>
+                      <input class="form-control"  type="text" name="pulso" placeholder="L/min" />
+                    </div>
+                    <div class="col-sm-2">
+                      <label for="">Temperatura</label>
+                      <input class="form-control"  type="text" name="temperatura" placeholder="°C" />
+                    </div>
+                   
+                  </div>
+                  <div class="row float-right" style="margin-top:10px">
+                      <div class="col-sm-6 col-sm-offset-3 mt-4 text-center" >
+                      <label>Edad</label>
+                      <input id="edad_signo" required type="number" name="edad_signo" class="form-control" value="<?= $fechaMax ?>" min="0" max="<?= $fechaMax ?>" />
+                        <button type="submit" class="btn btn-primary " style="margin-top:10px;" > <i class="fa fa-save" ></i> Guardar Signos Vitales</button>
+                      </div>
+                  </div>
+                  </form>
               </div>
           </div>
-          <!-- Termina Diagnóstico General --->
+          <!--- Termina Panel de Signos Vitales  ---> 
+          <!--- Panel de Msj Consulta  ---> 
+          <div id="consulta-msj" class="panel panel-default" >
+            <div class="panel-heading">
+                    <span class="ms-subtitle">Mensaje sobre la Consulta</span>
+                </div> 
+      
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-sm-12 text-center">
+                    <h5 class="text-warning">Debes iniciar una consulta para poder acceder a los demás componentes.</h5>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <!--- Termina Panel de Msj Consulta  ---> 
+      </div>
         </div>  
     </div>
   
@@ -472,87 +487,36 @@
     
     <!--- Accion de primera vez  ---> 
     <div id="primera_vez" class="container" >
-
-      <div class="panel panel-default" >
-      <div class="panel-heading">
-              <span class="ms-subtitle">Signos Vitales </span>
-          </div> 
-
-        <div class="panel-body">
-          <form id="form_signos" name="form_signos" method="post">
-          <input type="hidden" value="<?= $fecha ?>" name="anio" />
-          <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
-            <div class="row">
-              <div class="col-sm-2">
-                <label for="">Altura (cm)</label>
-                <input class="form-control" type="text" name="altura" id="altura" placeholder="Cm" />
-              </div>
-              <div class="col-sm-2">
-                <label for="">Peso (kg)</label>
-                <input class="form-control" type="text" name="peso" id="peso" placeholder="Kg" />
-              </div>
-              <div class="col-sm-2">
-                <label for="">IMC <small id="imcCal"></small></label>
-                <input class="form-control" readonly type="text" name="imc" id="imc" placeholder="" />
-              
-              </div>
-              <div class="col-sm-2">
-                <label for="">Presión Arterial</label>
-                <input class="form-control"  type="text" name="presion_arterial" placeholder="mm Hg" />
-              </div>
-              <div class="col-sm-2">
-                <label for="">Pulso</label>
-                <input class="form-control"  type="text" name="pulso" placeholder="L/min" />
-              </div>
-              <div class="col-sm-2">
-                <label for="">Temperatura</label>
-                <input class="form-control"  type="text" name="temperatura" placeholder="°C" />
-              </div>
-             
-            </div>
-            <div class="row float-right" style="margin-top:10px">
-                <div class="col-sm-6 col-sm-offset-3 mt-4 text-center" >
-                <label>Edad</label>
-                <input id="edad_signo" required type="number" name="edad_signo" class="form-control" value="<?= $fechaMax ?>" min="0" max="<?= $fechaMax ?>" />
-                  <button type="submit" class="btn btn-primary " style="margin-top:10px;" > <i class="fa fa-save" ></i> Guardar Signos Vitales</button>
-                </div>
-            </div>
-            </form>
-        </div>
-      </div>
-
-    <div class="panel panel-default" >
+    <div  class="panel panel-default" >
         <div class="panel-body" >
-            
              <!--- Panel de Notas  ---> 
-           
            <div class="panel mb-0 panel-default panel-flat border-left-brown">
              <div class="panel-heading">
-						<span class="ms-subtitle">NOTAS | DIAGNÓSTICO | MOTIVO DE CONSULTA </span>
+						<span class="ms-subtitle">NOTAS | MOTIVO DE CONSULTA </span>
             </div> 
             <div class="panel-body">  
             <div class="row">
-               
             <div class="form-group col-sm-10" >
-           <form name="notas_dr"  method="post" id="notas_dr">
+              <form name="notas_dr"  method="post" id="notas_dr">
                <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
               <!--- Estas lineas dejarlas asi  ---> 
-               <b>Notas del doctor</b>
+              <b>Notas del doctor</b>
                 <textarea  rows="8" readonly class="form-control" id="text_notas"><?php foreach ($notas->result() as $nota):?>
 (<?= date("j M, Y h:i a", strtotime($nota->created_at))  ?>): 
 <?= $nota->nota ?>                
 <?php endforeach ?></textarea>
                <!--- Estas lineas dejarlas asi  ---> 
+              <div id="notas-motivo" class="" >
+                <textarea name="notas_input" id="notas_input" class="form-control" type="text" placeholder="Agrega una nueva nota" ></textarea>
+                
+                <div class="col-sm-8 col-sm-offset-2">
+                  <button type="submit" class="btn btn-info btn-info-user btn-block" style="margin-top:10px"><i class="fa fa-save fa-1.5x"></i>  Guardar Nota</button>
+                </div>
+              </div>
                
-               <textarea name="notas_input" id="notas_input" class="form-control" type="text" placeholder="Agrega una nueva nota" ></textarea>
-               
-               <div class="col-sm-8 col-sm-offset-2">
-                    <button type="submit" class="btn btn-info btn-info-user btn-block" style="margin-top:10px"><i class="fa fa-save fa-1.5x"></i>  Guardar Nota</button>
-               </div>
-               
-               </form>
+              </form>
            </div>
-           <div class="col-sm-2">
+           <div id="productos" class="col-sm-2">
              <label for="">Productos:</label>
              <select class="form-control select2" name="productos_ven" id="productos_ven">
                <option value="">Buscar...</option>
@@ -586,126 +550,33 @@
             </div>
              </div>   
            </div>
-           
            <!--- Termina Panel de Notas  ---> 
-    
-           <!--- Panel de Terapias y medicamentos  ---> 
-            <div id="hisclinic_mediSec" ></div>
-            <div class="panel mb-0 panel-default panel-flat border-left-olive">
-             <div class="panel-heading">
-						<span class="ms-subtitle">Terapias y Medicamentos </span>
-            </div> 
-            <div id="divMedi" class="panel-body">  
-                <div class="row">
-                    
-                  <div class="col-sm-3" >
-                        <form id="form-terapia" name="form-terapia" method="post" >
-                      <input type="hidden" value="<?= $fecha ?>" name="anio" />
-                      <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
-                      <h4>Terapía</h4>
-                        <select required id="terapia" class="form-control select2" name="terapia">
-                          <option value="" >Seleccione: </option>
-                            <?php foreach ( $terapias->result() as $terapia ): ?>
-                          <option value="<?= $terapia->id ?>" ><?= $terapia->terapia ?></option>
-                          <?php endforeach ?>
-                            <option value="Otra" >Otro</option>
-                      </select>
-                        <div class="" id="panel-add-ter" hidden >
-                      <br>
-                      <a href="#" class="btn btn-sm btn-info" data-id="18" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
-
-                    </div>
-                      <b>Edad</b>
-                      <input id="edad_terapia" required type="number" name="edad_terapia" class="form-control" value="<?= $fechaMax ?>" min="0" max="<?= $fechaMax ?>" /><br>
-                          
-                        <button type="submit" class="btn btn-info btn-info-user" style="margin-top:10px"><i class="fa fa-save fa-1.5x"></i>    Guardar Terapia</button> 
-                      </form>
-                  </div>
-                    
-                  <div  class="col-sm-3" >
-                      <form id="form_medi" name="form_medi" method="post" novalidate="novalidate" >
-                      <input type="hidden" value="<?= $fecha ?>" name="anio" />
-                      <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
-                      <h4>Medicamento</h4>
-                      <select required id="p_medicamento" class="select2 form-control" name="p_medicamento">
-                          <option value="" >Seleccione: </option>
-                            <?php foreach ( $medicamentos->result() as $medicamento ): ?>
-                          <option value="<?= $medicamento->id ?>" ><?= $medicamento->medicamento ?></option>
-                          <?php endforeach ?>
-                            <option value="Otra" >Otro</option>
-                      </select>
-                      <div class="" id="panel-add-med" hidden >
-                      <br>
-                      <a href="#" class="btn btn-sm btn-info" data-id="3" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
-
-                    </div>
-                      <b>Edad</b>
-                      <input  required type="number" name="edad_medica" class="form-control" value="<?= $fechaMax ?>" min="0" max="<?= $fechaMax ?>" /><br>
-                          
-                        <button type="submit" class="btn btn-info btn-info-user" style="margin-top:10px"><i class="fa fa-save fa-1.5x"></i>    Guardar Medicamento</button>   
-                      </form>
-                  </div>    
-                  <div  class="col-sm-3" >
-                      <form id="form_estres" name="form_estres" method="post" novalidate="novalidate" >
-                      <input type="hidden" value="<?= $fecha ?>" name="anio" />
-                      <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
-                      <h4>Estrés</h4>
-                      <select required id="s_estres" class="select2 form-control" name="s_estres">
-                          <option value="" >Seleccione: </option>
-                            <?php foreach ( $estres->result() as $estre ): ?>
-                          <option value="<?= $estre->id ?>" ><?= $estre->estres ?></option>
-                          <?php endforeach ?>
-                      </select>
-                      <b>Edad</b>
-                      <input  required type="number" name="edad_estres" class="form-control" value="<?= $fechaMax ?>" min="0" max="<?= $fechaMax ?>" /><br>
-                        <button type="submit" class="btn btn-info btn-info-user" style="margin-top:10px"><i class="fa fa-save fa-1.5x"></i>    Guardar Estrés</button>   
-                      </form>
-                  </div>     
-                   
-                  <div  class="col-sm-3" >
-                      <form id="form_obe" name="form_obe" method="post" novalidate="novalidate" >
-                      <input type="hidden" value="<?= $fecha ?>" name="anio" />
-                      <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
-                      <h4>Obesidad <small  id="obesidadTipo"></small></h4>
-                      <select required id="s_obesidad" class="select2 form-control" name="s_obesidad">
-                          <option value="" >Seleccione: </option>
-                            <?php foreach ( $obesidad->result() as $obe ): ?>
-                          <option value="<?= $obe->id ?>" ><?= $obe->obesidad ?></option>
-                          <?php endforeach ?>
-                      </select>
-                      <b>Edad</b>
-                      <input  required type="number" name="edad_obesidad" class="form-control" value="<?= $fechaMax ?>" min="0" max="<?= $fechaMax ?>" /><br>
-                          
-                        <button type="submit" class="btn btn-info btn-info-user" style="margin-top:10px"><i class="fa fa-save fa-1.5x"></i>    Guardar Obesidad</button>   
-                      </form>
-                  </div>       
-                </div>
-                </div>
-            </div>
-            <!--- Termina Panel de Terapias y medicamentos  ---> 
         </div>
     </div>
     <!--- Termina Panel Notas y Acciones  ---> 
         
-     <div class="panel panel-brown" style="border-radius:15px" >
-        
+     <div id="antecedentes" class="panel panel-brown" style="border-radius:15px" >
         <div class="panel-heading text-center" data-toggle="collapse"  role="button" aria-expanded="false" aria-controls="collapseLinea" style="border-radius:15px"  >
             <h3>ANTECEDENTES</h3>
-            
         </div>
         <div>
             <div class="panel-body text-center" >
-              
                <!-- Tabs de antecedentes -->                
                 <ul class="nav nav-tabs mb-5 text-center " id="pills-tab" role="tablist">
                   <li class="nav-item mr-3">
-                    <a class="btn btn-warning btn-lg" id="btn-heredo" data="1" data-toggle="pill" href="#btn-heredofa" role="tab" aria-controls="heredo" aria-selected="true">HEREDOFAMILIARES</a>
+                    <a style="font-size: 15px;" class="btn btn-warning btn-lg" id="btn-heredo" data="1" data-toggle="pill" href="#btn-heredofa" role="tab" aria-controls="heredo" aria-selected="true">HEREDOFAMILIARES</a>
                   </li>
                 <li class="nav-item">
-                  <a class="btn btn-warning btn-lg " id="btn-pato" data="1" data-toggle="pill" href="#btn-patolo" role="tab" aria-controls="pato" aria-selected="false">PATOLÓGICOS</a>
+                  <a style="font-size: 15px;" class="btn btn-warning btn-lg " id="btn-pato" data="1" data-toggle="pill" href="#btn-patolo" role="tab" aria-controls="pato" aria-selected="false">PATOLÓGICOS</a>
                 </li>
                 <li class="nav-item">
-                  <a class="btn btn-warning btn-lg " id="btn-npato" data-toggle="pill" href="#npato" role="tab" aria-controls="npato" aria-selected="false">NO PATOLÓGICOS</a>
+                  <a style="font-size: 15px;" class="btn btn-warning btn-lg " id="btn-npato" data-toggle="pill" href="#npato" role="tab" aria-controls="npato" aria-selected="false">NO PATOLÓGICOS</a>
+                </li>
+                <li class="nav-item">
+                  <a style="font-size: 15px;" class="btn btn-warning btn-lg " id="btn-terapias" data-toggle="pill" href="#terapias" role="tab" aria-controls="terapias" aria-selected="false">TERAPIAS Y MEDICAMENTOS</a>
+                </li>
+                <li class="nav-item">
+                  <a style="font-size: 15px;" class="btn btn-warning btn-lg " id="btn-diagnostico" data-toggle="pill" href="#diagnostico" role="tab" aria-controls="diagnostico" aria-selected="false">DIAGNÓSTICO</a>
                 </li>
               </ul>
 
@@ -875,6 +746,118 @@
                   </div>
 
                 </div>
+                <div class="tab-pane fade" id="terapias" role="tabpanel" aria-labelledby="terapias-tab">
+                  <div id="divMedi" class="row">
+                    
+                    <div class="col-sm-4" >
+                        <form id="form-terapia" name="form-terapia" method="post" >
+                        <input type="hidden" value="<?= $fecha ?>" name="anio" />
+                        <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
+                        <h5>Terapía</h5>
+                          <select style="width: 100%;" required id="terapia" class="select2" name="terapia">
+                            <option value="" >Seleccione: </option>
+                              <?php foreach ( $terapias->result() as $terapia ): ?>
+                            <option value="<?= $terapia->id ?>" ><?= $terapia->terapia ?></option>
+                            <?php endforeach ?>
+                              <option value="Otra" >Otro</option>
+                        </select> <br>
+                          <div class="" id="panel-add-ter" hidden >
+                            <br>
+                            <a href="#" class="btn btn-sm btn-info" data-id="18" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
+      
+                          </div>
+                        <b>Edad</b>
+                        <input id="edad_terapia" required type="number" name="edad_terapia" class="form-control" value="<?= $fechaMax ?>" min="0" max="<?= $fechaMax ?>" /><br>
+                            
+                          <button type="submit" class="btn btn-info btn-info-user" style="margin-top:10px"><i class="fa fa-save fa-1.5x"></i>    Guardar Terapia</button> 
+                        </form>
+                    </div>
+                      
+                    <div  class="col-sm-4" >
+                        <form id="form_medi" name="form_medi" method="post" novalidate="novalidate" >
+                        <input type="hidden" value="<?= $fecha ?>" name="anio" />
+                        <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
+                        <h5>Medicamento (sustancia)</h5>
+                        <select style="width: 100%;" required id="p_medicamento" class="select2 form-control" name="p_medicamento">
+                            <option value="" >Seleccione: </option>
+                              
+                              <option value="Otra" >Otro</option>
+                        </select> <br>
+                        <div class="" id="panel-add-med" hidden >
+                        <br>
+                        <a href="#" class="btn btn-sm btn-info" data-id="3" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
+  
+                      </div>
+                        <b>Edad</b>
+                        <input  required type="number" name="edad_medica" class="form-control" value="<?= $fechaMax ?>" min="0" max="<?= $fechaMax ?>" /><br>
+                            
+                          <button type="submit" class="btn btn-info btn-info-user" style="margin-top:10px"><i class="fa fa-save fa-1.5x"></i>    Guardar Medicamento</button>   
+                        </form>
+                    </div>    
+                    <div  class="col-sm-4" >
+                        <form id="form_estres" name="form_estres" method="post" novalidate="novalidate" >
+                        <input type="hidden" value="<?= $fecha ?>" name="anio" />
+                        <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
+                        <h5>Estrés</h5>
+                        <select style="width: 100%;" required id="s_estres" class="select2 form-control" name="s_estres">
+                            <option value="" >Seleccione: </option>
+                              <?php foreach ( $estres->result() as $estre ): ?>
+                            <option value="<?= $estre->id ?>" ><?= $estre->estres ?></option>
+                            <?php endforeach ?>
+                        </select> <br>
+                        <b>Edad</b>
+                        <input  required type="number" name="edad_estres" class="form-control" value="<?= $fechaMax ?>" min="0" max="<?= $fechaMax ?>" /><br>
+                          <button type="submit" class="btn btn-info btn-info-user" style="margin-top:10px"><i class="fa fa-save fa-1.5x"></i>    Guardar Estrés</button>   
+                        </form>
+                    </div>     
+                     
+                   <!--- <div  class="col-sm-3" >
+                        <form id="form_obe" name="form_obe" method="post" novalidate="novalidate" >
+                        <input type="hidden" value="<?= $fecha ?>" name="anio" />
+                        <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
+                        <h4>Obesidad <small  id="obesidadTipo"></small></h4>
+                        <select style="width: 100%;" required id="s_obesidad" class="select2 form-control" name="s_obesidad">
+                            <option value="" >Seleccione: </option>
+                              <?php foreach ( $obesidad->result() as $obe ): ?>
+                            <option value="<?= $obe->id ?>" ><?= $obe->obesidad ?></option>
+                            <?php endforeach ?>
+                        </select> <br>
+                        <b>Edad</b>
+                        <input  required type="number" name="edad_obesidad" class="form-control" value="<?= $fechaMax ?>" min="0" max="<?= $fechaMax ?>" /><br>
+                            
+                          <button type="submit" class="btn btn-info btn-info-user" style="margin-top:10px"><i class="fa fa-save fa-1.5x"></i>    Guardar Obesidad</button>   
+                        </form>
+                    </div>  --->    
+                  </div>
+                </div>
+
+                <div class="tab-pane fade" id="diagnostico" role="tabpanel" aria-labelledby="diagnostico-tab">
+                  <div class="row" style="padding: 20px" >
+
+                  <section id="DiagnósticoSec">
+                    <div class="form-group col-sm-8 col-sm-offset-2" >
+           <form name="diagnostico_dr"  method="post" id="diagnostico_dr">
+              <!--- Estas lineas dejarlas asi  ---> 
+               <b>Diagnóstico</b>
+                <textarea  rows="5" readonly class="form-control" id="text_diag"><?php foreach ($diagnosticos->result() as $diag):?>
+(<?= date("j M, Y h:i a", strtotime($diag->created_at)) ?>): 
+<?= $diag->diagnostico ?>                
+<?php endforeach ?></textarea>
+               <!--- Estas lineas dejarlas asi  ---> 
+               
+               <textarea name="diagnostico_input" id="diagnostico_input" rows="2" class="form-control" type="text" placeholder="Agrega una nuevo Diagnóstico" ></textarea>
+               <b>Edad</b>
+               <input id="edad_diag" required type="number" name="edad_diag" class="form-control" value="<?= $fechaMax ?>" min="0" max="<?= $fechaMax ?>" />
+               <input type="hidden" value="<?= $fecha ?>" name="anio" />
+               <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
+               
+               <button type="submit" class="btn btn-info btn-info-user" style="margin-top:10px"><i class="fa fa-save fa-1.5x"></i>    Guardar Diagnóstico</button>
+               </form>
+           </div>
+                </section>
+                </div>
+                  
+                </div>
 
               </div>
             </div>
@@ -886,11 +869,11 @@
     <!-- Inicia Linea de Vida -->
     <div class="panel panel-olive" style="border-radius:15px" >
         
-        <div class="panel-heading text-center" data-toggle="collapse" href="#collapseLinea" role="button" aria-expanded="false" aria-controls="collapseLinea" style="border-radius:15px"  >
+        <div class="panel-heading text-center collapsed" data-toggle="collapse" href="#collapseLinea" role="button" aria-expanded="false" aria-controls="collapseLinea" style="border-radius:15px"  >
             <h3>LINEA DE VIDA</h3>
             
         </div>
-        <div class="collapse" id="collapseLinea" >
+        <div class="collapse in" id="collapseLinea" aria-expanded="true" >
         <div class="panel-body" >
             <button type="button" class="btn btn-info btndivLinea"  onclick="recargarLinea()" style="margin-top:10px"><i class="glyphicon glyphicon-refresh"></i>     Recargar Linea</button>
             
@@ -904,9 +887,9 @@
                      <div class="direction-l"> <?php } else { ?>
                           <div class="direction-r"><?php } $num++; ?>
                               <div class="flag-wrapper">
-                                <span class="hexa"></span>
+                                <span class="hexa"  ><?= $linea->edad_paciente ?></span>
                                 <span class="flag"><?= $linea->enfermedad; ?></span>
-                                <span class="time-wrapper"><span class="time"><?= $linea->anio; ?> Edad: <?= $linea->edad_paciente; ?></span></span>
+                                <span class="time-wrapper"><span class="time"><?= $linea->anio; ?></span></span>
                               </div>
                               <div class="desc"><?= $linea->descripcion; ?><a href="<?= base_url().'pacientes/evolucion/'.$paciente->id. '#'.$linea->id ?>"> Evolución <icon class="fa fa-chevron-right"> </icon></a>
                               <div class="progress" style="height:5px; ">
@@ -1015,10 +998,7 @@
                 <b>Medicamentos</b>    
             <select required id="med_psico" class="form-control" name="medicamentos">
                     <option value="">Seleccione</option>
-                     <?php foreach ( $medicamentos->result() as $medicamento ): ?>
-
-                    <option value="<?= $medicamento->id ?>" ><?= $medicamento->medicamento ?></option>
-                   <?php endforeach ?>
+                     
                 <option value="No Recuerda" >No Recuerda</option>
                 <option value="Otro" >Otro</option>
                 </select>
@@ -1076,10 +1056,7 @@
                 <b>Medicamentos</b>   
             <select id="med_otras" class="form-control" name="medicamentos" required>
                     <option value="">Seleccione</option>
-                     <?php foreach ( $medicamentos->result() as $medicamento ): ?>
-
-                    <option value="<?= $medicamento->id ?>" ><?= $medicamento->medicamento ?></option>
-                   <?php endforeach ?>
+                    
                 <option value="No Recuerda" >No Recuerda</option>
                 <option value="Otro" >Otro</option>
                 </select>
@@ -1588,6 +1565,8 @@
 
   <button type="button" style="display:none;" class="btn btn-danger btn-stop" id="btn-terminar-consulta2" data-id="" title="Terminar Consulta" ><i class="fa fa-stop"></i></button>
 
+  <button type="button"  class="btn btn-success btn-stop" id="btn-iniciarConsulta2"  data-toggle="modal" data-target="#start_consulta"  data-id="" title="Iniciar Consulta" ><i class="fa fa-play"></i></button>
+
 <!-- Modal Add Messenger -->
 <div class="modal fade" id="addMsj" tabindex="-1" role="dialog" aria->
         <div class="modal-dialog" role="document">
@@ -1649,32 +1628,32 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-<form method="post" id="agregar_estudio" name="agregar_estudio"  enctype="multipart/form-data" >
-    <div class="modal-body">
-        <div class="row" >
-            <div class="col-sm-12 form-group" >
-              <b>Titulo del Estudio</b>
-              <input class="form-control" type="text" id="title_estudio" name="title_estudio" required />
-              </div>
-              <div class="col-sm-6 form-group" >
-              <b>Fecha del Estudio</b>
-                  <input class="form-control" type="date" id="fecha_estudio" name="fecha_estudio" required />
-              </div>
-              <div class="col-sm-6 form-group" >
-                  <b>Selecciona archivo o Arrastralo aquí</b>
-              <input class="form-control" type="file" id="estudio_sbr" name="estudio_sbr"  />
-                  <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
-                  <input type="hidden" value="<?= $paciente->clave_bancaria ?>" name="expediente" />
-              </div>
-        </div>
-      </div>
+          <form method="post" id="agregar_estudio" name="agregar_estudio"  enctype="multipart/form-data" >
+              <div class="modal-body">
+                  <div class="row" >
+                      <div class="col-sm-12 form-group" >
+                        <b>Titulo del Estudio</b>
+                        <input class="form-control" type="text" id="title_estudio" name="title_estudio" required />
+                        </div>
+                        <div class="col-sm-6 form-group" >
+                        <b>Fecha del Estudio</b>
+                            <input class="form-control" type="date" id="fecha_estudio" name="fecha_estudio" required />
+                        </div>
+                        <div class="col-sm-6 form-group" >
+                            <b>Selecciona archivo o Arrastralo aquí</b>
+                        <input class="form-control" type="file" id="estudio_sbr" name="estudio_sbr"  />
+                            <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
+                            <input type="hidden" value="<?= $paciente->clave_bancaria ?>" name="expediente" />
+                        </div>
+                  </div>
+                </div>
 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
-      </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                  <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
+                </div>
 
-     </form> 
+              </form> 
 
         <form class="dropzone" id="estudios_up">
             <div class="dz-message" >
@@ -1813,12 +1792,10 @@
                         <div class="row">
                         <div class="col-sm-5">
                             <input type="hidden" name="enfermedad" id="congenita" value="" />
-                            <b>Medicamento</b>
+                            <b>Medicamento (sustancia)</b>
                              <select id="medicamento" class="form-control" name="medicamento">
                                 <option value="" >Seleccione</option>
-                                 <?php foreach ( $medicamentos->result() as $medicamento ): ?>
-                                <option value="<?= $medicamento->medicamento ?>" ><?= $medicamento->medicamento ?></option>
-                               <?php endforeach ?>
+                                
                                  <option value="Otra" >Otro</option>
                             </select>
                              <div class="" id="panel-add-med" hidden >
@@ -1963,13 +1940,10 @@
                         <div class="form-group col-sm-4" >
                             <input id="causa_h" name="causa" value="" type="hidden" />
                                                      
-                              <b>Medicamentos</b>   
+                              <b>Medicamentos (sustancia)</b>   
                             <select id="med_h" class="form-control" name="medicamentos">
                                 <option value="">Seleccione</option>
-                                 <?php foreach ( $medicamentos->result() as $medicamento ): ?>
-
-                                <option value="<?= $medicamento->medicamento ?>" ><?= $medicamento->medicamento ?></option>
-                               <?php endforeach ?>
+                                
                                 <option value="Otra" >Otra</option>
                             </select>
                             <div id="panel-add-med_h" hidden >

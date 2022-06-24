@@ -127,6 +127,7 @@ $('#form_obe').validate({
 						message: 'Obesidad guardada.',
 					});
 					$("#divLinea").load(" #divLinea");
+					form.reset();
 
 				}
 				else {
@@ -223,6 +224,7 @@ $('#form_signos').validate({
 						message: 'Signos Vitales Guardados.',
 					});
 					$("#divLinea").load(" #divLinea");
+					form.reset();
 
 				}
 				else {

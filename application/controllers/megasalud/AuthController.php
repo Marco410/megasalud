@@ -349,14 +349,45 @@ class AuthController extends CI_Controller {
         $this->db->where('status', 1);
         $query = $this->db->get();
         $row = $query->row();
-        
-     
             if (isset($row))
         {
             echo json_encode(false);
         }
         else{
             echo json_encode(true);
+        }
+        
+    } 
+
+    public function checkNamePacient()
+    {
+        $nombre = $_POST["nombre"];
+
+        $this->db->select('id, nombre,apellido_p, apellido_m,fecha_nacimiento,pais_origen,clave_bancaria,created_at');
+        $this->db->from('pacientes');
+        $this->db->where('nombre', $nombre);
+
+        if (isset($_POST["apellido_p"])){
+            $ap = $_POST["apellido_p"];
+            $this->db->where('apellido_p', $ap);
+        }
+        
+        if (isset($_POST["apellido_m"])){
+            $am = $_POST["apellido_m"];
+            $this->db->where('apellido_m', $am);
+        }
+        $this->db->where('status', 1);
+        $result = $this->db->get();
+        $row = $result->result();
+        $response = array();
+        $response['data'] = $result->result_array();
+        
+        if (isset($row))
+        {
+            echo json_encode($response);
+        }
+        else{
+            echo json_encode($response);
         }
         
     } 
@@ -401,13 +432,11 @@ class AuthController extends CI_Controller {
         $this->db->select('email');
         $this->db->from($table);
         $this->db->where('email', $email);
-        $this->db->where('status', 1);
         $query = $this->db->get();
         $row = $query->row();
         if (isset($row))
         {
             $token = $this->generar_token();
-            
             $data = array(
                 'email' => $_POST["email"],
                 'token' => $token,
@@ -415,7 +444,6 @@ class AuthController extends CI_Controller {
             );
             
             $this->db->insert("password_resets", $data);
-            
             
             $this->load->library('email');
             $config['mailtype']  = 'html';

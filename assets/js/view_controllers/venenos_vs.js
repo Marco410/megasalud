@@ -65,9 +65,7 @@ function init() {
 			type: "post",
 			url: base_url + 'megasalud/VenenosController/get_venenos',
 		},
-
 		columns: [
-
 			{ "data": "id" },
 			{ "data": "c_a" },
 			{

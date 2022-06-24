@@ -19,6 +19,10 @@
 
 					<div class="panel-body">
                         <div class="row" >
+							<div class="col-sm-12">
+								<div class="col-sm-4 text-center" id="panel_pacientes" style="display:none; position: fixed; top: 100px; right: 30px;  background-color: white;  width: auto; z-index: 10; padding: 15px;  border-radius: 10px;box-shadow: 0 5px 15px rgb(0 0 0 / 10%);">
+								</div>
+							</div>
                         <div class="col-sm-4" >
                             <div class="form-group">
 								<label>
@@ -360,6 +364,50 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                          <button class="btn btn-md btn-primary" type="submit" ><span class="fa fa-save"></span> Guardar</button>    
+                    </div>
+                </form>
+            </div><!-- modal content -->
+        </div><!-- modal dialog -->
+    </div><!-- modal fade -->
+<!-- Cierra Modal -->
+
+<!-- Modal Add settings -->
+<div class="modal fade" id="verPacientes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <form id="verPacientes_form" name="verPacientes_form" method="post"  >
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Pacientes Registrados</h4>
+                </div>
+                <div class="modal-body">
+                    
+                    <div class="row" >
+						<div class="col-sm-12">
+						<table id="pacientes-table" class="table table-striped" style="width: 100%;">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Nombre</th>
+									<th>Apellido Paterno</th>
+									<th>Apellido Materno</th>
+									<th>Fecha de Nacimiento</th>
+									<th>Pais de Origen</th>
+									<th>Iniciar Consulta</th>
+									<th>Fecha de Alta</th>
+									
+								</tr>
+							</thead>
+							<tbody id="pacientes-table" >
+							</tbody>
+						</table>
+						</div>
+							
+                    </div>
+                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        
                     </div>
                 </form>
             </div><!-- modal content -->
