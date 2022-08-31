@@ -435,7 +435,7 @@ function init() {
         var text = textoA[textoA.length - 1];
 
         $("#panel-ante").html("");
-        if (text.length <= 0) {
+        if (text.length <= 1) {
             $("#panel-ante-vacunas").html("");
             $("#panel-ante-alergias").html("");
             $("#panel-ante-hospi").html("");
@@ -449,6 +449,15 @@ function init() {
             $("#panel-ante-venenos").removeAttr("style");
             $("#panel-ante-congenita").removeAttr("style");
             $("#panel-ante-productos-ven").removeAttr("style");
+
+            $(".input-congenita").remove();
+            $(".input-vacuna").remove();
+            $(".input-alergia").remove();
+            $(".input-hospi").remove();
+            $(".input-veneno").remove();
+
+
+
         } else {
             var texto = {
                 text: text
@@ -464,7 +473,7 @@ function init() {
                         var data = res.data;
                         var l = data.length;
                         if (l > 0) {
-                            $("#panel-ante-congenita").html("<h4>Congénitas</h4>");
+                            /* $("#panel-ante-congenita").html("<h4>Congénitas</h4>");
                             if (l > 10) {
                                 $("#panel-ante-congenita").attr("style", "height:150px; overflow: scroll; overflow-x: hidden; margin:10px;");
                             } else {
@@ -472,11 +481,18 @@ function init() {
                             }
                             for (x = 0; x < l; x++) {
                                 $("#panel-ante-congenita").append("<button class='btn btn-sm elemento' onclick='new_congenita(this)' data-name='" + data[x].enfermedad + "' data-value='" + data[x].id + "' >" + data[x].enfermedad + "</button>");
-
+                            } */
+                            var cc = $(".input-congenita").toArray().length;
+                            if (cc > 1) {
+                                $(".input-congenita").remove();
+                            }
+                            if (cc < 1) {
+                                $("#inputs-search").append("<button type='button'  class='btn btn-sm elemento input-congenita' onclick='new_congenita(this)' data-name='" + data[0].enfermedad + "' data-value='" + data[0].id + "' >" + data[0].enfermedad + "</button>");
                             }
                         } else {
                             $("#panel-ante-congenita").html("");
                             $("#panel-ante-congenita").removeAttr("style");
+                            $(".input-congenita").remove();
                         }
 
                     }
@@ -499,7 +515,7 @@ function init() {
                         var data = res.data;
                         var l = data.length;
                         if (l > 0) {
-                            $("#panel-ante-vacunas").html("<h4>Vacunas</h4>");
+                            /* $("#panel-ante-vacunas").html("<h4>Vacunas</h4>");
                             if (l > 10) {
                                 $("#panel-ante-vacunas").attr("style", "height:150px; overflow: scroll; overflow-x: hidden; margin:10px;");
                             } else {
@@ -508,10 +524,19 @@ function init() {
                             for (x = 0; x < l; x++) {
                                 $("#panel-ante-vacunas").append("<button class='btn btn-sm elemento' onclick='new_vacuna(this)' data-name='" + data[x].vacuna + "' data-value='" + data[x].id + "' >" + data[x].vacuna + "</button>");
 
+                            } */
+                            var cc = $(".input-vacuna").toArray().length;
+                            if (cc > 1) {
+                                $(".input-vacuna").remove();
+                            }
+                            if (cc < 1) {
+                                $("#inputs-search").append("<button type='button' class='btn btn-sm elemento input-vacuna' onclick='new_vacuna(this)' data-name='" + data[0].vacuna + "' data-value='" + data[0].id + "' >" + data[0].vacuna + "</button>");
                             }
                         } else {
                             $("#panel-ante-vacunas").html("");
                             $("#panel-ante-vacunas").removeAttr("style");
+                            $(".input-vacuna").remove();
+
                         }
 
                     }
@@ -528,7 +553,7 @@ function init() {
                         var data = res.data;
                         var l = data.length;
                         if (l > 0) {
-                            $("#panel-ante-alergias").html("<h4>Alergías</h4>");
+                            /* $("#panel-ante-alergias").html("<h4>Alergías</h4>");
                             if (l > 10) {
                                 $("#panel-ante-alergias").attr("style", "height:150px; overflow: scroll; overflow-x: hidden; margin:10px;");
                             } else {
@@ -537,10 +562,20 @@ function init() {
                             for (x = 0; x < l; x++) {
                                 $("#panel-ante-alergias").append("<button class='btn btn-sm elemento' onclick='new_alergia(this)' data-name='" + data[x].alergeno + "' data-value='" + data[x].id + "' >" + data[x].alergeno + "</button>");
 
+                            } */
+
+                            var cc = $(".input-alergia").toArray().length;
+                            if (cc > 1) {
+                                $(".input-alergia").remove();
+                            }
+                            if (cc < 1) {
+                                $("#inputs-search").append("<button type='button' class='btn btn-sm elemento input-alergia' onclick='new_alergia(this)' data-name='" + data[0].alergeno + "' data-value='" + data[0].id + "' >" + data[0].alergeno + "</button>");
                             }
                         } else {
                             $("#panel-ante-alergias").html("");
                             $("#panel-ante-alergias").removeAttr("style");
+                            $(".input-alergia").remove();
+
                         }
 
                     }
@@ -557,7 +592,7 @@ function init() {
                         var data = res.data;
                         var l = data.length;
                         if (l > 0) {
-                            $("#panel-ante-hospi").html("<h4>Hospitalización</h4>");
+                            /* $("#panel-ante-hospi").html("<h4>Hospitalización</h4>");
                             if (l > 10) {
                                 $("#panel-ante-hospi").attr("style", "height:150px; overflow: scroll; overflow-x: hidden; margin:10px;");
                             } else {
@@ -565,11 +600,20 @@ function init() {
                             }
                             for (x = 0; x < l; x++) {
                                 $("#panel-ante-hospi").append("<button class='btn btn-sm elemento' onclick='new_hospi(this)' data-name='" + data[x].causa + "' data-value='" + data[x].id + "' >" + data[x].causa + "</button>");
-
+                            } */
+                            var cc = $(".input-hospi").toArray().length;
+                            if (cc > 1) {
+                                $(".input-hospi").remove();
                             }
+                            if (cc < 1) {
+                                $("#inputs-search").append("<button type='button' class='btn btn-sm elemento input-hospi' onclick='new_hospi(this)' data-name='" + data[0].causa + "' data-value='" + data[0].id + "' >" + data[0].causa + "</button>");
+                            }
+
                         } else {
                             $("#panel-ante-hospi").html("");
                             $("#panel-ante-hospi").removeAttr("style");
+                            $(".input-hospi").remove();
+
                         }
 
                     }
@@ -586,18 +630,30 @@ function init() {
                         var data = res.data;
                         var l = data.length;
                         if (l > 0) {
-                            $("#panel-ante-venenos").html("<h4>Venenos</h4>");
-                            if (l > 10) {
-                                $("#panel-ante-venenos").attr("style", "height:150px; overflow: scroll; overflow-x: hidden; margin:10px;");
-                            } else {
-                                $("#panel-ante-venenos").removeAttr("style");
+                            /*  $("#panel-ante-venenos").html("<h4>Venenos</h4>");
+                             if (l > 10) {
+                                 $("#panel-ante-venenos").attr("style", "height:150px; overflow: scroll; overflow-x: hidden; margin:10px;");
+                             } else {
+                                 $("#panel-ante-venenos").removeAttr("style");
+                             }
+                             for (x = 0; x < l; x++) {
+                                 $("#panel-ante-venenos").append("<button class='btn btn-sm elemento' onclick='new_veneno(this)' data-name='" + data[x].veneno + "' data-value='" + data[x].id + "' >" + data[x].veneno + "</button>");
+                             } */
+
+                            var cc = $(".input-veneno").toArray().length;
+                            if (cc > 1) {
+                                $(".input-veneno").remove();
                             }
-                            for (x = 0; x < l; x++) {
-                                $("#panel-ante-venenos").append("<button class='btn btn-sm elemento' onclick='new_veneno(this)' data-name='" + data[x].veneno + "' data-value='" + data[x].id + "' >" + data[x].veneno + "</button>");
+                            if (cc < 1) {
+                                $(".input-veneno").remove();
+
+                                $("#inputs-search").append("<button type='button' class='btn btn-sm elemento input-veneno' onclick='new_veneno(this)' data-name='" + data[0].veneno + "' data-value='" + data[0].id + "' >" + data[0].veneno + "</button>");
                             }
                         } else {
                             $("#panel-ante-venenos").html("");
                             $("#panel-ante-venenos").removeAttr("style");
+                            $(".input-veneno").remove();
+
                         }
 
                     }

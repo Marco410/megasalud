@@ -525,21 +525,23 @@ function init() {
 	});
 
 	$('.btn-actualizar').click(function () {
-
 		var id_item = $(this).parents("tr").find("td").eq(1).text();
+		actualizarQuantity(id_item);
+	});
+
+	$('.input-update').on('change', function () {
+		var id_item = $(this).parents("tr").find("td").eq(1).text();
+		actualizarQuantity(id_item);
+	});
+
+	function actualizarQuantity(id_item) {
 
 		var cantidad = parseFloat(document.getElementById("cantidad_pro" + id_item).value);
-
-
 		var cantidad_ante = parseFloat(document.getElementById("cantidad_ante" + id_item).value);
-
 		var precio = parseFloat(document.getElementById("precio_pro" + id_item).value);
-
 		var subtotal = parseFloat(cantidad_ante) * parseFloat(precio.toFixed(2));
-
 		var subtotal_new = parseFloat(cantidad) * parseFloat(precio.toFixed(2));
 		var id_pro = document.getElementById("id_pro" + id_item).value;
-
 
 		var data = {
 			'id_item': id_item,
@@ -550,7 +552,6 @@ function init() {
 		};
 
 		$.ajax({
-
 			url: base_url + 'megasalud/OrdersController/actualizar_item_carrito',
 			type: 'post',
 			data: data,
@@ -601,8 +602,7 @@ function init() {
 				alert(res);
 			}
 		});
-
-	});
+	}
 
 	$('#new_order').validate({
 		submitHandler: function (form) {

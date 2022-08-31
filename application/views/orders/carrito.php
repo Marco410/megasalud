@@ -39,7 +39,7 @@
 								<td></td>
                                 <td id=""><?= $carrito->id ?></td>
 								<td><?= $carrito->producto ?></td>
-								<td><input id="cantidad_pro<?= $carrito->id ?>" type="number" class="form-control" value="<?= $carrito->cantidad ?>" /></td>
+								<td><input id="cantidad_pro<?= $carrito->id ?>" type="number" class="form-control input-update" value="<?= $carrito->cantidad ?>" /></td>
 								<td><?= $carrito->precio ?></td>
 								<td id="subtotal<?= $carrito->id ?>" ><?= $carrito->subtotal ?></td>
 								<td><button type="submit" class="btn btn-warning btn-actualizar"><i class="glyphicon glyphicon-refresh"></i><br></button>

@@ -507,8 +507,11 @@
 <?php endforeach ?></textarea>
                <!--- Estas lineas dejarlas asi  ---> 
               <div id="notas-motivo" class="" >
-                <textarea name="notas_input" id="notas_input" class="form-control" type="text" placeholder="Agrega una nueva nota" ></textarea>
-                
+                <div style="position: absolute" >
+                  <div id="inputs-search" style="position:relative; bottom:35px;" ></div>
+                </div>
+                  <textarea name="notas_input" id="notas_input" class="form-control" type="text" placeholder="Agrega una nueva nota" ></textarea>
+                  
                 <div class="col-sm-8 col-sm-offset-2">
                   <button type="submit" class="btn btn-info btn-info-user btn-block" style="margin-top:10px"><i class="fa fa-save fa-1.5x"></i>  Guardar Nota</button>
                 </div>
@@ -526,11 +529,8 @@
              </select>
 
              <div id="panel-productos-ven" hidden >
-               
              </div>
-             
            </div>
-                    
                 <div class="col-sm-10"  >
                     <div id="loader_ante" hidden ><img loading="lazy" height="50px" width="50px"   src="<?php echo $img_load ?>loader.gif" alt="" class="img-responsive center-block"  /> </div>
                     <div class="col-sm-6" >
