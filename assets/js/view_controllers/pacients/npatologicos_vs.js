@@ -612,6 +612,18 @@ function get_v(elemento, clasi_an) {
     });
 }
 
+function new_veneno_all(elemento) {
+    $("#modal_new_veneno_all").modal("show");
+    $("#id_product").val(elemento.dataset.value);
+
+    var data = {
+        "id_product": elemento.dataset.value
+    };
+
+    $('#product_name').html(elemento.dataset.name);
+
+}
+
 function new_veneno(elemento) {
     $("#modal_new_veneno").modal("show");
     $("#id_veneno").val(elemento.dataset.value);
@@ -715,6 +727,7 @@ function search_relation_func(product, product_name) {
 
                 if (l > 0) {
                     $("#panel-productos-ven").append("<h5>Venenos en el producto: <b class='text-primary' >" + product_name + "</b> </h5>");
+                    $("#panel-productos-ven").append("<button style='width:100%' class='btn btn-sm elemento' onclick='new_veneno_all(this)' data-name='" + product_name + "' data-value='" + product + "' >Agregar Todos</button>");
                     if (l > 10) {
                         $("#panel-productos-ven").attr("style", "height:250px; overflow: scroll; overflow-x: hidden; margin:10px;");
                     } else {
@@ -723,6 +736,7 @@ function search_relation_func(product, product_name) {
                     for (x = 0; x < l; x++) {
                         $("#panel-productos-ven").append("<button class='btn btn-sm elemento' onclick='new_veneno(this)' data-name='" + data[x].veneno + "' data-value='" + data[x].veneno_id + "' >" + data[x].veneno + "</button>");
                     }
+
                 } else {
                     $("#panel-productos-ven").html("");
                     $("#panel-productos-ven").append("<h5 class='text-danger' >Sin venenos</h5>");
@@ -764,6 +778,47 @@ function save_new_veneno(anio, id_paciente) {
 
                     $("#form_new_veneno")[0].reset();
                     $("#modal_new_veneno").modal("hide");
+
+                    $("#divLinea").load(" #divLinea");
+                }
+                else {
+                }
+            }
+        });
+    }
+
+
+}
+
+function save_new_veneno_all(anio, id_paciente) {
+    var data = {
+        "id_product": $("#id_product").val(),
+        "frecc_all": $("#frecc_all").val(),
+        "edad_veneno_all": $("#edad_veneno_all").val(),
+        "id_paciente": id_paciente,
+        "anio": anio
+    };
+
+    if ($("#frecc_all").val() == "") {
+        alert("Seleccione una frecuencia");
+    } else {
+        $.ajax({
+            url: base_url + 'megasalud/PatientsController/new_veneno_all',
+            type: 'post',
+            data: data,
+            success: function (respuesta) {
+                if (respuesta) {
+                    console.log(respuesta);
+                    var res = JSON.parse(respuesta);
+                    iziToast.success({
+                        timeout: 3000,
+                        title: 'Exito',
+                        position: 'topRight',
+                        message: 'Venenos del producto agregados correctamente.',
+                    });
+
+                    $("#form_new_veneno")[0].reset();
+                    $("#modal_new_veneno_all").modal("hide");
 
                     $("#divLinea").load(" #divLinea");
                 }

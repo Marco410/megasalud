@@ -2195,6 +2195,53 @@
     </div> 
 <!-- Cierra Modal Agregar Veneno --> 
 
+<!-- Modal Agregar Venenos del producto -->
+<div class="modal fade" id="modal_new_veneno_all" tabindex="-1" role="dialog" aria-labelledby="estudiosTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="">Agregar todos los venenos</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+<form method="post" id="form_new_veneno" name="form_new_veneno"  enctype="multipart/form-data" >
+    <div class="modal-body">
+        <div class="row" >
+            <input  type="hidden"  value="" id="id_product" name="id_product" />
+            <div class="col-sm-12" >
+            <h4 class="text-center" >Producto: <label class="txt-primary" id="product_name"></label></h4>
+            </div><br><br>
+              <div class="col-sm-6 form-group" >
+              <b>Frecuencia</b>
+                 <select required id="frecc_all" name="frecc_all" class="form-control"  >
+                     <option value="" >Seleccione:</option>
+                     <option value="1" >Diariamente</option>
+                     <option value="2" >Semanalmente</option>
+                     <option value="3" >Mensualmente</option>
+                     <option value="4" >Anualmente</option>
+                     <option value="5" >Una sola vez</option>
+                  </select>
+              </div>
+            <div class="col-sm-6" >
+            <b>Edad</b>
+            <input id="edad_veneno_all" required type="number" name="edad_veneno_all" class="form-control" value="<?= $fechaMax ?>" min="0" max="<?= $fechaMax ?>" />
+            </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button onclick="save_new_veneno_all('<?= $fecha ?>','<?= $paciente->id ?>')" type="button" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
+      </div>
+
+     </form> 
+
+    </div>
+  </div>
+</div> 
+<!-- Cierra Modal Agregar Veneno --> 
+
 <!-- Modal Agregar Medicamento -->
 <div class="modal fade" id="modal_new_medi" tabindex="-1" role="dialog" aria-labelledby="estudiosTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">

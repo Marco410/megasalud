@@ -2709,6 +2709,49 @@ class PatientsController extends CI_Controller {
             echo json_encode(array('error' => true));
         }
         
+    }
+
+    public function new_veneno_all(){
+        $anio =  $this->input->post('anio') + $this->input->post('edad_veneno_all');
+
+
+        $this->db->select('a.id,pa.id as veneno_id, pa.veneno, u.nombre_p');
+        $this->db->join('venenos pa', 'pa.id = a.veneno_id');
+        $this->db->join('productos_ven u', 'u.id = a.producto_ven_id');
+        $this->db->where("a.producto_ven_id",$_POST["id_product"]);
+        $this->db->from('venenos_productos a');
+        $result = $this->db->get();
+        $response['data'] = $result->result_array();
+
+        foreach($result->result_array() as $ven){
+
+        $descripcion = "No Patológico - Producto: ".$ven['nombre_p'];
+       
+         $data = array(
+             'id_paciente' => $_POST['id_paciente'],
+            'id_veneno' => $ven['veneno_id'],
+            'veneno' => $ven['veneno'],
+            'frecuencia' => $_POST['frecc_all'],
+            'edad_veneno' => $_POST['edad_veneno_all']
+         );
+         
+            $data_linea = array(
+            'id_paciente' => $_POST['id_paciente'],
+            'id_dato' => $ven['veneno_id'],
+            'enfermedad' => $ven['veneno'], 
+            'table_hisclinic' => "venenos", //_app1
+            'edad_paciente' => $_POST['edad_veneno_all'],
+            'frecuencia' => $_POST['frecc_all'],
+            'descripcion' => $descripcion, 
+            'anio' => $anio
+            );
+
+            $this->db->insert('hisclinic_venenos',$data);
+            $this->db->insert('hisclinic_linea',$data_linea);
+            
+        }
+        
+        echo json_encode(array('error' => false));
       }
     
     public function find_agents(){
