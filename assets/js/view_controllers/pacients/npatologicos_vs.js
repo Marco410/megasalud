@@ -808,7 +808,6 @@ function save_new_veneno_all(anio, id_paciente) {
             data: data,
             success: function (respuesta) {
                 if (respuesta) {
-                    console.log(respuesta);
                     var res = JSON.parse(respuesta);
                     iziToast.success({
                         timeout: 3000,

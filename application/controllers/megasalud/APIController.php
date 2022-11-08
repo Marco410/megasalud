@@ -34,7 +34,7 @@ class APIController extends CI_Controller {
         $arrayFinal = [];        
         $this->db->select("id,nombre,motivo_consulta");
         $this->db->from("pacientes");
-        $this->db->where("motivo_consulta",$_GET['motivo']);
+        $this->db->like("motivo_consulta",$_GET['motivo']);
         $pacientes = $this->db->get()->result();
         foreach($pacientes as $pa):
             $this->db->select("*");

@@ -670,18 +670,30 @@ function init() {
                         var data = res.data;
                         var l = data.length;
                         if (l > 0) {
-                            $("#panel-ante-medi").html("<h4>Medicamentos</h4>");
-                            if (l > 10) {
-                                $("#panel-ante-medi").attr("style", "height:150px; overflow: scroll; overflow-x: hidden; margin:10px;");
-                            } else {
-                                $("#panel-ante-medi").removeAttr("style");
+                            /*  $("#panel-ante-medi").html("<h4>Medicamentos</h4>");
+                             if (l > 10) {
+                                 $("#panel-ante-medi").attr("style", "height:150px; overflow: scroll; overflow-x: hidden; margin:10px;");
+                             } else {
+                                 $("#panel-ante-medi").removeAttr("style");
+                             }
+                             for (x = 0; x < l; x++) {
+                                 $("#panel-ante-medi").append("<button class='btn btn-sm elemento' onclick='new_medi(this)' data-name='" + data[x].medicamento + "' data-value='" + data[x].id + "' >" + data[x].medicamento + "</button>");
+                             } */
+
+                            var cc = $(".input-medi").toArray().length;
+                            if (cc > 1) {
+                                $(".input-medi").remove();
                             }
-                            for (x = 0; x < l; x++) {
-                                $("#panel-ante-medi").append("<button class='btn btn-sm elemento' onclick='new_medi(this)' data-name='" + data[x].medicamento + "' data-value='" + data[x].id + "' >" + data[x].medicamento + "</button>");
+                            if (cc < 1) {
+                                $(".input-medi").remove();
+
+                                $("#inputs-search").append("<button type='button' class='btn btn-sm elemento input-medi' onclick='new_medi(this)' data-name='" + data[0].medicamento + "' data-value='" + data[0].id + "' >" + data[0].medicamento + "</button>");
                             }
                         } else {
                             $("#panel-ante-medi").html("");
                             $("#panel-ante-medi").removeAttr("style");
+                            $(".input-medi").remove();
+
                         }
 
                     }
@@ -698,7 +710,7 @@ function init() {
                         var data = res.data;
                         var l = data.length;
                         if (l > 0) {
-                            $("#panel-ante-terapias").html("<h4>Terapias</h4>");
+                            /* $("#panel-ante-terapias").html("<h4>Terapias</h4>");
                             if (l > 10) {
                                 $("#panel-ante-terapias").attr("style", "height:150px; overflow: scroll; overflow-x: hidden; margin:10px;");
                             } else {
@@ -706,10 +718,21 @@ function init() {
                             }
                             for (x = 0; x < l; x++) {
                                 $("#panel-ante-terapias").append("<button class='btn btn-sm elemento' onclick='new_terapia(this)' data-name='" + data[x].terapia + "' data-value='" + data[x].id + "' >" + data[x].terapia + "</button>");
+                            } */
+                            var cc = $(".input-terapia").toArray().length;
+                            if (cc > 1) {
+                                $(".input-terapia").remove();
+                            }
+                            if (cc < 1) {
+                                $(".input-terapia").remove();
+
+                                $("#inputs-search").append("<button type='button' class='btn btn-sm elemento input-terapia' onclick='new_terapia(this)' data-name='" + data[0].terapia + "' data-value='" + data[0].id + "' >" + data[0].terapia + "</button>");
                             }
                         } else {
                             $("#panel-ante-terapias").html("");
                             $("#panel-ante-terapias").removeAttr("style");
+                            $(".input-terapia").remove();
+
                         }
 
                     }
@@ -726,7 +749,7 @@ function init() {
                         var data = res.data;
                         var l = data.length;
                         if (l > 0) {
-                            $("#panel-ante-productos-ven").html("<h4>Productos</h4>");
+                            /* $("#panel-ante-productos-ven").html("<h4>Productos</h4>");
                             if (l > 10) {
                                 $("#panel-ante-productos-ven").attr("style", "height:150px; overflow: scroll; overflow-x: hidden; margin:10px;");
                             } else {
@@ -734,10 +757,22 @@ function init() {
                             }
                             for (x = 0; x < l; x++) {
                                 $("#panel-ante-productos-ven").append("<button class='btn btn-sm elemento' onclick='search_relation(this)' data-name='" + data[x].nombre_p + "' data-value='" + data[x].id + "' >" + data[x].nombre_p + "</button>");
+                            } */
+
+                            var cc = $(".input-producto").toArray().length;
+                            if (cc > 1) {
+                                $(".input-producto").remove();
+                            }
+                            if (cc < 1) {
+                                $(".input-producto").remove();
+
+                                $("#inputs-search").append("<button type='button' class='btn btn-sm elemento input-producto' onclick='search_relation(this)' data-name='" + data[0].nombre_p + "' data-value='" + data[0].id + "' >" + data[0].nombre_p + "</button>");
                             }
                         } else {
                             $("#panel-ante-productos-ven").html("");
                             $("#panel-ante-productos-ven").removeAttr("style");
+                            $(".input-producto").remove();
+
                         }
 
                     }

@@ -2350,7 +2350,7 @@ class PatientsController extends CI_Controller {
     //obtener elementos patologicos
     
     public function get_ante_congenita(){
-        $this->db->like('enfermedad', $_POST['text'],'both');
+        $this->db->like('enfermedad', $_POST['text'],'after');
         $this->db->where('tipo
         ', 'congenita');
         $this->db->from("enfermedades");
@@ -2364,7 +2364,7 @@ class PatientsController extends CI_Controller {
     }  
     
     public function get_ante_vacunas(){
-        $this->db->like('vacuna', $_POST['text'],'both');
+        $this->db->like('vacuna', $_POST['text'],'after');
         $this->db->from("vacunas");
         $this->db->limit(1);
 
@@ -2377,7 +2377,7 @@ class PatientsController extends CI_Controller {
     } 
     
     public function get_ante_alergias(){
-        $this->db->like('alergeno', $_POST['text'],'both');
+        $this->db->like('alergeno', $_POST['text'],'after');
         $this->db->from("alergenos");
         $this->db->limit(1);
 
@@ -2390,7 +2390,7 @@ class PatientsController extends CI_Controller {
     } 
     
     public function get_ante_hospi(){
-        $this->db->like('causa', $_POST['text'],'both');
+        $this->db->like('causa', $_POST['text'],'after');
         $this->db->from("hospi_causa");
         $this->db->limit(1);
 
@@ -2403,7 +2403,7 @@ class PatientsController extends CI_Controller {
     } 
     
     public function get_ante_medi(){
-        $this->db->like('medicamento', $_POST['text'],'both');
+        $this->db->like('medicamento', $_POST['text'],'after');
         $this->db->from("medicamentos");
         $this->db->limit(1);
 
@@ -2416,7 +2416,7 @@ class PatientsController extends CI_Controller {
     } 
     
     public function get_ante_terapias(){
-        $this->db->like('terapia', $_POST['text'],'both');
+        $this->db->like('terapia', $_POST['text'],'after');
         $this->db->from("terapias");
         $this->db->limit(1);
 
@@ -2429,7 +2429,7 @@ class PatientsController extends CI_Controller {
     } 
     
     public function get_ante_venenos(){
-        $this->db->like('veneno', $_POST['text'],'both');
+        $this->db->like('veneno', $_POST['text'],'after');
         $this->db->from("venenos");
         $this->db->limit(1);
 
@@ -2442,7 +2442,7 @@ class PatientsController extends CI_Controller {
     } 
 
     public function get_product_ven(){
-        $this->db->like('nombre_p', $_POST['text'],'both');
+        $this->db->like('nombre_p', $_POST['text'],'after');
         $this->db->from("productos_ven");
         $this->db->limit(3);
 
@@ -2456,7 +2456,7 @@ class PatientsController extends CI_Controller {
     
     public function get_congenita(){
          $this->db->where('tipo
-        ', 'congenita','both');
+        ', 'congenita','after');
         $this->db->from("enfermedades");
         
         $result = $this->db->get();
@@ -2750,7 +2750,7 @@ class PatientsController extends CI_Controller {
             $this->db->insert('hisclinic_linea',$data_linea);
             
         }
-        
+
         echo json_encode(array('error' => false));
       }
     
