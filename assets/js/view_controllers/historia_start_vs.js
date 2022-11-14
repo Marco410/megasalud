@@ -34,39 +34,52 @@ $("#btn-iniciar-consulta").on("click", function () {
 
     var motivo = $("#start_consultaMotivo").val();
     var tipo = $("input:radio[name=tipo_consulta]:checked").val();
+    if (motivo && tipo) {
 
-    data = {
-        'id_paciente': id_p,
-        'motivo': motivo,
-        'tipo': tipo
-    }
-
-    $.ajax({
-        url: base_url + 'megasalud/PatientsController/start_consulta',
-        type: 'post',
-        data: data,
-        success: function (respuesta) {
-            iziToast.success({
-                timeout: 1500,
-                title: 'Éxito',
-                position: 'topRight',
-                // target: '.login-message',
-                message: 'Iniciando consulta...',
-            });
-            let json = JSON.parse(respuesta);
-            $("#btn-iniciarConsulta").hide();
-            $("#btn-iniciarConsulta2").hide();
-            $("#btn-terminar-consulta").show();
-            $("#start_consulta").modal("hide");
-            $("#btn-terminar-consulta").attr("data-id", json.id);
-
-            $("#btn-terminar-consulta2").show();
-            $("#btn-terminar-consulta2").attr("data-id", json.id);
-
-            mostrar_componentes();
-
+        data = {
+            'id_paciente': id_p,
+            'motivo': motivo,
+            'tipo': tipo
         }
-    });
+
+        $.ajax({
+            url: base_url + 'megasalud/PatientsController/start_consulta',
+            type: 'post',
+            data: data,
+            success: function (respuesta) {
+                iziToast.success({
+                    timeout: 1500,
+                    title: 'Éxito',
+                    position: 'topRight',
+                    // target: '.login-message',
+                    message: 'Iniciando la consulta...',
+                });
+                let json = JSON.parse(respuesta);
+                document.getElementById("panel-iniciar-consulta").hidden = true;
+                $("#btn-iniciarConsulta").hide();
+                $("#btn-iniciarConsulta2").hide();
+                $("#btn-terminar-consulta").show();
+                $("#start_consulta").modal("hide");
+                $("#btn-terminar-consulta").attr("data-id", json.id);
+
+                $("#btn-terminar-consulta2").show();
+                $("#btn-terminar-consulta2").attr("data-id", json.id);
+
+                $("#motivo_consulta_label").html("<b>" + motivo + "</b>");
+
+                mostrar_componentes();
+
+            }
+        });
+    } else {
+        iziToast.warning({
+            timeout: 1500,
+            title: 'Cuidado',
+            position: 'center',
+            // target: '.login-message',
+            message: 'Llena todos los campos.',
+        });
+    }
 
 });
 

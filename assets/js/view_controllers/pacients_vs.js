@@ -27,6 +27,19 @@ var español = {
     }
 };
 
+$("#btn-iniciarConsulta, #btn-iniciarConsulta2").on('click', function () {
+    let panel = document.getElementById("panel-iniciar-consulta").hidden;
+    if (panel) {
+        document.getElementById("panel-iniciar-consulta").hidden = false;
+        $(window).scrollTop({ top: 0, behavior: 'smooth' });
+
+    } else {
+        document.getElementById("panel-iniciar-consulta").hidden = true;
+    }
+
+});
+
+
 $('#inicia_consulta').validate({
 
     submitHandler: function (form) {
@@ -36,7 +49,8 @@ $('#inicia_consulta').validate({
             data: $(form).serialize(),
             success: function (respuesta) {
                 if (respuesta) {
-                    Cookies.set('message', { type: 'success', message: 'Iniciando consulta...' });
+                    Cookies.set('message', { type: 'success', message: 'Iniciando la consulta...' });
+                    document.getElementById("panel-iniciar-consulta").hidden = true;
                     location.reload();
                     $("#primera_vez").show();
                 }
@@ -1068,7 +1082,7 @@ function init() {
     });
 
     //Al seleccionar otro
-    $('#motivo, #motivo_m,#start_consultaMotivo').on('change', function () {
+    $('#motivo, #motivo_m, #start_consultaMotivo').on('change', function () {
         if ($(this).find(":selected").val() == "Otra") {
             document.getElementById("panel-add-m").hidden = false;
 

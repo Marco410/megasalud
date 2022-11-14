@@ -481,6 +481,14 @@ class PatientsController extends CI_Controller {
 
         if($this->db->insert("consultas",$data)){
             $id_c = $this->db->insert_id();
+
+            $data_motivo = array (
+                'motivo_consulta' => $_POST["motivo"]    
+                );
+   
+            $this->db->where('id', $_POST["id_paciente"]);
+            $this->db->update('pacientes',$data_motivo);
+            
             echo json_encode(array('id'=> $id_c));
         }else{
             echo false;
@@ -1691,9 +1699,9 @@ class PatientsController extends CI_Controller {
        
         $pass = "P-".substr($_POST['apellido_p'],0,2).$am.substr($_POST['nombre'],0,1).date("d");
          
-         //Se busca el id del motivo para el paciente
+      /*    //Se busca el id del motivo para el paciente
         $this->db->where("id",$this->input->post('motivo'));
-        $motivo = $this->db->get("motivo_consulta")->row()->enfermedad;
+        $motivo = $this->db->get("motivo_consulta")->row()->enfermedad; */
          
         $data =  array(
             
@@ -1702,7 +1710,7 @@ class PatientsController extends CI_Controller {
         'apellido_m' => $this->input->post('apellido_m'),
         'email' => $this->input->post('email'),
         'password' => $pass,
-        'motivo_consulta' => $motivo,
+        /* 'motivo_consulta' => $motivo, */
         'sexo' => $this->input->post('sexo'),
         'estado_civil' => $this->input->post('estado_civil'),
         'municipio_origen' => $this->input->post('municipio_origen'),
@@ -1785,12 +1793,12 @@ class PatientsController extends CI_Controller {
             $this->db->update('pacientes',$data_clave);
 
 
-            //Se inserta el motivo
+            /* //Se inserta el motivo
              $dataMotivo = array(
                 'id_paciente' => $id_paciente,
                  'id_motivo' => $this->input->post('motivo')
              );
-             $this->db->insert("hisclinic_motivo",$dataMotivo);
+             $this->db->insert("hisclinic_motivo",$dataMotivo); */
 
              echo json_encode($data);
             }

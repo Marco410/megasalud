@@ -58,7 +58,7 @@
                                 <small>Si no tiene correo escriba "na@na.com"</small>
 							</div>
                         </div>
-                        <div class="col-sm-3" >
+                        <!-- <div class="col-sm-3" >
                             <div class="form-group">
                                 <label>
                                     Motivo de la Consulta 
@@ -76,7 +76,7 @@
                                     <a href="#" class="btn btn-sm btn-info" data-id="1" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
                                 </div>
 							</div>
-                        </div>
+                        </div> -->
                         <div class="col-sm-4" >
                             <div class="form-group">
 								<label>

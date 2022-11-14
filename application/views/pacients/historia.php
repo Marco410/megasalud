@@ -22,54 +22,56 @@
     <input type="hidden" id="id_paciente" name="id_paciente" value="<?=$paciente->id ?>" />
 
     
-    <h3 class="ms-title"><b>HISTORIAL CLÍNICO</b>  <button style="margin-left:300px;" class="btn btn-md btn-success" id="btn-iniciarConsulta"  data-toggle="modal" data-target="#start_consulta" > <i class="fa fa-play" ></i> Iniciar Consulta</button><button style="margin-left:300px;display:none;" class="btn btn-md btn-danger" id="btn-terminar-consulta" data-id=""    > <i class="fa fa-stop" ></i> Terminar Consulta</button>  <i class="fa fa-clock-o" ></i> <a href="javascript:history.back()" class="btn btn-default pull-right"><i class="fa fa-chevron-left"></i> <span>Regresar</span></a>  </h3>
+    <h3 class="ms-title"><b>HISTORIAL CLÍNICO</b>  <button style="margin-left:300px;" class="btn btn-md btn-success" id="btn-iniciarConsulta" > <i class="fa fa-play" ></i> Iniciar Consulta</button><button style="margin-left:300px;display:none;" class="btn btn-md btn-danger" id="btn-terminar-consulta" data-id=""    > <i class="fa fa-stop" ></i> Terminar Consulta</button>  <i class="fa fa-clock-o" ></i> <a href="javascript:history.back()" class="btn btn-default pull-right"><i class="fa fa-chevron-left"></i> <span>Regresar</span></a>  </h3>
 
-<!-- Modal Comenzar Consulta -->
-<div class="modal fade" id="start_consulta" tabindex="-1" role="dialog" aria-labelledby="Password" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" >Iniciar Nueva Consulta</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-    <div class="modal-body">
-      <div class="row">
-        <div class="col-sm-6 form-group" >
-          <label>Motivo de Consulta</label>
-            <select class="form-control" required id="start_consultaMotivo" name="start_consultaMotivo" >
-              <option value="">Seleccione: </option>
+  <div class=" panel panel-primary" id="panel-iniciar-consulta" hidden>
+    <div class="panel-body">
+      <div class="container">
+      <div class="col-sm-6 panel-body row" >
+        <div class="form-group">
+          <div class="col-sm-12">
+            <label>Motivo de Consulta</label>
+            
+          </div>
+          <div class="col-sm-12">
+              <select class="form-control select2 " style="width: 100%" required id="start_consultaMotivo" name="start_consultaMotivo" >
+                <option value="">Seleccione: </option>
 
-              <?php foreach ($motivo_consulta->result() as $motivo): ?>
-              <option value="<?= $motivo->enfermedad ?>"><?= $motivo->enfermedad ?></option>
-              <?php endforeach ?>    
-              <option value="Otra">Otra</option>    
-          </select>
+                <?php foreach ($motivo_consulta->result() as $motivo): ?>
+                <option value="<?= $motivo->enfermedad ?>"><?= $motivo->enfermedad ?></option>
+                <?php endforeach ?>    
+                <option value="Otra">Otra</option>    
+            </select>
+
+            </div>
+          </div>
           <div class="" id="panel-add-m" hidden >
               <br>
               <a href="#" class="btn btn-sm btn-info" data-id="1" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
           </div>
-          </div>
-          <div class="col-sm-6 form-group">
-            <br>
-            <label for="">Primera Vez
-              <input type="radio" name="tipo_consulta" id="1" value="Primera Vez"  />
-            </label>
-            <label for="">Subsecuente
-              <input type="radio" name="tipo_consulta" id="2" value="Subsecuente" />
-            </label>
-          </div>
-          <div class="col-sm-12">
-            <button class="btn btn-sm btn-block btn-success" id="btn-iniciar-consulta"  > <i class="fa fa-play" ></i> Empezar</button>
-          </div>
         </div>
-      </div>     
-    </div>
-  </div>
-</div>    
-<!-- Termina Modal Comenzar Consulta -->
+      <div class="col-sm-6 form-group">
+        <br>
+        <div class="col-sm-6">
+          
+          <label for="">Primera Vez
+            <input type="radio" name="tipo_consulta" id="1" value="Primera Vez"  />
+          </label>
+        </div>
+        <div class="col-sm-6">
 
+          <label for="">Subsecuente
+            <input type="radio" name="tipo_consulta" id="2" value="Subsecuente" />
+          </label>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <button class="btn btn-sm btn-block btn-success" id="btn-iniciar-consulta"  > <i class="fa fa-play" ></i> Empezar</button>
+      </div>
+      </div>
+    </div>
+
+  </div>
 
     <div class="row">
         <div class="col-sm-4">
@@ -96,7 +98,7 @@
                         </div> 
                       
                         <div class="col-sm-6" >
-                          <h5>Motivo de Consulta: <label class="sm" ><b><?=$paciente->motivo_consulta ?></b></label></h5>
+                          <h5>Motivo de Consulta: <label class="sm" id="motivo_consulta_label" ><b><?=$paciente->motivo_consulta ?></b></label></h5>
                           <h5>Expediente: <label class="sm" ><b><?=$paciente->clave_bancaria ?></b></label></h5>
                           <h5>Sucursal: <label class="sm" ><b id="sucursal_p" ></b></label></h5>
                           <h5>Edad: <label class="sm" ><b> <?= $edad->format('%Y')?> años y <?= $edad->format('%m')?> meses</b></label></h5>
