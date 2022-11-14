@@ -250,73 +250,7 @@
                 
                 </div>
                 
-             <div class="col-sm-12">
-                            <div class="panel panel-default" >
-                                <div class="panel-heading" >
-
-                                    <h4>Enfermedades Infectocontagiosa</h4>
-                                </div>
-                                <div class="panel-body" >
-                                    
-                                    <div class="col-sm-6" >
-                                        <label>Virus</label>
-                                        <form id="add_enf_virus" name="add_enf_virus" method="post">
-                                        <input required class="form-control" placeholder="Ingresa aquí"  id="enf_virus" name="enf_virus"  />
-                                        <small>Esta aparece en virus.</small>
-                                        <button type="submit" class="btn btn-sm btn-info pull-right" ><i class="glyphicon glyphicon-plus"></i></button>
-                                        </form>    
-                                    </div>
-                                    
-                                    <div class="col-sm-6" >
-                                        <label>Bacterias</label>
-                                        <form id="add_enf_bacteria" name="add_enf_bacteria" method="post">
-                                        <input required class="form-control" placeholder="Ingresa aquí"  id="enf_bacteria" name="enf_bacteria"  />
-                                        <small>Esta aparece en bacterias.</small>
-                                        <button type="submit" class="btn btn-sm btn-info pull-right" ><i class="glyphicon glyphicon-plus"></i></button>
-                                        </form>    
-                                    </div>
-                                    
-                                    <div class="col-sm-6" >
-                                        <label>Hongos</label>
-                                        <form id="add_enf_hongos" name="add_enf_hongos" method="post">
-                                        <input required class="form-control" placeholder="Ingresa aquí"  id="enf_hongos" name="enf_hongos"  />
-                                        <small>Esta aparece en hongos.</small>
-                                        <button type="submit" class="btn btn-sm btn-info pull-right" ><i class="glyphicon glyphicon-plus"></i></button>
-                                        </form>    
-                                    </div>
-                                    
-                                    <div class="col-sm-6" >
-                                        <label>Parásitos</label>
-                                        <form id="add_enf_parasitos" name="add_enf_parasitos" method="post">
-                                        <input required class="form-control" placeholder="Ingresa aquí"  id="enf_parasitos" name="enf_parasitos"  />
-                                        <small>Esta aparece en parásitos.</small>
-                                        <button type="submit" class="btn btn-sm btn-info pull-right" ><i class="glyphicon glyphicon-plus"></i></button>
-                                        </form>    
-                                    </div>
-                                    
-                                    <div class="col-sm-6" >
-                                        <label>Psicológicas</label>
-                                        <form id="add_enf_psico" name="add_enf_psico" method="post">
-                                        <input required class="form-control" placeholder="Ingresa aquí"  id="enf_psico" name="enf_psico"  />
-                                        <small>Esta aparece en Psicológicas.</small>
-                                        <button type="submit" class="btn btn-sm btn-info pull-right" ><i class="glyphicon glyphicon-plus"></i></button>
-                                        </form>    
-                                    </div>
-                                    
-                                    <div class="col-sm-6" >
-                                        <label>Otras</label>
-                                        <form id="add_enf_otras" name="add_enf_otras" method="post">
-                                        <input required class="form-control" placeholder="Ingresa aquí"  id="enf_otras" name="enf_otras"  />
-                                        <small>Esta aparece en Otras.</small>
-                                        <button type="submit" class="btn btn-sm btn-info pull-right" ><i class="glyphicon glyphicon-plus"></i></button>
-                                        </form>    
-                                    </div>  
-                                    
-                                </div>
-                            </div>
-
-                        </div>
-            </div>
+            
 		</div>
 	</div>
 

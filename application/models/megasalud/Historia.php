@@ -40,49 +40,54 @@ class Historia extends CI_Model
 	}
     
      public function congenita($hisclinic_app1, $data_linea) {
-				$this->db->insert('hisclinic_linea', $data_linea);
-    return $this->db->insert('hisclinic_app1', $hisclinic_app1);	
+
+		$res = $this->insert_in_linea_vida($data_linea);
+
+        if($res == 0){
+			return $this->db->insert('hisclinic_app1', $hisclinic_app1);
+		}else{
+			echo json_encode(array('equal' => true));
+		}
 	}
     
      public function vacuna($data, $data_linea) {
-		$this->db->insert('hisclinic_linea', $data_linea);
-    return $this->db->insert('hisclinic_inmunizaciones', $data);
+
+		$res = $this->insert_in_linea_vida($data_linea);
+
+        if($res == 0){
+			return $this->db->insert('hisclinic_inmunizaciones', $data);
+		}else{
+			echo json_encode(array('equal' => true));
+		}
 	}
     
     public function alergia($data,$data_linea) {
-		$this->db->insert('hisclinic_linea', $data_linea);
-    return $this->db->insert('hisclinic_alergias', $data);
+		$res = $this->insert_in_linea_vida($data_linea);
+
+        if($res == 0){
+			return $this->db->insert('hisclinic_alergias', $data);
+		}else{
+			echo json_encode(array('equal' => true));
+		}
+    
 	}
+
     public function hospitalizaciones($data, $data_linea) {
 		$this->db->insert('hisclinic_linea', $data_linea);
     return $this->db->insert('hisclinic_hospitalizaciones', $data);
 	}
+
+	public function save_veneno_new($data,$data_linea) {
+		$res = $this->insert_in_linea_vida($data_linea);
+
+        if($res == 0){
+			return $this->db->insert('hisclinic_venenos',$data);
+		}else{
+			return false;
+		}
     
-    //guarda enfermedades infectocontagiosas
-    public function enf_infecto_virus_in($data,$data_linea) {
-		$this->db->insert('hisclinic_linea', $data_linea);
-    return $this->db->insert('hisclinic_enf_infecto_virus', $data);
 	}
-    public function enf_infecto_bacterias_in($data,$data_linea) {
-		$this->db->insert('hisclinic_linea', $data_linea);
-    return $this->db->insert('hisclinic_enf_infecto_bacterias', $data);
-	}
-    public function enf_infecto_hongos_in($data,$data_linea) {
-		$this->db->insert('hisclinic_linea', $data_linea);
-    return $this->db->insert('hisclinic_enf_infecto_hongos', $data);
-	}
-    public function enf_infecto_parasitos_in($data,$data_linea) {
-		$this->db->insert('hisclinic_linea', $data_linea);
-    return $this->db->insert('hisclinic_enf_infecto_parasitos', $data);
-	}
-    public function enf_infecto_psicologicas_in($data, $data_linea) {
-		$this->db->insert('hisclinic_linea', $data_linea);
-    return $this->db->insert('hisclinic_enf_infecto_psicologicas', $data);
-	}
-    public function enf_infecto_otras_in($data, $data_linea) {
-		$this->db->insert('hisclinic_linea', $data_linea);
-    return $this->db->insert('hisclinic_enf_infecto_otras', $data);
-	}
+    
     
     //busca el paciente en la bd
 	public function find($id) {
@@ -154,7 +159,20 @@ class Historia extends CI_Model
 		$this->db->join("hisclinic_evolucion he", "he.linea_id = h.id ",'inner');
 		$this->db->order_by('h.anio', 'asc');
 		return $this->db->get()->result();
-	} 
+	}
+	
+	public function insert_in_linea_vida($data_linea){
+		$this->db->where('id_paciente', $data_linea['id_paciente']);
+		$this->db->where('id_dato', $data_linea['id_dato']);
+		$this->db->where('table_hisclinic', $data_linea['table_hisclinic']);
+        $res = $this->db->count_all_results('hisclinic_linea');
+        if($res == 0){
+			$this->db->insert('hisclinic_linea', $data_linea);
+			return 0;
+		}else{
+			return $res;
+		}
+	}
 
 	public function dato_linea_vida($id) {
 		$this->db->where('id', $id);

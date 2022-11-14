@@ -463,33 +463,46 @@ function init() {
 				data: $(form).serialize(),
 				success: function (respuesta) {
 					if (respuesta) {
+
 						var res = JSON.parse(respuesta);
-						if (res.error != true) {
-							iziToast.success({
-								timeout: 3000,
-								title: 'Exito',
-								position: 'topRight',
-								// target: '.login-message',
-								message: 'Guardado correctamente.',
-							});
-							switch (res.id) {
-								case 19:
-									$('#producto_ven').append("<option selected value='" + res.id_dat + "' >" + res.dat + "</option>");
-									break;
+						if (!res.equal) {
+
+							if (res.error != true) {
+								iziToast.success({
+									timeout: 3000,
+									title: 'Exito',
+									position: 'topRight',
+									// target: '.login-message',
+									message: 'Guardado correctamente.',
+								});
+								switch (res.id) {
+									case 19:
+										$('#producto_ven').append("<option selected value='" + res.id_dat + "' >" + res.dat + "</option>");
+										break;
+								}
+
+								$("#producto_id").val(res.id_dat);
+								$("#addSet").modal("hide");
+								$("#dato").val("");
+
+
+							} else {
+								iziToast.error({
+									timeout: 3000,
+									title: 'Error',
+									position: 'topRight',
+									// target: '.login-message',
+									message: 'No se guardo. ' + res.msj,
+								});
+
 							}
-
-							$("#producto_id").val(res.id_dat);
-							$("#addSet").modal("hide");
-							$("#dato").val("");
-
-
 						} else {
-							iziToast.error({
+							iziToast.warning({
 								timeout: 3000,
-								title: 'Error',
-								position: 'topRight',
+								title: 'Cuidado',
+								position: 'center',
 								// target: '.login-message',
-								message: 'No se guardo. ' + res.msj,
+								message: 'Ya hay un dato igual o parecido al que intentas ingresar.',
 							});
 
 						}

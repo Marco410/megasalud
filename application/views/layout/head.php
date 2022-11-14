@@ -19,7 +19,7 @@ $plugins = base_url('assets/plugins').'/';
     <meta http-equiv="Cache-Control" content="no-cache">
     <meta http-equiv="Pragma" CONTENT="no-cache">
 
-	<title>Megasalud <?php if(isset($title)) echo "| ".$title; ?></title>
+	<title><?php if(isset($title)) echo $title. " |"; ?> Megasalud </title>
     
 	
     <link rel="shortcut icon" href="<?php echo $img_path?>icons/favicon.ico">

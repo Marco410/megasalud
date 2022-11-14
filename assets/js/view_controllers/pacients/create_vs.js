@@ -428,92 +428,102 @@ function init() {
                 success: function (respuesta) {
                     if (respuesta) {
                         var res = JSON.parse(respuesta);
+                        if (!res.equal) {
+                            if (res.error != true) {
+                                iziToast.success({
+                                    timeout: 3000,
+                                    title: 'Exito',
+                                    position: 'topRight',
+                                    // target: '.login-message',
+                                    message: 'Guardado correctamente.',
+                                });
+                                switch (res.id) {
+                                    case 1:
+                                        $('#motivo').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
+                                        $('#motivo_m').append("<option selected value='" + res.id_m + "' >" + res.dat + "</option>");
+                                        break;
+                                    case 2:
+                                        $('#enfermedad').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
+                                        break;
+                                    case 3:
+                                        $('#medicamento').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
+                                        $("#divMedi").load(" #divMedi");
+                                        $('#med_h').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
+                                        $('#med_virus').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
+                                        $('#med_bac').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
+                                        $('#med_hongo').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
+                                        $('#med_para').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
+                                        $('#med_psico').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
+                                        $('#med_otras').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
+                                        break;
+                                    case 4:
+                                        $('#vacuna').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
+                                        break;
+                                    case 5:
+                                        $('#alergeno').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
+                                        break;
+                                    case 6:
+                                        $('#tratamiento_ale').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
+                                        break;
+                                    case 7:
+                                        $('#causa_h').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
+                                        break;
+                                    case 8:
+                                        $('#operacion_h').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
+                                        break;
+                                    case 9:
+                                        $('#tipo_ane').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
+                                        break;
+                                    case 10:
+                                        $('#tipo_trans').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
+                                        break;
+                                    case 11:
+                                        $('#tipo_prot').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
+                                        break;
+                                    case 12:
+                                        $('#enf_virus').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
+                                        break;
+                                    case 13:
+                                        $('#enf_bac').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
+                                        break;
+                                    case 14:
+                                        $('#enf_hongo').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
+                                        break;
+                                    case 15:
+                                        $('#enf_para').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
+                                        break;
+                                    case 16:
+                                        $('#enf_psico').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
+                                        break;
+                                    case 17:
+                                        $('#enf_otras').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
+                                        break;
+                                    case 18:
+                                        $('#terapia').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
+                                        break;
+                                }
 
-                        if (res.error != true) {
-                            iziToast.success({
-                                timeout: 3000,
-                                title: 'Exito',
-                                position: 'topRight',
-                                // target: '.login-message',
-                                message: 'Guardado correctamente.',
-                            });
-                            switch (res.id) {
-                                case 1:
-                                    $('#motivo').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
-                                    $('#motivo_m').append("<option selected value='" + res.id_m + "' >" + res.dat + "</option>");
-                                    break;
-                                case 2:
-                                    $('#enfermedad').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
-                                    break;
-                                case 3:
-                                    $('#medicamento').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
-                                    $("#divMedi").load(" #divMedi");
-                                    $('#med_h').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
-                                    $('#med_virus').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
-                                    $('#med_bac').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
-                                    $('#med_hongo').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
-                                    $('#med_para').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
-                                    $('#med_psico').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
-                                    $('#med_otras').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
-                                    break;
-                                case 4:
-                                    $('#vacuna').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
-                                    break;
-                                case 5:
-                                    $('#alergeno').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
-                                    break;
-                                case 6:
-                                    $('#tratamiento_ale').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
-                                    break;
-                                case 7:
-                                    $('#causa_h').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
-                                    break;
-                                case 8:
-                                    $('#operacion_h').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
-                                    break;
-                                case 9:
-                                    $('#tipo_ane').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
-                                    break;
-                                case 10:
-                                    $('#tipo_trans').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
-                                    break;
-                                case 11:
-                                    $('#tipo_prot').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
-                                    break;
-                                case 12:
-                                    $('#enf_virus').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
-                                    break;
-                                case 13:
-                                    $('#enf_bac').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
-                                    break;
-                                case 14:
-                                    $('#enf_hongo').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
-                                    break;
-                                case 15:
-                                    $('#enf_para').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
-                                    break;
-                                case 16:
-                                    $('#enf_psico').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
-                                    break;
-                                case 17:
-                                    $('#enf_otras').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
-                                    break;
-                                case 18:
-                                    $('#terapia').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
-                                    break;
+                                $("#addSet").modal("hide");
+                                $("#dato").val("");
+
+
+                            } else {
+                                iziToast.error({
+                                    timeout: 3000,
+                                    title: 'Error',
+                                    position: 'topRight',
+                                    // target: '.login-message',
+                                    message: 'No se guardo.',
+                                });
+
                             }
-
-                            $("#addSet").modal("hide");
-                            $("#dato").val("");
-
-
                         } else {
-                            iziToast.error({
+                            iziToast.warning({
                                 timeout: 3000,
-                                title: 'Error',
-                                position: 'topRight',
+                                title: 'Cuidado',
+                                position: 'center',
                                 // target: '.login-message',
-                                message: 'No se guardo.',
+                                message: 'Ya hay un dato igual o parecido al que intentas ingresar.',
                             });
 
                         }

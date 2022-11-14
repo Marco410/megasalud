@@ -1147,7 +1147,6 @@ class PatientsController extends CI_Controller {
         );
           
             if($this->historia->diagnostico_dr($data, $data_linea)){
-
                 echo json_encode($data);
             }
             else{
@@ -1223,13 +1222,12 @@ class PatientsController extends CI_Controller {
         'descripcion' => $descripcion, 
         'anio' => $anio
         );
-        
-    if($this->historia->congenita($data, $data_linea)){
-        
-        echo json_encode($data);
-    }
+        $res = $this->historia->congenita($data, $data_linea);
+        if($res){
+            echo json_encode($data);
+        }
         else{
-            echo false;
+            echo $res;
         }
         
     }
@@ -1260,13 +1258,14 @@ class PatientsController extends CI_Controller {
         'descripcion' => $descripcion,
         'anio' => $anio
         );
+        $res = $this->historia->vacuna($data, $data_linea);
         
-        if($this->historia->vacuna($data, $data_linea)){
+        if($res){
             echo json_encode($data);
-            }
-            else{
-                echo false;
-            }
+        }
+        else{
+            echo $res;
+        }
         
     }
     
@@ -1307,13 +1306,16 @@ class PatientsController extends CI_Controller {
         'descripcion' => $descripcion,
         'anio' => $anio
         );
-        if($this->historia->alergia($data, $data_linea)){
 
+        $res = $this->historia->alergia($data, $data_linea);
+    
+        if($res){
             echo json_encode($data);
-            }
-            else{
-                echo false;
-            } 
+        }
+        else{
+            echo $res;
+        }
+            
     }
     
     public function hospitalizaciones() {
@@ -1361,276 +1363,7 @@ class PatientsController extends CI_Controller {
             echo false;
         } 
     }
-    
-    //info de las enferemedades infecto contagiosas
-    public function enf_virus() {
-        
-        $id_medi = $this->input->post('medicamentos');
-        $this->db->where("id",$id_medi);
-        $medi = $this->db->get("medicamentos")->row()->medicamento;
-        
-        $id_virus = $this->input->post('enfermedad');
-        
-        $this->db->where("id",$id_virus);
-        $virus = $this->db->get("enfermedades")->row()->enfermedad;
-        
-        $anio =  $this->input->post('anio') + $this->input->post('edad_virus');
-        
-        $descripcion = "Virus - " . $this->input->post('manejo'); 
-        
-        $data =  array(
-        'id_paciente' => $this->input->post('id_paciente'),
-        'enfermedad' => $virus,
-        'id_virus' => $id_virus,
-        'manejo' => $this->input->post('manejo'),
-        'id_medi' => $this->input->post('medicamentos'),
-        'medicamento' => $medi,
-        'edad_virus' => $this->input->post('edad_virus')
-        );
-        
-         $data_linea = array(
-        'id_paciente' => $this->input->post('id_paciente'),
-        'enfermedad' => $virus,
-        'table_hisclinic' => "Virus",//_enf_infecto_virus
-        'edad_paciente' => $this->input->post('edad_virus'), 
-        'descripcion' => $descripcion,
-        'anio' => $anio
-        );
-        
-    if($this->historia->enf_infecto_virus_in($data, $data_linea)){
-        
-        echo json_encode($data);
-    }
-        else{
-            echo false;
-        }
-        
-    }
-    
-    public function enf_bacterias() {        
-        $id_paciente = $this->input->post('id_paciente');
-        
-        $id_medi = $this->input->post('medicamentos');
-        $this->db->where("id",$id_medi);
-        $medi = $this->db->get("medicamentos")->row()->medicamento;
-               
-        $id_bacteria = $this->input->post('enfermedad');
-        $this->db->where("id",$id_bacteria);
-        
-        $bacteria = $this->db->get("enfermedades")->row()->enfermedad;
-        
-        $anio =  $this->input->post('anio') + $this->input->post('edad_bacterias');
-        
-        $descripcion = "Bacteria - " . $this->input->post('manejo'); 
-        
-        $data =  array(
-        'id_paciente' => $id_paciente,
-        'enfermedad' => $bacteria,
-        'id_bac' => $this->input->post('enfermedad'),
-        'manejo' => $this->input->post('manejo'),
-        'id_medi' => $id_medi,
-        'medicamento' => $medi,
-        'edad_bacterias' => $this->input->post('edad_bacterias')
-        );
-        
-        $data_linea = array(
-        'id_paciente' => $id_paciente,
-        'enfermedad' => $bacteria,
-        'table_hisclinic' => "Bacteria",//enf_infecto_bacteria
-        'edad_paciente' => $this->input->post('edad_bacterias'), 
-        'descripcion' => $descripcion,
-        'anio' => $anio
-        );
-        
-    if($this->historia->enf_infecto_bacterias_in($data, $data_linea)){
-        
-        echo json_encode($data);
-    }
-        else{
-            echo false;
-        }
-        
-    }
-    
-    public function enf_hongos() {
-        
-        $id_paciente = $this->input->post('id_paciente');
-        
-        $id_medi = $this->input->post('medicamentos');
-        $this->db->where("id",$id_medi);
-        $medi = $this->db->get("medicamentos")->row()->medicamento;
-               
-        $id_hongo = $this->input->post('enfermedad');
-        $this->db->where("id",$id_hongo);
-        $hongo = $this->db->get("enfermedades")->row()->enfermedad;
-               
-        $anio =  $this->input->post('anio') + $this->input->post('edad_hongos');
-        
-        $descripcion = "Hongo - " . $this->input->post('manejo'); 
-        
-        $data =  array(
-        'id_paciente' => $id_paciente,
-        'id_hongo' => $id_hongo, 
-        'enfermedad' => $hongo, 
-        'manejo' => $this->input->post('manejo'),
-        'id_medi' => $id_medi,
-        'medicamento' => $medi,
-        'edad_hongos' => $this->input->post('edad_hongos')
-        );
-        
-        $data_linea = array(
-        'id_paciente' => $id_paciente,
-        'enfermedad' => $medi,
-        'table_hisclinic' => "Hongo",//enf_infecto_hongos
-        'edad_paciente' => $this->input->post('edad_hongos'), 
-        'descripcion' => $descripcion,
-        'anio' => $anio
-        );
-        
-    if($this->historia->enf_infecto_hongos_in($data,$data_linea)){
-        
-        echo json_encode($data);
-    }
-        else{
-            echo false;
-        }
-        
-    }
-    
-    public function enf_parasitos() {
-               
-        $id_paciente = $this->input->post('id_paciente');
-        
-        $id_medi = $this->input->post('medicamentos');
-        $this->db->where("id",$id_medi);
-        $medi = $this->db->get("medicamentos")->row()->medicamento;
-               
-        $id_para = $this->input->post('enfermedad');
-        $this->db->where("id", $id_para);
-        $para = $this->db->get("enfermedades")->row()->enfermedad;
-        
-        $anio =  $this->input->post('anio') + $this->input->post('edad_parasitos');
-        
-        $descripcion = "Parásito - " . $this->input->post('manejo');
-        
-        $data =  array(
-        'id_paciente' => $id_paciente,
-        'id_para' => $id_para,
-        'enfermedad' => $para,
-        'manejo' => $this->input->post('manejo'),
-        'id_medi' => $id_medi,
-        'medicamento' => $medi,
-        'edad_parasitos' => $this->input->post('edad_parasitos')
-        );
-        
-         $data_linea = array(
-        'id_paciente' => $this->input->post('id_paciente'),
-        'enfermedad' => $para,
-        'table_hisclinic' => "Parásito",//enf_infecto_parasitos
-        'edad_paciente' => $this->input->post('edad_parasitos'), 
-        'descripcion' => $descripcion,
-        'anio' => $anio
-        );
-        
-    if($this->historia->enf_infecto_parasitos_in($data, $data_linea)){
-        
-        echo json_encode($data);
-    }
-        else{
-            echo false;
-        }
-        
-    }
-    
-    public function enf_psicologica() {
-               
-        $id_paciente = $this->input->post('id_paciente');
-        
-        $id_medi = $this->input->post('medicamentos');
-        $this->db->where("id",$id_medi);
-        $medi = $this->db->get("medicamentos")->row()->medicamento;
-               
-        $id_psico = $this->input->post('enfermedad');
-        $this->db->where("id", $id_psico);
-        $psico = $this->db->get("enfermedades")->row()->enfermedad;
-        
-        $anio =  $this->input->post('anio') + $this->input->post('edad_psicologica');
-        
-        $descripcion = "Psicológica - " . $this->input->post('manejo');
-        
-        $data =  array(
-        'id_paciente' => $id_paciente,
-        'id_psico' => $id_psico,
-        'enfermedad' => $psico,
-        'manejo' => $this->input->post('manejo'),
-        'id_medi' => $id_medi,
-        'medicamento' => $medi,
-        'edad_psicologica' => $this->input->post('edad_psicologica')
-        );
-        
-         $data_linea = array(
-        'id_paciente' => $id_paciente,
-        'enfermedad' => $this->input->post('enfermedad'),
-        'table_hisclinic' => "Psicológica",//enf_infecto_psicologicas
-        'edad_paciente' => $this->input->post('edad_psicologica'), 
-        'descripcion' => $descripcion,
-        'anio' => $anio
-        );
-        
-    if($this->historia->enf_infecto_psicologicas_in($data, $data_linea)){
-        
-        echo json_encode($data);
-    }
-        else{
-            echo false;
-        }
-        
-    }
-    
-    public function enf_otras() {
-               
-        $id_paciente = $this->input->post('id_paciente');
-        
-        $id_medi = $this->input->post('medicamentos');
-        $this->db->where("id",$id_medi);
-        $medi = $this->db->get("medicamentos")->row()->medicamento;
-               
-        $id_otras = $this->input->post('enfermedad');
-        $this->db->where("id", $id_otras);
-        $otras = $this->db->get("enfermedades")->row()->enfermedad;
-        
-        $anio =  $this->input->post('anio') + $this->input->post('edad_otras');
-        
-        $descripcion = "Otra - " . $this->input->post('manejo');
-        
-        $data =  array(
-        'id_paciente' => $id_paciente,
-        'id_otra' => $id_otras, 
-        'enfermedad' => $otras, 
-        'manejo' => $this->input->post('manejo'),
-        'id_medi' => $id_medi,
-        'medicamento' => $medi,
-        'edad_otras' => $this->input->post('edad_otras')
-        );
-        
-        $data_linea = array(
-        'id_paciente' => $id_paciente,
-        'enfermedad' => $this->input->post('enfermedad'),
-        'table_hisclinic' => "Otra",//enf_infecto_otras
-        'edad_paciente' => $this->input->post('edad_otras'), 
-        'descripcion' => $descripcion,
-        'anio' => $anio
-        );
-        
-    if($this->historia->enf_infecto_otras_in($data, $data_linea)){
-        
-        echo json_encode($data);
-    }
-        else{
-            echo false;
-        }
-        
-    }
+   
     
     public function delete(){
 
@@ -2709,12 +2442,14 @@ class PatientsController extends CI_Controller {
         'anio' => $anio
         );
          
-         
-        if($this->db->insert('hisclinic_venenos',$data)){
-            $this->db->insert('hisclinic_linea',$data_linea);
+
+        $res = $this->historia->save_veneno_new($data, $data_linea);
+        
+        if($res){
             echo json_encode(array('error' => false));
-        }else{
-            echo json_encode(array('error' => true));
+        }
+        else{
+            echo $res;
         }
         
     }
@@ -2730,36 +2465,43 @@ class PatientsController extends CI_Controller {
         $this->db->from('venenos_productos a');
         $result = $this->db->get();
         $response['data'] = $result->result_array();
+        $resp = [];
 
         foreach($result->result_array() as $ven){
 
-        $descripcion = "No Patológico - Producto: ".$ven['nombre_p'];
-       
-         $data = array(
-             'id_paciente' => $_POST['id_paciente'],
-            'id_veneno' => $ven['veneno_id'],
-            'veneno' => $ven['veneno'],
-            'frecuencia' => $_POST['frecc_all'],
-            'edad_veneno' => $_POST['edad_veneno_all']
-         );
-         
+            $descripcion = "No Patológico - Producto: ".$ven['nombre_p'];
+        
+            $data = array(
+                'id_paciente' => $_POST['id_paciente'],
+                'id_veneno' => $ven['veneno_id'],
+                'veneno' => $ven['veneno'],
+                'frecuencia' => $_POST['frecc_all'],
+                'edad_veneno' => $_POST['edad_veneno_all']
+            );
+            
             $data_linea = array(
-            'id_paciente' => $_POST['id_paciente'],
-            'id_dato' => $ven['veneno_id'],
-            'enfermedad' => $ven['veneno'], 
-            'table_hisclinic' => "venenos", //_app1
-            'edad_paciente' => $_POST['edad_veneno_all'],
-            'frecuencia' => $_POST['frecc_all'],
-            'descripcion' => $descripcion, 
-            'anio' => $anio
+                'id_paciente' => $_POST['id_paciente'],
+                'id_dato' => $ven['veneno_id'],
+                'enfermedad' => $ven['veneno'], 
+                'table_hisclinic' => "venenos", //_app1
+                'edad_paciente' => $_POST['edad_veneno_all'],
+                'frecuencia' => $_POST['frecc_all'],
+                'descripcion' => $descripcion, 
+                'anio' => $anio
             );
 
-            $this->db->insert('hisclinic_venenos',$data);
-            $this->db->insert('hisclinic_linea',$data_linea);
-            
+            $res = $this->historia->save_veneno_new($data, $data_linea);
+            if($res){
+                array_push($resp, array('equal' => false,'dato' => $ven['veneno']));
+            }else{
+                array_push($resp, array('equal' => true,'dato' => $ven['veneno']));
+            }
         }
 
-        echo json_encode(array('error' => false));
+            echo json_encode($resp);
+
+
+        //  echo json_encode(array('error' => false));
       }
     
     public function find_agents(){

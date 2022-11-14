@@ -769,17 +769,27 @@ function save_new_veneno(anio, id_paciente) {
             success: function (respuesta) {
                 if (respuesta) {
                     var res = JSON.parse(respuesta);
-                    iziToast.success({
-                        timeout: 3000,
-                        title: 'Exito',
-                        position: 'topRight',
-                        message: 'Nuevo veneno guardado.',
-                    });
+                    if (!res.equal) {
+                        iziToast.success({
+                            timeout: 3000,
+                            title: 'Exito',
+                            position: 'topRight',
+                            message: 'Nuevo veneno guardado.',
+                        });
 
-                    $("#form_new_veneno")[0].reset();
-                    $("#modal_new_veneno").modal("hide");
+                        $("#form_new_veneno")[0].reset();
+                        $("#modal_new_veneno").modal("hide");
 
-                    $("#divLinea").load(" #divLinea");
+                        $("#divLinea").load(" #divLinea");
+                    } else {
+                        iziToast.warning({
+                            timeout: 3000,
+                            title: 'Cuidado',
+                            position: 'center',
+                            // target: '.login-message',
+                            message: 'Ya hay un dato igual o parecido en la linea de vida.',
+                        });
+                    }
                 }
                 else {
                 }
@@ -809,17 +819,30 @@ function save_new_veneno_all(anio, id_paciente) {
             success: function (respuesta) {
                 if (respuesta) {
                     var res = JSON.parse(respuesta);
-                    iziToast.success({
-                        timeout: 3000,
-                        title: 'Exito',
-                        position: 'topRight',
-                        message: 'Venenos del producto agregados correctamente.',
-                    });
+                    for (var i = 0; i < res.length; i++) {
+                        if (!res[i].equal) {
 
-                    $("#form_new_veneno")[0].reset();
-                    $("#modal_new_veneno_all").modal("hide");
+                            iziToast.success({
+                                timeout: 3000,
+                                title: 'Exito',
+                                position: 'topRight',
+                                message: 'El veneno: ' + res[i].dato + ' se agrego correctamente.',
+                            });
 
-                    $("#divLinea").load(" #divLinea");
+                            $("#form_new_veneno")[0].reset();
+                            $("#modal_new_veneno_all").modal("hide");
+
+                            $("#divLinea").load(" #divLinea");
+                        } else {
+                            iziToast.warning({
+                                timeout: 3000,
+                                title: 'Cuidado',
+                                position: 'center',
+                                // target: '.login-message',
+                                message: 'El veneno: ' + res[i].dato + ' ya esta en la linea de vida.',
+                            });
+                        }
+                    }
                 }
                 else {
                 }
