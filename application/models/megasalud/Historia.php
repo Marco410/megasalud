@@ -40,7 +40,7 @@ class Historia extends CI_Model
 	}
     
      public function congenita($hisclinic_app1, $data_linea) {
-		$this->db->insert('hisclinic_linea', $data_linea);
+				$this->db->insert('hisclinic_linea', $data_linea);
     return $this->db->insert('hisclinic_app1', $hisclinic_app1);	
 	}
     
