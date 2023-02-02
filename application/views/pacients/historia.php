@@ -37,28 +37,21 @@ $fechaMax = $edad->format('%Y') . '.' . $edad->format('%m');
                     <div class="form-group">
                         <div class="col-sm-12">
                             <label>Motivo de Consulta</label>
-
                         </div>
-
                         <input type="hidden" id="sub_start_consulta" name="sub_start_consulta" value="0" />
-
                         <input type="hidden" id="clave_bancaria_start_consulta" name="clave_bancaria_start_consulta"
                             value="<?= $paciente->clave_bancaria ?>" />
-
                         <input type="hidden" id="estado_start_consulta" name="estado_start_consulta"
                             value="<?= $paciente->estado ?>" />
-
                         <div class="col-sm-12">
                             <select class="form-control select2 " style="width: 100%" required id="start_consultaMotivo"
                                 name="start_consultaMotivo">
                                 <option value="">Seleccione: </option>
-
                                 <?php foreach ($motivo_consulta->result() as $motivo): ?>
                                 <option value="<?= $motivo->enfermedad ?>"><?= $motivo->enfermedad ?></option>
                                 <?php endforeach ?>
                                 <option value="Otra">Otra</option>
                             </select>
-
                         </div>
                     </div>
                     <div class="" id="panel-add-m" hidden>
@@ -228,15 +221,11 @@ $fechaMax = $edad->format('%Y') . '.' . $edad->format('%m');
                                         Sucursal
                                     </label>
                                     <select id="suc_paciente" name="suc_paciente" class="form-control" required>
-
                                         <option value="">Seleccione una opción</option>
                                         <?php foreach ($sucursales->result() as $sucursal): ?>
                                         <option value="<?= $sucursal->id ?>"><?= $sucursal->razon_social ?></option>
                                         <?php endforeach ?>
-
                                     </select>
-
-
                                 </div>
                             </div>
                         </div>
@@ -250,7 +239,6 @@ $fechaMax = $edad->format('%Y') . '.' . $edad->format('%m');
         <!-- Termina Modal Sucursal -->
 
         <!-- Modal  Historial citas -->
-
         <div class="modal fade" id="historial" tabindex="-1" role="dialog" aria-labelledby="fotoPerfil"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -280,14 +268,10 @@ $fechaMax = $edad->format('%Y') . '.' . $edad->format('%m');
                                         <td><?= $his->motivo ?></td>
                                     </tr>
                                     <?php endforeach ?>
-
                                 </tbody>
-
                             </table>
-
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -388,81 +372,6 @@ $fechaMax = $edad->format('%Y') . '.' . $edad->format('%m');
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- <div class="row" style="margin-top:40px;margin-bottom:20px;">
-              <div class="col-sm-12 text-center">
-              <?php if ($paciente->seguim != 0){  ?><button  class="btn btn-md btn-warning  ml-2" data-toggle="modal" data-target="#citaSubsecuente" > <i class="fa fa-plus" ></i> Agregar Cita Subsecuente</button><?php } ?>
-              </div>
-            </div> -->
-                            <!-- Modal Cita Subsecuente -->
-                            <?php if ($paciente->seguim != 0){  ?>
-                            <div class="modal fade" id="citaSubsecuente" tabindex="-1" role="dialog"
-                                aria-labelledby="Password" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">Cita Subsecuente</h5>
-                                            <button type="button" class="close" data-dismiss="modal"
-                                                aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="row">
-                                                <form name="inicia_consulta" method="post" id="inicia_consulta">
-                                                    <input type="hidden" id="sub" name="sub"
-                                                        value="<?= $paciente->seguim ?>" />
-                                                    <input type="hidden" id="id_paciente" name="id_paciente"
-                                                        value="<?= $paciente->id ?>" />
-                                                    <input type="hidden" id="id_user" name="id_user"
-                                                        value="<?= $this->session->id ?>" />
-
-                                                    <div class="col-sm-6">
-                                                        <label>Motivo de Consulta</label>
-                                                        <select class="form-control" required id="motivo"
-                                                            name="motivo">
-                                                            <option value="">Seleccione: </option>
-
-                                                            <?php foreach ($motivo_consulta->result() as $motivo): ?>
-                                                            <option value="<?= $motivo->enfermedad ?>">
-                                                                <?= $motivo->enfermedad ?></option>
-                                                            <?php endforeach ?>
-                                                            <option value="Otra">Otra</option>
-                                                        </select>
-                                                        <div class="" id="panel-add-m" hidden>
-                                                            <br>
-                                                            <a href="#" class="btn btn-sm btn-info"
-                                                                data-id="1" data-toggle="modal"
-                                                                data-target="#addSet"><span
-                                                                    class="fa fa-plus"></span>Añadir Nueva</a>
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <label>Descripción</label>
-                                                        <input required type="text" class="form-control"
-                                                            id="motivo_des" name="motivo_des"
-                                                            placeholder="Escribe Motivo o Descripción" />
-                                                    </div>
-
-                                                    <div class="col-sm-12 text-center">
-                                                        <button type="submit" class="btn btn-warning btn-block"
-                                                            style="margin-top:10px"><i
-                                                                class="glyphicon glyphicon-play"></i> Iniciar Cita
-                                                            Subsecuente</button>
-                                                    </div>
-
-                                                </form>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <?php } ?>
-                            <!-- Termina Modal Cita Subsecuente -->
                         </div>
                     </div>
 
@@ -558,6 +467,11 @@ $fechaMax = $edad->format('%Y') . '.' . $edad->format('%m');
                 </div>
                 <div class="panel-body">
                     <div class="row">
+                        <div class="col-sm-12" style="margin-bottom: 10px">
+                            <button type="submit" class="btn btn-success btn-block"><i class="fa fa-bars mr-2"></i>
+                                Iniciar
+                                Cuestionario</button>
+                        </div>
                         <div class="form-group col-sm-10">
                             <form name="notas_dr" method="post" id="notas_dr">
                                 <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
@@ -931,24 +845,6 @@ $fechaMax = $edad->format('%Y') . '.' . $edad->format('%m');
                                         Estrés</button>
                                 </form>
                             </div>
-
-                            <!--- <div  class="col-sm-3" >
-                        <form id="form_obe" name="form_obe" method="post" novalidate="novalidate" >
-                        <input type="hidden" value="<?= $fecha ?>" name="anio" />
-                        <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
-                        <h4>Obesidad <small  id="obesidadTipo"></small></h4>
-                        <select style="width: 100%;" required id="s_obesidad" class="select2 form-control" name="s_obesidad">
-                            <option value="" >Seleccione: </option>
-                              <?php foreach ( $obesidad->result() as $obe ): ?>
-                            <option value="<?= $obe->id ?>" ><?= $obe->obesidad ?></option>
-                            <?php endforeach ?>
-                        </select> <br>
-                        <b>Edad</b>
-                        <input  required type="number" name="edad_obesidad" class="form-control" value="<?= $fechaMax ?>" min="0" max="<?= $fechaMax ?>" /><br>
-                            
-                          <button type="submit" class="btn btn-info btn-info-user" style="margin-top:10px"><i class="fa fa-save fa-1.5x"></i>    Guardar Obesidad</button>
-                        </form>
-                    </div>  --->
                         </div>
                     </div>
 
@@ -1101,145 +997,6 @@ $fechaMax = $edad->format('%Y') . '.' . $edad->format('%m');
     </div>
     <!-- Cierra Linea de Vida -->
 
-    <!--- Comienza panel de Antecedentes Patologicos  --->
-    <!--
-    <div class="panel panel-brown" style="border-radius:15px">
-        
-        <div class="panel-heading text-center" data-toggle="collapse" href="#collapsePato" role="button" aria-expanded="false" aria-controls="collapsePato" style="border-radius:15px" >
-        <h3>ANTECEDENTES PATOLÓGICOS</h3>
-        </div>
-        <div class="collapse" id="collapsePato" >
-            
-        
-                
-            <div class="panel-body">
-           
-          
-                <h3 class="text-center">OTRAS ENFERMEDADES</h3>
-            <section id="PsicológicaSec"></section>
-              
-            <div class="panel panel-default border-left-brown" >
-                    
-                    <div class="panel-heading" >
-                    <span class="ms-subtitle" ><label>Añadir Psicológicas</label></span>
-                    </div>
-            <div class="panel-body" >
-                    
-            <form id="enf_infecto_psicologicas" name="enf_infecto_psicologicas" method="post" class="panel-body">
-            
-            <div class="col-sm-5">
-            <b>Enfermedad</b>
-            <select id="enf_psico" class="form-control" name="enfermedad"  required>
-                <option value="">Seleccione</option>
-                <?php foreach ( $infectos_psico->result() as $infecto ): ?>
-
-                <option value="<?= $infecto->id ?>"> <?= $infecto->enfermedad ?></option>
-                <?php endforeach ?>
-
-                <option value="Otra">Otra</option>
-            </select>
-            <div id="panel-add-psico" hidden >
-                    <br>
-                    <a href="#" class="btn btn-sm btn-info" data-id="16" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
-              </div>
-                <b>Medicamentos</b>
-            <select required id="med_psico" class="form-control" name="medicamentos">
-                    <option value="">Seleccione</option>
-                     
-                <option value="No Recuerda" >No Recuerda</option>
-                <option value="Otro" >Otro</option>
-                </select>
-            <div id="panel-add-med_ps" hidden >
-                    <br>
-                    <a href="#" class="btn btn-sm btn-info" data-id="3" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
-              </div>
-            </div>
-            
-            <div class="col-sm-5">
-            <b>Manejo</b>
-            <textarea required id="manejo_psico" name="manejo" class="form-control" placeholder="Escribe aquí"
-                cols="20" rows="4"></textarea>
-            </div>
-            
-            <div class="col-sm-2" >
-            
-            <b>Edad</b>
-            <input id="edad_psico" required name="edad_psicologica" class="form-control" type="number" min="0" max="<?= $fechaMax ?>" /><br>
-                <input type="hidden" value="<?= $fecha ?>" name="anio" />
-            <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
-                <b>Agregar</b>
-            <button type="submit" class="btn btn-info"><i class="fa fa-plus "></i></button>
-            </div>
-              
-            </form>
-            
-            </div>
-            </div>
-             <section id="OtraSec"></section>
-               
-                
-            <div class="panel panel-default border-left-brown" >
-                    
-            <div class="panel-heading" >
-            <span class="ms-subtitle" ><label>Añadir Otras</label></span>
-            </div>
-            <div class="panel-body">
-            <form id="enf_infecto_otras" name="enf_infecto_otras" method="post" class="panel-body">
-            
-            <div class="col-sm-5" >
-            <b>Enfermedad</b>
-            <select id="enf_otras" class="form-control" name="enfermedad" required >
-                <option value="">Seleccione</option>
-                <?php foreach ( $infectos_otras->result() as $infecto ): ?>
-
-                <option value="<?= $infecto->id ?>"> <?= $infecto->enfermedad ?></option>
-                <?php endforeach ?>
-
-                <option value="Otra">Otra</option>
-            </select>
-                <div id="panel-add-otras" hidden >
-                    <br>
-                    <a href="#" class="btn btn-sm btn-info" data-id="17" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
-              </div>
-                <b>Medicamentos</b>
-            <select id="med_otras" class="form-control" name="medicamentos" required>
-                    <option value="">Seleccione</option>
-                    
-                <option value="No Recuerda" >No Recuerda</option>
-                <option value="Otro" >Otro</option>
-                </select>
-                <div id="panel-add-med_otras" hidden >
-                    <br>
-                    <a href="#" class="btn btn-sm btn-info" data-id="3" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
-              </div>
-            </div>
-            
-            <div class="col-sm-5">
-               <b>Manejo</b>
-                <textarea id="manejo_otras" name="manejo" class="form-control" placeholder="Escribe aquí" cols="20"
-                    rows="4" required></textarea>
-            </div>
-            
-            <div class="col-sm-2">
-            
-            <b>Edad</b>
-            <input id="edad_otras" required name="edad_otras" class="form-control" type="number" min="0" max="<?= $fechaMax ?>" /><br>
-            <input type="hidden" value="<?= $fecha ?>" name="anio" />
-            <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
-                <b>Agregar</b>
-            <button type="submit" class="btn btn-info"><i class="fa fa-plus "></i></button>
-            </div>
-            </form>
-            </div>
-        </div>
-            <div class="col-sm-3 pull-right" >
-                    <div data-toggle="collapse" href="#collapsePato" role="button" aria-expanded="false" style="background: #f0ad4e; color:#F6F8FA; border-radius: 15px;"  aria-controls="collapsePato" class="text-center" >
-                    Cerrar Panel
-                    </div>
-            </div>
-    </div>   -->
-    <!--- Termina panel de Antecedentes Patologicos  --->
-
 </div>
 </div>
 
@@ -1337,8 +1094,7 @@ $fechaMax = $edad->format('%Y') . '.' . $edad->format('%m');
                         <div class="card-header" id="headingThree">
                             <h5 class="mb-0">
                                 <button class="btn btn-primary collapsed" data-toggle="collapse"
-                                    data-target="#collapseThree" aria-expanded="false"
-                                    aria-controls="collapseThree">
+                                    data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                     <i class="fa fa-plus "></i> Autoinmunidad del tracto gastrointestinal.
                                 </button>
                             </h5>
@@ -1792,8 +1548,9 @@ $fechaMax = $edad->format('%Y') . '.' . $edad->format('%m');
     data-toggle="modal" data-target="#addMsj" title="Iniciar Conversación"><i
         class="fa fa-inbox fa-2x"></i></button>
 
-<button type="button" style="display:none;" class="btn btn-danger btn-stop" id="btn-terminar-consulta2" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });"
-    data-id="" title="Terminar Consulta"><i class="fa fa-stop"></i></button>
+<button type="button" style="display:none;" class="btn btn-danger btn-stop" id="btn-terminar-consulta2"
+    onclick="window.scrollTo({ top: 0, behavior: 'smooth' });" data-id="" title="Terminar Consulta"><i
+        class="fa fa-stop"></i></button>
 
 <button type="button" class="btn btn-success btn-stop" id="btn-iniciarConsulta2" data-toggle="modal"
     data-target="#start_consulta" data-id="" title="Iniciar Consulta"><i class="fa fa-play"></i></button>
