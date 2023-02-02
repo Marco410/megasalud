@@ -182,6 +182,7 @@ function mostrar_componentes() {
     $("#notas-motivo").show();
     $("#productos").show();
     $("#antecedentes").show();
+    $("#btn_iniciar_cuestionario").show();
 }
 
 function ocultar_componentes() {
@@ -193,13 +194,5 @@ function ocultar_componentes() {
     $("#notas-motivo").hide();
     $("#productos").hide();
     $("#antecedentes").hide();
+    $("#btn_iniciar_cuestionario").hide();
 }
-
-/* window.addEventListener("beforeunload", (evento) => {
-    if (true) {
-        evento.preventDefault();
-        evento.returnValue = "";
-        return "";
-    }
-}); */
-

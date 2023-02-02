@@ -237,6 +237,7 @@ class PatientsController extends CI_Controller {
     
   
     $data['view_controller'] = array(
+        9 => 'pacients/quiz_vs.js',
         8 => 'pacients/data_historia_vs.js',
         7 => 'pacients/historia_start_vs.js',
         6 => 'messenger_vs.js',

@@ -23,12 +23,15 @@ $fechaMax = $edad->format('%Y') . '.' . $edad->format('%m');
     <input type="hidden" id="id_paciente" name="id_paciente" value="<?= $paciente->id ?>" />
 
 
-    <h3 class="ms-title"><b>HISTORIAL CLÍNICO</b> <button style="margin-left:300px;" class="btn btn-md btn-success"
-            id="btn-iniciarConsulta"> <i class="fa fa-play"></i> Iniciar Consulta</button><button
-            style="margin-left:300px;display:none;" class="btn btn-md btn-danger" id="btn-terminar-consulta"
-            data-id=""> <i class="fa fa-stop"></i> Terminar Consulta</button> <i class="fa fa-clock-o"></i> <a
-            href="javascript:history.back()" class="btn btn-default pull-right"><i class="fa fa-chevron-left"></i>
-            <span>Regresar</span></a> </h3>
+    <h3 class="ms-title"><b>HISTORIAL CLÍNICO</b> <i class="fa fa-clock-o"></i>
+        <a href="javascript:history.back()" class="btn btn-default pull-right" style="float:right;"><i
+                class="fa fa-chevron-left"></i>
+            <span>Regresar</span></a><button style="display:none; float:right; margin-right:10px"
+            class="btn btn-md btn-danger" id="btn-terminar-consulta" data-id="">
+            <i class="fa fa-stop"></i> Terminar
+            Consulta</button><button style="float:right; margin-right:10px" class="btn btn-md btn-success"
+            id="btn-iniciarConsulta"> <i class="fa fa-play"></i> Iniciar Consulta</button>
+    </h3>
 
     <div class=" panel panel-primary" id="panel-iniciar-consulta" hidden>
         <div class="panel-body">
@@ -468,7 +471,8 @@ $fechaMax = $edad->format('%Y') . '.' . $edad->format('%m');
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-sm-12" style="margin-bottom: 10px">
-                            <button type="submit" class="btn btn-success btn-block"><i class="fa fa-bars mr-2"></i>
+                            <button type="submit" id="btn_iniciar_cuestionario" class="btn btn-success btn-block"><i
+                                    class="fa fa-bars mr-2"></i>
                                 Iniciar
                                 Cuestionario</button>
                         </div>
