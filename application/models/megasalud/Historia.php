@@ -94,7 +94,26 @@ class Historia extends CI_Model
 
 		$this->db->where('id', $id);
 		return $this->db->get('pacientes');
+	}
 
+	public function get_empleo($id) {
+
+		$this->db->select('sp.paciente_id, sp.empleo_id,s.name');
+		$this->db->from('hisclinic_empleo sp');
+		$this->db->where('sp.paciente_id', $id);
+		$this->db->join('empleos s', 's.id = sp.empleo_id', 'inner');
+		$result = $this->db->get()->row();
+		return $result;
+	}
+
+	public function get_sucursal($id) {
+
+		$this->db->select('sp.paciente_id, sp.sucursal_id,s.razon_social');
+		$this->db->from('sucursal_pacientes sp');
+		$this->db->where('sp.paciente_id', $id);
+		$this->db->join('sucursales s', 's.id = sp.sucursal_id', 'inner');
+		$result = $this->db->get()->row();
+		return $result;
 	}
     
     public function find_charts($id){
@@ -107,7 +126,6 @@ class Historia extends CI_Model
 		$this->db->order_by('created_at', 'desc');
 		$this->db->where('id_paciente', $id);
 		return $this->db->get('receta_paciente');
-
 	}
     
     //desde la bd
@@ -389,6 +407,10 @@ class Historia extends CI_Model
 	public function save_terapia($data, $data_linea) {
 		$this->db->insert('hisclinic_linea', $data_linea);
         return $this->db->insert('hisclinic_terapia', $data);	
+	}
+
+	public function get_empleos() {
+		return $this->db->get('empleos');
 	}
 
 }

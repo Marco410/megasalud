@@ -411,6 +411,15 @@ function init() {
         }
     });
 
+    $('#ocupacion').on('change', function () {
+        if ($(this).find(":selected").val() == "Otra") {
+            document.getElementById("panel-add-empleo").hidden = false;
+
+        } else {
+            document.getElementById("panel-add-empleo").hidden = true;
+        }
+    });
+
     $('#addSet').on('show.bs.modal', function (e) {
 
         var id = $(e.relatedTarget).data().id;
@@ -500,6 +509,9 @@ function init() {
                                         break;
                                     case 18:
                                         $('#terapia').append("<option selected value='" + res.dat + "' >" + res.dat + "</option>");
+                                        break;
+                                    case 20:
+                                        $('#ocupacion').append("<option selected value='" + res.id_dat + "' >" + res.dat + "</option>");
                                         break;
                                 }
 

@@ -33,12 +33,16 @@ $('#insert-suc').validate({
 $("#btn-iniciar-consulta").on("click", function () {
 
     var motivo = $("#start_consultaMotivo").val();
+    var clave_bancaria = $("#clave_bancaria_start_consulta").val();
+    var estado = $("#estado_start_consulta").val();
     var tipo = $("input:radio[name=tipo_consulta]:checked").val();
     if (motivo && tipo) {
 
         data = {
             'id_paciente': id_p,
             'motivo': motivo,
+            'clave_bancaria': clave_bancaria,
+            'estado': estado,
             'tipo': tipo
         }
 

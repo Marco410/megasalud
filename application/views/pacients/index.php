@@ -41,7 +41,9 @@
 							<th>Clave</th>
 							<th>Nombre</th>
 							<th>Email</th>
+							<th>Motivo de Consulta</th>
 							<th>Estado</th>
+							<th>Municipio</th>
 							<th>Telefono A</th>
 							<th style="width: 110px;">Opc.</th>
 						</tr>

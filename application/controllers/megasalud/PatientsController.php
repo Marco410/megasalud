@@ -79,7 +79,7 @@ class PatientsController extends CI_Controller {
         // $data['view_style'] = 'pacients.css';
         $data['view_controller'] = 'pacients/create_vs.js';
         $data['sucursales'] = $this->sucursal->getAll();
-        $data['motivo_consulta'] = $this->historia->get_motivo_consulta();
+        $data['empleos'] = $this->historia->get_empleos();
         
         
         $this->load->view('layout/head', $data);
@@ -102,7 +102,7 @@ class PatientsController extends CI_Controller {
         $data['title'] = 'Editar Paciente';
         $data['paciente'] = $this->historia->find($id);
         $data['view_controller'] = 'pacients_vs.js';
-        $data['motivo_consulta'] = $this->historia->get_motivo_consulta();
+        $data['empleos'] = $this->historia->get_empleos();
         $this->load->view('layout/head', $data);
         $this->load->view('layout/header');
         
@@ -189,6 +189,8 @@ class PatientsController extends CI_Controller {
     $data = array();    
     $data['title'] = 'Historial Clinico';
     $data['paciente'] = $this->historia->find($id);
+    $data['paciente_suc'] = $this->historia->get_sucursal($id);
+    $data['paciente_empleo'] = $this->historia->get_empleo($id);
     
     //informacion de clinica de BD 
     $data['familiar'] = $this->historia->familiar();
@@ -236,7 +238,7 @@ class PatientsController extends CI_Controller {
   
     $data['view_controller'] = array(
         8 => 'pacients/data_historia_vs.js',
-        7 => 'historia_start_vs.js',
+        7 => 'pacients/historia_start_vs.js',
         6 => 'messenger_vs.js',
         5 => 'pacients/tera_medi_vs.js',
         4 => 'pacients/npatologicos_vs.js',
@@ -467,33 +469,7 @@ class PatientsController extends CI_Controller {
         }
     }
 
-    public function start_consulta(){
-
-        $id_user = $this->session->id;
-
-        $data = array(
-            'id_paciente' => $_POST["id_paciente"],
-            'motivo' => $_POST["motivo"],
-            'tipo' => $_POST["tipo"],
-            'id_user' => $id_user,
-            'termino' => 0
-        );
-
-        if($this->db->insert("consultas",$data)){
-            $id_c = $this->db->insert_id();
-
-            $data_motivo = array (
-                'motivo_consulta' => $_POST["motivo"]    
-                );
-   
-            $this->db->where('id', $_POST["id_paciente"]);
-            $this->db->update('pacientes',$data_motivo);
-            
-            echo json_encode(array('id'=> $id_c));
-        }else{
-            echo false;
-        }
-    }
+    
 
     public function get_status_consulta(){
         $id_user = $this->session->id;
@@ -543,23 +519,6 @@ class PatientsController extends CI_Controller {
         }
     }
     
-    public function get_suc_p(){
-		$this->db->select('sp.paciente_id, sp.sucursal_id,s.razon_social');
-            $this->db->from('sucursal_pacientes sp');
-            $this->db->where('sp.paciente_id', $_POST['id']);
-            $this->db->join('sucursales s', 's.id = sp.sucursal_id', 'inner');
-            $result = $this->db->get();
-            $row = $result->result();
-            $response = array();
-            $response['data'] = $result->result_array();
-            
-            if ($response['data']){
-                $response['error'] = true;
-            }else{
-                $response['error'] = false;
-            }
-            echo json_encode($response);
-    }
     
     public function charts($id) {
 
@@ -727,6 +686,81 @@ class PatientsController extends CI_Controller {
         
         echo json_encode($data_clave);
     }
+
+    public function start_consulta(){
+        $id_user = $this->session->id;
+
+        $tipo = $_POST["tipo"];
+        $estado = $_POST["estado"];
+        $id_paciente = $_POST["id_paciente"];
+        $clave = $_POST["clave_bancaria"];
+        $motivo = $_POST["motivo"];
+        
+        if($tipo == "Primera Vez"){
+            if(isset($clave)){
+            $clave_banc = $this->funciones->genera_clave($estado,$id_paciente, "P");
+                
+            $data_clave = array (
+                'clave_bancaria' => $clave_banc,
+                'seguim' => 1    
+            );
+                
+            $data_cita = array (
+            'id_paciente' => $id_paciente,
+            'id_user' =>  $id_user,
+            'motivo' =>  "Primera vez"
+            );
+            
+            $this->db->insert('hisclinic_historial',$data_cita);  
+            
+            }else{
+
+                $data_clave = array (
+                    'seguim' => 1    
+                    );
+            }
+        }else{
+            $data_cita = array (
+            'id_paciente' => $id_paciente,
+            'id_user' =>  $id_user,
+            'motivo' =>  $motivo
+            );
+            $this->db->insert('hisclinic_historial',$data_cita);
+            
+            //TODO:sum seguim
+            $this->db->where('id', $id_paciente);
+            $seguim = $this->db->get('pacientes')->row()->seguim;
+            $data_clave = array (
+                'seguim' => $seguim + 1  
+            );
+        }
+            $this->db->where('id', $id_paciente);
+            $this->db->update('pacientes',$data_clave);
+
+        //New
+        $data = array(
+            'id_paciente' => $id_paciente,
+            'motivo' => $motivo,
+            'tipo' => $tipo,
+            'id_user' => $id_user,
+            'termino' => 0
+        );
+
+        if($this->db->insert("consultas",$data)){
+            $id_c = $this->db->insert_id();
+
+            $data_motivo = array (
+                'motivo_consulta' => $motivo   
+                );
+   
+            $this->db->where('id', $id_paciente);
+            $this->db->update('pacientes',$data_motivo);
+            
+            echo json_encode(array('id'=> $id_c));
+        }else{
+            echo false;
+        }
+    }
     
     public function generar_cita(){
         $id_cal = $this->input->post('id_calendario');
@@ -881,7 +915,7 @@ class PatientsController extends CI_Controller {
             case 'Administrador':
                 
             $this->db->where('status', 1);
-            $this->db->select('id,clave_bancaria,CONCAT(nombre," " , apellido_p, " ",apellido_m) AS nombre,email,telefono_a,estado,motivo_consulta'); 
+            $this->db->select('id,clave_bancaria,CONCAT(nombre," " , apellido_p, " ",apellido_m) AS nombre,email,telefono_a,estado,motivo_consulta,municipio'); 
             $this->db->from('pacientes');
             $this->db->order_by('id', 'DESC');
             $query = $this->db->get();
@@ -892,7 +926,7 @@ class PatientsController extends CI_Controller {
             case 'Medico Administrador':
                 
             $this->db->where('status', 1);
-            $this->db->select('id,clave_bancaria,CONCAT(nombre," " , apellido_p, " ",apellido_m) AS nombre,email,telefono_a,estado,motivo_consulta'); 
+            $this->db->select('id,clave_bancaria,CONCAT(nombre," " , apellido_p, " ",apellido_m) AS nombre,email,telefono_a,estado,motivo_consulta,municipio'); 
             $this->db->from('pacientes');
             $this->db->order_by('id', 'DESC');
             $query = $this->db->get();
@@ -901,7 +935,7 @@ class PatientsController extends CI_Controller {
             break;
 
             case 'Medico':
-            $this->db->select('p.id,p.clave_bancaria,CONCAT(p.nombre," " , p.apellido_p, " ",p.apellido_m) AS nombre,p.email,p.telefono_a,p.estado,p.motivo_consulta');
+            $this->db->select('p.id,p.clave_bancaria,CONCAT(p.nombre," " , p.apellido_p, " ",p.apellido_m) AS nombre,p.email,p.telefono_a,p.estado,p.motivo_consulta,p.municipio');
             $this->db->from('pacientes p');
             $this->db->join('sucursal_pacientes sp', 'sp.paciente_id = p.id', 'inner');
             $this->db->where('sp.sucursal_id', $this->session->userdata('sucursal'));
@@ -913,7 +947,7 @@ class PatientsController extends CI_Controller {
             case 'Atención a Clientes':
                 
             $this->db->where('status', 1);
-            $this->db->select('id,clave_bancaria,CONCAT(nombre," " , apellido_p, " ",apellido_m) AS nombre,email,telefono_a,estado,motivo_consulta'); 
+            $this->db->select('id,clave_bancaria,CONCAT(nombre," " , apellido_p, " ",apellido_m) AS nombre,email,telefono_a,estado,motivo_consulta,municipio'); 
             $this->db->from('pacientes');
             $this->db->order_by('id', 'DESC');
             $query = $this->db->get();
@@ -1399,7 +1433,6 @@ class PatientsController extends CI_Controller {
         $this->db->where('id', $id);
         $query = $this->db->get('pacientes');
         $result = $query->row_array();
-
         return $result;
     }
     
@@ -1432,9 +1465,9 @@ class PatientsController extends CI_Controller {
        
         $pass = "P-".substr($_POST['apellido_p'],0,2).$am.substr($_POST['nombre'],0,1).date("d");
          
-      /*    //Se busca el id del motivo para el paciente
-        $this->db->where("id",$this->input->post('motivo'));
-        $motivo = $this->db->get("motivo_consulta")->row()->enfermedad; */
+         //Se busca el id del motivo para el paciente
+        $this->db->where("id",$this->input->post('ocupacion'));
+        $ocupacion = $this->db->get("empleos")->row()->name;
          
         $data =  array(
             
@@ -1549,7 +1582,6 @@ class PatientsController extends CI_Controller {
         'apellido_m' => $this->input->post('apellido_m'),
         'sexo' => $this->input->post('sexo'),
         'email' => $this->input->post('email'),
-        'motivo_consulta' => $this->input->post('motivo_consulta'),
         'municipio_origen' => $this->input->post('municipio_origen'),
         'estado_origen' => $this->input->post('estado_origen'),
         'pais_origen' => $this->input->post('pais_origen'),
@@ -1567,6 +1599,20 @@ class PatientsController extends CI_Controller {
         'religion' => $this->input->post('religion'),
         'ocupacion' => $this->input->post('ocupacion')
         );
+
+        $this->db->where('paciente_id', $id);
+        $dataEmpleo =  array(
+            'paciente_id' => $id,
+            'empleo_id' => $this->input->post('ocupacion'),
+            );
+        $res = $this->db->count_all_results('hisclinic_empleo');
+        if($res == 0){
+            $this->db->insert('hisclinic_empleo', $dataEmpleo);
+        }else{
+            $this->db->where('paciente_id', $id);
+            $this->db->update("hisclinic_empleo",$dataEmpleo);
+        }
+
         
         $this->db->where('id', $id);
         if($this->db->update('pacientes',$data)){
@@ -2078,6 +2124,9 @@ class PatientsController extends CI_Controller {
                 break;
             case 19 :
                 $this->settings->add_producto_ven($dato);
+                break;
+            case 20 :
+                $this->settings->add_empleo($dato);
                 break;
             default:
                 echo json_encode(array('error' => true));

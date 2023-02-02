@@ -38,9 +38,11 @@ class AtencionController extends CI_Controller {
         $data['title'] = 'Perfil Paciente';
         $data['paciente'] = $this->historia->find($id);
         $data['historial'] = $this->historia->historial($id);
+        $data['paciente_suc'] = $this->historia->get_sucursal($id);
+        $data['paciente_empleo'] = $this->historia->get_empleo($id);
 
         $data['view_controller'] = array(
-            2 => 'historia_start_vs.js',
+            2 => 'pacients/historia_start_vs.js',
             1 => 'atencion/atencion_vs.js',
             );
         

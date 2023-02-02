@@ -161,6 +161,15 @@ $route['pacientes/dataestadisticas'] = 'megasalud/PatientsController/api_find_da
 $route['pacientes/datalinea/(:any)'] = 'megasalud/PatientsController/api_find_datalinea/$1';
 /*
 ----------------------------------
+| Medic Routes
+-----------------------------------
+*/
+$route['pacientes/linea-vida/(:num)'] = 'megasalud/LineaVidaController/index/$1';
+$route['pacientes/buscar/(:any)'] = 'megasalud/PatientsController/api_find_paciente/$1';
+
+
+/*
+----------------------------------
 | Client Routes
 -----------------------------------
 */

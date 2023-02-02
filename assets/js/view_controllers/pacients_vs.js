@@ -84,6 +84,8 @@ function init() {
         { responsivePriority: 1, targets: 1 },
         { responsivePriority: 2, targets: 4 },
         { responsivePriority: 3, targets: 2 },
+        { responsivePriority: 4, targets: 5 },
+        { responsivePriority: 5, targets: 6 },
         { targets: [0], visible: false }
         ],
         order: [0, 'des'],
@@ -122,7 +124,9 @@ function init() {
             { "data": "clave_bancaria" },
             { "data": "nombre" },
             { "data": "email" },
+            { "data": "motivo_consulta" },
             { "data": "estado" },
+            { "data": "municipio" },
             { "data": "telefono_a" },
             { "defaultContent": "<button id='btn-historia' class='btn-historia btn btn-sm btn-info '><i class='fa fa-file-text-o'></i></button><button id='btn-editar' class='btn-editar btn btn-sm btn-warning '><i class='fa fa-edit'></i></button>" }
         ],
@@ -1323,6 +1327,15 @@ function init() {
         }
     });
 
+    $('#ocupacion').on('change', function () {
+        if ($(this).find(":selected").val() == "Otra") {
+            document.getElementById("panel-add-empleo").hidden = false;
+
+        } else {
+            document.getElementById("panel-add-empleo").hidden = true;
+        }
+    });
+
     $('#addSet').on('show.bs.modal', function (e) {
 
         var id = $(e.relatedTarget).data().id;
@@ -1423,11 +1436,12 @@ function init() {
                                     case 18:
                                         $('#terapia').append("<option selected value='" + res.id_dat + "' >" + res.dat + "</option>");
                                         break;
+                                    case 20:
+                                        $('#ocupacion').append("<option selected value='" + res.id_dat + "' >" + res.dat + "</option>");
+                                        break;
                                 }
-
                                 $("#addSet").modal("hide");
                                 $("#dato").val("");
-
 
                             } else {
                                 iziToast.error({
@@ -1437,7 +1451,6 @@ function init() {
                                     // target: '.login-message',
                                     message: 'No se guardo.',
                                 });
-
                             }
                         } else {
                             iziToast.warning({

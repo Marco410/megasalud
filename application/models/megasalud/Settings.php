@@ -291,6 +291,30 @@ class Settings extends CI_Model
             }
         
     } 
+
+    public function add_empleo($dato) {
+      
+        $data =  array(
+        'name' => $dato
+        );
+
+        $this->db->where('name', $dato);
+		$query = $this->db->get('empleos');
+
+        if ($query->num_rows() > 0){
+            echo json_encode(array('error' => true,'msj'=> 'Ya existe este empleo.'));
+            return;
+        }
+          
+        if($this->db->insert('empleos', $data)){
+            $id_dat = $this->db->insert_id();
+            echo json_encode(array('dat'=> $dato,'id' => 20,'id_dat'=> $id_dat));
+        }
+            else{
+                echo json_encode(array('error' => true));
+            }
+        
+    } 
     
     
 

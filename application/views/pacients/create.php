@@ -58,25 +58,6 @@
                                 <small>Si no tiene correo escriba "na@na.com"</small>
 							</div>
                         </div>
-                        <!-- <div class="col-sm-3" >
-                            <div class="form-group">
-                                <label>
-                                    Motivo de la Consulta 
-                                </label>
-                                <select class="select2 form-control" required id="motivo_m" name="motivo" >
-                                    <option value="">Seleccione: </option>
-
-                                    <?php foreach ($motivo_consulta->result() as $motivo): ?>
-                                    <option value="<?= $motivo->id ?>"><?= $motivo->enfermedad ?></option>
-                                    <?php endforeach ?>    
-                                    <option value="Otra">Otra</option>    
-                                </select>
-                                <div class="" id="panel-add-m" hidden >
-                                    <br>
-                                    <a href="#" class="btn btn-sm btn-info" data-id="1" data-toggle="modal" data-target="#addSet"><span class="fa fa-plus" ></span>Añadir Nueva</a>
-                                </div>
-							</div>
-                        </div> -->
                         <div class="col-sm-4" >
                             <div class="form-group">
 								<label>
@@ -261,7 +242,20 @@
 							<label>
 								Ocupación
 							</label>
-							<input type="text" name="ocupacion" class="form-control" required>
+							<select class="form-control select2 " style="width: 100%" required id="ocupacion" name="ocupacion" >
+								<option value="">Seleccione: </option>
+
+								<?php foreach ($empleos->result() as $empleo): ?>
+								<option value="<?= $empleo->id ?>"><?= $empleo->name ?></option>
+								<?php endforeach ?>    
+								<option value="Otra">Otra</option> 
+							</select>
+							<div class="" id="panel-add-empleo" hidden>
+                                <br>
+                                <a href="#" class="btn btn-sm btn-info" data-id="20"
+                                        data-toggle="modal" data-target="#addSet"><span
+                                            class="fa fa-plus"></span>Añadir Nueva</a>
+                            </div>
 						</div>
                         <div class="form-group col-sm-4">
 							<label>

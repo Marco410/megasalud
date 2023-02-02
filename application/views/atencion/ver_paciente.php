@@ -38,7 +38,8 @@
                   <h4>Motivo de Consulta: <label><b><?=$paciente->motivo_consulta ?></b></label></h4><h4>Expediente: <label><b><?=$paciente->clave_bancaria ?></b></label></h4>
               </div>   
                  <div class="col-sm-4 text-center" >
-                  <h4>Sucursal: </h4><h4><label ><b id="sucursal_p" ></b></label></h4>
+                 <h4>Sucursal: <label class="sm"><b><?= $paciente_suc->razon_social ?></b></label>
+                                </h4>
               </div>   
              </div>
              <br>

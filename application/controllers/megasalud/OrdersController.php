@@ -413,7 +413,7 @@ class OrdersController extends CI_Controller {
         $metodo = $this->input->post('metodo');
         
         $hoy = date("d/m/y h:i:s");
-        $hoy2 = date("d-m-y-h:i:s");
+        $hoy2 = date("d-m-y-h-i-s");
         
         $total = floatval($this->input->post('total_bd'));
         $pagado = floatval($this->input->post('cantidad-pagar'));
