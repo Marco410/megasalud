@@ -16,33 +16,30 @@ class Historia extends CI_Model
 	}
     
     //guarda en la bd
-    
      public function notas_dr($data) {
-         
-    return $this->db->insert('hisclinic_notas', $data);	
+   	 	return $this->db->insert('hisclinic_notas', $data);	
 	}
+
     public function diagnostico_dr($data, $data_linea) {
         $this->db->insert('hisclinic_linea', $data_linea);
-    return $this->db->insert('hisclinic_diagnostico', $data);	
+    	return $this->db->insert('hisclinic_diagnostico', $data);	
 	}
     
      public function agregar_estudio($data) {
-         
-    return $this->db->insert('hisclinic_estudio', $data);
+    	return $this->db->insert('hisclinic_estudio', $data);
 	}
     
     public function carga_heredo_in($data) {
-    return $this->db->insert('hisclinic_ahf', $data);
+    	return $this->db->insert('hisclinic_ahf', $data);
 	} 
     
     public function ante_in($data) {
-    return $this->db->insert('hisclinic_antecedente', $data);
+    	return $this->db->insert('hisclinic_antecedente', $data);
 	}
     
-     public function congenita($hisclinic_app1, $data_linea) {
+    public function congenita($hisclinic_app1, $data_linea) {
 
 		$res = $this->insert_in_linea_vida($data_linea);
-
         if($res == 0){
 			return $this->db->insert('hisclinic_app1', $hisclinic_app1);
 		}else{
@@ -50,7 +47,7 @@ class Historia extends CI_Model
 		}
 	}
     
-     public function vacuna($data, $data_linea) {
+    public function vacuna($data, $data_linea) {
 
 		$res = $this->insert_in_linea_vida($data_linea);
 
@@ -85,9 +82,7 @@ class Historia extends CI_Model
 		}else{
 			return false;
 		}
-    
 	}
-    
     
     //busca el paciente en la bd
 	public function find($id) {
