@@ -14,8 +14,6 @@
         <div class="panel panel-default" >
             <div class="panel-heading" >COMISIONES</div>    
             <div class="panel-body" >
-                
-                
                 <div class="col-sm-4 text-center" >
                  <form id="update_com_agent" method="post">   
                 <label>Representante (%)

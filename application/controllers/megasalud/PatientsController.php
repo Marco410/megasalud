@@ -194,7 +194,6 @@ class PatientsController extends CI_Controller {
     
     //informacion de clinica de BD 
     $data['familiar'] = $this->historia->familiar();
-    $data['antecedentes'] = $this->historia->antecedentes();
     $data['motivo_consulta'] = $this->historia->get_motivo_consulta();
     $data['sucursales'] = $this->sucursal->getAll();
         
@@ -835,14 +834,6 @@ class PatientsController extends CI_Controller {
         $data['inmunizacion'] = $this->historia->inmunizacion($id);
         $data['alergias'] = $this->historia->alergias($id);
         $data['hospitalizacion'] = $this->historia->hospitalizacion($id);
-        
-        //info enfermedades infectocontagiosas
-        $data['enf_infecto_viruss'] = $this->historia->enf_infecto_virus($id);
-        $data['enf_infecto_bacteriass'] = $this->historia->enf_infecto_bacterias($id);
-        $data['enf_infecto_hongoss'] = $this->historia->enf_infecto_hongos($id);
-        $data['enf_infecto_parasitoss'] = $this->historia->enf_infecto_parasitos($id);
-        $data['enf_infecto_psicologicass'] = $this->historia->enf_infecto_psicologicas($id);
-        $data['enf_infecto_otrass'] = $this->historia->enf_infecto_otras($id);
         
         $this->load->view('layout/head', $data);
         $this->load->view('layout/header');
@@ -1512,7 +1503,7 @@ class PatientsController extends CI_Controller {
 
             $this->db->insert('sucursal_pacientes',$dataOffice);
 
-             if($ref == "Clinica" || $ref == "Social" || $ref == "Paciente"){
+            if($ref == "Clinica" || $ref == "Social" || $ref == "Paciente"){
                 if($ref == "Clinica"){
                     $type = "Clinica";
                 }else if ($ref == "Social"){
@@ -2308,7 +2299,7 @@ class PatientsController extends CI_Controller {
         $response = array();
         $response['data'] = $result;
 
-         echo json_encode($response);
+        echo json_encode($response);
     }
 
     public function get_relations_product(){

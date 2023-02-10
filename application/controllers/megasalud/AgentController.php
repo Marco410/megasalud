@@ -43,8 +43,14 @@ class AgentController extends CI_Controller {
         2 => 'agents/create_vs.js',
         1 => 'agent_vs.js',
         );
+
+        $type = $this->session->type;
+        if($type == "Administrador" || $type == "Ventas"){
+            $this->load->view('agent/create', $data);
+        }else{
+          $this->load->view('auth/error'); 
+        } 
        
-        $this->load->view('agent/create', $data);
         $this->load->view('layout/scripts');
 	}
     
@@ -66,8 +72,13 @@ class AgentController extends CI_Controller {
         $row = $result->row();
         
         $data['agent'] = $result;
-       
-        $this->load->view('agent/files', $data);
+        
+        $type = $this->session->type;
+        if($type == "Administrador" || $type == "Ventas"){
+            $this->load->view('agent/files', $data);
+        }else{
+          $this->load->view('auth/error'); 
+        } 
         $this->load->view('layout/scripts');
 	}
     
@@ -374,14 +385,6 @@ class AgentController extends CI_Controller {
           $this->load->view('auth/error'); 
         } 
         $this->load->view('layout/scripts', $data);
-    }
-
-    public function delete() {
-        if($this->rol->delete($this->input->post('id')) !== 0){
-            echo true;
-        }else{
-            echo false;
-        }
     }
     
     public function newPacient() {

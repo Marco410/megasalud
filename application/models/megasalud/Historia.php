@@ -205,9 +205,6 @@ class Historia extends CI_Model
 		$this->db->where('id_paciente', $id);
 		return $this->db->get('hisclinic_antecedente');
 	}
-    public function antecedentes() {
-		return $this->db->get('antecedentes');
-	}
     
     public function familiar() {
 		return $this->db->get('hisclinic_familia');
@@ -328,32 +325,6 @@ class Historia extends CI_Model
     
      public function terapia() {
 		return $this->db->get('terapia');
-	}
-    
-    //info enfermedades infectocontagiosas del usuario
-    public function enf_infecto_virus($id) {
-        $this->db->where('id_paciente', $id);
-		return $this->db->get('hisclinic_enf_infecto_virus');
-	}
-     public function enf_infecto_bacterias($id) {
-        $this->db->where('id_paciente', $id);
-		return $this->db->get('hisclinic_enf_infecto_bacterias');
-	}
-     public function enf_infecto_hongos($id) {
-        $this->db->where('id_paciente', $id);
-		return $this->db->get('hisclinic_enf_infecto_hongos');
-	}
-     public function enf_infecto_parasitos($id) {
-        $this->db->where('id_paciente', $id);
-		return $this->db->get('hisclinic_enf_infecto_parasitos');
-	}
-     public function enf_infecto_psicologicas($id) {
-        $this->db->where('id_paciente', $id);
-		return $this->db->get('hisclinic_enf_infecto_psicologicas');
-	}
-     public function enf_infecto_otras($id) {
-        $this->db->where('id_paciente', $id);
-		return $this->db->get('hisclinic_enf_infecto_otras');
 	}
     
     public function delete_hisclinic($data) {

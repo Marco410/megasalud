@@ -122,7 +122,10 @@ $fechaMax = $edad->format('%Y') . '.' . $edad->format('%m');
                                 </h5>
                                 <h5>Expediente: <label class="sm"><b><?= $paciente->clave_bancaria ?></b></label>
                                 </h5>
-                                <h5>Sucursal: <label class="sm"><b><?= $paciente_suc->razon_social ?></b></label>
+                                <h5>Sucursal: <label class="sm"><b><?= isset($paciente_suc->razon_social)
+                                    ? $paciente_suc->razon_social
+                                    : '<small class="text-danger">Edite la sucursal. <a data-toggle="modal"
+                                            data-target="#sucursal_modal" >Da click aquí</a></small>' ?></b></label>
                                 </h5>
                                 <h5>Ocupación: <label
                                         class="sm"><b><?= is_numeric($paciente->ocupacion) ? ($paciente_empleo ? $paciente_empleo->name : '<small class="text-danger">Edite el empleo</small>') : '<small class="text-danger">Edite el empleo</small>' ?></b></label>
@@ -218,7 +221,7 @@ $fechaMax = $edad->format('%Y') . '.' . $edad->format('%m');
                     <form id="insert-suc" method="post" name="insert-suc">
                         <div class="modal-body">
                             <div class="row">
-                                <div id="panel-sucursales" class="col-sm-8" hidden>
+                                <div id="panel-sucursales" class="col-sm-8">
                                     <input type="hidden" value="<?= $paciente->id ?>" name="id_paciente" />
                                     <label>
                                         Sucursal
@@ -471,7 +474,8 @@ $fechaMax = $edad->format('%Y') . '.' . $edad->format('%m');
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-sm-12" style="margin-bottom: 10px">
-                            <button type="submit" id="btn_iniciar_cuestionario" class="btn btn-success btn-block"><i
+                            <button type="submit" data-toggle="modal" data-target="#quiz"
+                                id="btn_iniciar_cuestionario" class="btn btn-success btn-block"><i
                                     class="fa fa-bars mr-2"></i>
                                 Iniciar
                                 Cuestionario</button>
@@ -1098,7 +1102,8 @@ $fechaMax = $edad->format('%Y') . '.' . $edad->format('%m');
                         <div class="card-header" id="headingThree">
                             <h5 class="mb-0">
                                 <button class="btn btn-primary collapsed" data-toggle="collapse"
-                                    data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    data-target="#collapseThree" aria-expanded="false"
+                                    aria-controls="collapseThree">
                                     <i class="fa fa-plus "></i> Autoinmunidad del tracto gastrointestinal.
                                 </button>
                             </h5>
@@ -2365,3 +2370,4 @@ $fechaMax = $edad->format('%Y') . '.' . $edad->format('%m');
     </div>
 </div>
 <!-- Cierra Modal Agregar Medicamento -->
+<?php include 'quiz_modal.php'; ?>

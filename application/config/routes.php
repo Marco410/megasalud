@@ -320,6 +320,12 @@ $route['perfil'] = 'megasalud/APIController/perfil';
 */
 $route['registrame'] = 'megasalud/ProspectosController/index';
 
+/*
+----------------------------------
+| Quiz routes
+-----------------------------------
+*/
+$route['quiz'] = 'megasalud/QuizController/getQuestions';
 
 
 

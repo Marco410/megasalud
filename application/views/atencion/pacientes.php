@@ -32,6 +32,7 @@
 							<th>Nombre</th>
 							<th>Email</th>
 							<th>Motivo Consulta</th>
+							<th>Municipio</th>
 							<th>Estado</th>
 							<th>Telefono A</th>
 							<th style="width: 110px;">Opc.</th>
