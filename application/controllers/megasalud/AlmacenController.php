@@ -71,6 +71,11 @@ class AlmacenController extends CI_Controller {
         
         $this->load->view('layout/scripts', $data);
     }
+
+    /* 
+        * Function to get view entradas
+        * Return view
+    */
     
     public function entrada_show(){
 
@@ -93,7 +98,12 @@ class AlmacenController extends CI_Controller {
         
         $this->load->view('layout/scripts', $data);
     }
-    
+
+    /* 
+        * Function to get view salidas
+        * Return view
+    */
+
     public function salida(){
 
         session_redirect();
