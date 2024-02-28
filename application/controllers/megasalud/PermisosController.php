@@ -8,6 +8,11 @@ class PermisosController extends CI_Controller {
 		$this->load->model('megasalud/permiso');
 	}
 
+	/* 
+      * Function to get view Permisos
+      * Return view 
+    */
+
 	public function index() {
 
 		session_redirect();
@@ -30,6 +35,11 @@ class PermisosController extends CI_Controller {
 
 	}
 
+	/* 
+      * Function to get view Nuevo Permiso
+      * Return view 
+    */
+
 	public function create() {
 
 		session_redirect();
@@ -46,12 +56,23 @@ class PermisosController extends CI_Controller {
 
 	}
 
+	/* 
+      * Function to get permiso
+      * Return json 
+    */
+
 	public function show(){
 
 		$id = $this->uri->segment(4);
 
         echo json_encode($this->permiso->find($id)->row_array());
     }
+
+	/* 
+      * Function to add new permiso
+      * Return message 
+	  * @param permiso data
+    */
 
 	public function save() {
 
@@ -76,6 +97,12 @@ class PermisosController extends CI_Controller {
 
 	}
 
+	/* 
+      * Function to edit permiso
+      * Return view 
+	  * @param permiso_id
+    */
+
 	public function edit($id) {
 
 		session_redirect();
@@ -90,6 +117,12 @@ class PermisosController extends CI_Controller {
         $this->load->view('layout/scripts', $data);
 	}
 
+	/* 
+      * Function to delete permiso
+      * Return message 
+	  * @param permiso_id
+    */
+
 	public function delete() {
 		if($this->permiso->delete($_POST['id']) !== 0){
 			echo true;
@@ -98,10 +131,13 @@ class PermisosController extends CI_Controller {
 		}
 	}
 
+	/* 
+      * Function to verify permiso
+      * Return json 
+	  * @param permiso_id
+    */
+
 	public function verifyPermission() {
-
 		echo json_encode( $this->permiso->isAvailable($this->input->get('name'), $this->input->get('id')) );
-
 	}
-
 }

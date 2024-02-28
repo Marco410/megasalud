@@ -7,6 +7,12 @@ class APIController extends CI_Controller {
 		parent::__construct();
 	}
 
+    /* 
+        * Function get "Notas de los pacientes"
+        * Return json data
+        * @params init, end
+    */
+
 	public function pacientes_notas() {	
         session_redirect();
 
@@ -27,6 +33,11 @@ class APIController extends CI_Controller {
         }
         echo json_encode($array);
 	}
+
+    /* 
+        * Function to get "perfil inmunologio del paciente"
+        * Return json data
+    */
 
     public function perfil() {
 

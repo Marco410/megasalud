@@ -8,6 +8,11 @@ class OfficeController extends CI_Controller {
         $this->load->model('megasalud/sucursal');
     }
 
+    /* 
+      * Function to get view "Sucursales"
+      * Return view
+    */ 
+
     public function index(){
 
         session_redirect();
@@ -15,7 +20,6 @@ class OfficeController extends CI_Controller {
         $data = array();
         $data['title'] = 'Sucursales';
         $data['sucursales'] = $this->sucursal->getAll();
-        // $data['view_style'] = 'office.css';
         $data['view_controller'] = 'office_vs.js';
 
         $this->load->view('layout/head', $data);
@@ -29,6 +33,11 @@ class OfficeController extends CI_Controller {
         
         $this->load->view('layout/scripts', $data);
     }
+
+    /* 
+      * Function to get view "Nueva Sucursal"
+      * Return view
+    */ 
 
     public function create(){
 
@@ -50,6 +59,12 @@ class OfficeController extends CI_Controller {
         $this->load->view('layout/scripts', $data);
     }
 
+    /* 
+      * Function to get view "Editar Sucursal"
+      * Return view
+      * @param sucursal_id
+    */ 
+
     public function edit($id) {
 
         session_redirect();
@@ -68,7 +83,13 @@ class OfficeController extends CI_Controller {
         }
        
         $this->load->view('layout/scripts', $data);
-    } 
+    }
+    
+    /* 
+      * Function to get view "Agenda Sucursal"
+      * Return view
+      * @param sucursal_id
+    */ 
     
     public function agenda($id) {
 
@@ -90,12 +111,24 @@ class OfficeController extends CI_Controller {
         $this->load->view('layout/scripts', $data);
     }
 
+    /* 
+      * Function to get office data
+      * Return json data
+      * @param sucursal_id
+    */ 
+
     public function show(){
 
         $id = $this->uri->segment(4);
 
         echo json_encode($this->sucursal->find($id)->row_array());
     }
+
+    /* 
+      * Function to save office data
+      * Return json data
+      * @param office data
+    */
 
     public function save() {
         

@@ -474,8 +474,6 @@ function init() {
             $(".input-hospi").remove();
             $(".input-veneno").remove();
 
-
-
         } else {
             var texto = {
                 text: text

@@ -175,10 +175,15 @@ class Historia extends CI_Model
 	}
 	
 	public function insert_in_linea_vida($data_linea){
+
 		$this->db->where('id_paciente', $data_linea['id_paciente']);
 		$this->db->where('id_dato', $data_linea['id_dato']);
 		$this->db->where('table_hisclinic', $data_linea['table_hisclinic']);
-        $res = $this->db->count_all_results('hisclinic_linea');
+		$res = $this->db->count_all_results('hisclinic_linea');
+		if ($data_linea['table_hisclinic'] == 'vacuna'){
+			$res = 0;
+		}
+
         if($res == 0){
 			$this->db->insert('hisclinic_linea', $data_linea);
 			return 0;
@@ -354,22 +359,6 @@ class Historia extends CI_Model
      return $this->db->insert('hisclinic_venenos', $data);
 	}
     
-    public function save_hisclinic_vp($data, $data_linea) {
-		$this->db->insert('hisclinic_linea', $data_linea);
-        return $this->db->insert('hisclinic_vp', $data);	
-	}
-    public function save_hisclinic_vm($data, $data_linea) {
-		$this->db->insert('hisclinic_linea', $data_linea);
-        return $this->db->insert('hisclinic_vm', $data);	
-	}
-    public function save_hisclinic_vr($data, $data_linea) {
-		$this->db->insert('hisclinic_linea', $data_linea);
-        return $this->db->insert('hisclinic_vr', $data);	
-	}
-    public function save_hisclinic_vmp($data, $data_linea) {
-		$this->db->insert('hisclinic_linea', $data_linea);
-        return $this->db->insert('hisclinic_vmp', $data);	
-	}
 	public function save_terapia($data, $data_linea) {
 		$this->db->insert('hisclinic_linea', $data_linea);
         return $this->db->insert('hisclinic_terapia', $data);	

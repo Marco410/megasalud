@@ -8,10 +8,14 @@ class ComController extends CI_Controller {
 		$this->load->model('megasalud/Comision');
 	}
 
+    /* 
+      * Function to get view Comissions
+      * Return view
+    */ 
+
 	public function index() {
 
 		session_redirect();
-
 		$data = array();
         $data['title'] = 'Comisiones';
         $data['view_controller'] = 'comision_vs.js';
@@ -26,41 +30,45 @@ class ComController extends CI_Controller {
         } 
         
         $this->load->view('layout/scripts');
-
 	}
+
+    /* 
+      * Function to get comision from "Sucursales"
+      * Return json data
+    */ 
     
     public function getCom_Suc(){
         $this->Comision->getCom_Suc();
     }
+
+    /* 
+      * Function to get comision from "Represenantes"
+      * Return json data
+    */ 
+
     public function getCom_Agent(){
         $this->Comision->getCom_Agent();
     }
+
+    /* 
+      * Function to get comision from "Usuarios"
+      * Return json data
+    */ 
+
     public function getCom_User(){
         $this->Comision->getCom_User();
     }
 
-	public function create() {
-
-    	session_redirect();
-
-    	$data = array();
-        $data['title'] = 'Nuevo rol';
-        $data['permisos'] = $this->permiso->getAll();
-        $data['roles'] = $this->rol->getAll();
-        $data['view_controller'] = 'roles_vs.js';
-
-        $this->load->view('layout/head', $data);
-        $this->load->view('layout/header');
-        $this->load->view('roles/create', $data);
-        $this->load->view('layout/scripts', $data);
-
-	}
+    /* 
+      * Function to get change status comission
+      * Return message
+      * @params comission_id, tipo, descripcion
+    */ 
     
     public function change(){
         $id = $_POST['id'];
         $tipo = $_POST['tipo'];
         $fecha = date("d-m-y");
-        
         
          $data = [
             'status' => 'Pagado',
@@ -80,11 +88,5 @@ class ComController extends CI_Controller {
         
         $this->db->update($db, $data);
         echo "Esto" .$id;
-    
     }
-
-
-
-
-
 }

@@ -10,6 +10,12 @@ class QuizController extends CI_Controller {
 
 	}
 
+	/* 
+      * Function to get questions
+      * Return data
+	  * @param paciente_id
+    */
+
 	public function getQuestions() {
 
         echo $this->quiz->get_questions($_GET['paciente_id']);

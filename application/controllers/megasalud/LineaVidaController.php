@@ -8,6 +8,12 @@ class LineaVidaController extends CI_Controller {
         $this->load->model('megasalud/historia');
     }
 
+    /* 
+      * Function to get view Linea de Vida
+      * Return view
+      * @param paciente_id
+    */ 
+
     public function index($id){
 
         session_redirect();
@@ -31,6 +37,12 @@ class LineaVidaController extends CI_Controller {
         $this->load->view('layout/scripts', $data);
     }
 
+    /* 
+      * Function to get data linea
+      * Return json
+      * @param paciente_id
+    */ 
+
     public function get_linea(){
         $id = $_POST["id"];
 
@@ -39,37 +51,6 @@ class LineaVidaController extends CI_Controller {
         $response = array();
         $response['data'] = $result->result_array();
         echo json_encode($response);
-    }
-
-
-    public function save() {
-        
-        $sucursal = array(
-            'razon_social' => $this->input->post('razon_social'), 
-            'pais' => $this->input->post('pais'),
-            'estado' => $this->input->post('estado'),
-            'municipio' => $this->input->post('municipio'),
-            'direccion' => $this->input->post('direccion'),
-            'cp' => $this->input->post('cp'),
-            'telefono' => $this->input->post('telefono'),
-            'cuenta_bancaria' => $this->input->post('cuenta_bancaria'),
-            'banco' => $this->input->post('banco'),
-            'id_calendario' => $this->input->post('id_calendario'),
-            'calendario' => $this->input->post('calendario')
-        );
-
-        if(isset($_POST['_method'])) {
-            $res = $this->sucursal->save($sucursal, $_POST["id"], true);
-        }else{
-            $res = $this->sucursal->save($sucursal);          
-        }
-
-        if($res){
-            echo true;
-        }
-        else{
-            echo false;
-        }
     }
 
 }

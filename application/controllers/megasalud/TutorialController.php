@@ -7,6 +7,11 @@ class TutorialController extends CI_Controller {
 		parent::__construct();
 	}
 
+    /* 
+        * Function to get view "Tutoriales Médico"
+        * Return view
+    */
+
 	public function medico() {
 
 		session_redirect();
@@ -32,6 +37,11 @@ class TutorialController extends CI_Controller {
         $this->load->view('layout/scripts');
 
 	}
+
+     /* 
+        * Function to get "Tutoriales Médico
+        * Return data
+    */
     
     public function getTutorialesMedico(){
         $this->db->where("modulo","medico");
@@ -39,7 +49,5 @@ class TutorialController extends CI_Controller {
         return $this->db->get("videos");
         
     }
-
-
 
 }

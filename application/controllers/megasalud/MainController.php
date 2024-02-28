@@ -8,6 +8,10 @@ class MainController extends CI_Controller {
         $this->load->model('megasalud/Sucursal');
     }
 
+    /* 
+      * Function to redirect user
+      * Return redirect
+    */ 
 
     public function view($page = 'home')
     {
@@ -27,6 +31,11 @@ class MainController extends CI_Controller {
         redirect($page);
     }
 
+    /* 
+      * Function to get view Home
+      * Return view
+    */ 
+
     public function home()
     {
         if($this->session->userdata('auth') != true){
@@ -44,6 +53,11 @@ class MainController extends CI_Controller {
         $this->load->view('layout/scripts', $data);
     }
 
+    /* 
+      * Function to verify password
+      * Return message
+    */ 
+
     public function verify_password()
     {
         $this->db->select('password');
@@ -58,6 +72,12 @@ class MainController extends CI_Controller {
             echo false;            
         }
     }
+
+    /* 
+      * Function to add comment
+      * Return json data
+      * @param comment data
+    */ 
     
      public function add_comment() {
       
@@ -73,11 +93,16 @@ class MainController extends CI_Controller {
 
             echo json_encode($data);
         }
-            else{
-                echo json_encode(array('error' => true));
-            }
-        
+        else{
+            echo json_encode(array('error' => true));
+        }
     }
+
+    /* 
+      * Function to update suc
+      * Return json data
+      * @param sucursal_id, name
+    */ 
     
     public function update_suc(){
         

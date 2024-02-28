@@ -74,11 +74,11 @@ $type = $this->session->type;
                         </li>
                       <?php } ?>
                     
-                        <?php if($type == "Administrador" || $type == "Contador" || $type == "Gerente Sucursal" || $type == "Produccion"  ){ ?>
+                        <?php if($type == "Administrador" || $type == "Contador" || $type == "Gerente Sucursal" || $type == "Produccion" || $type == "Atención a Clientes"  ){ ?>
                         <li>
                             <a class="has-arrow" href="mailbox.html" aria-expanded="false"><span class="fa fa-cubes"></span> <span class="mini-click-non">Almacén</span></a>
                             <ul class="submenu-angle chart-mini-nb-dp" aria-expanded="false">
-                                <?php if($type == "Administrador" || $type == "Contador"  ){ ?>
+                                <?php if($type == "Administrador" || $type == "Contador" || $type == "Atención a Clientes"  ){ ?>
                                 <li><a title="Almacén" href="<?=base_url('/almacen');?>"><span class="mini-sub-pro"><i class="fa fa-cube" ></i> Inventario</span></a></li>
                                 <?php } ?>
                                 <li><a title="Productos" href="<?=base_url('/productos');?>"><span class="mini-sub-pro"><i class="fa fa-tags" ></i>  Productos</span></a></li>

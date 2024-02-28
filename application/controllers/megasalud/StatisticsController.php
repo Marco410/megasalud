@@ -8,6 +8,11 @@ class StatisticsController extends CI_Controller {
 		$this->load->model('megasalud/Statistics');
 	}
 
+    /* 
+        * Function to get view "Estadísticas"
+        * Return view
+    */
+
 	public function index() {
 
 		session_redirect();
@@ -31,6 +36,12 @@ class StatisticsController extends CI_Controller {
         
         $this->load->view('layout/scripts');
 	}
+
+    /* 
+        * Function to get view "Estadísticas ventas"
+        * Return view
+    */
+
     public function ventas() {
 
 		session_redirect();
@@ -56,6 +67,11 @@ class StatisticsController extends CI_Controller {
         $this->load->view('layout/scripts');
 
 	}
+
+    /* 
+        * Function to get count patients
+        * Return data
+    */
     
      public function get_count_pacients() {
 
@@ -63,11 +79,22 @@ class StatisticsController extends CI_Controller {
 		return $this->db->count_all_results('pacientes');
 
 	} 
+
+    /* 
+        * Function to get count citas
+        * Return data
+    */
+
      public function get_count_citas() {
 
 		return $this->db->count_all_results('hisclinic_historial');
-
 	}
+
+    /* 
+        * Function to get count patients sex
+        * Return data
+    */
+
     public function getSexoP(){
         
         $this->db->where("sexo","Masculino");
@@ -81,9 +108,12 @@ class StatisticsController extends CI_Controller {
         );
         
         echo json_encode($data);
-
-        
     } 
+
+    /* 
+        * Function to get count edad
+        * Return data
+    */
     
     public function getEdad(){
         
@@ -132,9 +162,12 @@ class StatisticsController extends CI_Controller {
         );
         
         echo json_encode($data);
-
-        
     } 
+
+    /* 
+        * Function to get count estado
+        * Return data
+    */
     
     public function getLugar(){
         $this->db->where("estado","Aguascalientes");
@@ -233,6 +266,12 @@ class StatisticsController extends CI_Controller {
 
         
     }
+
+    /* 
+        * Function to get count mes de registro
+        * Return data
+    */
+
     public function getEntradaP(){
         
         $this->db->where("created_at <=","2021-01-31");
@@ -288,9 +327,12 @@ class StatisticsController extends CI_Controller {
         );
         
         echo json_encode($data);
-
-        
     } 
+
+    /* 
+        * Function to get count patients reference
+        * Return data
+    */
     
     public function getPacientesFrom(){
         
@@ -312,28 +354,44 @@ class StatisticsController extends CI_Controller {
         );
         
         echo json_encode($data);
-
-        
     } 
+
+    /* 
+        * Function to get count orders
+        * Return data
+    */
 
     public function get_count_orders() {
 
-		/* $this->db->where('status', 1); */
 		return $this->db->count_all_results('pedidos');
-
 	} 
+
+    /* 
+        * Function to get count orders paid
+        * Return data
+    */
+
     public function get_count_pagado() {
 
 		$this->db->where('status', "Pagado");
 		return $this->db->count_all_results('pedidos');
-
 	} 
+
+    /* 
+        * Function to get count orders pending
+        * Return data
+    */
+
     public function get_count_pendiente() {
 
 		$this->db->where('status', "Pendiente");
 		return $this->db->count_all_results('pedidos');
-
 	} 
+
+    /* 
+        * Function to get count orders pending
+        * Return data
+    */
 
     public function getPedidosUser(){
         
@@ -351,9 +409,12 @@ class StatisticsController extends CI_Controller {
         );
         
         echo json_encode($data);
-
-        
-    } 
+    }
+    
+    /* 
+        * Function to get count orders by date
+        * Return data
+    */
 
     public function getEntradaP20(){
         
@@ -410,9 +471,12 @@ class StatisticsController extends CI_Controller {
         );
         
         echo json_encode($data);
-
-        
     } 
+
+    /* 
+        * Function to get count orders by date
+        * Return data
+    */
 
     public function getEntradaP21(){
         
@@ -470,6 +534,11 @@ class StatisticsController extends CI_Controller {
         
         echo json_encode($data);
     } 
+
+    /* 
+        * Function to get count orders by date
+        * Return data
+    */
 
     public function getSucursalesP() {
         $this->db->where("id_sucursal",1);

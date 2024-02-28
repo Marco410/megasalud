@@ -2,6 +2,11 @@
 
 class AuthController extends CI_Controller {
  
+    /* 
+      * Function to get view "Login"
+      * Return view
+    */
+
 	public function login()
     {
         if($this->session->userdata('auth') == true){
@@ -18,6 +23,11 @@ class AuthController extends CI_Controller {
         $this->load->view('auth/login');
         $this->load->view('layout/scripts', $data);
     }
+
+    /* 
+      * Function to get view "Recuperar Contraseña"
+      * Return view
+    */
     
     public function password_request(){
         $data = array();
@@ -30,6 +40,11 @@ class AuthController extends CI_Controller {
         $this->load->view('auth/reset_pw');
         $this->load->view('layout/scripts', $data);
     }
+
+    /* 
+      * Function to get view "Perfil"
+      * Return view
+    */
     
     public function perfil()
     {
@@ -52,12 +67,24 @@ class AuthController extends CI_Controller {
         $this->load->view('auth/perfil');
         $this->load->view('layout/scripts', $data);
     }
+
+    /* 
+      * Function to get user data
+      * Return data
+      * @param user_id
+    */
     
     public function getUser($id){
        
         $this->db->where("id",$id);
         return $this->db->get("users");
     }
+
+    /* 
+      * Function to get "representante" data
+      * Return data
+      * @param agent_id
+    */
     
     public function getAgent($id){
        
@@ -65,8 +92,13 @@ class AuthController extends CI_Controller {
         return $this->db->get("agents");
     }
 
-    public function auth(){
+    /* 
+      * Function to save session data
+      * Return json response
+      * @param email, password, agent?
+    */
 
+    public function auth(){
         
         $email = $_POST['email'];
         $password = $_POST['password'];
@@ -79,32 +111,27 @@ class AuthController extends CI_Controller {
             $this->db->where('status', 1);
             $query = $this->db->get();
             $row = $query->row();
-
-            
             
         }else{
             //buscar un usuario
-        
-        $this->db->select('id, nombre, apellido_p, password,apellido_m,cedula');
-        $this->db->from('users');
-        $this->db->where('email', $email);
-        $this->db->where('status', 1);
-        $query = $this->db->get();
-        $row = $query->row();
-        
-       
+            $this->db->select('id, nombre, apellido_p, password,apellido_m,cedula');
+            $this->db->from('users');
+            $this->db->where('email', $email);
+            $this->db->where('status', 1);
+            $query = $this->db->get();
+            $row = $query->row();
         }
 
         //si encuentra un usuario con ese correo, verifica la pass
         if (isset($row))
         {
         
-        $this->db->select('r.id,r.name');
-        $this->db->from('roles r');
-        $this->db->join('rol_user ru','ru.rol_id = r.id', 'inner');
-        $this->db->where('ru.user_id', $row->id);
-        $query3 = $this->db->get();
-        $row3 = $query3->row();
+            $this->db->select('r.id,r.name');
+            $this->db->from('roles r');
+            $this->db->join('rol_user ru','ru.rol_id = r.id', 'inner');
+            $this->db->where('ru.user_id', $row->id);
+            $query3 = $this->db->get();
+            $row3 = $query3->row();
             
             if(password_verify($password, $row->password)){
                 $bandera = 0;
@@ -122,7 +149,6 @@ class AuthController extends CI_Controller {
                         'id_agent' => $data['id']
                     );
                     $this->db->insert('sessions_agent',$data_s);
-                    
                     
                 }else{
                     
@@ -168,7 +194,6 @@ class AuthController extends CI_Controller {
                     $this->db->insert('sessions_user',$data_s);
                     
                 }
-
                 //verificar si el representante esta aprobado
                 if(isset($_POST['agent'])){
                     //verifica el representnate aprobado
@@ -176,13 +201,10 @@ class AuthController extends CI_Controller {
 
                         echo json_encode(array('aprobado'=>false));
                     }else{
-
                         $this->session->set_userdata($data);
-
                         if($bandera == 1){
                             $data['sucursales'] = $query2->result_array();
                         }
-
                         echo json_encode($data);
                     }
                 
@@ -196,10 +218,7 @@ class AuthController extends CI_Controller {
                     }
 
                     echo json_encode($data);
-
                 }
-                
-                
             }
             else{
                 echo json_encode(array('error' => true));
@@ -209,6 +228,12 @@ class AuthController extends CI_Controller {
             echo json_encode(array('error' => true));
         }
     }
+
+    /* 
+      * Function to save session data from patient
+      * Return json response
+      * @param expediente, password
+    */
     
     public function auth_pacient(){
 
@@ -216,7 +241,6 @@ class AuthController extends CI_Controller {
         $password = $_POST['pass'];
         
         //buscar un usuario
-        
         $this->db->select('id, nombre, apellido_p, password,apellido_m,motivo_consulta');
         $this->db->from('pacientes');
         $this->db->where('clave_bancaria', $exp);
@@ -224,49 +248,45 @@ class AuthController extends CI_Controller {
         $this->db->where('status', 1);
         $query = $this->db->get();
         $row = $query->row();
-    
 
         //si encuentra un usuario con ese correo, verifica la pass
         if (isset($row))
         {
         
             $data = array(
-            'id' => $row->id,
-            'name' => $row->nombre.' '.$row->apellido_p,
-            'apellido_m' => $row->apellido_m,
-            'motivo' => $row->motivo_consulta,
-            'error' => false,
-            'type' => 'Paciente',
-            'auth' => true
-                );
-            
-           
-            
+                'id' => $row->id,
+                'name' => $row->nombre.' '.$row->apellido_p,
+                'apellido_m' => $row->apellido_m,
+                'motivo' => $row->motivo_consulta,
+                'error' => false,
+                'type' => 'Paciente',
+                'auth' => true
+            );
                     
-               switch ($this->session->type ) {
-                 case 'Administrador':
-                 break;
+            switch ($this->session->type ) {
+                case 'Administrador':
+                break;
 
-                 default:
-                     $this->db->select('s.*');
-                     $this->db->from('sucursales s');
-                     $this->db->join('sucursal_pacientes us', 'us.sucursal_id = s.id', 'inner');
-                     $this->db->where('us.paciente_id', $row->id);
-                     $query2 = $this->db->get();
+                default:
+                    $this->db->select('s.*');
+                    $this->db->from('sucursales s');
+                    $this->db->join('sucursal_pacientes us', 'us.sucursal_id = s.id', 'inner');
+                    $this->db->where('us.paciente_id', $row->id);
+                    $query2 = $this->db->get();
 
-                     if($query2->num_rows() == ""){
-                         $bandera = 1;
-                         $data['auth'] = false;
-                     }
-                     else{
-                         $row2 = $query2->row();
-                         $data['sucursal'] = $row2->id;
-                         $data['sucursal_name'] = $row2->razon_social;
-                         $data['auth'] = true;
-                     }
-                 break;
-             }  
-                 $data_s = array(
+                    if($query2->num_rows() == ""){
+                        $bandera = 1;
+                        $data['auth'] = false;
+                    }
+                    else{
+                        $row2 = $query2->row();
+                        $data['sucursal'] = $row2->id;
+                        $data['sucursal_name'] = $row2->razon_social;
+                        $data['auth'] = true;
+                    }
+                break;
+            }  
+                $data_s = array(
                     'id_paciente' => $data['id']
                 );
                 $this->session->set_userdata($data);
@@ -277,6 +297,12 @@ class AuthController extends CI_Controller {
             echo json_encode(array('error' => true));
         }
     }
+
+    /* 
+      * Function to check email
+      * Return json response
+      * @param email
+    */
 
     public function checkEmail()
     {
@@ -296,7 +322,13 @@ class AuthController extends CI_Controller {
         else{
             echo json_encode(true);
         }
-    } 
+    }
+
+    /* 
+      * Function to check email patient
+      * Return json response
+      * @param email
+    */ 
     
     public function checkEmailPacient()
     {
@@ -313,19 +345,21 @@ class AuthController extends CI_Controller {
             echo json_encode(true);
         }
         else{
-            
             if (isset($row))
-        {
-            echo json_encode(false);
+            {
+                echo json_encode(false);
+            }
+            else{
+                echo json_encode(true);
+            }
         }
-        else{
-            echo json_encode(true);
-        }
-            
-        }
-
-        
-    } 
+    }
+    
+    /* 
+      * Function to check if patient exist
+      * Return json response
+      * @param pais_origen, fecha_nacimiento, apellido_p, nombre, apellido_m
+    */ 
     
     public function checkExistPacient()
     {
@@ -356,8 +390,13 @@ class AuthController extends CI_Controller {
         else{
             echo json_encode(true);
         }
-        
-    } 
+    }
+    
+    /* 
+      * Function to check patient name
+      * Return json response
+      * @param apellido_p, nombre, apellido_m
+    */ 
 
     public function checkNamePacient()
     {
@@ -389,8 +428,13 @@ class AuthController extends CI_Controller {
         else{
             echo json_encode($response);
         }
-        
-    } 
+    }
+    
+    /* 
+      * Function to check email "representante"
+      * Return json response
+      * @param email
+    */ 
     
     public function checkEmailAgent()
     {
@@ -412,10 +456,21 @@ class AuthController extends CI_Controller {
         }
     }
 
+    /* 
+      * Function to destroy session
+      * Return redirect
+    */ 
+
     public function logout(){
         $this->session->sess_destroy();
         redirect('login');
     }
+
+    /* 
+      * Function to send email to change pass
+      * Return json response
+      * @param email, user
+    */ 
     
     public function reset_pass(){
         
@@ -468,6 +523,11 @@ class AuthController extends CI_Controller {
              echo json_encode(array('error' => false));
         }
     }
+
+    /* 
+      * Function to generate token
+      * Return token
+    */ 
     
     function generar_token(){
        
@@ -483,8 +543,13 @@ class AuthController extends CI_Controller {
        return $token.$date;
        
    }
+
+    /* 
+      * Function to generate token
+      * Return token
+    */ 
     
-     public function confirmToken($token){
+    public function confirmToken($token){
         $data = array();
         $data['title'] = 'Recuperar Contraseña';
         $data['view_style'] = 'login.css'; 
@@ -492,14 +557,14 @@ class AuthController extends CI_Controller {
         $this->db->where("token",$token);
         $r = $this->db->get("password_resets");
         $row = $r->row();
-         
+            
         $data['email'] = $row->email; 
         $data['tipo'] = $row->tipo; 
         $data['token'] = $token; 
         
         if(isset($row)){
             
-           $data['view_controller'] = 'login_vs.js';
+            $data['view_controller'] = 'login_vs.js';
 
             $this->load->view('layout/head', $data);
             $this->load->view('auth/reset_password');
@@ -509,12 +574,16 @@ class AuthController extends CI_Controller {
             $this->load->view('layout/head');
             $this->load->view('auth/error_pw'); 
         }
-        
        
     }
+
+    /* 
+      * Function to change password
+      * Return json response
+      * @params password
+    */ 
     
     public function changePW(){
-         
         
         $this->db->select("email,tipo");
         $this->db->where("token",$_POST['token']);
@@ -532,7 +601,4 @@ class AuthController extends CI_Controller {
              echo json_encode(array('error' => true));
         }
     }
-
-   
-    
 }

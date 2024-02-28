@@ -9,6 +9,11 @@ class ProductsController extends CI_Controller {
         $this->load->model('megasalud/sucursal');
     }
 
+    /* 
+      * Function to get view 'Productos'
+      * Return view 
+    */
+
     public function index(){
 
         session_redirect();
@@ -23,7 +28,7 @@ class ProductsController extends CI_Controller {
         $this->load->view('layout/header');
         
         $type = $this->session->type;
-         if($type == "Administrador" || $type== "Contador" || $type== "Gerente Sucursal" || $type== "Produccion" ){
+         if($type == "Administrador" || $type== "Contador" || $type== "Gerente Sucursal" || $type== "Produccion" || $type == "Atención a Clientes" ){
             $this->load->view('products/index', $data);
         }else{
           $this->load->view('auth/error'); 
@@ -31,6 +36,11 @@ class ProductsController extends CI_Controller {
         
         $this->load->view('layout/scripts', $data);
     }
+
+    /* 
+      * Function to get view 'Nuevo producto'
+      * Return view 
+    */
 
     public function create(){
 
@@ -46,7 +56,7 @@ class ProductsController extends CI_Controller {
         $this->load->view('layout/header');
         
         $type = $this->session->type;
-         if($type == "Administrador" || $type== "Contador" || $type== "Gerente Sucursal" ){
+         if($type == "Administrador" || $type== "Contador" || $type== "Gerente Sucursal" || $type == "Atención a Clientes" ){
             $this->load->view('products/create', $data);
         }else{
           $this->load->view('auth/error'); 
@@ -54,6 +64,12 @@ class ProductsController extends CI_Controller {
         
         $this->load->view('layout/scripts', $data);
     }
+
+    /* 
+      * Function to get view 'Productos Apartados'
+      * Return view 
+    */
+
     public function apartados(){
  
         session_redirect();
@@ -74,7 +90,7 @@ class ProductsController extends CI_Controller {
         $this->load->view('layout/header');
         
        
-         if($type == "Administrador" || $type== "Contador" || $type== "Gerente Sucursal" ){
+         if($type == "Administrador" || $type== "Contador" || $type== "Gerente Sucursal" || $type == "Atención a Clientes" ){
             $this->load->view('products/apartados', $data);
         }else{
           $this->load->view('auth/error'); 
@@ -82,6 +98,11 @@ class ProductsController extends CI_Controller {
         
         $this->load->view('layout/scripts', $data);
     }
+
+    /* 
+      * Function to get view 'Nueva Entrada'
+      * Return view 
+    */
     
     public function entrada(){
 
@@ -106,7 +127,7 @@ class ProductsController extends CI_Controller {
         
         
         $type = $this->session->type;
-         if($type == "Administrador" || $type== "Contador" || $type== "Gerente Sucursal" ){
+         if($type == "Administrador" || $type== "Contador" || $type== "Gerente Sucursal" || $type == "Atención a Clientes" ){
             $this->load->view('products/entrada', $data);
         }else{
           $this->load->view('auth/error'); 
@@ -114,13 +135,18 @@ class ProductsController extends CI_Controller {
         
         $this->load->view('layout/scripts', $data);
     }
+
+    /* 
+      * Function to get view 'Ver Entradas'
+      * Return view 
+    */
     
     public function entradas(){
 
         session_redirect();
         
          $type = $this->session->type;
-        if($type == "Administrador" || $type== "Contador"){
+        if($type == "Administrador" || $type== "Contador" || $type == "Atención a Clientes"){
         $id = $this->uri->segment(3);
         }else{
             $id = $this->session->sucursal;
@@ -137,7 +163,7 @@ class ProductsController extends CI_Controller {
         
         
         $type = $this->session->type;
-         if($type == "Administrador" || $type== "Contador" || $type== "Gerente Sucursal" ){
+         if($type == "Administrador" || $type== "Contador" || $type== "Gerente Sucursal" || $type == "Atención a Clientes" ){
             $this->load->view('products/entrada-show', $data);
             }else{
               $this->load->view('auth/error'); 
@@ -145,6 +171,11 @@ class ProductsController extends CI_Controller {
         
         $this->load->view('layout/scripts', $data);
     }
+
+     /* 
+      * Function to get proveedores
+      * Return data 
+    */
     
      public function getProv(){
 
@@ -155,6 +186,11 @@ class ProductsController extends CI_Controller {
 
         return $response;
     }
+
+    /* 
+      * Function to get sucursales
+      * Return data 
+    */
     
     public function getSuc($id){
         $this->db->select('razon_social');
@@ -165,31 +201,46 @@ class ProductsController extends CI_Controller {
         return $result->row()->razon_social;
     }
 
+    /* 
+      * Function to get All products
+      * Return data 
+    */
+
     public function getAll($id){
 
-            $this->db->select('p.id, p.nombre,p.existencia,p.precio');
-            $this->db->from('productos p');
-            $this->db->join('productos_sucursal sp', 'sp.id_pro= p.id', 'inner');
-            $this->db->where('sp.id_suc', $id);
-            $this->db->where('status', 1);
-            $result = $this->db->get();
-            $response = $result->result();
+        $this->db->select('p.id, p.nombre,p.existencia,p.precio');
+        $this->db->from('productos p');
+        $this->db->join('productos_sucursal sp', 'sp.id_pro= p.id', 'inner');
+        $this->db->where('sp.id_suc', $id);
+        $this->db->where('status', 1);
+        $result = $this->db->get();
+        $response = $result->result();
             
         return $response;
     } 
+
+    /* 
+      * Function to get All products by sucursal
+      * Return data 
+    */
     
     public function get_ps(){
 
-            $this->db->select('p.id, p.nombre,p.existencia,p.precio');
-            $this->db->from('productos p');
-            $this->db->join('productos_sucursal sp', 'sp.id_pro= p.id', 'inner');
-            $this->db->where('sp.id_suc', $_POST['suc']);
-            $this->db->where('status', 1);
-            $result = $this->db->get();
-            $response = $result->result();
-            
-            echo json_encode($response);
+        $this->db->select('p.id, p.nombre,p.existencia,p.precio');
+        $this->db->from('productos p');
+        $this->db->join('productos_sucursal sp', 'sp.id_pro= p.id', 'inner');
+        $this->db->where('sp.id_suc', $_POST['suc']);
+        $this->db->where('status', 1);
+        $result = $this->db->get();
+        $response = $result->result();
+        
+        echo json_encode($response);
     }
+
+    /* 
+      * Function to get apartados
+      * Return data 
+    */
     
     public function getApartados($id){
 
@@ -203,17 +254,20 @@ class ProductsController extends CI_Controller {
         $this->db->order_by('c.id', 'DESC');
         $result = $this->db->get();
         $response = $result->result();
-            
 
         return $response;
     }
+
+    /* 
+      * Function to save new product
+      * Return json
+      * @param product data 
+    */
     
     public function save() {
         
-         $imagen_pro = 'imagen_pro';
-         
-         $path = "productos_img/";
-         
+        $imagen_pro = 'imagen_pro';
+        $path = "productos_img/";
 
         $config['upload_path'] = "assets/productos_img/";  
         $config['file_name'] = $this->input->post('nombre') ;
@@ -228,13 +282,13 @@ class ProductsController extends CI_Controller {
             
             $imagen = $this->upload->data('file_name');
             
-                    $data = array(
-                        'nombre' => $this->input->post('nombre'), 
-                        'descripcion' => $this->input->post('descripcion'),
-                        'precio' => $this->input->post('precio'),
-                        'existencia' => $this->input->post('existencia'),
-                        'imagen' => $imagen
-                    );
+            $data = array(
+                'nombre' => $this->input->post('nombre'), 
+                'descripcion' => $this->input->post('descripcion'),
+                'precio' => $this->input->post('precio'),
+                'existencia' => $this->input->post('existencia'),
+                'imagen' => $imagen
+            );
             $id_suc = $this->input->post('sucursal');
 
             if($this->producto->nuevo($data, $id_suc)){
@@ -250,8 +304,14 @@ class ProductsController extends CI_Controller {
         }
       
     }
+
+    /* 
+      * Function to save new entrada
+      * Return json
+      * @param entry data 
+    */
     
-     public function new_entrada() {
+    public function new_entrada() {
          $pro ="";
         $ban = false;
         $items1 = $_POST['id_pro'];
@@ -294,35 +354,39 @@ class ProductsController extends CI_Controller {
            echo json_encode(array('error' => true));
         }
     }
+
+    /* 
+      * Function to get entradas
+      * Return data
+    */
     
     public function get_entradas($id){
-
         
-            $this->db->select('pe.id, pe.proveedor,pe.factura,pe.productos,pe.created_at');
-            $this->db->from('productos_entrada pe');
-            $this->db->join('productos_entrada_suc pes', 'pes.id_entra = pe.id', 'inner');
-            $this->db->where('pes.id_suc', $id);
-            $result = $this->db->get();
-            $response = $result->result();
-            
+        $this->db->select('pe.id, pe.proveedor,pe.factura,pe.productos,pe.created_at');
+        $this->db->from('productos_entrada pe');
+        $this->db->join('productos_entrada_suc pes', 'pes.id_entra = pe.id', 'inner');
+        $this->db->where('pes.id_suc', $id);
+        $result = $this->db->get();
+        $response = $result->result();
 
         return $response;
     }
-    
-        public function get_entradas_show(){
 
-        
-            $this->db->select('ae.id,u.nombre,ae.proveedor,ae.factura,ae.productos,ae.created_at');
-            $this->db->from('productos_entrada ae');
-            $this->db->join('users u','u.id = ae.id_user', 'inner');  
-            $this->db->where('ae.id', $this->uri->segment(4));
-            $result = $this->db->get();
-            $row = $result->row();
-            $response = array();
-            $response['data'] = $result->row_array();
-            echo json_encode($response);
-            
+    /* 
+      * Function to get entradas
+      * Return json
+    */
+    
+    public function get_entradas_show(){
+
+        $this->db->select('ae.id,u.nombre,ae.proveedor,ae.factura,ae.productos,ae.created_at');
+        $this->db->from('productos_entrada ae');
+        $this->db->join('users u','u.id = ae.id_user', 'inner');  
+        $this->db->where('ae.id', $this->uri->segment(4));
+        $result = $this->db->get();
+        $row = $result->row();
+        $response = array();
+        $response['data'] = $result->row_array();
+        echo json_encode($response);
     } 
-    
-
 }

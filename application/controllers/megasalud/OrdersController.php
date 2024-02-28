@@ -11,6 +11,11 @@ class OrdersController extends CI_Controller {
         $this->load->model('megasalud/sucursal');
     }
 
+    /* 
+      * Function to get view "Pedidos"
+      * Return view
+    */
+
     public function index(){
 
         session_redirect();
@@ -20,18 +25,23 @@ class OrdersController extends CI_Controller {
         $data['data'] = $this->getAll();
         $data['view_controller'] = 'orders_vs.js';
         $data['sucursales'] = $this->sucursal->getAll();
-        
+  
 
         $this->load->view('layout/head', $data);
         $this->load->view('layout/header');
         $type = $this->session->type;
-        if($type == "Administrador" || $type == "Contador" || $type == "Gerente Sucursal" || $type == "Produccion" ){
+        if($type == "Administrador" || $type == "Contador" || $type == "Gerente Sucursal" || $type == "Produccion" || $type == "Atención a Clientes" ){
              $this->load->view('orders/index', $data); 
         }else{
           $this->load->view('auth/error'); 
         }
         $this->load->view('layout/scripts', $data);
     }
+
+    /* 
+      * Function to get view "Nuevo Pedido"
+      * Return view
+    */
 
     public function create(){
 
@@ -47,15 +57,21 @@ class OrdersController extends CI_Controller {
         $this->load->view('layout/header');
         
         $type = $this->session->type;
-        if($type == "Administrador" || $type == "Contador" || $type == "Gerente Sucursal" ){
+        if($type == "Administrador" || $type == "Contador" || $type == "Gerente Sucursal" || $type == "Atención a Clientes" ){
              $this->load->view('orders/create'); 
         }else{
           $this->load->view('auth/error'); 
         }
         $this->load->view('layout/scripts', $data);
     }
+
+    /* 
+      * Function to get view "Editar Pedido"
+      * Return view
+      * @param order_id
+    */
     
-        public function edit($id) {
+    public function edit($id) {
 
         session_redirect();
 
@@ -67,7 +83,7 @@ class OrdersController extends CI_Controller {
         $this->load->view('layout/header');
             
         $type = $this->session->type;
-        if($type == "Administrador" || $type == "Contador" || $type == "Gerente Sucursal" ){
+        if($type == "Administrador" || $type == "Contador" || $type == "Gerente Sucursal" || $type == "Atención a Clientes" ){
              $this->load->view('orders/edit', $data); 
             
         }else{
@@ -75,6 +91,12 @@ class OrdersController extends CI_Controller {
         }
         $this->load->view('layout/scripts', $data);
     }
+
+    /* 
+      * Function to get view "Mostrar Pedido"
+      * Return view
+      * @param order_id
+    */
     
     public function show($id) {
 
@@ -88,7 +110,7 @@ class OrdersController extends CI_Controller {
         $this->load->view('layout/head', $data);
         $this->load->view('layout/header');
         $type = $this->session->type;
-        if($type == "Administrador" || $type == "Contador" || $type == "Gerente Sucursal" || $type == "Medico Administrador" || $type == "Medico" || $type == "Produccion" ){
+        if($type == "Administrador" || $type == "Contador" || $type == "Gerente Sucursal" || $type == "Medico Administrador" || $type == "Medico" || $type == "Produccion" || $type == "Atención a Clientes" ){
              $this->load->view('orders/show', $data); 
             
         }else{
@@ -96,6 +118,11 @@ class OrdersController extends CI_Controller {
         }
         $this->load->view('layout/scripts', $data);
     }
+
+    /* 
+      * Function to get orders
+      * Return json data
+    */
     
     public function get_orders(){
 
@@ -110,6 +137,11 @@ class OrdersController extends CI_Controller {
 
         echo json_encode($response);
     }
+
+    /* 
+      * Function to get "abonos"
+      * Return json data
+    */
     
     public function get_abonos(){
         
@@ -120,17 +152,24 @@ class OrdersController extends CI_Controller {
         $result = $this->db->get();
         $response = $result->result();
         
-         $array["data"]=$response;
+        $array["data"]=$response;
             
             echo json_encode($array);
+            echo json_encode($array);
+        
+        echo json_encode($array);
         
     }
+
+    /* 
+      * Function to get view "Receta"
+      * Return json data
+      * @param paciente_id
+    */
     
-    
-     public function receta($id){
+    public function receta($id){
 
         session_redirect();
-
         $data = array();
         $data['title'] = 'Receta';
         // $data['view_style'] = 'orders.css';
@@ -145,12 +184,18 @@ class OrdersController extends CI_Controller {
         $type = $this->session->type;
         if($type == "Administrador" || $type == "Contador" || $type == "Gerente Sucursal" || $type == "Medico Administrador" || $type == "Medico" ){
              $this->load->view('orders/receta', $data); 
-            
         }else{
           $this->load->view('auth/error'); 
         }
         $this->load->view('layout/scripts', $data);
     }  
+
+    /* 
+      * Function to get view "Carrito"
+      * Return json data
+      * @param paciente_id
+    */
+
     public function carrito($id){
 
         session_redirect();
@@ -175,8 +220,14 @@ class OrdersController extends CI_Controller {
         }
         $this->load->view('layout/scripts', $data);
     }
+
+    /* 
+      * Function to update order
+      * Return message
+      * @param order_id
+    */
     
-      public function update() {
+    public function update() {
         
         $order = array(
             'status' => $this->input->post('status'),
@@ -196,8 +247,11 @@ class OrdersController extends CI_Controller {
             echo false;
         }
     }
-    
-    
+
+    /* 
+      * Function to get all orders
+      * Return json data
+    */
 
     public function getAll($type = 'array'){
         $id_suc = $this->session->sucursal;
@@ -220,6 +274,11 @@ class OrdersController extends CI_Controller {
 
         return $response;
     }
+
+    /* 
+      * Function to get patients
+      * Return json data
+    */
     
     public function getPacients($type = 'array'){
 
@@ -239,6 +298,12 @@ class OrdersController extends CI_Controller {
 
         return $response;
     }
+
+    /* 
+      * Function to get patient
+      * Return json data
+      * @param paciente_id
+    */
     
     public function getPacient($id) {
 
@@ -246,6 +311,12 @@ class OrdersController extends CI_Controller {
 		return $this->db->get('pacientes');
 
 	} 
+
+    /* 
+      * Function to get count carrito
+      * Return int
+      * @param paciente_id
+    */
     
     public function get_count_carrito($id) {
 
@@ -253,7 +324,12 @@ class OrdersController extends CI_Controller {
 		return $this->db->count_all_results('carrito');
 
 	}  
-    
+
+    /* 
+      * Function to get total carrito
+      * Return int
+      * @param paciente_id
+    */
     public function get_total_carrito($id) {
 
 		$this->db->where('id_paciente', $id);
@@ -262,6 +338,8 @@ class OrdersController extends CI_Controller {
         return  $query->row()->subtotal;
 
 	}
+
+  
     public function get_total_carrito2($id) {
 
 		$this->db->where('id_paciente', $id);
@@ -270,6 +348,11 @@ class OrdersController extends CI_Controller {
         echo  $query->row()->subtotal;
 
 	}
+
+    /* 
+      * Function to get produscts
+      * Return products data
+    */
     
    public function get_Products($type = 'array'){
 
@@ -288,6 +371,13 @@ class OrdersController extends CI_Controller {
 
         return $response;
     } 
+
+    /* 
+      * Function to get carrito
+      * Return carrito data
+      * @param paciente_id
+    */
+
     public function get_Carrito($id){
         $this->db->select("c.id,c.id_pro,c.id_paciente,c.producto,c.cantidad,c.subtotal,c.precio,p.descripcion");
         $this->db->from("carrito c");
@@ -296,6 +386,11 @@ class OrdersController extends CI_Controller {
 		return $this->db->get();
     }
     
+    /* 
+      * Function to get datos order
+      * Return json data
+      * @param paciente_id
+    */
     
     public function datos_order(){
         
@@ -308,6 +403,12 @@ class OrdersController extends CI_Controller {
      
         echo json_encode($respuesta);
     } 
+
+    /* 
+      * Function to add product to cart
+      * Return repsonse
+      * @param product data
+    */
     
     public function agregar_carrito($id = null ,$type = false) {
         
@@ -341,6 +442,12 @@ class OrdersController extends CI_Controller {
 
 		return $this->db->update('carrito', $pro_carrito, array('id' => $id));
 	}
+
+    /* 
+      * Function to update product in cart
+      * Return message
+      * @param product data
+    */
     
     public function actualizar_item_carrito(){
         $id = $_POST['id_item'];
@@ -374,6 +481,13 @@ class OrdersController extends CI_Controller {
 			echo false;
 		}
     } 
+
+    /* 
+      * Function to delete product in cart
+      * Return message
+      * @param product data
+    */
+
     public function delete_item_carrito(){
         
         $this->db->where('id', $_POST['id']);
@@ -390,6 +504,12 @@ class OrdersController extends CI_Controller {
 			echo false;
 		}
     }
+
+    /* 
+      * Function to delete  cart
+      * Return message
+      * @param paciente_id
+    */
     
     public function delete_carrito(){
         
@@ -406,6 +526,12 @@ class OrdersController extends CI_Controller {
 			echo false;
 		}
     } 
+
+    /* 
+      * Function to save new order
+      * Return json response
+      * @param order data
+    */
     
     public function new_order(){
         
@@ -636,6 +762,12 @@ class OrdersController extends CI_Controller {
         $this->db->where('id_paciente', $data['paciente_id']);
 		$this->db->delete('carrito');
     }
+
+    /* 
+      * Function to save new "receta"
+      * Return json response
+      * @param user data
+    */
     
     public function new_receta(){
         

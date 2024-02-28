@@ -11,6 +11,11 @@ class AgentController extends CI_Controller {
         $this->load->model('megasalud/sucursal');
 	}
 
+    /* 
+        * Function to get view "Representante"
+        * Return view
+    */
+
 	public function index() {
 
 		session_redirect();
@@ -33,6 +38,11 @@ class AgentController extends CI_Controller {
 
 	}
 
+    /* 
+        * Function to get view "Nuevo Representante"
+        * Return view
+    */
+
 	public function create() {
         
         $data = array();
@@ -53,6 +63,11 @@ class AgentController extends CI_Controller {
        
         $this->load->view('layout/scripts');
 	}
+
+    /* 
+        * Function to get view "Subir archivos"
+        * Return view
+    */
     
     public function archivos($id) {
         
@@ -81,6 +96,12 @@ class AgentController extends CI_Controller {
         } 
         $this->load->view('layout/scripts');
 	}
+
+    /* 
+        * Function to save files
+        * Return json
+        * @params files
+    */
     
     public function agregar_archivos() {
          
@@ -148,6 +169,12 @@ class AgentController extends CI_Controller {
         }
     }
 
+    /* 
+        * Function to save status "aprobar"
+        * Return json
+        * @params aprobado, agent_id
+    */
+
     public function aprobar($id){
 
         $data = array(
@@ -164,6 +191,11 @@ class AgentController extends CI_Controller {
 
 
     }
+
+    /* 
+        * Function to show view when user fill form to be an agent
+        * Return view
+    */
     
     public function success() {
         
@@ -173,7 +205,12 @@ class AgentController extends CI_Controller {
         
         $this->load->view('agent/success', $data);
         $this->load->view('layout/scripts');
-	}	
+	}
+    
+    /* 
+        * Function to show view "Nuevo paciente"
+        * Return view
+    */
     
     public function createPacient() {
 
@@ -198,6 +235,11 @@ class AgentController extends CI_Controller {
         
         $this->load->view('layout/scripts', $data);
 	}
+
+    /* 
+        * Function to show view "Mi Panel"
+        * Return view
+    */
     
     public function ver($id) {
 
@@ -228,6 +270,11 @@ class AgentController extends CI_Controller {
         $this->load->view('layout/scripts', $data);
 
 	}
+
+    /* 
+        * Function to show view "Solicitud Represenante"
+        * Return view
+    */
     
     public function ver_solicitud($id) {
 
@@ -254,6 +301,11 @@ class AgentController extends CI_Controller {
         $this->load->view('layout/scripts', $data);
 
 	}
+
+    /* 
+        * Function to get all agents
+        * Return json
+    */
     
     public function getAll(){
 
@@ -292,11 +344,15 @@ class AgentController extends CI_Controller {
                 
          echo json_encode($array);
     }
+
+    /* 
+        * Function to get all "pacientes"
+        * Return data with "pacientes"
+    */
     
     public function getPacientes($id){
 
         $response = null;
-
                 
         $this->db->select('p.id,p.clave_bancaria,seguim,CONCAT(p.nombre," " , p.apellido_p, " ",p.apellido_m) AS nombre,p.email,p.telefono_a,p.estado');
         $this->db->from('pacientes p');
@@ -305,6 +361,12 @@ class AgentController extends CI_Controller {
         $this->db->where('p.status', 1);
         return $this->db->get(); 
     }
+
+    /* 
+        * Function to get all patients orders
+        * Return data with "pacientes"
+        * @param pacient_id
+    */
     
     public function get_Pedidos_Paciente($id){
 
@@ -318,12 +380,15 @@ class AgentController extends CI_Controller {
         $row = $result->row();
         $response = array();
         $response['data'] = $result->result();
-        
 
         echo json_encode($response);
-
-      
     }
+
+    /* 
+        * Function to save new agent
+        * Return json
+        * @param data agent
+    */
 
     public function newEntry() {
          
@@ -358,16 +423,20 @@ class AgentController extends CI_Controller {
         'status' => $status
         );
          
-         
-            if($this->db->insert('agents', $data)){
-               $id_agent = $this->db->insert_id();
-                $data['id_agent'] = $id_agent;
-                 echo json_encode($data);
-            }
+        if($this->db->insert('agents', $data)){
+            $id_agent = $this->db->insert_id();
+            $data['id_agent'] = $id_agent;
+                echo json_encode($data);
+        }
         else{
             echo false;
         }
     }
+
+    /* 
+        * Function get view "Editar Representante"
+        * Return view
+    */
 
     public function edit($id) {
 
@@ -386,6 +455,12 @@ class AgentController extends CI_Controller {
         } 
         $this->load->view('layout/scripts', $data);
     }
+
+    /* 
+        * Function to save new patient
+        * Return view
+        * @param patient data, agent data
+    */
     
     public function newPacient() {
          
@@ -508,6 +583,12 @@ class AgentController extends CI_Controller {
                 
             }//termina error ya
     }
+
+    /* 
+        * Function to get "representante"
+        * Return data
+        * @param agent_id
+    */
     
     public function findAgent($id)
     {
@@ -528,6 +609,12 @@ class AgentController extends CI_Controller {
             echo json_encode(false);
         }
     }  
+
+    /* 
+        * Function to get "sucursal"
+        * Return data
+        * @param sucursal_id
+    */
     
     public function findSuc($id)
     {
@@ -547,7 +634,13 @@ class AgentController extends CI_Controller {
         else{
             echo json_encode(false);
         }
-    } 
+    }
+    
+    /* 
+        * Function to get "user"
+        * Return data
+        * @param user_id
+    */
     
     public function findUser($id)
     {
@@ -567,7 +660,12 @@ class AgentController extends CI_Controller {
         else{
             echo json_encode(false);
         }
-    } 
+    }
+    
+    /* 
+        * Function to get "Solicitudes" view
+        * Return view
+    */
     
     public function solicitudes() {
 
@@ -592,12 +690,16 @@ class AgentController extends CI_Controller {
 
 	}
 
+    /* 
+        * Function to get "Solicitudes"
+        * Return data "solicitudes"
+    */
+
     public function get_solicitudes(){
 
         $this->db->select('a.id,CONCAT(a.nombre," " , a.apellido_p, " ",a.apellido_m) AS nombre,a.email,a.telefono_a,a.estado,a.aprobado,a.documentos');
         $this->db->from('agents a');
         return $this->db->get(); 
     }
-    
 
 }

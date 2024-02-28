@@ -25,6 +25,12 @@ class Almacen extends CI_Model
 
 		return $this->db->update('productos', $producto, array('id' => $id));
 	}
+
+	/* 
+        * Function to insert product data in almacen
+        * Return providers data
+		* @param: array data 
+    */
     
     public function nuevo($data){
         return $this->db->insert('almacen', $data);

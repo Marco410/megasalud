@@ -7,6 +7,11 @@ class MessengerController extends CI_Controller {
 		parent::__construct();
         $this->load->model('megasalud/mensajes');
 	}
+
+    /* 
+      * Function to get view "Mensajes"
+      * Return view
+    */ 
     
     public function index() {
 
@@ -28,9 +33,14 @@ class MessengerController extends CI_Controller {
         } 
         $this->load->view('layout/scripts');
 	}  
+
+    /* 
+      * Function to initialize new conversation
+      * Return json
+      * @param paciente
+    */ 
     
     public function newConver(){
-        
         
         if($_POST["type"] == "paciente"){
             $id_user = 000001;
@@ -51,12 +61,24 @@ class MessengerController extends CI_Controller {
         }
         
     }
+
+    /* 
+      * Function to get messages
+      * Return messages data
+      * @param conversacion_id
+    */ 
     
     public function getMsj(){
         
        return $this->mensajes->get_mensajes($_POST["id_con"]);
         
     }
+
+    /* 
+      * Function to save new message
+      * Return json
+      * @param message, conversacion_id
+    */ 
     
     public function newMsj(){
         

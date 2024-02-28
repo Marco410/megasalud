@@ -19,7 +19,7 @@ class AccountantController extends CI_Controller {
         $this->load->view('layout/head', $data);
         $this->load->view('layout/header');
         $type = $this->session->type;
-         if($type == "Administrador" || $type == "Contador"){
+         if($type == "Administrador" || $type == "Contador" || $type == "Atención a Clientes"){
             $this->load->view('accountant/index', $data);
         }else{
           $this->load->view('auth/error'); 

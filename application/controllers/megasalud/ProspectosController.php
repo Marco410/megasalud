@@ -7,6 +7,11 @@ class ProspectosController extends CI_Controller {
 		parent::__construct();
 	}
 
+    /* 
+      * Function to get view prospectos
+      * Return view
+    */
+
 	public function index() {
 
 		$data = array();
@@ -17,6 +22,11 @@ class ProspectosController extends CI_Controller {
         $this->load->view('layout/scripts');
 
 	}
+
+    /* 
+      * Function to add new "prospecto"
+      * Return json
+    */
 
     public function newEntry() {
          

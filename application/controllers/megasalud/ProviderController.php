@@ -8,6 +8,11 @@ class ProviderController extends CI_Controller {
         $this->load->model('megasalud/provider');
     }
 
+    /* 
+      * Function to get view "prospecto"
+      * Return view
+    */
+
     public function index() {
 
         session_redirect();
@@ -30,6 +35,11 @@ class ProviderController extends CI_Controller {
         $this->load->view('layout/scripts', $data);
     }
 
+    /* 
+      * Function to get view "Nuevo proveedor"
+      * Return view
+    */
+
     public function create(){
 
         session_redirect();
@@ -50,8 +60,13 @@ class ProviderController extends CI_Controller {
         
         $this->load->view('layout/scripts', $data);
     } 
+
+    /* 
+      * Function to get view "Editar proveedor"
+      * Return view
+    */
     
-     public function edit(){
+    public function edit(){
 
         session_redirect();
 
@@ -72,14 +87,24 @@ class ProviderController extends CI_Controller {
         } 
         $this->load->view('layout/scripts', $data);
     }
+
+    /* 
+      * Function to get proveedor
+      * Return data
+      * @param provider_id
+    */
     
-      public function getProvider($id){
+    public function getProvider($id){
         
         $this->db->where('id', $id);
         $query = $this->db->get('providers');
         return $query;
     }
 
+    /* 
+      * Function to add new proveedor
+      * Return json
+    */
 
     public function newEntry(){
         
@@ -98,16 +123,20 @@ class ProviderController extends CI_Controller {
             'email' => $_POST["email"],
             'notas' => $_POST["notas"],
             'status' => 1
-            
         );
         
          if($this->db->insert('providers', $data)){
-                echo json_encode(array('error' => false));
-            }
-            else{
-                echo json_encode(array('error' => true));
-            }
+            echo json_encode(array('error' => false));
+        }
+        else{
+            echo json_encode(array('error' => true));
+        }
     }
+
+    /* 
+      * Function to edit proveedor
+      * Return json
+    */
     
     public function editEntry(){
       
@@ -125,20 +154,23 @@ class ProviderController extends CI_Controller {
             'telefono' => $_POST["telefono"],
             'email' => $_POST["email"],
             'notas' => $_POST["notas"]
-            
         );
-        
        
-            $this->db->where('id', $_POST["id_provider"]);
-         if($this->db->update('providers', $data)){
-           
-                echo json_encode(array('error' => false));
-            }
-            else{
-               echo json_encode(array('error' => true));
-            }
+        $this->db->where('id', $_POST["id_provider"]);
+
+        if($this->db->update('providers', $data)){
+        
+            echo json_encode(array('error' => false));
+        }
+        else{
+            echo json_encode(array('error' => true));
+        }
     }
 
+    /* 
+      * Function to show proveedor
+      * Return json
+    */
 
     public function show(){
 
@@ -147,10 +179,16 @@ class ProviderController extends CI_Controller {
         $row = $result->row();
         $response = array();
         $response['data'] = $result->row_array();
-        
 
         echo json_encode($response);
     }
+
+    /* 
+      * Function to delete proveedor
+      * Return json
+      * @param provider_id
+    */
+
 
     public function delete(){
 

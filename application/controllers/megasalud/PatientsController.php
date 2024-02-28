@@ -13,6 +13,11 @@ class PatientsController extends CI_Controller {
         $this->load->model('megasalud/mensajes');
     }
 
+    /* 
+      * Function to get view patients
+      * Return view
+    */
+
     public function index() {
         
         session_redirect();
@@ -36,6 +41,11 @@ class PatientsController extends CI_Controller {
         $this->load->view('layout/scripts', $data);
         
     }
+
+     /* 
+      * Function to get historial de citas data
+      * Return json data
+    */
     
     public function his_citas(){
          $id = $this->session->id;
@@ -53,6 +63,11 @@ class PatientsController extends CI_Controller {
                 
          echo json_encode($array);
     }
+
+    /* 
+      * Function to get historial de citas data from office
+      * Return json data
+    */
     
     public function his_citas2(){
         $id = $this->session->id;
@@ -69,6 +84,11 @@ class PatientsController extends CI_Controller {
                 
          echo json_encode($array);
     }
+
+    /* 
+      * Function to get view "Nuevo Paciente"
+      * Return view
+    */
 
     public function create(){
 
@@ -94,6 +114,12 @@ class PatientsController extends CI_Controller {
         
         $this->load->view('layout/scripts', $data);
     }
+
+    /* 
+      * Function to get view "Editar Paciente"
+      * Return view
+      * @param paciente_id
+    */
     
     public function edit($id) {
 
@@ -115,6 +141,12 @@ class PatientsController extends CI_Controller {
         
         $this->load->view('layout/scripts', $data);
     }
+
+    /* 
+      * Function to get view "Receta Paciente"
+      * Return view
+      * @param paciente_id
+    */
     
     public function receta($id) {
         session_redirect();
@@ -136,6 +168,12 @@ class PatientsController extends CI_Controller {
         
         $this->load->view('layout/scripts', $data);
     }
+
+    /* 
+      * Function to get view "Evolución Paciente"
+      * Return view
+      * @param paciente_id
+    */
 
     public function evolucion($id) {
         session_redirect();
@@ -159,6 +197,12 @@ class PatientsController extends CI_Controller {
         $this->load->view('layout/scripts', $data);
     }
 
+    /* 
+      * Function to get view "Registro evolución Paciente"
+      * Return view
+      * @param paciente_id
+    */
+
     public function registro_evolucion($id) {
         session_redirect();
 
@@ -181,6 +225,12 @@ class PatientsController extends CI_Controller {
         
         $this->load->view('layout/scripts', $data);
     }
+
+    /* 
+      * Function to get view "Historial clinico Paciente"
+      * Return view
+      * @param paciente_id
+    */
     
     public function historia($id){
 
@@ -258,6 +308,13 @@ class PatientsController extends CI_Controller {
     }    
     $this->load->view('layout/scripts', $data);
     }
+
+    /* 
+      * Function to get patient data
+      * Return json
+      * @param paciente_id
+      * 
+    */
     
     public function api_find_paciente($exp){
         $tok = $_GET["token"];
@@ -281,6 +338,12 @@ class PatientsController extends CI_Controller {
         }
 		
     }
+
+    /* 
+      * Function to get patient data
+      * Return json
+      * @param paciente_id
+    */
     
     public function api_find_datapersonal(){
         $tok = $_GET["token"];
@@ -304,6 +367,12 @@ class PatientsController extends CI_Controller {
         }
 		
     }
+
+    /* 
+      * Function to get order data
+      * Return json
+      * @param paciente_id
+    */
     
     public function api_find_datapedidos(){
         $tok = $_GET["token"];
@@ -345,6 +414,12 @@ class PatientsController extends CI_Controller {
         }
 		
     }
+
+    /* 
+      * Function to get statistics data
+      * Return json
+      * @param paciente_id
+    */
     
     public function api_find_dataestadisticas(){
         $tok = $_GET["token"];
@@ -385,6 +460,12 @@ class PatientsController extends CI_Controller {
         }
 		
     }
+
+    /* 
+      * Function to get notas data
+      * Return json
+      * @param paciente_id
+    */
     
     public function api_find_datanotas($id){
         $tok = $_GET["token"];
@@ -408,6 +489,12 @@ class PatientsController extends CI_Controller {
         }
 		
     }
+
+    /* 
+      * Function to get citas data
+      * Return json
+      * @param paciente_id
+    */
     
     public function api_find_datacitas($id){
         $tok = $_GET["token"];
@@ -431,6 +518,12 @@ class PatientsController extends CI_Controller {
         }
 		
     }
+
+    /* 
+      * Function to get linea de vida data
+      * Return json
+      * @param paciente_id
+    */
   
     public function api_find_datalinea($id){
         $tok = $_GET["token"];
@@ -455,6 +548,12 @@ class PatientsController extends CI_Controller {
         }
 		
     }
+
+    /* 
+      * Function to update sucursal patient
+      * Return message
+      * @param paciente_id, sucursal_id
+    */
     
     public function insert_suc(){
         $data = array(
@@ -469,7 +568,11 @@ class PatientsController extends CI_Controller {
         }
     }
 
-    
+    /* 
+      * Function to get status consulta
+      * Return json
+      * @param paciente_id
+    */
 
     public function get_status_consulta(){
         $id_user = $this->session->id;
@@ -484,6 +587,12 @@ class PatientsController extends CI_Controller {
         echo json_encode($result);
     }
 
+    /* 
+      * Function to get status consultas
+      * Return json
+      * @param paciente_id
+    */
+
     public function get_status_consultas(){
         $id_user = $this->session->id;
 
@@ -496,6 +605,12 @@ class PatientsController extends CI_Controller {
         echo json_encode($result);
     }
 
+     /* 
+      * Function to stop consulta
+      * Return json
+      * @param paciente_id, consulta_id
+    */
+
     public function stop_consulta(){
         
         $id_user = $this->session->id;
@@ -504,7 +619,6 @@ class PatientsController extends CI_Controller {
             'fecha_termino' => $hoy,
             'termino' => 1
         );
-        
 
         $this->db->where('id_paciente', $_POST['id_paciente']);
         $this->db->where('id_user', $id_user);
@@ -519,6 +633,11 @@ class PatientsController extends CI_Controller {
         }
     }
     
+    /* 
+      * Function to get view "Gráficas pacientes"
+      * Return view
+      * @param paciente_id
+    */
     
     public function charts($id) {
 
@@ -541,6 +660,12 @@ class PatientsController extends CI_Controller {
         
         $this->load->view('layout/scripts', $data);
     }
+
+    /* 
+      * Function to add view chart
+      * Return json 
+      * @param paciente_id, chart data
+    */
     
     public function new_chart(){
         $data = array(
@@ -557,8 +682,13 @@ class PatientsController extends CI_Controller {
         }else{
             echo false;
         }
-        
     }
+
+    /* 
+      * Function to delete chart
+      * Return json 
+      * @param paciente_id, chart data
+    */
     
     public function delete_chart(){
         $data = array(
@@ -578,6 +708,12 @@ class PatientsController extends CI_Controller {
         }
         
     }
+
+    /* 
+      * Function to new chart data
+      * Return json 
+      * @param paciente_id, chart data 
+    */
     
     public function new_chart_data(){
         
@@ -608,6 +744,12 @@ class PatientsController extends CI_Controller {
         }
         
     }
+
+    /* 
+      * Function to get chart data
+      * Return json 
+      * @param paciente_id, chart data 
+    */
     
     public function find_charts3($id){
         $this->db->where('id_paciente', $id);
@@ -618,6 +760,12 @@ class PatientsController extends CI_Controller {
         $response['data'] = $result->result_array();
         echo json_encode($response);
     }
+
+    /* 
+      * Function to get chart data
+      * Return json 
+      * @param paciente_id, chart data 
+    */
     
     public function find_charts2($id){
         $id_chart =  $this->uri->segment(5);
@@ -633,6 +781,12 @@ class PatientsController extends CI_Controller {
             $response['data'] = $result->result_array();
             echo json_encode($response);
     }
+
+    /* 
+      * Function to start consulta data
+      * Return json 
+      * @param paciente_id
+    */
     
     public function inicia_consulta(){
         $id = $this->input->post('id_paciente');
@@ -686,6 +840,12 @@ class PatientsController extends CI_Controller {
         
         echo json_encode($data_clave);
     }
+
+    /* 
+      * Function to start consulta data
+      * Return json 
+      * @param paciente_id
+    */
 
     public function start_consulta(){
         $id_user = $this->session->id;
@@ -761,24 +921,36 @@ class PatientsController extends CI_Controller {
             echo false;
         }
     }
+
+    /* 
+      * Function to create date
+      * Return json 
+      * @param paciente_id
+    */
     
     public function generar_cita(){
         $id_cal = $this->input->post('id_calendario');
-            $nombre = $this->input->post('title_cita');
-            $fecha = $this->input->post('fecha_cita');
-            $tipo = "Subsecuente";    
-            $cita = $this->funciones->agregar_calendario($id_cal,$nombre,$fecha,$tipo);
-                
+        $nombre = $this->input->post('title_cita');
+        $fecha = $this->input->post('fecha_cita');
+        $tipo = "Subsecuente";    
+        $cita = $this->funciones->agregar_calendario($id_cal,$nombre,$fecha,$tipo);
             
-            if($cita == "Ya"){
-                echo json_encode(array('error' => true));
-            }else{
-                echo json_encode(array('error' => false));
-            }
+        
+        if($cita == "Ya"){
+            echo json_encode(array('error' => true));
+        }else{
+            echo json_encode(array('error' => false));
+        }
     }
+
+    /* 
+      * Function to view "Estudios"
+      * Return view 
+      * @param paciente_id
+    */
     
     public function ver_estudio($id){
-    session_redirect();
+        session_redirect();
 
         $data = array();
         $data['title'] = 'Estudios';
@@ -799,9 +971,15 @@ class PatientsController extends CI_Controller {
         } 
         $this->load->view('layout/scripts', $data);
     }
+
+    /* 
+      * Function to view "Adeudos"
+      * Return view 
+      * @param paciente_id
+    */
     
     public function adeudos($id){
-    session_redirect();
+        session_redirect();
 
         $data = array();
         $data['title'] = 'Adeudos';
@@ -820,6 +998,12 @@ class PatientsController extends CI_Controller {
         } 
         $this->load->view('layout/scripts', $data);
     } 
+
+    /* 
+      * Function to view "Resumen"
+      * Return view 
+      * @param paciente_id
+    */
     
     public function resumen($id){
     session_redirect();
@@ -845,6 +1029,12 @@ class PatientsController extends CI_Controller {
         } 
         $this->load->view('layout/scripts', $data);
     }
+
+    /* 
+      * Function to add "abono"
+      * Return message 
+      * @param paciente_id, order_id
+    */
     
     public function insert_abono(){
         
@@ -862,14 +1052,12 @@ class PatientsController extends CI_Controller {
             }else{
                 $estatus = "Pendiente";
             }
-            
-                $data = array(
+            $data = array(
                 'id_pedido' => $id_p,
                 'id_user' => $this->session->id,
                 'id_paciente' => $_POST["id_paciente"],
                 'abono' => $abono
             );
-        
 
             if($this->db->insert("pedidos_abono",$data)){
 
@@ -883,20 +1071,20 @@ class PatientsController extends CI_Controller {
                         $des = "Comision por Abono";
                     $this->agent->pagar_com($_POST["id_paciente"],$id_p,$abono,$des); 
                 }
-
                 echo true;
                 
             }else{
                 echo false;
             }
-
-            
-            
         }else{
             echo false;
         }
-        
     }
+
+    /* 
+      * Function to get patients
+      * Return json data 
+    */
     
     public function getAll(){
 
@@ -953,6 +1141,12 @@ class PatientsController extends CI_Controller {
          echo json_encode($array);
     }
 
+    /* 
+      * Function to "añadir estudio"
+      * Return json data 
+      * @param paciente_id, expediente
+    */
+
     //trae los datos de la vista       
     public function agregar_estudio() {
          
@@ -965,36 +1159,39 @@ class PatientsController extends CI_Controller {
          
         if (!is_dir("assets/estudios/".$id)){
               mkdir("assets/estudios/". $id, 0777);
-         }
+        }
 
-         
         if (!empty($_FILES['estudio_sbr']['name'])) {
             
             $imagen = "E-" . $exp . "-" . $this->input->post('fecha_estudio').date("hs").".png";
             
+            move_uploaded_file($_FILES['estudio_sbr']['tmp_name'],"assets/estudios/".$id."/".$imagen);
             
-             move_uploaded_file($_FILES['estudio_sbr']['tmp_name'],"assets/estudios/".$id."/".$imagen);
-            
-                    $data =  array(
-                        'id_paciente' => $this->input->post('id_paciente'),
-                        'titulo' => $this->input->post('title_estudio'),
-                        'fecha' => $this->input->post('fecha_estudio'),
-                        'imagen' =>  "" . $imagen
-                        );
+            $data =  array(
+                'id_paciente' => $this->input->post('id_paciente'),
+                'titulo' => $this->input->post('title_estudio'),
+                'fecha' => $this->input->post('fecha_estudio'),
+                'imagen' =>  "" . $imagen
+                );
 
-                    if($this->historia->agregar_estudio($data)){
+            if($this->historia->agregar_estudio($data)){
 
-                        echo json_encode(array('error' => false));
-                        }
-                        else{
-                            echo json_encode(array('error' => true));
-                        }
+                echo json_encode(array('error' => false));
+            }
+            else{
+                echo json_encode(array('error' => true));
+            }
             
         }else{
             echo json_encode(array('error' => true,'type' => "Esta imagen es muy pesada"));
         }
-
     } 
+
+    /* 
+      * Function to "añadir estudio"
+      * Return json data 
+      * @param paciente_id, expediente
+    */
     
     public function upload_estudio() {
         
@@ -1031,70 +1228,11 @@ class PatientsController extends CI_Controller {
                 }
     }
     
-    public function estudio_movil(){
-      
-        $imagen = $_POST['foto'];
-        $exp = $_POST['expediente'];
-        $titulo = $_POST['titulo'];
-        $fecha = $_POST['fecha'];
-        $nombre_estudio = "E-". $exp . "-".$_POST['fecha'].date("hs").".png";
-        $id = substr($exp, 2, 6);
-        
-        if (!is_dir("assets/estudios/".$id)){
-              mkdir("assets/estudios/". $id, 0777);
-         }
-        $path = "assets/estudios/".$id."/".$nombre_estudio;
-        
-        file_put_contents($path, base64_decode($imagen));
-        
-        $data =  array(
-            'id_paciente' => $id,
-            'titulo' => $titulo,
-            'fecha' => $_POST['fecha'],
-            'imagen' =>  "" . $nombre_estudio
-        );
-
-            if($this->historia->agregar_estudio($data)){
-
-            echo "Se subio el estudio correctamente";
-            }
-            else{
-                echo "Error al subir estudio";
-            }
-        
-    }
-    
-    public function foto_perfil_movil(){
-      
-        $imagen = $_POST['foto'];
-        $exp = $_POST['exp'];
-        $id = substr($exp, 2, 6);
-        
-        $exists = file_exists("assets/foto_paciente/Img-".$id.".png");
-        
-        if($exists){
-            unlink("assets/foto_paciente/Img-".$id.".png");
-        }else{
-            
-        }
-        $path = "assets/foto_paciente/Img-".$id.".png";
-        
-        file_put_contents($path, base64_decode($imagen));
-        $foto = "Img-".$id.".png";
-            $data =  array(
-                'foto' =>  "" . $foto
-                );
-        
-            $this->db->where("id",$id);
-            if($this->db->update("pacientes",$data)){
-
-                echo "Foto del paciente actualizada";
-                }
-                else{
-                    echo "Error al actualizar";
-                }
-        
-    }
+    /* 
+      * Function to "agregar foto"
+      * Return json data 
+      * @param paciente_id
+    */
     
     //imagen de perfil del paciente
     public function agregar_foto() {
@@ -1108,13 +1246,10 @@ class PatientsController extends CI_Controller {
         
         if($exists){
             unlink("assets/foto_paciente/Img-".$id.".png");
-        }else{
-            
         }
          
         if (!empty($_FILES['foto_sbr']['name'])) {
         
-            
             move_uploaded_file($_FILES['foto_sbr']['tmp_name'],"assets/foto_paciente/Img-".$id.".png");
             
             $data =  array(
@@ -1123,18 +1258,22 @@ class PatientsController extends CI_Controller {
                 $this->db->where("id",$id);
             if($this->db->update("pacientes",$data)){
 
-                    echo json_encode(array('error' => false));
-                    }
-                    else{
-                        echo json_encode(array('error' => true));
-                    }
+                echo json_encode(array('error' => false));
+            }
+            else{
+                echo json_encode(array('error' => true));
+            }
         }else{
-            //$this->upload->display_errors();
-            
             echo json_encode(array('error' => true));
         }
 
     }
+
+    /* 
+      * Function to save notes
+      * Return json data 
+      * @param paciente_id
+    */
     
     //Trae las notas de la vista para guardarlas
     public function notas_dr() {
@@ -1148,38 +1287,48 @@ class PatientsController extends CI_Controller {
 
             echo json_encode($data);
         }
-            else{
-                echo false;
-            }
-        
+        else{
+            echo false;
+        }
     }
+
+    /* 
+      * Function to save "diagnostico"
+      * Return json data 
+      * @param paciente_id
+    */
     
     public function diagnostico_dr() {
       
         $anio =  $this->input->post('anio') + $this->input->post('edad_diag');
         
         $data =  array(
-        'id_paciente' => $this->input->post('id_paciente'),
-        'diagnostico' => $this->input->post('diagnostico_input')
+            'id_paciente' => $this->input->post('id_paciente'),
+            'diagnostico' => $this->input->post('diagnostico_input')
         );
         
         $data_linea = array(
-        'id_paciente' => $this->input->post('id_paciente'),
-        'enfermedad' => 'Diagnóstico',
-        'edad_paciente' => $this->input->post('edad_diag'), 
-        'table_hisclinic' => "Diagnóstico", //_diagnostico
-        'descripcion' => $this->input->post('diagnostico_input'),
-        'anio' => $anio
+            'id_paciente' => $this->input->post('id_paciente'),
+            'enfermedad' => 'Diagnóstico',
+            'edad_paciente' => $this->input->post('edad_diag'), 
+            'table_hisclinic' => "Diagnóstico", //_diagnostico
+            'descripcion' => $this->input->post('diagnostico_input'),
+            'anio' => $anio
         );
           
-            if($this->historia->diagnostico_dr($data, $data_linea)){
-                echo json_encode($data);
-            }
-            else{
-                echo false;
-            }
-        
+        if($this->historia->diagnostico_dr($data, $data_linea)){
+            echo json_encode($data);
+        }
+        else{
+            echo false;
+        }
     }
+
+    /* 
+      * Function to save "carga hereditaria"
+      * Return json data 
+      * @param paciente_id
+    */
     
     //trae de la vista los antecedentes heredo familiares
     public function carga_heredo_in() {
@@ -1198,9 +1347,14 @@ class PatientsController extends CI_Controller {
         }
         
     }
+
+    /* 
+      * Function to save "antecedentes"
+      * Return json data 
+      * @param paciente_id
+    */
     
     public function ante_in() {
-        
       
         $data =  array(
         'id_paciente' => $this->input->post('id_paciente'),
@@ -1208,17 +1362,21 @@ class PatientsController extends CI_Controller {
         'antecedente' => $this->input->post('antecedente-heredo'), 
         'descripcion' => $this->input->post('descripcion-ante')
         );
-        
       
-    if($this->historia->ante_in($data)){
-        
-        echo json_encode($data);
-    }
+        if($this->historia->ante_in($data)){
+            echo json_encode($data);
+        }
         else{
             echo false;
         }
         
     }
+
+    /* 
+      * Function to save "enfermedades congenitas"
+      * Return json data 
+      * @param paciente_id, congenita_id, edad
+    */
     
      public function congenita() {
         
@@ -1257,8 +1415,13 @@ class PatientsController extends CI_Controller {
         }
         
     }
+
+    /* 
+      * Function to save "vacunas"
+      * Return json data 
+      * @param paciente_id, vacuna_id, edad
+    */
     
-    //trae de la vista las inminizaciones
     public function vacuna() {
         $anio =  $this->input->post('anio') + $this->input->post('edad');
         
@@ -1294,6 +1457,12 @@ class PatientsController extends CI_Controller {
         }
         
     }
+
+    /* 
+      * Function to save "alergias"
+      * Return json data 
+      * @param paciente_id, alergia_id, edad
+    */
     
     public function alergia() {
         
@@ -1343,6 +1512,12 @@ class PatientsController extends CI_Controller {
         }
             
     }
+
+    /* 
+      * Function to save "hospitalizaciones"
+      * Return json data 
+      * @param paciente_id, hospitalizaciones_id, edad
+    */
     
     public function hospitalizaciones() {
         
@@ -1381,15 +1556,20 @@ class PatientsController extends CI_Controller {
         'anio' => $anio
         );
         
-    if($this->historia->hospitalizaciones($data, $data_linea)){
-        
-        echo json_encode($data);
-    }
+        if($this->historia->hospitalizaciones($data, $data_linea)){
+            
+            echo json_encode($data);
+        }
         else{
             echo false;
         } 
     }
-   
+
+    /* 
+      * Function to delete patient
+      * Return json data 
+      * @param paciente_id
+    */
     
     public function delete(){
 
@@ -1405,6 +1585,12 @@ class PatientsController extends CI_Controller {
             echo false;
         }
     }
+
+    /* 
+      * Function to delete his clinic
+      * Return json data 
+      * @param paciente_id, table, fecha
+    */
     
     public function delete_hisclinic(){
         $data =  array(
@@ -1420,6 +1606,12 @@ class PatientsController extends CI_Controller {
 		}
     }
 
+    /* 
+      * Function to get user
+      * Return data 
+      * @param paciente_id
+    */
+
     public function getUser($id){
 
         $this->db->where('id', $id);
@@ -1427,24 +1619,12 @@ class PatientsController extends CI_Controller {
         $result = $query->row_array();
         return $result;
     }
-    
-    public function checkVen(){
-        $bebida = $_POST["bebidas"];
 
-        $this->db->select('nombre_p');
-        $this->db->from('productos_ven');
-        $this->db->where('categoria', $bebida);
-        $query = $this->db->get();
-        $row = $query->row();
-
-        if (isset($row))
-        {
-            echo json_encode(false);
-        }
-        else{
-            echo json_encode(true);
-        }
-    }
+    /* 
+      * Function to save new patient
+      * Return json 
+      * @param patient data
+    */
     
     public function newEntry() {
          
@@ -1564,6 +1744,12 @@ class PatientsController extends CI_Controller {
             echo false;
         }
     }
+
+    /* 
+      * Function to update patient
+      * Return json 
+      * @param paciente_id
+    */
     
     public function updateEntry() {
          
@@ -1613,172 +1799,12 @@ class PatientsController extends CI_Controller {
 			echo false;
 		}
     }
-    
-    public function save_hisclinic_vp(){
-    
-        if($_POST['clasificacion'] == "B"){
-            $clasi = "Bebidas";
-        }
-        else if ($_POST['clasificacion'] == "DA"){
-            $clasi = "Derivados Animales";
-        }
-        else if ($_POST['clasificacion'] == "FV"){
-            $clasi = "Frutas y Vegetales";
-        }
-        else if ($_POST['clasificacion'] == "A"){
-            $clasi = "Aditivos";
-        }
-        else if ($_POST['clasificacion'] == "E"){
-            $clasi = "Enlatados";
-        }
-        
-        
-        $anio =  $this->input->post('anio') + $this->input->post('edad_vp');
-        
-        $descripcion = "Veneno Propiamente Dicho - ".$clasi." - " . $this->input->post('nombre_v') ;
-        
-        $data = array(
-        'id_paciente' => $this->input->post('id_paciente'),
-        'edad_vp' => $this->input->post('edad_vp'),
-        'clasificacion' => $clasi,    
-        'nombre_v' => $this->input->post('nombre_v') 
-        ); 
-        
-        $data_linea = array(
-        'id_paciente' => $this->input->post('id_paciente'),
-        'enfermedad' => $this->input->post('nombre_v'), 
-        'table_hisclinic' => $clasi, //_app1
-        'edad_paciente' => $this->input->post('edad_vp'),
-        'descripcion' => $descripcion, 
-        'anio' => $anio
-        );
-        
-        
-        if($this->historia->save_hisclinic_vp($data, $data_linea)){
-        
-        echo json_encode($data);
-    }
-        else{
-            echo "";
-        }
-        
-    }
-    
-    public function save_hisclinic_vm(){
-        if($_POST['clasificacion'] == "M"){
-            $clasi = "Microbianos";
-        }else{
-            $clasi = "No Microbianos";
-        }
-        $subclasi = $_POST['subclas'];
-        
-        $anio =  $this->input->post('anio') + $this->input->post('edad_vm');
-        
-        $descripcion = "Microbios - ".$clasi." - ".$subclasi." - " . $this->input->post('nombre_v') ;
-        
-        $data = array(
-        'id_paciente' => $this->input->post('id_paciente'),
-        'edad_vm' => $this->input->post('edad_vm'),
-        'clasificacion' => $clasi,    
-        'subclas' => $subclasi,    
-        'nombre_v' => $this->input->post('nombre_v') 
-        ); 
-        
-        $data_linea = array(
-        'id_paciente' => $this->input->post('id_paciente'),
-        'enfermedad' => $this->input->post('nombre_v'), 
-        'table_hisclinic' => $clasi, 
-        'edad_paciente' => $this->input->post('edad_vm'),
-        'descripcion' => $descripcion, 
-        'anio' => $anio
-        );
-        
-        
-        if($this->historia->save_hisclinic_vm($data, $data_linea)){
-        
-                echo json_encode($data);
-            }
-        else{
-            echo "";
-        }
-        
-    } 
-    
-    public function save_hisclinic_vr(){
-        if($_POST['clasificacion'] == "I"){
-            $clasi = "Ionizantes";
-        }else{
-            $clasi = "No Ionizantes";
-        }
-        $subclasi = $_POST['subclas'];
-        
-        $anio =  $this->input->post('anio') + $this->input->post('edad_vr');
-        
-        $descripcion = "Radiaciones - ".$clasi." - ".$subclasi." - " . $this->input->post('nombre_v') ;
-        
-        $data = array(
-        'id_paciente' => $this->input->post('id_paciente'),
-        'edad_vr' => $this->input->post('edad_vr'),
-        'clasificacion' => $clasi,    
-        'subclas' => $subclasi,    
-        'nombre_v' => $this->input->post('nombre_v') 
-        ); 
-        
-        $data_linea = array(
-        'id_paciente' => $this->input->post('id_paciente'),
-        'enfermedad' => $this->input->post('nombre_v'), 
-        'table_hisclinic' => $clasi, 
-        'edad_paciente' => $this->input->post('edad_vr'),
-        'descripcion' => $descripcion, 
-        'anio' => $anio
-        );
-        
-        
-        if($this->historia->save_hisclinic_vr($data, $data_linea)){
-        
-        echo json_encode($data);
-    }
-        else{
-            echo "";
-        }
-        
-    }
-    
-    public function save_hisclinic_vmp(){
-        if($_POST['clasificacion'] == "MP"){
-            $clasi = "Metales Pesados";
-        }
-        
-        $anio =  $this->input->post('anio') + $this->input->post('edad_vmp');
-        
-        $descripcion = "Metales Pesados - ".$clasi." - " . $this->input->post('nombre_v') ;
-        
-        $data = array(
-        'id_paciente' => $this->input->post('id_paciente'),
-        'edad_vmp' => $this->input->post('edad_vmp'),
-        'clasificacion' => $clasi,
-        'nombre_v' => $this->input->post('nombre_v') 
-        ); 
-        
-        $data_linea = array(
-        'id_paciente' => $this->input->post('id_paciente'),
-        'enfermedad' => $this->input->post('nombre_v'), 
-        'table_hisclinic' => $clasi, 
-        'edad_paciente' => $this->input->post('edad_vmp'),
-        'descripcion' => $descripcion, 
-        'anio' => $anio
-        );
-        
-        
-        if($this->historia->save_hisclinic_vmp($data, $data_linea)){
-        
-        echo json_encode($data);
-             }
-        else{
-            echo "";
-        }
-        
-    }
+
+    /* 
+      * Function to save medicamento
+      * Return json 
+      * @param paciente_id, medicamento_id
+    */
     
     public function save_hisclinic_medi(){
         $anio =  $this->input->post('anio') + $this->input->post('edad_medica');
@@ -1820,7 +1846,13 @@ class PatientsController extends CI_Controller {
         else{
             echo "";
         }
-    } 
+    }
+    
+    /* 
+      * Function to save estres
+      * Return json 
+      * @param paciente_id, estres_id
+    */
 
     public function save_hisclinic_estres(){
         $anio =  $this->input->post('anio') + $this->input->post('edad_estres');
@@ -1857,6 +1889,12 @@ class PatientsController extends CI_Controller {
         }
     }
 
+    /* 
+      * Function to save obesidad
+      * Return json 
+      * @param paciente_id, obesidad_id
+    */
+
     public function save_hisclinic_obe(){
         $anio =  $this->input->post('anio') + $this->input->post('edad_obesidad');
          
@@ -1891,6 +1929,12 @@ class PatientsController extends CI_Controller {
             echo "";
         }
     }
+
+    /* 
+      * Function to save signos vitales
+      * Return json 
+      * @param paciente_id
+    */
 
     public function save_hisclinic_signos(){
        $obesidad = "";
@@ -1968,6 +2012,12 @@ class PatientsController extends CI_Controller {
             echo "";
         }
     }
+
+    /* 
+      * Function to save terapia
+      * Return json 
+      * @param paciente_id, terapia_id, edad
+    */
     
     public function save_hisclinic_terapia(){
         $anio =  $this->input->post('anio') + $this->input->post('edad_terapia');
@@ -2006,6 +2056,12 @@ class PatientsController extends CI_Controller {
         
     }
 
+    /* 
+      * Function to save evolucion
+      * Return json 
+      * @param paciente_id, evolucion, edad, fecha
+    */
+
     public function save_evolucion(){
         $anio =  $this->input->post('anio') + $this->input->post('edad_medica');
         
@@ -2023,7 +2079,13 @@ class PatientsController extends CI_Controller {
         else{
             echo "";
         }
-    } 
+    }
+
+    /* 
+      * Function to save curacion
+      * Return json 
+      * @param paciente_id, curacion, edad, fecha
+    */ 
 
     public function save_curacion(){
         $data = array(
@@ -2038,7 +2100,13 @@ class PatientsController extends CI_Controller {
             echo json_encode(array('error'=> true));
             
         }
-    }  
+    }
+    
+    /* 
+      * Function to save envenenamiento
+      * Return json 
+      * @param paciente_id, envenenamiento, edad, fecha
+    */ 
 
     public function save_envene(){
         $data = array(
@@ -2053,7 +2121,13 @@ class PatientsController extends CI_Controller {
             echo json_encode(array('error'=> true));
             
         }
-    }  
+    } 
+
+    /* 
+      * Function to save new data
+      * Return json 
+      * @param paciente_id, dato, edad, fecha
+    */  
  
     public function addSet(){
         $id_dato = $this->input->post('input_id');
@@ -2123,13 +2197,14 @@ class PatientsController extends CI_Controller {
             default:
                 echo json_encode(array('error' => true));
                 break;
-                  
         }
-        
-        
     }
     
-    //obtener elementos patologicos
+    /* 
+      * Function to get enfermedades congenitas
+      * Return json 
+      * @param text
+    */  
     
     public function get_ante_congenita(){
         $this->db->like('enfermedad', $_POST['text'],'after');
@@ -2142,8 +2217,14 @@ class PatientsController extends CI_Controller {
         $response = array();
         $response['data'] = $result->result_array();
         
-         echo json_encode($response);
-    }  
+        echo json_encode($response);
+    }
+    
+    /* 
+      * Function to get vacunas
+      * Return json 
+      * @param text
+    */  
     
     public function get_ante_vacunas(){
         $this->db->like('vacuna', $_POST['text'],'after');
@@ -2157,6 +2238,12 @@ class PatientsController extends CI_Controller {
         
          echo json_encode($response);
     } 
+
+    /* 
+      * Function to get alergias
+      * Return json 
+      * @param text
+    */  
     
     public function get_ante_alergias(){
         $this->db->like('alergeno', $_POST['text'],'after');
@@ -2170,6 +2257,12 @@ class PatientsController extends CI_Controller {
         
          echo json_encode($response);
     } 
+
+    /* 
+      * Function to get hospitalizaciones
+      * Return json 
+      * @param text
+    */  
     
     public function get_ante_hospi(){
         $this->db->like('causa', $_POST['text'],'after');
@@ -2183,6 +2276,12 @@ class PatientsController extends CI_Controller {
         
          echo json_encode($response);
     } 
+
+    /* 
+      * Function to get medicamentos
+      * Return json 
+      * @param text
+    */  
     
     public function get_ante_medi(){
         $this->db->like('medicamento', $_POST['text'],'after');
@@ -2196,6 +2295,12 @@ class PatientsController extends CI_Controller {
         
          echo json_encode($response);
     } 
+
+    /* 
+      * Function to get terapias
+      * Return json 
+      * @param text
+    */  
     
     public function get_ante_terapias(){
         $this->db->like('terapia', $_POST['text'],'after');
@@ -2209,6 +2314,12 @@ class PatientsController extends CI_Controller {
         
          echo json_encode($response);
     } 
+
+    /* 
+      * Function to get venenos
+      * Return json 
+      * @param text
+    */  
     
     public function get_ante_venenos(){
         $this->db->like('veneno', $_POST['text'],'after');
@@ -2221,7 +2332,12 @@ class PatientsController extends CI_Controller {
         $response['data'] = $result->result_array();
         
          echo json_encode($response);
-    } 
+    }
+    
+    /* 
+      * Function to get productos
+      * Return json 
+    */  
 
     public function get_product_ven(){
         $this->db->like('nombre_p', $_POST['text'],'after');
@@ -2235,6 +2351,11 @@ class PatientsController extends CI_Controller {
         
          echo json_encode($response);
     } 
+
+    /* 
+      * Function to get enfermedades
+      * Return json 
+    */  
     
     public function get_congenita(){
          $this->db->where('tipo
@@ -2248,6 +2369,11 @@ class PatientsController extends CI_Controller {
         
          echo json_encode($response);
     }
+
+     /* 
+      * Function to get vacunas
+      * Return json 
+    */
     
     public function get_vacunas(){
         $result = $this->historia->vacunas();
@@ -2257,6 +2383,11 @@ class PatientsController extends CI_Controller {
         
          echo json_encode($response);
     }
+
+    /* 
+      * Function to get alergias
+      * Return json 
+    */
     
     public function get_alergias(){
         $result = $this->historia->alergeno();
@@ -2266,6 +2397,11 @@ class PatientsController extends CI_Controller {
         
          echo json_encode($response);
     } 
+
+    /* 
+      * Function to get hospitalizaciones
+      * Return json 
+    */
     
     public function get_hospi(){
         $result = $this->historia->causa();
@@ -2276,8 +2412,11 @@ class PatientsController extends CI_Controller {
          echo json_encode($response);
     }
     
-    
-    //obtener clasificacion de venenos
+    /* 
+      * Function to get clasificacion veneno
+      * Return json 
+      * @param veneno_id
+    */
     
     public function get_clasificacion(){
         $this->db->where('id',$_POST["id_veneno"]);
@@ -2287,6 +2426,12 @@ class PatientsController extends CI_Controller {
         
          echo json_encode($response);
     }
+
+    /* 
+      * Function to get productos relacionados con venenos
+      * Return json 
+      * @param veneno_id
+    */
 
     public function get_relations(){
         $this->db->select('a.id, pa.veneno, u.nombre_p');
@@ -2302,6 +2447,12 @@ class PatientsController extends CI_Controller {
         echo json_encode($response);
     }
 
+    /* 
+      * Function to get venenos relacionados con productos
+      * Return json 
+      * @param product_id
+    */
+
     public function get_relations_product(){
         $this->db->select('a.id,pa.id as veneno_id, pa.veneno, u.nombre_p');
         $this->db->join('venenos pa', 'pa.id = a.veneno_id');
@@ -2315,6 +2466,12 @@ class PatientsController extends CI_Controller {
         
          echo json_encode($response);
     } 
+
+    /* 
+      * Function to get clasificacion de venenos
+      * Return json 
+      * @param clasificacion
+    */
         
     public function get_c(){
         
@@ -2384,6 +2541,12 @@ class PatientsController extends CI_Controller {
         
          echo json_encode($response);
     } 
+
+    /* 
+      * Function to get venenos
+      * Return json 
+      * @param clasificacion
+    */
     
     public function get_v(){
         
@@ -2452,6 +2615,12 @@ class PatientsController extends CI_Controller {
         echo json_encode($response);
         
     }
+
+    /* 
+      * Function to add new veneno
+      * Return json 
+      * @param veneno data
+    */
     
     public function new_veneno(){
         $clasis = json_encode($_POST['clasis']);
@@ -2464,13 +2633,13 @@ class PatientsController extends CI_Controller {
         
         $descripcion = "No Patológico - ".$clasisj->{'c_a'};
        
-         $data = array(
-             'id_paciente' => $_POST['id_paciente'],
+        $data = array(
+            'id_paciente' => $_POST['id_paciente'],
             'id_veneno' => $_POST['id_veneno'],
             'veneno' => $veneno,
             'frecuencia' => $_POST['frecc'],
             'edad_veneno' => $_POST['edad_veneno']
-         );
+        );
          
         $data_linea = array(
         'id_paciente' => $_POST['id_paciente'],
@@ -2494,6 +2663,12 @@ class PatientsController extends CI_Controller {
         }
         
     }
+
+    /* 
+      * Function to add all venenos from a product
+      * Return json 
+      * @param product_id 
+    */
 
     public function new_veneno_all(){
         $anio =  $this->input->post('anio') + $this->input->post('edad_veneno_all');
@@ -2538,31 +2713,44 @@ class PatientsController extends CI_Controller {
                 array_push($resp, array('equal' => true,'dato' => $ven['veneno']));
             }
         }
+        echo json_encode($resp);
+    }
 
-            echo json_encode($resp);
-
-
-        //  echo json_encode(array('error' => false));
-      }
+    /* 
+      * Function to get agents
+      * Return json 
+    */
     
     public function find_agents(){
-          echo json_encode($this->db->get('agents')->result());  
-      } 
+        echo json_encode($this->db->get('agents')->result());  
+    } 
+    
+    /* 
+      * Function to get sucursales
+      * Return json 
+    */
     
     public function find_suc(){
-          echo json_encode($this->db->get('sucursales')->result());
-          
-      }
+        echo json_encode($this->db->get('sucursales')->result());
+    }
+
+    /* 
+      * Function to get users
+      * Return json 
+    */
     
     public function find_users(){
-          echo json_encode($this->db->get('users')->result());
-          
-      }
+        echo json_encode($this->db->get('users')->result());
+    }
+
+    /* 
+      * Function to get estados
+      * Return json 
+    */
     
     public function find_estados(){
         $this->db->where("id_pais",$_POST["id_pais"]);
           echo json_encode($this->db->get('estados')->result());  
-      }
+    }
   
-
 }

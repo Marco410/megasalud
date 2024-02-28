@@ -9,6 +9,11 @@ class RolesController extends CI_Controller {
         $this->load->model('megasalud/permiso');
 	}
 
+    /* 
+      * Function to get view "Roles"
+      * Return view
+    */
+
 	public function index() {
 
 		session_redirect();
@@ -33,6 +38,11 @@ class RolesController extends CI_Controller {
 
 	}
 
+    /* 
+      * Function to get view "Nuevo Rol"
+      * Return view
+    */
+
 	public function create() {
 
     	session_redirect();
@@ -50,6 +60,11 @@ class RolesController extends CI_Controller {
 
 	}
 
+    /* 
+      * Function to get rol
+      * Return view
+    */
+
     public function show(){
 
         $id = $this->uri->segment(4);
@@ -61,8 +76,13 @@ class RolesController extends CI_Controller {
         echo json_encode($data);
     }
 
+    /* 
+      * Function to add new rol
+      * Return message
+      * @param rol data
+    */
+
     public function save() {
-        //si no existe la variable !isset retorna null
         $permisos = $this->input->post('permisos');
 
         $rol = array(
@@ -90,8 +110,12 @@ class RolesController extends CI_Controller {
         else{
             echo false;
         }
-
     }
+
+    /* 
+      * Function to get view "editar rol"
+      * Return view
+    */
 
     public function edit($id) {
 
@@ -110,6 +134,12 @@ class RolesController extends CI_Controller {
         $this->load->view('layout/scripts', $data);
     }
 
+    /* 
+      * Function to delete rol
+      * Return message
+      * @param rol_id
+    */
+
     public function delete() {
         if($this->rol->delete($this->input->post('id')) !== 0){
             echo true;
@@ -118,11 +148,23 @@ class RolesController extends CI_Controller {
         }
     }
 
+    /* 
+      * Function to verifyRol
+      * Return json
+      * @param rol_name, rol_id
+    */
+
     public function verifyRol() {
 
         echo json_encode( $this->rol->isAvailable($this->input->get('name'), $this->input->get('id')) );
 
     }
+
+    /* 
+      * Function to get Permisos By Rol
+      * Return json
+      * @param  rol_id
+    */
 
     public function getPermisosByRolId() {
         $id = $this->uri->segment(4);

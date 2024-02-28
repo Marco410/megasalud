@@ -5,8 +5,12 @@ class VenenosController extends CI_Controller{
      public function __construct()
     {
         parent::__construct();
-        
     }
+
+    /* 
+        * Function to get view "venenos"
+        * Return view
+    */
     
      public function index(){
         
@@ -27,7 +31,12 @@ class VenenosController extends CI_Controller{
         } 
         $this->load->view('layout/scripts', $data);
          
-     }
+    }
+
+    /* 
+        * Function to get view "Editar Medicamento"
+        * Return view
+    */
     
     public function edit_medicamento($id){
         
@@ -49,7 +58,12 @@ class VenenosController extends CI_Controller{
         } 
         $this->load->view('layout/scripts', $data);
          
-     }
+    }
+
+    /* 
+        * Function to get view "Editar Venenos"
+        * Return view
+    */
 
     public function edit($id){
     
@@ -75,7 +89,13 @@ class VenenosController extends CI_Controller{
         
     }
 
-     public function add_relation(){
+    /* 
+        * Function to add relation
+        * Return json
+        * @param data relation
+    */
+
+    public function add_relation(){
 
         $this->db->where('producto_ven_id',$_POST['producto_id']);
         $this->db->where('veneno_id',$_POST['veneno_id']);
@@ -100,6 +120,12 @@ class VenenosController extends CI_Controller{
         }
     }
 
+    /* 
+        * Function to delete relation
+        * Return json
+        * @param data relation
+    */
+
     public function delete_relation(){
         $this->db->where('id', $_POST['relation_id']);
         if($this->db->delete("venenos_productos")){
@@ -108,6 +134,11 @@ class VenenosController extends CI_Controller{
             echo json_encode(array('error' => true,'msj'=> 'Error inesperado.'));
         }
     }
+
+    /* 
+        * Function to get view 'Nuevo Veneno'
+        * Return view
+    */
     
     public function create(){
 
@@ -123,11 +154,20 @@ class VenenosController extends CI_Controller{
         $this->load->view('layout/scripts', $data);
     }
 
+    /* 
+        * Function to get clasificaciones data
+        * Return data
+    */
+
     public function get_clasificaciones() {
 
 		return $this->db->get('clasificaciones');
-
 	}
+
+    /* 
+        * Function to find veneno data
+        * Return data
+    */
 
     public function find_veneno($id) {
 
@@ -135,17 +175,31 @@ class VenenosController extends CI_Controller{
 		return $this->db->get('venenos');
 
 	}
+
+    /* 
+        * Function to find medicamento data
+        * Return data
+    */
     
     public function find_medi($id) {
 
 		$this->db->where('id', $id);
 		return $this->db->get('medicamentos');
-
 	}
+
+    /* 
+        * Function to find products data
+        * Return data
+    */
 
     public function find_productos() {
 		return $this->db->get('productos_ven');
 	}
+
+    /* 
+        * Function to find relations data
+        * Return data
+    */
 
     public function find_relations($id) {
         $this->db->select('a.id, pa.veneno, u.nombre_p');
@@ -159,6 +213,12 @@ class VenenosController extends CI_Controller{
 
 		return $response;
 	}
+
+    /* 
+        * Function to save 'veneno'
+        * Return json
+        * @param veneno data
+    */
 
     public function store(){
 
@@ -187,10 +247,13 @@ class VenenosController extends CI_Controller{
         }else{
             echo json_encode(array('error' => true,'msj'=> 'Error inesperado.'));
         }
-        
-
-        
     } 
+
+    /* 
+        * Function to save 'medicamento'
+        * Return json
+        * @param medicamento data
+    */
 
     public function insert_medi(){
         
@@ -207,6 +270,13 @@ class VenenosController extends CI_Controller{
         }
         
     } 
+
+    /* 
+        * Function to edit 'medicamento'
+        * Return json
+        * @param medicamento data
+    */
+
     public function edit_medi(){
         $id = $_POST["id"];
         
@@ -224,6 +294,12 @@ class VenenosController extends CI_Controller{
         }
         
     }
+
+    /* 
+        * Function to delete 'veneno'
+        * Return message
+        * @param veneno_id
+    */
     
     public function delete(){
         $id = $this->uri->segment(4);
@@ -237,6 +313,12 @@ class VenenosController extends CI_Controller{
         
     }
 
+    /* 
+        * Function to delete 'medicamento'
+        * Return message
+        * @param veneno_id
+    */
+
     public function delete_medi(){
         $id = $this->uri->segment(4);
         
@@ -248,6 +330,11 @@ class VenenosController extends CI_Controller{
         }
         
     }
+
+    /* 
+        * Function to get 'venenos'
+        * Return json
+    */
     
     public function get_venenos(){
         $this->db->select('*');
@@ -260,27 +347,35 @@ class VenenosController extends CI_Controller{
          echo json_encode($array);
     }
 
+    /* 
+        * Function to get 'medicamentos'
+        * Return json
+    */
+
     public function get_medi(){
         $this->db->select('id,medicamento,nombre');
         $result = $this->db->get("medicamentos");
         $response = $result->result();
-        
          $array["data"]=$response;
                 
          echo json_encode($array);
     }
+
+    /* 
+        * Function to get 'medicamento'
+        * Return json
+    */
     
      public function show(){
 
-            $this->db->select('*');
-            $this->db->from('medicamentos');
-            $this->db->where('id', $this->uri->segment(4));
-            $result = $this->db->get();
-            $row = $result->row();
-            $response = array();
-            $response['data'] = $result->row_array();
-            echo json_encode($response);
-            
+        $this->db->select('*');
+        $this->db->from('medicamentos');
+        $this->db->where('id', $this->uri->segment(4));
+        $result = $this->db->get();
+        $row = $result->row();
+        $response = array();
+        $response['data'] = $result->row_array();
+        echo json_encode($response);
     } 
 
 }
